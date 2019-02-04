@@ -1,0 +1,18 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### java ###
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+### local ###
+/SejongTrack/target/
+/upload/
+!.mvn/wrapper/maven-wrapper.jar
