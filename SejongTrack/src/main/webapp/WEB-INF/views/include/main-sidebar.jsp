@@ -41,7 +41,7 @@
 
             <li class="header">관리자</li>
                 <li><a href="${path}"><i class="fa far fa-bar-chart"></i><span>트랙 통계</span></a></li>
-                <li><a href="${path}"><i class="fa fas fa-cogs"></i><span>트랙 규칙 추가 및 수정</span></a></li>
+                <li><a href="${path}/trackrule"><i class="fa fas fa-cogs"></i><span>트랙 규칙 추가 및 수정</span></a></li>
             <li>
 
         </ul>
