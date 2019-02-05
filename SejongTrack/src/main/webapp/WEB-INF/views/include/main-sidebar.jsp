@@ -36,7 +36,7 @@
 
             <li class="header">Sejong Track</li>
                 <li><a href="${path}"><i class="fa  fas fa-sitemap"></i><span>전체 트랙 보기</span></a></li>
-                <li><a href="${path}"><i class="fa fas fa-search"></i><span>트랙 현황 조회</span></a></li>
+                <li><a href="${path}/uploadForm"><i class="fa fas fa-search"></i><span>트랙 현황 조회</span></a></li>
             <li>
 
             <li class="header">관리자</li>
