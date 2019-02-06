@@ -19,7 +19,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                세종대학교 트랙 현황
+                트랙 현황 조회
+
                 <small>Sejong univ Track</small>
             </h1>
             <ol class="breadcrumb">
@@ -41,8 +42,25 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        트랙 : <b>기초교과 3개</b> + <b>응용교과 6개 이상</b> 수강 시 이수 완료<br>
-                        /*사이버 국방은 기초 8개 모두 수강해야 이수 완료*/
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>소속 대학</th>
+                                <th>트랙 이름</th>
+                                <th>기초 교과</th>
+                                <th>응용 교과</th>
+                                <th>산학 연계</th>
+                            </tr>
+                            </thead>
+
+                            <tr>
+                                <td><c:out value="${rule.univ}"/></td>
+                                <td><c:out value="${rule.track}"/></td>
+                                <td><c:out value="${rule.basic}"/></td>
+                                <td><c:out value="${rule.applied}"/></td>
+                                <td><c:out value="${rule.industry}"/></td>
+                            </tr>
+                        </table>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -53,10 +71,10 @@
         <%-- Main content --%>
         <section class="content">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Hover Data Table</h3>
+                            <h3 class="box-title">자신의 이수 과목</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -65,15 +83,43 @@
                                 <tr>
                                     <th>학수번호</th>
                                     <th>교과목명</th>
-                                    <th>이수구분</th>
+                                    <th>학점</th>
                                 </tr>
                                 </thead>
 
-                                <c:forEach items="${list}" var="subject">
+                                <c:forEach items="${plist}" var="subject">
                                     <tr>
                                         <td><c:out value="${subject.courseNum}"/></td>
                                         <td><c:out value="${subject.courseTitle}"/></td>
-                                        <td><c:out value="${subject.completionType}"/></td>
+                                        <td><c:out value="${subject.credit}"/></td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">자신의 미이수 과목</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>학수번호</th>
+                                    <th>교과목명</th>
+                                    <th>학점</th>
+                                </tr>
+                                </thead>
+
+                                <c:forEach items="${nplist}" var="subject">
+                                    <tr>
+                                        <td><c:out value="${subject.courseNum}"/></td>
+                                        <td><c:out value="${subject.courseTitle}"/></td>
+                                        <td><c:out value="${subject.credit}"/></td>
                                     </tr>
                                 </c:forEach>
                             </table>
