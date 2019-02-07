@@ -37,7 +37,7 @@ public class UploadResultController {
     private String uploadPath;
 
     @GetMapping("uploadResult")
-    public void uploadResult(String savedName , Model model)throws Exception{
+    public void uploadResult(Integer trackNo, String savedName , Model model)throws Exception{
         List<subjectVO> list =new ArrayList<subjectVO>();
         FileInputStream file = new FileInputStream(uploadPath + "\\" + savedName);
 
@@ -57,26 +57,54 @@ public class UploadResultController {
             }
         }
 
-        List<trackSubjectVO> tracklist = service.readSub("전자트랙");
+        List<trackSubjectVO> tracklist = service.readSub(trackNo);
         passSubject(list, tracklist, model);
 
-        model.addAttribute("rule", service.readRule("지능기전공학부"));
+        model.addAttribute("rule", service.readRule(trackNo));
     }
 
     private void passSubject(List<subjectVO> myList, List<trackSubjectVO> standList, Model model)throws Exception{
         List<trackSubjectVO> passSubjectList = new ArrayList<>();
         List<trackSubjectVO> nonPassSubjectList = new ArrayList<>();
 
+        List<trackSubjectVO> passBasicList = new ArrayList<>();
+        List<trackSubjectVO> passAppliedList = new ArrayList<>();
+        List<trackSubjectVO> passIndustryList = new ArrayList<>();
+
         for(int i=0; i < standList.size(); i++){
             if(listContains(standList.get(i).getCourseTitle(), myList)){
+                switch (standList.get(i).getSubType()){
+                    case 1:
+                        passBasicList.add(standList.get(i));
+                        break;
+                    case 2:
+                        passAppliedList.add(standList.get(i));
+                        break;
+                    case 3:
+                        passIndustryList.add(standList.get(i));
+                        break;
+                }
                 passSubjectList.add(standList.get(i));
             }else{
                 nonPassSubjectList.add(standList.get(i));
             }
         }
 
+        logger.info(passBasicList.toString());
+        logger.info(passAppliedList.toString());
+
         model.addAttribute("plist" , passSubjectList);
         model.addAttribute("nplist" , nonPassSubjectList);
+        model.addAttribute("passCredit", calCredit(passSubjectList));
+
+        model.addAttribute("pblist", passBasicList);
+        model.addAttribute("palist",passAppliedList);
+        model.addAttribute("pilist",passAppliedList);
+
+        model.addAttribute("pbcredit", calCredit(passBasicList));
+        model.addAttribute("pacredit", calCredit(passAppliedList));
+        model.addAttribute("picredit", calCredit(passIndustryList));
+
     }
 
     private Boolean listContains(String standListTitle, List<subjectVO> myList){
@@ -90,5 +118,15 @@ public class UploadResultController {
 
         if(cnt == 0){ return false; }
         else{ return true; }
+    }
+
+    private int calCredit(List<trackSubjectVO> subjectList){
+            int totalCredit = 0;
+
+            for(int i=0; i < subjectList.size(); i++){
+                totalCredit += subjectList.get(i).getCredit();
+            }
+
+        return totalCredit;
     }
 }

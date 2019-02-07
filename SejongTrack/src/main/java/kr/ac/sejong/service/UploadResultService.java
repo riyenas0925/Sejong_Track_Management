@@ -8,7 +8,10 @@ import java.util.List;
 
 
 public interface UploadResultService {
-    public testVO readRule(String trackName)throws Exception;
+    public testVO readRule(Integer ruleNo)throws Exception;
 
-    public List<trackSubjectVO> readSub(String trackName)throws Exception;
+    public List<trackSubjectVO> readSub(Integer subType)throws Exception;
+
+    public List<trackSubjectVO> readTypeSub(Integer trackNo, Integer subType)throws Exception;
+
 }

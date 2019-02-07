@@ -7,9 +7,10 @@ import java.util.List;
 
 
 public interface UploadResultDAO {
-    public testVO readRule(String trackName)throws Exception;
+    public testVO readRule(Integer ruleNo)throws Exception;
 
-    public List<trackSubjectVO> readSub(String trackName)throws Exception;
+    public List<trackSubjectVO> readSub(Integer trackNo)throws Exception;
 
+    public List<trackSubjectVO> readTypeSub(Integer trackNo, Integer subType)throws Exception;
 
 }
