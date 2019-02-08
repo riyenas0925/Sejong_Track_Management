@@ -26,6 +26,11 @@
                 <li><a href="/"><i class="fa fa-dashboard"></i>Sejong Track</a></li>
                 <li class="active">트랙 파일 첨부</li>
             </ol>
+
+            <select>
+                <option value='' selected>-- 선택 --</option>
+                <option value="">1</option>
+            </select>
         </section>
 
         <%-- Main content --%>

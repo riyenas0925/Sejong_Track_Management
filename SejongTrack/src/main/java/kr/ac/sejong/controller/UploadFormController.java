@@ -35,6 +35,7 @@ public class UploadFormController {
         String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 
         Integer trackNo = 1;
+        Integer univNo = 1;
 
         model.addAttribute("savedName", savedName);
         model.addAttribute("trackNo", trackNo);
