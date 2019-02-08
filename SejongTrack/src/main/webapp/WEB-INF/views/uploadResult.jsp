@@ -48,7 +48,7 @@
 
         <!-- 선택한 트랙 -->
         <section class="content">
-            <div class="row">
+           <div class="row">
                 <div class="col-xs-6">
                     <div class="box">
                         <div class="box-header">
@@ -80,11 +80,33 @@
                                     <th style="width:80%;">진척도</th>
                                     <th style="width:20%;">이수율</th>
                                 </tr>
-                                <tr>
-                                    <td><div><div class="progress progress-xs"><div class="progress-bar progress-bar-success" style="width:70%;"></div></div></div></td>
-                                    <td><span class="badge bg-green">70%</span></td></td>
-                                </tr>
+                                <tr id="select-track-progress"></tr><!--progress-->
                             </table>
+
+                            <!--select track progress js-->
+                            <script>
+                                var str='';
+                                var percent;
+
+                                percent = Math.round(( <c:out value="${pbcredit}"/> + <c:out value="${pacredit}"/> ) / (<c:out value="${rule.basic}"/> + <c:out value="${rule.applied}"/>));
+
+                                if (percent >= 100){
+                                    str = str + "<td><div><div class='progress progress-xs'><div class='progress-bar progress-bar-success' style='width:" + percent + "%;'></div></div></div></td>";
+                                    str = str + "<td><span class='badge bg-green'>" + percent + "%</span></td></td>";
+                                }
+
+                                else if (percent >= 70){
+                                    str = str + "<td><div><div class='progress progress-xs'><div class='progress-bar progress-bar-warning' style='width:" + percent + "%;'></div></div></div></td>";
+                                    str = str + "<td><span class='badge bg-orange'>" + percent + "%</span></td></td>";
+                                }
+
+                                else {
+                                    str = str + "<td><div><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width:" + percent + "%;'></div></div></div></td>";
+                                    str = str + "<td><span class='badge bg-red'>" + percent + "%</span></td></td>";
+                                }
+
+                                document.getElementById("select-track-progress").innerHTML=str;
+                            </script>
 
                             <!--구분선-->
                             <hr align="center" size="10" width="100%" id="hrColor" noshade style="background-color:#d2d6de;border-color:#d2d6de;">
@@ -107,7 +129,8 @@
 
                                             <c:forEach items="${plist}" var="subject">
                                                 <tr>
-                                                    <td><c:out value="${subject.courseTitle}"/></td>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                        <c:out value="${subject.courseTitle}"/></td>
                                                 </tr>
                                             </c:forEach>
 
@@ -119,7 +142,8 @@
 
                                             <c:forEach items="${pblist}" var="subject">
                                                 <tr>
-                                                    <td><c:out value="${subject.courseTitle}"/></td>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                        <c:out value="${subject.courseTitle}"/></td>
                                                 </tr>
                                             </c:forEach>
 
@@ -131,7 +155,8 @@
 
                                             <c:forEach items="${palist}" var="subject">
                                                 <tr>
-                                                    <td><c:out value="${subject.courseTitle}"/></td>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                        <c:out value="${subject.courseTitle}"/></td>
                                                 </tr>
                                             </c:forEach>
                                         </table>
@@ -147,7 +172,8 @@
 
                                             <c:forEach items="${nplist}" var="subject">
                                                 <tr>
-                                                    <td><c:out value="${subject.courseTitle}"/></td>
+                                                    <td  class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                        <c:out value="${subject.courseTitle}"/></td>
                                                 </tr>
                                             </c:forEach>
                                         </table>
@@ -165,7 +191,6 @@
                             <h3 class="box-title">전체 트랙 이수 현황</h3><br>
                             <small>※ 트랙을 클릭하시면, 해당 트랙의 이수 현황을 계산합니다.</small>
                         </div>
-                        <!-- /.box-header -->
                         <div class="box-body">
                             <table class="table table-bordered">
                                 <tr>
@@ -174,6 +199,8 @@
                                     <th style="width:42%;">진척도</th>
                                     <th style="width:13%;">이수율</th>
                                 </tr>
+
+                                <!--example data-->
                                 <tr>
                                     <td>1</td>
                                     <td>hcl</td>

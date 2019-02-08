@@ -46,5 +46,10 @@
         th {
             background-color:#f9f9f9;
         }
+
+        .tbl_hover:hover{
+            background-color:#f8d2d8;
+            font-weight:bold;
+        }
     </style>
 </head>
