@@ -21,12 +21,20 @@ public class UploadResultDAOTest {
 
     @Test
     public void testReadRule() throws Exception{
-        logger.info(dao.readRule("지능기전공학부").toString());
-        logger.info(dao.readRule("전자과").toString());
+        logger.info(dao.readRule(1).toString());
+        logger.info(dao.readRule(2).toString());
     }
 
     @Test
     public void testReadSub() throws Exception{
-        logger.info(dao.readSub("전자트랙").toString());
+        logger.info(dao.readSub(1).toString());
+        logger.info(dao.readSub(2).toString());
+    }
+
+    @Test
+    public void testReadTypeSub() throws Exception{
+        logger.info(dao.readTypeSub(1,1).toString());
+        logger.info(dao.readTypeSub(1,2).toString());
+        logger.info(dao.readTypeSub(1,3).toString());
     }
 }

@@ -56,9 +56,9 @@
                             <tr>
                                 <td><c:out value="${rule.univ}"/></td>
                                 <td><c:out value="${rule.track}"/></td>
-                                <td><c:out value="${rule.basic}"/></td>
-                                <td><c:out value="${rule.applied}"/></td>
-                                <td><c:out value="${rule.industry}"/></td>
+                                <td><c:out value="${rule.basic}"/> / <c:out value="${pbcredit}"/></td>
+                                <td><c:out value="${rule.applied}"/> / <c:out value="${pacredit}"/></td>
+                                <td><c:out value="${rule.industry}"/> / <c:out value="${picredit}"/></td>
                             </tr>
                         </table>
                     </div>
@@ -88,6 +88,38 @@
                                 </thead>
 
                                 <c:forEach items="${plist}" var="subject">
+                                    <tr>
+                                        <td><c:out value="${subject.courseNum}"/></td>
+                                        <td><c:out value="${subject.courseTitle}"/></td>
+                                        <td><c:out value="${subject.credit}"/></td>
+                                    </tr>
+                                </c:forEach>
+
+                                <thead>
+                                <tr>
+                                    <th>학수번호</th>
+                                    <th>교과목명</th>
+                                    <th>학점</th>
+                                </tr>
+                                </thead>
+
+                                <c:forEach items="${pblist}" var="subject">
+                                    <tr>
+                                        <td><c:out value="${subject.courseNum}"/></td>
+                                        <td><c:out value="${subject.courseTitle}"/></td>
+                                        <td><c:out value="${subject.credit}"/></td>
+                                    </tr>
+                                </c:forEach>
+
+                                <thead>
+                                <tr>
+                                    <th>학수번호</th>
+                                    <th>교과목명</th>
+                                    <th>학점</th>
+                                </tr>
+                                </thead>
+
+                                <c:forEach items="${palist}" var="subject">
                                     <tr>
                                         <td><c:out value="${subject.courseNum}"/></td>
                                         <td><c:out value="${subject.courseTitle}"/></td>

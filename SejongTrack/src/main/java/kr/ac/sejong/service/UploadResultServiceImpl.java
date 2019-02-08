@@ -15,12 +15,18 @@ public class UploadResultServiceImpl implements UploadResultService{
     private UploadResultDAO dao;
 
     @Override
-    public testVO readRule(String trackName) throws Exception{
-        return dao.readRule(trackName);
+    public testVO readRule(Integer ruleNo) throws Exception{
+        return dao.readRule(ruleNo);
     }
 
     @Override
-    public List<trackSubjectVO> readSub(String trackName) throws Exception{
-        return dao.readSub(trackName);
+    public List<trackSubjectVO> readSub(Integer subType) throws Exception{
+        return dao.readSub(subType);
     }
+
+    @Override
+    public List<trackSubjectVO> readTypeSub(Integer trackNo, Integer subType)throws Exception{
+        return dao.readTypeSub(trackNo, subType);
+    }
+
 }

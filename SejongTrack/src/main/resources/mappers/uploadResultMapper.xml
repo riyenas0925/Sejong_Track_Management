@@ -10,16 +10,27 @@
           univ, track, basic, applied, industry
         from
           tbl_rule
-        where track = #{trackName}
+        where ruleNo = #{ruleNo}
     </select>
 
     <select id="readsub" resultType="kr.ac.sejong.domain.trackSubjectVO">
         <![CDATA[
         select
-          subjectNo, trackTitle, courseNum, courseTitle, credit
+          *
         from
-          tbl_suject
-          where trackTitle = #{trackName}
+          tbl_subject
+          where trackNo = #{trackName}
+        ]]>
+    </select>
+
+    <select id="readtypesub" parameterType="hashmap" resultType="kr.ac.sejong.domain.trackSubjectVO">
+        <![CDATA[
+        select
+          *
+        from
+          tbl_subject
+          where trackNo = #{trackNo}
+          and subtype = #{subtype}
         ]]>
     </select>
 
