@@ -37,7 +37,7 @@ public class UploadResultController {
     private String uploadPath;
 
     @GetMapping("uploadResult")
-    public void uploadResult(Integer trackNo, String savedName , Model model)throws Exception{
+    public void uploadResult(Integer trackNo,Integer univNo, String savedName , Model model)throws Exception{
         List<subjectVO> list =new ArrayList<subjectVO>();
         FileInputStream file = new FileInputStream(uploadPath + "\\" + savedName);
 
