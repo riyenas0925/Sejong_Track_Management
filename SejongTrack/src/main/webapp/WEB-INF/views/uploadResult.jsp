@@ -49,7 +49,7 @@
         <!-- 선택한 트랙 -->
         <section class="content">
            <div class="row">
-                <div class="col-xs-6">
+                <div class="col-md-6">
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title"><c:out value="${rule.track}"/> 이수 현황</h3>
@@ -187,10 +187,10 @@
                         <div class="box-body">
                             <table class="table table-bordered">
                                 <tr>
-                                    <th style="width:10%;">#</th>
+                                    <th style="width:5%;">#</th>
                                     <th style="width:35%;">트랙 명</th>
-                                    <th style="width:42%;">진척도</th>
-                                    <th style="width:13%;">이수율</th>
+                                    <th style="width:40%;">진척도</th>
+                                    <th style="width:20%;">이수율</th>
                                 </tr>
 
                                 <!--example data-->
