@@ -163,12 +163,28 @@
                                             </tr>
                                             </thead>
 
-                                            <c:forEach items="${nplist}" var="subject">
+
+                                            <c:forEach items="${npblist}" var="subject">
                                                 <tr>
-                                                    <td  class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
                                                         <c:out value="${subject.courseTitle}"/></td>
                                                 </tr>
                                             </c:forEach>
+
+                                            <thead>
+                                            <tr>
+                                                <th>응용 미이수 과목</th>
+                                            </tr>
+                                            </thead>
+
+                                            <c:forEach items="${npalist}" var="subject">
+                                                <tr>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                        <c:out value="${subject.courseTitle}"/></td>
+                                                </tr>
+                                            </c:forEach>
+
+
                                         </table>
                                     </td>
                                 </tr>
