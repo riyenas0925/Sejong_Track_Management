@@ -1,6 +1,6 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.testVO;
+import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.domain.trackSubjectVO;
 import kr.ac.sejong.persistence.UploadResultDAO;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class UploadResultServiceImpl implements UploadResultService{
     private UploadResultDAO dao;
 
     @Override
-    public testVO readRule(Integer ruleNo) throws Exception{
+    public ruleVO readRule(Integer ruleNo) throws Exception{
         return dao.readRule(ruleNo);
     }
 
