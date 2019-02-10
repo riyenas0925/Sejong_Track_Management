@@ -5,9 +5,6 @@
 <%--head.jsp--%>
 <%@ include file="include/head.jsp" %>
 
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-
     <%-- Main Header --%>
     <%@ include file="include/main-header.jsp" %>
 
@@ -120,16 +117,15 @@
                             <small>※ 과목에 마우스를 올리시면, 해당 과목의 상세정보를 알 수 있습니다.</small><br>
                             <table class="table table-bordered" style="margin-top:0;">
                                 <tr>
-                                   <td><div class="box-header" style="margin:0;padding:0;"><h3 class="box-title" style="margin:0;padding:0;">자신의 이수 과목</h3></div></td>
-                                   <td><div class="box-header" style="margin:0;padding:0;"><h3 class="box-title" style="margin:0;padding:0;">자신의 미이수 과목</h3></div></td>
+                                   <td colspan="2"><div class="box-header" style="margin:0;padding:0;"><h3 class="box-title" style="margin:0;padding:0;">자신의 트랙 이수 현황</h3></div></td>
                                 </tr>
 
                                 <tr>
-                                    <td><!--자신의 이수 과목 -->
+                                    <td><!--자신의 기초 과목 현황 -->
                                         <table class="table table-bordered">
                                             <thead>
                                             <tr>
-                                                <th>기초 이수 과목</th>
+                                                <th><li style="list-style:square;">기초 이수 과목</li></th>
                                             </tr>
                                             </thead>
 
@@ -142,7 +138,26 @@
 
                                             <thead>
                                             <tr>
-                                                <th>응용 이수 과목</th>
+                                                <th><li style="list-style:square;">기초 미이수 과목</li></th>
+                                            </tr>
+                                            </thead>
+
+
+                                            <c:forEach items="${npblist}" var="subject">
+                                                <tr>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                        <c:out value="${subject.courseTitle}"/></td>
+                                                </tr>
+                                            </c:forEach>
+
+                                        </table>
+                                    </td>
+
+                                    <td> <!--자신의 응용 과목 현황-->
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th><li style="list-style:square;">응용 이수 과목</li></th>
                                             </tr>
                                             </thead>
 
@@ -152,23 +167,22 @@
                                                         <c:out value="${subject.courseTitle}"/></td>
                                                 </tr>
                                             </c:forEach>
-                                        </table>
-                                    </td>
 
-                                    <td> <!--자신의 미이수 과목-->
-                                        <table class="table table-bordered">
+
+
                                             <thead>
                                             <tr>
-                                                <th>미이수 과목</th>
+                                                <th><li style="list-style:square;">응용 미이수 과목</li></th>
                                             </tr>
                                             </thead>
 
-                                            <c:forEach items="${nplist}" var="subject">
+                                            <c:forEach items="${npalist}" var="subject">
                                                 <tr>
-                                                    <td  class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
                                                         <c:out value="${subject.courseTitle}"/></td>
                                                 </tr>
                                             </c:forEach>
+
                                         </table>
                                     </td>
                                 </tr>

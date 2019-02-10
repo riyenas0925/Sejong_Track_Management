@@ -22,7 +22,7 @@
     </bean>
 
     <bean id="uploadPath" class="java.lang.String">
-        <constructor-arg value="E:\\Sejong-Track-Management-Spring\\upload"></constructor-arg>
+        <constructor-arg value="C:\\Users\\2kyung19\\git\\Sejong-Track-Management-Spring\\upload"></constructor-arg>
         <!--
         <constructor-arg value="E:\\Sejong-Track-Management-Spring\\upload"></constructor-arg>
         <constructor-arg value="C:\\Users\\2kyung19\\git\\Sejong-Track-Management-Spring\\upload"></constructor-arg>

@@ -71,6 +71,11 @@ public class UploadResultController {
         List<trackSubjectVO> passAppliedList = new ArrayList<>();
         List<trackSubjectVO> passIndustryList = new ArrayList<>();
 
+        List<trackSubjectVO> npassBasicList = new ArrayList<>();
+        List<trackSubjectVO> npassAppliedList = new ArrayList<>();
+        List<trackSubjectVO> npassIndustryList = new ArrayList<>();
+
+
         for(int i=0; i < standList.size(); i++){
             if(listContains(standList.get(i).getCourseTitle(), myList)){
                 switch (standList.get(i).getSubType()){
@@ -86,6 +91,18 @@ public class UploadResultController {
                 }
                 passSubjectList.add(standList.get(i));
             }else{
+                switch (standList.get(i).getSubType()){
+                    case 1:
+                        npassBasicList.add(standList.get(i));
+                        break;
+                    case 2:
+                        npassAppliedList.add(standList.get(i));
+                        break;
+                    case 3:
+                        npassIndustryList.add(standList.get(i));
+                        break;
+                }
+
                 nonPassSubjectList.add(standList.get(i));
             }
         }
@@ -93,13 +110,21 @@ public class UploadResultController {
         logger.info(passBasicList.toString());
         logger.info(passAppliedList.toString());
 
+        logger.info(npassBasicList.toString());
+        logger.info(npassAppliedList.toString());
+
         model.addAttribute("plist" , passSubjectList);
         model.addAttribute("nplist" , nonPassSubjectList);
         model.addAttribute("passCredit", calCredit(passSubjectList));
 
         model.addAttribute("pblist", passBasicList);
         model.addAttribute("palist",passAppliedList);
-        model.addAttribute("pilist",passAppliedList);
+        //model.addAttribute("pilist",passAppliedList); 이게 왜 applied지?
+
+        model.addAttribute("npblist", npassBasicList);
+        model.addAttribute("npalist",npassAppliedList);
+        //model.addAttribute("pilist",passAppliedList);
+
 
         model.addAttribute("pbcredit", calCredit(passBasicList));
         model.addAttribute("pacredit", calCredit(passAppliedList));

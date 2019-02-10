@@ -5,9 +5,6 @@
 <%--head.jsp--%>
 <%@ include file="include/head.jsp" %>
 
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-
     <%-- Main Header --%>
     <%@ include file="include/main-header.jsp" %>
 
