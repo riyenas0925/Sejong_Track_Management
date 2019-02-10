@@ -1,10 +1,9 @@
 package kr.ac.sejong.persistence;
 
-import kr.ac.sejong.domain.testVO;
+import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.domain.trackSubjectVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class UploadResultDAOImpl implements UploadResultDAO{
     private  static String namespace = "kr.ac.sejong.mapper.uploadResultMapper";
 
     @Override
-    public testVO readRule(Integer ruleNo) throws Exception{
+    public ruleVO readRule(Integer ruleNo) throws Exception{
         return session.selectOne(namespace+".readrule", ruleNo);
     }
 
