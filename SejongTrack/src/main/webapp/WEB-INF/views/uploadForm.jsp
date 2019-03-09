@@ -23,18 +23,41 @@
                 <li><a href="/"><i class="fa fa-dashboard"></i>Sejong Track</a></li>
                 <li class="active">트랙 파일 첨부</li>
             </ol>
-
-            <select>
-                <option value='' selected>-- 선택 --</option>
-                <option value="">1</option>
-            </select>
         </section>
 
         <%-- Main content --%>
         <section class="content container-fluid">
-            <form id="form1" action="uploadForm" method="post" enctype="multipart/form-data">
-                <input type="file" name="file"> <input type="submit">
-            </form>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">기이수 성적 업로드</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <select id="selectUniv" class="form-control">
+                                    <option value="">소속대학 선택</option>
+                                    <c:forEach items="${univs}" var="univ" >
+                                        <option value="${univ.univNo}"> ${univ.univTitle} </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select id="selectTrack" class="form-control">
+                                    <option value="">트랙 선택</option>
+
+                                </select>
+                            </div>
+
+                            <form id="form1" action="uploadForm" method="post" enctype="multipart/form-data">
+                                <input type="file" name="file"> <input type="submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <%-- /.content --%>
     </div>
@@ -48,4 +71,35 @@
 
 <%@ include file="include/plugins.jsp" %>
 </body>
+
+<script language="JavaScript">
+    $(document).ready(function(){
+
+        $('#selectUniv').on('change', function() {
+            var selectUniv = this.value;
+            getTrackList(selectUniv)
+        });
+
+        $('#form1').on('click', function () {
+           var univ = $('#selectUniv').val();
+           var track = $('#selectTrack').val();
+        });
+
+        function getTrackList(selectUniv) {
+            $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {
+                var str = "";
+                console.log(data.length);
+
+                $(data).each(
+                    function () {
+                        str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
+                    });
+
+                $("#selectTrack").html(str);
+            });
+        }
+    });
+
+
+</script>
 </html>
