@@ -129,7 +129,7 @@
                                             </tr>
                                             </thead>
 
-                                            <c:forEach items="${pblist}" var="subject">
+                                            <c:forEach items="${resultAllMap.passAllList}" var="subject">
                                                 <tr>
                                                     <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
                                                         <c:out value="${subject.courseTitle}"/></td>
