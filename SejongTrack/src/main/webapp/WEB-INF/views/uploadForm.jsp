@@ -51,9 +51,13 @@
                                 </select>
                             </div>
 
-                            <form id="form1" action="uploadForm" method="post" enctype="multipart/form-data">
-                                <input type="file" name="file"> <input type="submit">
-                            </form>
+                            <div class="fileDrop"></div>
+                            <div class="uploadedList"></div>
+
+                        </div>
+
+                        <div class="box-footer">
+                            <button id="result" type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -72,17 +76,61 @@
 <%@ include file="include/plugins.jsp" %>
 </body>
 
+<style>
+    .fileDrop{
+        width: 100%;
+        height: 200px;
+        border: 1px dotted blue;
+    }
+
+    small{
+        margin-left: 3px;
+        font-weight: bold;
+        color: gray;
+    }
+</style>
+
 <script language="JavaScript">
     $(document).ready(function(){
+
+        $(".fileDrop").on("dragenter dragover", function (event) {
+            event.preventDefault();
+        });
+
+        $(".fileDrop").on("drop", function (event) {
+            event.preventDefault();
+
+            var files = event.originalEvent.dataTransfer.files;
+            var file = files[0];
+
+            console.log(file);
+
+            var formData = new FormData();
+
+            formData.append("file", file);
+
+            $.ajax({
+                url: '/uploadResult',
+                data: formData,
+                dataType: 'text',
+                processData: false,
+                contentType: false,
+                type: 'POST'
+            })
+        });
 
         $('#selectUniv').on('change', function() {
             var selectUniv = this.value;
             getTrackList(selectUniv)
         });
 
-        $('#form1').on('click', function () {
+        $('#result').on('click', function (event) {
            var univ = $('#selectUniv').val();
            var track = $('#selectTrack').val();
+           
+           self.location = "uploadResult"
+                         + '?univNo=' + univ
+                         + '&trackNo=' + track;
         });
 
         function getTrackList(selectUniv) {

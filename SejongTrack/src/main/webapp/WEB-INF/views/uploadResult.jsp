@@ -129,7 +129,7 @@
                                             </tr>
                                             </thead>
 
-                                            <c:forEach items="${resultAllMap.passAllList}" var="subject">
+                                            <c:forEach items="${resultAllMap.passBasicList}" var="subject">
                                                 <tr>
                                                     <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
                                                         <c:out value="${subject.courseTitle}"/></td>
@@ -143,7 +143,7 @@
                                             </thead>
 
 
-                                            <c:forEach items="${npblist}" var="subject">
+                                            <c:forEach items="${resultAllMap.nonPassBasicList}" var="subject">
                                                 <tr>
                                                     <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
                                                         <c:out value="${subject.courseTitle}"/></td>
@@ -161,7 +161,7 @@
                                             </tr>
                                             </thead>
 
-                                            <c:forEach items="${palist}" var="subject">
+                                            <c:forEach items="${resultAllMap.passAppliedList}" var="subject">
                                                 <tr>
                                                     <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
                                                         <c:out value="${subject.courseTitle}"/></td>
@@ -176,7 +176,7 @@
                                             </tr>
                                             </thead>
 
-                                            <c:forEach items="${npalist}" var="subject">
+                                            <c:forEach items="${resultAllMap.nonPassAppliedList}" var="subject">
                                                 <tr>
                                                     <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
                                                         <c:out value="${subject.courseTitle}"/></td>
