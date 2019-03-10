@@ -8,9 +8,11 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,12 +43,16 @@ public class UploadResultServiceImpl implements UploadResultService{
     }
 
     @Override
-    public List<subjectVO> readMySub(String savedName) throws Exception{
+    public List<subjectVO> readMySub(MultipartFile file) throws Exception{
 
         List<subjectVO> mySubList = new ArrayList<subjectVO>();
-        FileInputStream file = new FileInputStream(uploadPath + "\\" + savedName);
 
-        HSSFWorkbook workbook = new HSSFWorkbook(file);
+        File convFile = new File(file.getOriginalFilename());
+        file.transferTo(convFile);
+
+        FileInputStream fileInputStream = new FileInputStream(convFile);
+
+        HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
         HSSFSheet sheet = workbook.getSheetAt(0);
 
         for(int rowindex = 0; rowindex < sheet.getPhysicalNumberOfRows(); rowindex++){
