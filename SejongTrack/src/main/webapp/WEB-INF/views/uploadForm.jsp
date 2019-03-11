@@ -91,6 +91,10 @@
 </style>
 
 <script language="JavaScript">
+    $(document).ajaxStart(function() {
+        Pace.restart();
+    });
+
     $(document).ready(function(){
 
         $(".fileDrop").on("dragenter dragover", function (event) {
@@ -128,7 +132,7 @@
                          + '&trackNo=' + track;
         });
 
-        $('#selectUniv').on('click', function() {
+        $('#selectUniv').on('change', function() {
             var selectUniv = this.value;
             getTrackList(selectUniv)
         });
