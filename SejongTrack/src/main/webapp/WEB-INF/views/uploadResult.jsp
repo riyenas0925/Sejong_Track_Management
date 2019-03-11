@@ -27,22 +27,6 @@
             </ol>
         </section>
 
-        <!-- 전체트랙 조회 구현되면 없에도 될 듯?
-        <section>
-            <br>
-            <div class="col-md-12">
-                <div class="box box-solid">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-warning"></i>트랙 선택</h3>
-                    </div>
-                    <div class="box-body">
-                        <input type="button">트랙 선택</input>
-                    </div>
-                </div>
-            </div>
-        </section>
-        -->
-
         <!-- 선택한 트랙 -->
         <section class="content">
            <div class="row">
@@ -64,11 +48,11 @@
                                 </thead>
 
                                 <tr>
-                                    <td><c:out value="${rule.univ}"/></td>
+                                    <td id="univNo"><c:out value="${rule.univ}"/></td>
                                     <td><c:out value="${rule.track}"/></td>
-                                    <td><c:out value="${pbcredit}"/> / <c:out value="${rule.basic}"/> <small>(학점)</small></td>
-                                    <td><c:out value="${pacredit}"/> / <c:out value="${rule.applied}"/> <small>(학점)</small></td>
-                                    <td><c:out value="${picredit}"/> / <c:out value="${rule.industry}"/> <small>(학점)</small></td>
+                                    <td><c:out value="${resultAllMap.passCredit[0].credit}"/> / <c:out value="${rule.basic}"/> <small>(학점)</small></td>
+                                    <td><c:out value="${resultAllMap.passCredit[1].credit}"/> / <c:out value="${rule.applied}"/> <small>(학점)</small></td>
+                                    <td><c:out value="${resultAllMap.passCredit[2].credit}"/> / <c:out value="${rule.industry}"/> <small>(학점)</small></td>
                                 </tr>
                             </table>
 
@@ -82,33 +66,7 @@
 
                             <!--select track progress js-->
                             <script>
-                                var str='';
-                                var percent;
-                                var pa = <c:out value="${pacredit}"/>; //자신의 응용교과 이수 학점
 
-                                //응용교과 추가 이수로 인한 계산 오류 방지
-                                if ( pa  >= <c:out value="${rule.applied}"/> ){
-                                    pa = <c:out value="${rule.applied}"/>;
-                                }
-
-                                percent = Math.round((( <c:out value="${pbcredit}"/> + pa ) / (<c:out value="${rule.basic}"/> + <c:out value="${rule.applied}"/>))*100);
-
-                                if (percent >= 80){
-                                    str = str + "<td><div><div class='progress progress-xs'><div class='progress-bar progress-bar-success' style='width:" + percent + "%;'></div></div></div></td>";
-                                    str = str + "<td><span class='badge bg-green'>" + percent + "%</span></td></td>";
-                                }
-
-                                else if (percent >= 50){
-                                    str = str + "<td><div><div class='progress progress-xs'><div class='progress-bar progress-bar-warning' style='width:" + percent + "%;'></div></div></div></td>";
-                                    str = str + "<td><span class='badge bg-orange'>" + percent + "%</span></td></td>";
-                                }
-
-                                else {
-                                    str = str + "<td><div><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width:" + percent + "%;'></div></div></div></td>";
-                                    str = str + "<td><span class='badge bg-red'>" + percent + "%</span></td></td>";
-                                }
-
-                                document.getElementById("select-track-progress").innerHTML=str;
                             </script>
 
                             <!--구분선-->
@@ -171,9 +129,9 @@
 
 
                                             <thead>
-                                            <tr>
-                                                <th><li style="list-style:square;">응용 미이수 과목</li></th>
-                                            </tr>
+                                                <tr>
+                                                    <th><li style="list-style:square;">응용 미이수 과목</li></th>
+                                                </tr>
                                             </thead>
 
                                             <c:forEach items="${resultAllMap.nonPassAppliedList}" var="subject">
@@ -200,20 +158,26 @@
                         </div>
                         <div class="box-body">
                             <table class="table table-bordered">
-                                <tr>
-                                    <th style="width:5%;">#</th>
-                                    <th style="width:35%;">트랙 명</th>
-                                    <th style="width:40%;">진척도</th>
-                                    <th style="width:20%;">이수율</th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th style="width:5%;">#</th>
+                                        <th style="width:35%;">트랙 명</th>
+                                        <th style="width:40%;">진척도</th>
+                                        <th style="width:20%;">이수율</th>
+                                    </tr>
+                                </thead>
 
                                 <!--example data-->
-                                <tr>
-                                    <td>1</td>
-                                    <td>hcl</td>
-                                    <td><div><div class="progress progress-xs"><div class="progress-bar progress-bar-warning" style="width:50%;"></div></div></div></td>
-                                    <td><span class="badge bg-orange">50%</span></td></td>
-                                </tr>
+                                <tbody id="resultTrack">
+                                    <c:forEach items="${resultTrack}" var="result">
+                                        <tr>
+                                            <td style='text-align:center'><c:out value="${result.trackNo}"/></td>
+                                            <td><c:out value="${result.trackTitle}"/></td>
+                                            <td><div class='progress progress-xs'><div class='progress-bar progress-bar-warning' style='width:<c:out value="${result.percent}"/>%'></div></div></td>
+                                            <td><span class='badge bg-orange'><c:out value="${result.percent}"/>%</span></td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -232,4 +196,8 @@
 
 <%@ include file="include/plugins.jsp" %>
 </body>
+
+<script language="JavaScript">
+
+</script>
 </html>

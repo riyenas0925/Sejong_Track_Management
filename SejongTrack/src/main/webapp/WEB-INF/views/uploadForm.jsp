@@ -103,25 +103,20 @@
             var files = event.originalEvent.dataTransfer.files;
             var file = files[0];
 
-            console.log(file);
-
             var formData = new FormData();
-
             formData.append("file", file);
 
+            var univ = $('#selectUniv').val();
+            var track = $('#selectTrack').val();
+
             $.ajax({
-                url: '/uploadResult',
+                url: '/uploadResult?univNo=' + univ + '&track=' + track,
                 data: formData,
                 dataType: 'text',
                 processData: false,
                 contentType: false,
                 type: 'POST'
             })
-        });
-
-        $('#selectUniv').on('change', function() {
-            var selectUniv = this.value;
-            getTrackList(selectUniv)
         });
 
         $('#result').on('click', function (event) {
@@ -131,6 +126,11 @@
            self.location = "uploadResult"
                          + '?univNo=' + univ
                          + '&trackNo=' + track;
+        });
+
+        $('#selectUniv').on('click', function() {
+            var selectUniv = this.value;
+            getTrackList(selectUniv)
         });
 
         function getTrackList(selectUniv) {
@@ -147,7 +147,6 @@
             });
         }
     });
-
 
 </script>
 </html>
