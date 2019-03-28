@@ -4,12 +4,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ac.sejong.mapper.trackAllMapper">
-    <select id="readTrack" resultType="kr.ac.sejong.domain.trackAllVO">
+    <select id="basicTrack" resultType="kr.ac.sejong.domain.trackAllVO">
         select
           trackNo, group_concat(courseTitle separator ', ') as trackAll
         from
           tbl_subject
-        where univNo = #{univNo}
+        where univNo = #{univNo} AND subtype="1"
         GROUP BY trackNo
+    </select>
+
+    <select id="appliedTrack" resultType="kr.ac.sejong.domain.trackAllVO">
+        select
+          trackNo, group_concat(courseTitle separator ', ') as trackAll
+        from
+          tbl_subject
+        where univNo = #{univNo} AND subtype="2"
+        GROUP BY trackNo
+    </select>
+
+    <select id="univName" resultType="kr.ac.sejong.domain.univVO">
+        select
+          univNo, univTitle
+        from
+          tbl_univ
+    </select>
+
+    <select id="trackName" resultType="kr.ac.sejong.domain.trackVO">
+        select
+          univNo, trackNo, trackTitle
+        from
+          tbl_track
+        where univNo = #{univNo}
     </select>
 </mapper>
