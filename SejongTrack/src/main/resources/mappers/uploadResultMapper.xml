@@ -34,4 +34,14 @@
         ]]>
     </select>
 
+    <select id="resultTrack" resultType="kr.ac.sejong.domain.resultTrackVO">
+        <![CDATA[
+        select
+          *
+        from
+          tbl_track
+          where univNo = #{univNo}
+        ]]>
+    </select>
+
 </mapper>

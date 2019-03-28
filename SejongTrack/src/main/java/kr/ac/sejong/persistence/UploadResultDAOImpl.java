@@ -1,5 +1,6 @@
 package kr.ac.sejong.persistence;
 
+import kr.ac.sejong.domain.resultTrackVO;
 import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.domain.trackSubjectVO;
 import org.apache.ibatis.session.SqlSession;
@@ -36,5 +37,10 @@ public class UploadResultDAOImpl implements UploadResultDAO{
         params.put("subtype", subType);
 
         return session.selectList(namespace+".readtypesub", params);
+    }
+
+    @Override
+    public List<resultTrackVO> trackList(Integer univNo)throws Exception{
+        return session.selectList(namespace+".resultTrack", univNo);
     }
 }

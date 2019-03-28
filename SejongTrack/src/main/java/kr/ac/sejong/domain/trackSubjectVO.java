@@ -28,4 +28,13 @@ public class trackSubjectVO extends subjectVO{
     public void setTrackNo(Integer trackNo) {
         this.trackNo = trackNo;
     }
+
+    @Override
+    public String toString() {
+        return "trackSubjectVO{" +
+                "credit=" + credit +
+                ", subType=" + subType +
+                ", trackNo=" + trackNo +
+                '}';
+    }
 }

@@ -37,4 +37,9 @@ public class UploadResultDAOTest {
         logger.info(dao.readTypeSub(1,2).toString());
         logger.info(dao.readTypeSub(1,3).toString());
     }
+
+    @Test
+    public void testResultTrack() throws Exception{
+        logger.info(dao.trackList(1).toString());
+    }
 }

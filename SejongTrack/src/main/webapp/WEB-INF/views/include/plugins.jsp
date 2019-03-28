@@ -8,10 +8,8 @@
 <script src="/plugins/iCheck/icheck.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
-<%--fileUpload--%>
-<script src="/bower_components/fileupload/js/jasny-bootstrap.min.js"></script>
-<%--lightbox--%>
-<script src="/bower_components/lightbox/js/lightbox.js"></script>
 <!-- DataTables -->
 <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- Pace -->
+<script src="/bower_components\PACE/pace.min.js"></script>
