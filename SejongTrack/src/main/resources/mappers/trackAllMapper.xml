@@ -4,11 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ac.sejong.mapper.trackAllMapper">
-    <select id="readTrack" resultType="kr.ac.sejong.domain.subjectVO">
+    <select id="readTrack" resultType="kr.ac.sejong.domain.trackAllVO">
         select
-          *
+          trackNo, group_concat(courseTitle separator ', ') as trackAll
         from
           tbl_subject
-        where trackNo = #{trackNo}
+        where univNo = #{univNo}
+        GROUP BY trackNo
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.subjectVO;
+import kr.ac.sejong.domain.trackAllVO;
 import kr.ac.sejong.persistence.TrackAllDAO;
 import kr.ac.sejong.persistence.TrackRuleDAO;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,8 @@ public class TrackAllServiceImpl implements TrackAllService {
     private TrackAllDAO dao;
 
     @Override
-    public List<subjectVO> readTrack(Integer trackNo)throws Exception{
-        return dao.readTrack(trackNo);
+    public List<trackAllVO> readTrack(Integer univNo)throws Exception{
+        return dao.readTrack(univNo);
     }
 
 }

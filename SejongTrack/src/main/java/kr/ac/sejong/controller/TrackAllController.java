@@ -1,6 +1,7 @@
 package kr.ac.sejong.controller;
 
 import kr.ac.sejong.domain.subjectVO;
+import kr.ac.sejong.domain.trackAllVO;
 import kr.ac.sejong.domain.univVO;
 import kr.ac.sejong.service.TrackAllService;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class TrackAllController {
     @GetMapping("/trackAll")
     public void trackAll(Model model) throws Exception{
 
-        List<subjectVO> trackList = trackAllService.readTrack(1);
+        List<trackAllVO> trackList = trackAllService.readTrack(1);
         model.addAttribute("trackAll", trackList);
 
         logger.info(trackList.toString());

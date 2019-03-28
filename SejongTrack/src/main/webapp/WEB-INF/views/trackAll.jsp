@@ -59,7 +59,8 @@
         <div>
             <ul>
             <c:forEach items="${trackAll}" var="trackAll">
-                <li>${trackAll.courseTitle}</li>
+                <li>${trackAll.trackNo}</li>
+                <li>${trackAll.trackAll}</li>
             </c:forEach>
             </ul>
         </div>
@@ -67,6 +68,8 @@
     <%-- /.content --%>
 </div>
 <script>
+
+    // TODO: ajax 방식으로 변경
     var selectElem = document.getElementById('selectUniv');
     var univ = document.getElementById('univ');
 
@@ -83,6 +86,20 @@
             univ.innerHTML="항공우주대학원 전체 트랙";
         }
     })
+
+    function getTrackList(selectUniv) {
+        $.getJSON("trackAll/selectUniv/" + selectUniv, function (data) {
+            var str = "";
+            console.log(data.length);
+
+            $(data).each(
+                function () {
+                    str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
+                });
+
+            $("#selectTrack").html(str);
+        });
+    }
 </script>
 <%-- /.content-wrapper --%>
 
