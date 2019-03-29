@@ -27,7 +27,7 @@ public class TrackAllAjaxController {
         ResponseEntity<List<trackAllVO>> entity = null;
 
         try {
-            entity = new ResponseEntity<>(trackAllDAO.basicTrack(univNo), HttpStatus.OK);
+            entity = new ResponseEntity<>(trackAllDAO.trackAll(univNo), HttpStatus.OK);
 
         }catch (Exception e){
             e.printStackTrace();

@@ -1,30 +1,60 @@
 package kr.ac.sejong.domain;
 
 public class trackAllVO {
-    private String trackNo;
-    private String trackAll;
+    private Integer trackNo;
+    private String trackTitle;
+    private String trackBasic;
+    private String trackApplied;
+    private String trackIndustry;
 
-    public String getTrackNo() {
+    public Integer getTrackNo() {
         return trackNo;
     }
 
-    public void setTrackNo(String trackNo) {
+    public void setTrackNo(Integer trackNo) {
         this.trackNo = trackNo;
     }
 
-    public String getTrackAll() {
-        return trackAll;
+    public String getTrackTitle() {
+        return trackTitle;
     }
 
-    public void setTrackAll(String trackAll) {
-        this.trackAll = trackAll;
+    public void setTrackTitle(String trackTitle) {
+        this.trackTitle = trackTitle;
+    }
+
+    public String getTrackBasic() {
+        return trackBasic;
+    }
+
+    public void setTrackBasic(String trackBasic) {
+        this.trackBasic = trackBasic;
+    }
+
+    public String getTrackApplied() {
+        return trackApplied;
+    }
+
+    public void setTrackApplied(String trackApplied) {
+        this.trackApplied = trackApplied;
+    }
+
+    public String getTrackIndustry() {
+        return trackIndustry;
+    }
+
+    public void setTrackIndustry(String trackIndustry) {
+        this.trackIndustry = trackIndustry;
     }
 
     @Override
     public String toString() {
         return "trackAllVO{" +
-                "trackNo='" + trackNo + '\'' +
-                ", trackAll='" + trackAll + '\'' +
+                "trackNo=" + trackNo +
+                ", trackTitle='" + trackTitle + '\'' +
+                ", trackBasic='" + trackBasic + '\'' +
+                ", trackApplied='" + trackApplied + '\'' +
+                ", trackIndustry='" + trackIndustry + '\'' +
                 '}';
     }
 }

@@ -23,9 +23,6 @@ public class TrackAllDAOTest {
 
     @Test
     public void testRead() throws Exception{
-        logger.info(dao.basicTrack(1).toString());
-        logger.info(dao.appliedTrack(1).toString());
-        logger.info(dao.univName().toString());
-        logger.info(dao.trackName(1).toString());
+        logger.info(dao.trackAll(1).toString());
     }
 }
