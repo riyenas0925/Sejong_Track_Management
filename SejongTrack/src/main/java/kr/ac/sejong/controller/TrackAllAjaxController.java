@@ -4,6 +4,7 @@ import kr.ac.sejong.domain.trackAllVO;
 import kr.ac.sejong.domain.trackVO;
 import kr.ac.sejong.persistence.TrackAllDAO;
 import kr.ac.sejong.persistence.UploadFormDAO;
+import kr.ac.sejong.service.TrackAllService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ import java.util.List;
 public class TrackAllAjaxController {
 
     @Inject
-    private TrackAllDAO trackAllDAO;
+    private TrackAllService trackAllService;
 
     @GetMapping("/selectUniv/{univNo}")
     public ResponseEntity<List<trackAllVO>> list(@PathVariable Integer univNo){
@@ -27,7 +28,7 @@ public class TrackAllAjaxController {
         ResponseEntity<List<trackAllVO>> entity = null;
 
         try {
-            entity = new ResponseEntity<>(trackAllDAO.readTrack(univNo), HttpStatus.OK);
+            entity = new ResponseEntity<>(trackAllService.trackAll(univNo), HttpStatus.OK);
 
         }catch (Exception e){
             e.printStackTrace();
