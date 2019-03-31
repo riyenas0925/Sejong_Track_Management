@@ -1,8 +1,10 @@
 package kr.ac.sejong.service;
 
+import kr.ac.sejong.domain.resultTrackVO;
 import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.domain.subjectVO;
 import kr.ac.sejong.domain.trackSubjectVO;
+import kr.ac.sejong.persistence.UploadFormDAO;
 import kr.ac.sejong.persistence.UploadResultDAO;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -14,15 +16,16 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UploadResultServiceImpl implements UploadResultService{
 
     @Inject
     private UploadResultDAO dao;
+
+    @Inject
+    private UploadResultService service;
 
     @Resource(name = "uploadPath")
     private String uploadPath;
@@ -136,5 +139,42 @@ public class UploadResultServiceImpl implements UploadResultService{
         } else {
             return true;
         }
+    }
+
+    @Override
+    public List<resultTrackVO> resultTrackList(Integer univNo, List<subjectVO> myList)throws Exception{
+        List<resultTrackVO> resultTrackList = dao.trackList(univNo);
+
+        for(int i=0; i < resultTrackList.size(); i++){
+            HashMap<String, List<trackSubjectVO>> standList = service.resultListSub(myList, service.readSub(resultTrackList.get(i).getTrackNo()));
+            ruleVO rule = service.readRule(resultTrackList.get(i).getTrackNo());
+
+            Integer totalPercent = 0;
+            Integer ruleTotal = rule.getApplied() + rule.getBasic();
+
+            if(rule.getIndustry() == null){
+                ruleTotal += 0;
+            }else{
+                ruleTotal += rule.getIndustry();
+            }
+
+            totalPercent += calCredit(standList.get("passBasicList"))
+                         + calCredit(standList.get("passAppliedList"))
+                         + calCredit(standList.get("passIndustryList"));
+
+            resultTrackList.get(i).setPercent(Math.round(((float)totalPercent/ ruleTotal) * 100));
+        }
+
+        return resultTrackList;
+    }
+
+    private Integer calCredit(List<trackSubjectVO> standList){
+        Integer totalCredit = 0;
+
+        for(int i=0; i < standList.size(); i++){
+            totalCredit += standList.get(i).getCredit();
+        }
+
+        return totalCredit;
     }
 }

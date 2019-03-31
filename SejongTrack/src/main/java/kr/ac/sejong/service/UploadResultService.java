@@ -1,5 +1,6 @@
 package kr.ac.sejong.service;
 
+import kr.ac.sejong.domain.resultTrackVO;
 import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.domain.subjectVO;
 import kr.ac.sejong.domain.trackSubjectVO;
@@ -19,4 +20,6 @@ public interface UploadResultService {
     public List<subjectVO> readMySub(MultipartFile file) throws Exception;
 
     public HashMap<String, List<trackSubjectVO>> resultListSub(List<subjectVO> myList, List<trackSubjectVO> standList) throws Exception;
+
+    public List<resultTrackVO> resultTrackList(Integer univNo, List<subjectVO> myList)throws Exception;
 }

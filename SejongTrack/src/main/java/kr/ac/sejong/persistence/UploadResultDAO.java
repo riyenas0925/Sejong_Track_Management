@@ -1,5 +1,6 @@
 package kr.ac.sejong.persistence;
 
+import kr.ac.sejong.domain.resultTrackVO;
 import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.domain.trackSubjectVO;
 
@@ -13,4 +14,5 @@ public interface UploadResultDAO {
 
     public List<trackSubjectVO> readTypeSub(Integer trackNo, Integer subType)throws Exception;
 
+    public List<resultTrackVO> trackList(Integer univNo)throws Exception;
 }
