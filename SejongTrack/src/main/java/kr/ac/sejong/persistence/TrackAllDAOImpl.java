@@ -19,7 +19,12 @@ public class TrackAllDAOImpl implements  TrackAllDAO{
     private  static String namespace = "kr.ac.sejong.mapper.trackAllMapper";
 
     @Override
-    public List<trackAllVO> trackAll(Integer univNo) throws Exception{
-            return session.selectList(namespace+".trackAll", univNo);
+    public trackAllVO trackAll(Integer trackNo) throws Exception{
+        return session.selectOne(namespace+".trackAll", trackNo);
+    }
+
+    @Override
+    public List<Integer> trackAllList(Integer univNo) throws Exception{
+        return session.selectList(namespace+".trackAllList", univNo);
     }
 }

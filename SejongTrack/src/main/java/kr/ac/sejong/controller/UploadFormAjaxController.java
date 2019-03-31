@@ -1,7 +1,10 @@
 package kr.ac.sejong.controller;
 
 import kr.ac.sejong.domain.trackVO;
+import kr.ac.sejong.domain.univVO;
 import kr.ac.sejong.persistence.UploadFormDAO;
+import kr.ac.sejong.service.UploadFormService;
+import kr.ac.sejong.service.UploadFormServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,19 +22,37 @@ public class UploadFormAjaxController {
     @Inject
     private UploadFormDAO uploadFormDAO;
 
+    @Inject
+    private UploadFormService uploadFormService;
+
     @GetMapping("/selectUniv/{univNo}")
-    public ResponseEntity<List<trackVO>> list(@PathVariable Integer univNo){
+    public ResponseEntity<List<trackVO>> list(@PathVariable Integer univNo) {
 
         ResponseEntity<List<trackVO>> entity = null;
 
         try {
             entity = new ResponseEntity<>(uploadFormDAO.listTrack(univNo), HttpStatus.OK);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return entity;
+    }
+
+    @GetMapping("/univList")
+    public ResponseEntity<List<univVO>> list() {
+        ResponseEntity<List<univVO>> entity = null;
+        try {
+            entity = new ResponseEntity<>(uploadFormService.listUniv(), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+
     }
 }

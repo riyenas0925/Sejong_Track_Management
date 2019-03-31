@@ -31,15 +31,12 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
+                        <h2 class="box-title" id="univ">대학을 선택하세요</h2>
                     </div>
 
                     <div class="box-body">
                         <div class="form-group">
                             <select id="selectUniv" class="form-control">
-                                <option value="">대학 선택</option>
-                                <c:forEach items="${univName}" var="univName" >
-                                    <option value="${univName.univNo}"> ${univName.univTitle} </option>
-                                </c:forEach>
                             </select>
                         </div>
                     </div>
@@ -50,9 +47,6 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <div class="box-header">
-                        <h2 class="box-title" id="univ">대학을 선택하세요</h2>
-                    </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover" id="trackTbl">
@@ -68,55 +62,6 @@
     </section>
     <%-- /.content --%>
 </div>
-
-<script>
-    var selectElem = document.getElementById('selectUniv');
-    var univ = document.getElementById('univ');
-
-    selectElem.addEventListener('change', function() {
-        var index = selectElem.selectedIndex;
-
-        if (index==0) {
-            univ.innerHTML="대학을 선택하세요";
-            document.getElementById('trackTbl').innerHTML=""; //테이블 초기화
-        }
-
-        else {
-            <c:forEach items="${univName}" var="univName" >
-                if (index==${univName.univNo}){
-                    univ.innerHTML="${univName.univTitle} 트랙 조회";
-                    trackTable(${univName.univNo});
-                }
-            </c:forEach>
-        }
-    })
-
-    function trackTable(univNum){
-        var table = document.getElementById('trackTbl');
-        var str = "<tr style='text-align:center'><th>#</th><th>트랙 명</th><th>기초교과</th><th>응용교과</th></tr>";
-
-        /*여기서 받은 univNum을 이용해야하는데... 할 줄 몰라서 일단 controller에서 1로넘겨줌요ㅠ
-        if (univNum== 생략)
-        */
-        
-        <c:forEach items="${trackName}" var="trackName">
-            str+="<tr><td>${trackName.trackNo}</td><td>${trackName.trackTitle}</td>";
-                <c:forEach items="${basicList}" var="basicList">
-                    if(${trackName.trackNo}==${basicList.trackNo}){
-                        str+="<td>${basicList.trackAll}</td>"
-                    }
-                </c:forEach>
-                <c:forEach items="${appliedList}" var="appliedList">
-                if(${trackName.trackNo}==${appliedList.trackNo}){
-                    str+="<td>${appliedList.trackAll}</td>"
-                }
-                </c:forEach>
-            str+="</tr>"
-        </c:forEach>
-        table.innerHTML=str;
-
-    }
-</script>
 <%-- /.content-wrapper --%>
 
 <%-- Main Footer --%>
@@ -129,18 +74,64 @@
 </body>
 </html>
 
-<!--
-function getTrackList(selectUniv) {
-$.getJSON("trackAll/selectUniv/" + selectUniv, function (data) {
-var str = "";
-console.log(data.length);
+<script language="JavaScript">
+    $(document).ready(function () { //이거는 필수 ㅇㅇ
 
-$(data).each(
-function () {
-str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
-});
+        getUnivList();  //select리스트 처음 로딩때 불러오기
+        trackTbl(1);    //change기 때문에 처음 선택된 소프트웨어융합대학 한번 불러줘야함
 
-$("#selectTrack").html(str);
-});
-}
--->
+        $('#selectUniv').on('change', function() {
+            var selectUniv = this.value;    //selectUniv 리스트에서 value값 뽑아내기
+            trackTbl(selectUniv)             //트랙 리스트 출력
+        });
+        
+        function getUnivList() {
+            $.getJSON("uploadAjax/univList", function (data) {  //localhost:8080/uploadAjax/univList 주소 들어가보면 json 형태로 출력됨
+                                                                 //uploadFormAjaxController 보면됨
+                var str = "";
+
+                $(data).each(   //for문
+                    function () {
+                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
+                    });
+
+                $("#selectUniv").html(str);
+                //자바스크립트에서 innerHTML같은거
+            });
+        }
+
+    function trackTbl(selectUniv) {
+            $.getJSON("trackAll/selectUniv/" + selectUniv, function (data) {
+                //localhost:8080/trackAll/selectuniv/1 주소로 들어가보면 json으로 출력됨
+                //TrackAllAjaxController 보면 확인 가능
+
+                var str = "";
+
+                str += "<thead>"
+                        +"<tr>"
+                            +"<th>번호</th>"
+                            +"<th>트랙 이름</th>"
+                            +"<th>기초 교과</th>"
+                            +"<th>응용 교과</th>"
+                            +"<th>산학 연계</th>"
+                        +"</tr>"
+                    +"</thead>";
+
+                $(data).each(
+                    function () {
+                        str += "<tbody>"
+                                + "<tr>"
+                                    + "<td style='text-align:center'>"+ this.trackNo + "</td>"
+                                    + "<td>"+ this.trackTitle + "</td>"
+                                    + "<td>"+ this.trackBasic + "</td>"
+                                    + "<td>"+ this.trackApplied + "</td>"
+                                    + "<td>"+ this.trackIndustry + "</td>"
+                                + "</tr>"
+                            + "</tbody>";
+                    });
+
+                $("#trackTbl").html(str);
+            });
+        }
+    });
+</script>

@@ -7,13 +7,22 @@
     <select id="trackAll" resultType="kr.ac.sejong.domain.trackAllVO">
         select
         trackNo,
-        (select trackTitle from tbl_track where trackNo = 1) as trackTitle,
-        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 1 and trackNo = 1) as trackBasic,
-        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 2 and trackNo = 1) as trackApplied,
-        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 3 and trackNo = 1) as trackIndustry
+        (select trackTitle from tbl_track where trackNo = #{trackNo}) as trackTitle,
+        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 1 and trackNo = #{trackNo}) as trackBasic,
+        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 2 and trackNo = #{trackNo}) as trackApplied,
+        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 3 and trackNo = #{trackNo}) as trackIndustry
         from
         tbl_subject
-        where trackNo = 1
+        where trackNo = #{trackNo}
         GROUP BY trackNo;
+    </select>
+
+    <select id="trackAllList" resultType="Integer">
+      select
+        trackNo
+      from
+        tbl_subject
+      where univNo = #{univNo}
+      group by trackNo
     </select>
 </mapper>

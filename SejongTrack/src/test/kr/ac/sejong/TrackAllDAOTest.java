@@ -23,6 +23,11 @@ public class TrackAllDAOTest {
 
     @Test
     public void testRead() throws Exception{
-        logger.info(dao.trackAll(1).toString());
+        logger.info(dao.trackAll(4).toString());
+    }
+
+    @Test
+    public void trackList() throws Exception{
+        logger.info(dao.trackAllList(1).toString());
     }
 }

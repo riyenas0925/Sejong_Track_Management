@@ -24,10 +24,5 @@ public class TrackAllController {
     @GetMapping("/trackAll")
     public void trackAll(Model model) throws Exception{
 
-        List<trackAllVO> trackAll = trackAllService.trackAll(1);
-
-        //....? jsp에서 uniNo를 검색하게할 수 있음?
-
-        model.addAttribute("trackAll", trackAll);
     }
 }
