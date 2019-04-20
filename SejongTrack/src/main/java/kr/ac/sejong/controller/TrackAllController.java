@@ -1,9 +1,5 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain.subjectVO;
-import kr.ac.sejong.domain.trackAllVO;
-import kr.ac.sejong.domain.trackVO;
-import kr.ac.sejong.domain.univVO;
 import kr.ac.sejong.service.TrackAllService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +19,5 @@ public class TrackAllController {
 
     @GetMapping("/trackAll")
     public void trackAll(Model model) throws Exception{
-
     }
 }

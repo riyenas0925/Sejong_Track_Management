@@ -2,7 +2,6 @@ package kr.ac.sejong.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
