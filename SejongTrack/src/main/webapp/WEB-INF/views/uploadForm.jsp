@@ -38,9 +38,11 @@
                             <div class="form-group">
                                 <select id="selectUniv" class="form-control">
                                     <option value="">소속대학 선택</option>
+                                    <!--
                                     <c:forEach items="${univs}" var="univ" >
                                         <option value="${univ.univNo}"> ${univ.univTitle} </option>
                                     </c:forEach>
+                                    -->
                                 </select>
                             </div>
 
@@ -97,6 +99,9 @@
 
     $(document).ready(function(){
 
+        getUnivList();
+        getTrackList(1);
+
         $(".fileDrop").on("dragenter dragover", function (event) {
             event.preventDefault();
         });
@@ -136,6 +141,21 @@
             var selectUniv = this.value;
             getTrackList(selectUniv)
         });
+
+        function getUnivList() {
+            $.getJSON("uploadAjax/univList", function (data) {  //localhost:8080/uploadAjax/univList 주소 들어가보면 json 형태로 출력됨
+                //uploadFormAjaxController 보면됨
+                var str = "";
+
+                $(data).each(   //for문
+                    function () {
+                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
+                    });
+
+                $("#selectUniv").html(str);
+                //자바스크립트에서 innerHTML같은거
+            });
+        }
 
         function getTrackList(selectUniv) {
             $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {

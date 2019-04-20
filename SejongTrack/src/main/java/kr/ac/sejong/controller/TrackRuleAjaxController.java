@@ -1,12 +1,10 @@
 package kr.ac.sejong.controller;
 
-import com.mysql.fabric.Response;
 import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.service.TrackRuleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,24 +84,4 @@ public class TrackRuleAjaxController {
 
         return entity;
     }
-
-    /*
-    @PatchMapping("/update/{ruleNo}")
-    public ResponseEntity<String> update(@PathVariable("ruleNo") Integer ruleNo, @RequestMapping ruleVO vo){
-
-        ResponseEntity <String> enity = null;
-
-        try{
-            vo.setRuleNo(ruleNo);
-            service.update(vo);
-
-            enity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-        }catch (Exception e){
-            e.printStackTrace();
-            enity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
-        return enity;
-    }
-    */
 }

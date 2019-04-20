@@ -2,7 +2,6 @@ package kr.ac.sejong.controller;
 
 import kr.ac.sejong.domain.trackVO;
 import kr.ac.sejong.domain.univVO;
-import kr.ac.sejong.persistence.UploadFormDAO;
 import kr.ac.sejong.service.UploadFormService;
 
 import org.springframework.http.HttpStatus;
@@ -18,9 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/uploadAjax/*")
 public class UploadFormAjaxController {
-
-    @Inject
-    private UploadFormService uploadFormService;
 
     @Inject
     private UploadFormService uploadFormService;

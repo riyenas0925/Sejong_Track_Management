@@ -1,7 +1,5 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain.resultTrackVO;
-import kr.ac.sejong.domain.subjectVO;
 import kr.ac.sejong.domain.trackVO;
 import kr.ac.sejong.service.UploadFormService;
 import org.springframework.http.HttpStatus;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import java.util.List;
