@@ -4,25 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ac.sejong.mapper.trackAllMapper">
-    <select id="trackAll" resultType="kr.ac.sejong.domain.trackAllVO">
-        select
-        trackNo,
-        (select trackTitle from tbl_track where trackNo = #{trackNo}) as trackTitle,
-        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 1 and trackNo = #{trackNo}) as trackBasic,
-        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 2 and trackNo = #{trackNo}) as trackApplied,
-        (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 3 and trackNo = #{trackNo}) as trackIndustry
-        from
-        tbl_subject
-        where trackNo = #{trackNo}
-        GROUP BY trackNo;
-    </select>
+    <select id="trackAllListTest" resultType="kr.ac.sejong.domain.trackAllVO" >
+        set @trackNo:=0;
 
-    <select id="trackAllList" resultType="Integer">
-      select
-        trackNo
-      from
-        tbl_subject
-      where univNo = #{univNo}
-      group by trackNo
+        select
+          @trackNo:=trackNo
+
+          trackNo,
+          trackTitle,
+          (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 1 and trackNo = @trackNo) as trackBasic,
+          (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 2 and trackNo = @trackNo) as trackApplied,
+          (select group_concat(courseTitle separator ', ') from tbl_subject where subtype = 3 and trackNo = @trackNo) as trackIndustry
+        from
+          tbl_track
+        where univNo = #{univNo};
     </select>
 </mapper>

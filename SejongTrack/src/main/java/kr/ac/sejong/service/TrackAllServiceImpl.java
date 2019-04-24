@@ -19,12 +19,7 @@ public class TrackAllServiceImpl implements TrackAllService {
 
     @Override
     public List<trackAllVO> trackAll(Integer univNo)throws Exception{
-        List<Integer> trackList = dao.trackAllList(univNo);
-        List<trackAllVO> trackAllVOList = new ArrayList<>();
-
-        for(int i = 0; i < trackList.size(); i++){
-            trackAllVOList.add(dao.trackAll(trackList.get(i)));
-        }
+        List<trackAllVO> trackAllVOList = dao.trackAllList(univNo);
 
         return trackAllVOList;
     }
