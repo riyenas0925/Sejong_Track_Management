@@ -115,11 +115,8 @@
             var formData = new FormData();
             formData.append("file", file);
 
-            var univ = $('#selectUniv').val();
-            var track = $('#selectTrack').val();
-
             $.ajax({
-                url: '/uploadResult?univNo=' + univ + '&track=' + track,
+                url: '/uploadResult',
                 data: formData,
                 dataType: 'text',
                 processData: false,
