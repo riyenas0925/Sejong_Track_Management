@@ -22,12 +22,7 @@ public class TrackAllDAOTest {
     private TrackAllDAO dao;
 
     @Test
-    public void testRead() throws Exception{
-        logger.info(dao.trackAll(4).toString());
-    }
-
-    @Test
-    public void trackList() throws Exception{
-        logger.info(dao.trackAllList(1).toString());
+    public void trackListTest() throws Exception{
+        logger.info(dao.trackAllList(2).toString());
     }
 }
