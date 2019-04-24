@@ -1,8 +1,6 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.controller.TrackRuleController;
 import kr.ac.sejong.persistence.TrackAllDAO;
-import kr.ac.sejong.persistence.TrackRuleDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
