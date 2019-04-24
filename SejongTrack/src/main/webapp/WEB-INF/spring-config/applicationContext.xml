@@ -6,7 +6,7 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-        <property name="url" value="jdbc:log4jdbc:mysql://sejongtrack.mysql.database.azure.com:3306/trackTest?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=utf8"></property>
+        <property name="url" value="jdbc:log4jdbc:mysql://sejongtrack.mysql.database.azure.com:3306/trackTest?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=utf8&amp;allowMultiQueries=true"></property>
         <property name="username" value="sejongTrack@sejongtrack"></property>
         <property name="password" value="@Sejong518"></property>
     </bean>
