@@ -20,6 +20,7 @@ public class TrackAllDAOImpl implements  TrackAllDAO{
 
     @Override
     public List<trackAllVO> trackAllList(Integer univNo) throws Exception{
+
         return session.selectList(namespace+".trackAllList", univNo);
     }
 }
