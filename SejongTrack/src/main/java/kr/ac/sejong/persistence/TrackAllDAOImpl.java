@@ -1,9 +1,6 @@
 package kr.ac.sejong.persistence;
 
-import kr.ac.sejong.domain.subjectVO;
 import kr.ac.sejong.domain.trackAllVO;
-import kr.ac.sejong.domain.trackVO;
-import kr.ac.sejong.domain.univVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +17,7 @@ public class TrackAllDAOImpl implements  TrackAllDAO{
 
     @Override
     public List<trackAllVO> trackAllList(Integer univNo) throws Exception{
-        return session.selectList(namespace+".trackAllListTest", univNo);
+
+        return session.selectList(namespace+".trackAllList", univNo);
     }
 }

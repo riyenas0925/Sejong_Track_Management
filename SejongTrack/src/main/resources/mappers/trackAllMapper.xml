@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ac.sejong.mapper.trackAllMapper">
-    <select id="trackAllListTest" resultType="kr.ac.sejong.domain.trackAllVO" >
+    <select id="trackAllList" resultType="kr.ac.sejong.domain.trackAllVO" >
         set @trackNo:=0;
 
         select
