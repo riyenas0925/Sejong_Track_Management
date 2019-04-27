@@ -11,6 +11,7 @@
     <mvc:resources mapping="/bower_components/**" location="/resources/bower_components/"/>
     <mvc:resources mapping="/plugins/**" location="/resources/plugins/"/>
     <mvc:resources mapping="/dist/**" location="/resources/dist/"/>
+    <mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
