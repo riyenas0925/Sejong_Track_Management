@@ -37,9 +37,6 @@ public class UploadResultController {
 
         HashMap<String, List<trackSubjectVO>> resultAllMap = service.resultListSub(mySubList, trackList);
 
-        List<resultTrackVO> resultTrackList = service.resultTrackList(univNo, mySubList);
-
-        model.addAttribute("resultTrack", resultTrackList);
         model.addAttribute("resultAllMap", resultAllMap);
         model.addAttribute("rule", service.readRule(trackNo));
     }

@@ -22,8 +22,6 @@ public class UploadFormController {
 
     @GetMapping("/uploadForm")
     public void uploadForm(Model model, HttpSession httpSession) throws Exception{
-       httpSession.removeAttribute("file");
-       List<univVO> univList = uploadFormService.listUniv();
-       model.addAttribute("univs", univList);
+        httpSession.removeAttribute("file");
     }
 }

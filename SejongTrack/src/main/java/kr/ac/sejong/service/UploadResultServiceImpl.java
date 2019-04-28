@@ -27,9 +27,6 @@ public class UploadResultServiceImpl implements UploadResultService{
     @Inject
     private UploadResultService service;
 
-    @Resource(name = "uploadPath")
-    private String uploadPath;
-
     @Override
     public ruleVO readRule(Integer ruleNo) throws Exception{
         return dao.readRule(ruleNo);
@@ -87,7 +84,7 @@ public class UploadResultServiceImpl implements UploadResultService{
         List<trackSubjectVO> nonPassIndustryList = new ArrayList<>();
 
         for(int i=0; i < standList.size(); i++){
-            if(listContains(standList.get(i).getCourseTitle(), myList)){
+            if(listContains(myList, standList.get(i).getCourseNum())){
                 switch (standList.get(i).getSubType()){
                     case 1:
                         passBasicList.add(standList.get(i));
@@ -125,20 +122,16 @@ public class UploadResultServiceImpl implements UploadResultService{
         return passListSubMap;
     }
 
-    private Boolean listContains(String standListTitle, List<subjectVO> myList){
+    private Boolean listContains(List<subjectVO> myList, String standListNum){
         int cnt = 0;
         for(int i=0; i < myList.size(); i++){
-            if(standListTitle.equals(myList.get(i).getCourseTitle())) {
+            if(standListNum.equals(myList.get(i).getCourseNum())) {
                 cnt++;
                 break;
             }
         }
 
-        if (cnt == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return cnt != 0;
     }
 
     @Override

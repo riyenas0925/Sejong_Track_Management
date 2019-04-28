@@ -1,9 +1,6 @@
 package kr.ac.sejong.persistence;
 
-import kr.ac.sejong.domain.subjectVO;
 import kr.ac.sejong.domain.trackAllVO;
-import kr.ac.sejong.domain.trackVO;
-import kr.ac.sejong.domain.univVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
