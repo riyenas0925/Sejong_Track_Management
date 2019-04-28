@@ -172,21 +172,13 @@
                                     <tr>
                                         <th style="width:5%;">#</th>
                                         <th style="width:35%;">트랙 명</th>
-                                        <th style="width:40%;">진척도</th>
-                                        <th style="width:20%;">이수율</th>
+                                        <th style="width:50%;">진척도</th>
+                                        <th style="width:10%;">이수율</th>
                                     </tr>
                                 </thead>
 
-                                <!--example data-->
                                 <tbody id="resultTrack">
-                                    <c:forEach items="${resultTrack}" var="result">
-                                        <tr>
-                                            <td style='text-align:center'><c:out value="${result.trackNo}"/></td>
-                                            <td><a href="/uploadResult?univNo=<c:out value="${result.univNo}"/>&trackNo=<c:out value="${result.trackNo}"/>"><c:out value="${result.trackTitle}"/></a></td>
-                                            <td><div class='progress progress-xs'><div class='progress-bar progress-bar-warning' style='width:<c:out value="${result.percent}"/>%'></div></div></td>
-                                            <td><span class='badge bg-orange'><c:out value="${result.percent}"/>%</span></td>
-                                        </tr>
-                                    </c:forEach>
+
                                 </tbody>
                             </table>
                         </div>
@@ -208,6 +200,30 @@
 </body>
 
 <script language="JavaScript">
+
+    $(document).ready(function () {
+
+        getAllResult();
+
+        function getAllResult() {
+
+            $.getJSON("/uploadAjax/allResult/" + 1, function (data) {
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<tr>"
+                                + "<td style='text-align:center'>" + this.trackNo + "</td>"
+                                + "<td><a href='/uploadResult?univNo=" + this.univNo + "&trackNo=" + this.trackNo + "'>" + this.trackTitle + "</a></td>"
+                                + "<td><div class='progress progress-xs'><div class='progress-bar progress-bar-warning' style='width:" + this.percent+ "%'></div></div></td>"
+                                + "<td><span class='badge bg-orange'>" + this.percent + "%</span></td>"
+                            + "</tr>"
+                    });
+
+                $("#resultTrack").html(str);
+            });
+        }
+    });
 
 </script>
 </html>
