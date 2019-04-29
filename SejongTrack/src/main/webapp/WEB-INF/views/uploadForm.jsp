@@ -47,9 +47,9 @@
                                 </select>
                             </div>
 
-                            <div class="fileDrop">
+                            <div class="fileDrop" style="cursor:pointer">
                                 <input type="file" name="file" id="file" class="inputfile" />
-                                <label for="file" id="uploadText">기이수 성적.xlsx</label>
+                                <label for="file" id="uploadText"><img src="../dist/img/파일선택.png" width="100px;"></label>
                             </div>
                         </div>
 
@@ -104,10 +104,12 @@
                 type: 'POST',
                 success: function (data) {
                     if(checkExcelType(file.name)){
-                        alert("올바른 타입입니다.");
+                        toastr["success"]("올바른 파일입니다.");
+                        document.getElementById("uploadText").innerHTML='<img src="../dist/img/기이수완료.png" width="100px;">';
                     }
                     else{
-                        alert("기이수 성적.xls 파일만 첨부할수 있습니다.");
+                        toastr["error"]("기이수 성적.xls 파일만 첨부할수 있습니다.");
+                        document.getElementById("uploadText").innerHTML='<img src="../dist/img/파일선택.png" width="100px;">';
                     }
                 }
             })
@@ -128,10 +130,12 @@
                 type: 'POST',
                 success: function (data) {
                     if(checkExcelType(file.name)){
-                        alert("올바른 타입입니다.");
+                        toastr["success"]("올바른 파일입니다.");
+                        document.getElementById("uploadText").innerHTML='<img src="../dist/img/기이수완료.png" width="100px;">';
                     }
                     else{
-                        alert("기이수 성적.xls 파일만 첨부할수 있습니다.");
+                        toastr["error"]("기이수 성적.xls 파일만 첨부할수 있습니다.");
+                        document.getElementById("uploadText").innerHTML='<img src="../dist/img/파일선택.png" width="100px;">';
                     }
                 }
             })
