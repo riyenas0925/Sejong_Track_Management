@@ -39,9 +39,10 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th style='text-align:center'>번호</th>
+                                    <th style='text-align:center'>#</th>
                                     <th style='text-align:center'>대학</th>
                                     <th style='text-align:center'>트랙</th>
+                                    <th style="text-align: center">규칙</th>
                                     <th style='text-align:center'>기초교과</th>
                                     <th style='text-align:center'>응용교과, 심화교과</th>
                                     <th style='text-align:center'>산학연계</th>
@@ -82,24 +83,6 @@
 
                                 <tbody>
                                 <tr>
-                                    <!--
-                                    <td>
-                                        <select name="serachType" class="form-control">
-                                            <option value="a"<c:out value="${cri.searchType == 'a'? 'selected':''}"/>>----</option>
-                                            <option value="b"<c:out value="${cri.searchType eq 'b'? 'selected':''}"/>>소프트웨어융합대학</option>
-                                            <option value="c"<c:out value="${cri.searchType eq 'c'? 'selected':''}"/>>무인기융합트랙</option>
-                                        </select>
-                                    </td>
-
-                                    <td>
-                                        <select name="serachType" class="form-control">
-                                            <option value="a"<c:out value="${cri.searchType == 'a'? 'selected':''}"/>>----</option>
-                                            <option value="b"<c:out value="${cri.searchType eq 'b'? 'selected':''}"/>>무인기 시스템</option
-                                            <option value="c"<c:out value="${cri.searchType eq 'c'? 'selected':''}"/>>무인기 소프트웨어</option>
-                                        </select>
-                                    </td>
-
-                                    -->
                                     <td><input type="text" class="form-control" id="univTitle"></td>
                                     <td><input type="text" class="form-control" id="trackTitle"></td>
                                     <td><input type="text" class="form-control" id="basic"></td>
@@ -134,15 +117,11 @@
 </body>
 
 <script language="JavaScript">
-
     $(document).ready(function () {
 
         getAllList();
 
         $("#registRule").on("click", function () {
-
-            var univTitle = $("#univTitle").val();
-            var trackTitle = $("#trackTitle").val();
             var basic = $("#basic").val();
             var applied = $("#applied").val();
             var industry = $("#industry").val();
@@ -156,8 +135,7 @@
                 },
                 dataType: "text",
                 data: JSON.stringify({
-                   univ : univTitle,
-                   track : trackTitle,
+                   trackId : trackId,
                    basic : basic,
                    applied : applied,
                    industry : industry
@@ -171,28 +149,40 @@
             });
         });
 
-        function getAllList() {
-            $.getJSON("ruleAjax/list", function (data) {
-                var str = "";
-                console.log(data.length);
+        $("#rules").on("click", ".ruleID #updateRule",function () {
 
-                $(data).each(
-                    function () {
-                        str += "<tr class='ruleID'" + " data-rno='" + this.ruleNo + "'>"
-                                + "<td style='text-align:center'>"+ this.ruleNo + "</td>"
-                                + "<td style='text-align:center'>"+ this.univ + "</td>"
-                                + "<td style='text-align:center'>"+ this.track + "</td>"
-                                + "<td style='text-align:center'>"+ this.basic + "</td>"
-                                + "<td style='text-align:center'>"+ this.applied + "</td>"
-                                + "<td style='text-align:center'>"+ this.industry + "</td>"
-                                + "<td style='text-align:center'>"+ "<button id='updateRule' type='button'" + " class='btn btn-block btn-warning' data-toggle='modal' data-target='#modal-update'>" + "수정" + "</button></td>"
-                                + "<td style='text-align:center'>"+ "<button id='deleteRule' type='button'" + " class='btn btn-block btn-danger'>" + "삭제" + "</button></td>"
-                            + "</tr>";
-                        });
+            var rule = $(this).parent().parent();
+            var ruleNo = rule.attr("data-rno");
 
-                $("#rules").html(str);
+            alert(ruleNo);
+
+            var trackId = 1;
+            var basic = 9999;
+            var applied = 9999;
+            var industry = 9999;
+
+            $.ajax({
+                type: "put",
+                url: "ruleAjax/update/" + ruleNo,
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                },
+                dataType: "text",
+                data: JSON.stringify({
+                    trackId : trackId,
+                    basic : basic,
+                    applied : applied,
+                    industry : industry
+                }),
+                success: function (result) {
+                    if (result == "SUCCESS") {
+                        $('#modal-default').hide("slow");
+                        getAllList();
+                    }
+                }
             });
-        }
+        });
 
         $("#rules").on("click", ".ruleID #deleteRule",function () {
 
@@ -215,6 +205,29 @@
                 }
             });
         });
+
+        function getAllList() {
+            $.getJSON("ruleAjax/list", function (data) {
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<tr class='ruleID'" + " data-rno='" + this.ruleNo + "'>"
+                            + "<td style='text-align:center'>"+ this.ruleNo + "</td>"
+                            + "<td style='text-align:center'>"+ this.univTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.trackTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.ruleTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.basic + "</td>"
+                            + "<td style='text-align:center'>"+ this.applied + "</td>"
+                            + "<td style='text-align:center'>"+ this.industry + "</td>"
+                            + "<td style='text-align:center'>"+ "<button id='updateRule' type='button'" + " class='btn btn-block btn-warning'>" + "수정" + "</button></td>"
+                            + "<td style='text-align:center'>"+ "<button id='deleteRule' type='button'" + " class='btn btn-block btn-danger'>" + "삭제" + "</button></td>"
+                            + "</tr>";
+                    });
+
+                $("#rules").html(str);
+            });
+        }
     });
 </script>
 

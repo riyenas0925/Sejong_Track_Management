@@ -1,14 +1,22 @@
 package kr.ac.sejong.domain;
 
-import javax.inject.Inject;
-
 public class ruleVO {
     private Integer ruleNo;
-    private String univ;
-    private String track;
+    private String univTitle;
+    private String trackTitle;
+    private String ruleTitle;
+    private Integer trackId;
     private Integer basic;
     private Integer applied;
     private Integer industry;
+
+    public String getRuleTitle() {
+        return ruleTitle;
+    }
+
+    public void setRuleTitle(String ruleTitle) {
+        this.ruleTitle = ruleTitle;
+    }
 
     public Integer getRuleNo() {
         return ruleNo;
@@ -18,20 +26,12 @@ public class ruleVO {
         this.ruleNo = ruleNo;
     }
 
-    public String getUniv() {
-        return univ;
+    public Integer getTrackId() {
+        return trackId;
     }
 
-    public void setUniv(String univ) {
-        this.univ = univ;
-    }
-
-    public String getTrack() {
-        return track;
-    }
-
-    public void setTrack(String track) {
-        this.track = track;
+    public void setTrackId(Integer trackId) {
+        this.trackId = trackId;
     }
 
     public Integer getBasic() {
@@ -58,12 +58,30 @@ public class ruleVO {
         this.industry = industry;
     }
 
+    public String getTrackTitle() {
+        return trackTitle;
+    }
+
+    public void setTrackTitle(String trackTitle) {
+        this.trackTitle = trackTitle;
+    }
+
+    public String getUnivTitle() {
+        return univTitle;
+    }
+
+    public void setUnivTitle(String univTitle) {
+        this.univTitle = univTitle;
+    }
+
     @Override
     public String toString() {
         return "ruleVO{" +
                 "ruleNo=" + ruleNo +
-                ", univ='" + univ + '\'' +
-                ", track='" + track + '\'' +
+                ", univTitle='" + univTitle + '\'' +
+                ", trackTitle='" + trackTitle + '\'' +
+                ", ruleTitle='" + ruleTitle + '\'' +
+                ", trackId=" + trackId +
                 ", basic=" + basic +
                 ", applied=" + applied +
                 ", industry=" + industry +

@@ -14,4 +14,6 @@ public interface TrackRuleService {
     public void remove(Integer ruleNo)throws Exception;
 
     public List<ruleVO> listAll() throws Exception;
+
+    public List<ruleVO> listSearch(Integer univNo) throws Exception;
 }

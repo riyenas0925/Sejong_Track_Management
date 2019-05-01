@@ -27,8 +27,7 @@ public class TrackRuleDAOTest {
     public void testCreate() throws Exception{
         Random random = new Random();
         ruleVO rule = new ruleVO();
-        rule.setUniv("소프트웨어융합대학");
-        rule.setTrack("사물인터넷");
+        rule.setTrackId(12);
         rule.setBasic(random.nextInt(20));
         rule.setApplied(random.nextInt(20));
         rule.setIndustry(random.nextInt(20));
@@ -53,17 +52,15 @@ public class TrackRuleDAOTest {
     //전체트랙 출력
     @Test
     public void testAllTrack() throws Exception{
-        logger.info(dao.listAll().toString());
+        logger.info(dao.listSearch(1).toString());
     }
 
     //규칙 수정 테스트
     @Test
     public void testUpdate() throws Exception{
         ruleVO rule = new ruleVO();
-
         rule.setRuleNo(1);
-        rule.setUniv("전자정보통신공학과");
-        rule.setTrack("HCI 관리 평가");
+        rule.setTrackId(12);
         rule.setBasic(9);
         rule.setApplied(9);
         rule.setIndustry(9);

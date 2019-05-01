@@ -52,6 +52,22 @@ public class TrackRuleAjaxController {
         return entity;
     }
 
+    @GetMapping("/list/{univNo}")
+    public ResponseEntity<List<ruleVO>> listSearch(@PathVariable Integer univNo){
+
+        ResponseEntity<List<ruleVO>> entity = null;
+
+        try {
+            entity = new ResponseEntity<>(service.listSearch(univNo), HttpStatus.OK);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+    }
+
     @PutMapping("/update/{ruleNo}")
     public ResponseEntity<String> update(@PathVariable("ruleNo") Integer ruleNo, @RequestBody ruleVO vo){
         ResponseEntity<String> entity = null;
