@@ -4,18 +4,18 @@ public class ruleVO {
     private Integer ruleNo;
     private String univTitle;
     private String trackTitle;
-    private String ruleTitle;
+    private Integer ruleId;
     private Integer trackId;
     private Integer basic;
     private Integer applied;
     private Integer industry;
 
-    public String getRuleTitle() {
-        return ruleTitle;
+    public Integer getRuleId() {
+        return ruleId;
     }
 
-    public void setRuleTitle(String ruleTitle) {
-        this.ruleTitle = ruleTitle;
+    public void setRuleId(Integer ruleId) {
+        this.ruleId = ruleId;
     }
 
     public Integer getRuleNo() {
@@ -80,7 +80,7 @@ public class ruleVO {
                 "ruleNo=" + ruleNo +
                 ", univTitle='" + univTitle + '\'' +
                 ", trackTitle='" + trackTitle + '\'' +
-                ", ruleTitle='" + ruleTitle + '\'' +
+                ", ruleId='" + ruleId + '\'' +
                 ", trackId=" + trackId +
                 ", basic=" + basic +
                 ", applied=" + applied +
