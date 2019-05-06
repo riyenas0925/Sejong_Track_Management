@@ -15,6 +15,8 @@ public interface TrackRuleDAO {
 
     public List<ruleVO> listAll()throws Exception;
 
+    public List<ruleVO> listSearch(Integer univNo)throws Exception;
+
     public void aiInit(Integer aiNo)throws Exception;
 
 }

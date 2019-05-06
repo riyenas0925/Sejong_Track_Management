@@ -41,6 +41,11 @@ public class TrackRuleDAOImpl implements TrackRuleDAO{
     }
 
     @Override
+    public List<ruleVO> listSearch(Integer univNo)throws Exception{
+        return session.selectList(namespace + ".listSearch", univNo);
+    }
+
+    @Override
     public void aiInit(Integer aiNo) throws Exception{
         session.insert(namespace+".aiInit", aiNo);
     }

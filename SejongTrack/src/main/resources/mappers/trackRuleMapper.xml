@@ -5,20 +5,21 @@
 
 <mapper namespace="kr.ac.sejong.mapper.TrackRuleMapper">
     <insert id="create">
-        insert into tbl_rule (univ, track, basic, applied, industry)
-        values (#{univ}, #{track}, #{basic}, #{applied}, #{industry})
+        insert into tbl_rule (ruleId, trackId, basic, applied, industry)
+        values (#{ruleId}, #{trackId}, #{basic}, #{applied}, #{industry})
     </insert>
 
     <select id="read" resultType="kr.ac.sejong.domain.ruleVO">
         select
-          univ, track, basic, applied, industry
+
+          ruleId, trackId, basic, applied, industry
         from
           tbl_rule
         where ruleNo = #{ruleNo}
     </select>
 
     <update id="update">
-        update tbl_rule set univ=#{univ}, track=#{track}, basic=#{basic}, applied=#{applied}, industry=#{industry}
+        update tbl_rule set trackId=#{trackId}, ruleId=#{ruleId}, basic=#{basic}, applied=#{applied}, industry=#{industry}
         where ruleNo=#{ruleNo}
     </update>
 
@@ -28,12 +29,22 @@
 
     <select id="listAll" resultType="kr.ac.sejong.domain.ruleVO">
         <![CDATA[
-        select
-          ruleNo, univ, track, basic, applied, industry
-        from
-          tbl_rule
-        where ruleNo > 0
-        order by ruleNo desc
+        select tr.ruleNo, tu.univTitle, tt.trackTitle, tr.ruleId, tr.trackId, tr.basic, tr.applied, tr.industry
+        from tbl_rule as tr
+        JOIN tbl_track as tt ON tt.trackNo = tr.trackId
+        JOIN tbl_univ as tu ON tt.univNO = tu.univNo
+        order by trackId asc
+        ]]>
+    </select>
+
+    <select id="listSearch" resultType="kr.ac.sejong.domain.ruleVO">
+        <![CDATA[
+        select tr.ruleNo, tu.univTitle, tt.trackTitle, tr.ruleId, tr.trackId, tr.basic, tr.applied, tr.industry
+        from tbl_rule as tr
+        JOIN tbl_track as tt ON tt.trackNo = tr.trackId
+        JOIN tbl_univ as tu ON tt.univNO = tu.univNo
+        and tt.univNo = #{univNo}
+        order by trackId asc
         ]]>
     </select>
 

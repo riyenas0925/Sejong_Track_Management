@@ -37,4 +37,9 @@ public class TrackRuleServiceImpl implements TrackRuleService {
     public List<ruleVO> listAll() throws Exception{
         return dao.listAll();
     }
+
+    @Override
+    public List<ruleVO> listSearch(Integer univNo) throws Exception{
+        return dao.listSearch(univNo);
+    }
 }
