@@ -31,6 +31,23 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
+                            <h2 class="box-title">대학을 선택하세요</h2>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <select class="form-control selectUniv" id="searchUniv">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
                             <h3 class="box-title">트랙 규칙</h3>
                         </div>
 
@@ -42,7 +59,6 @@
                                     <th style='text-align:center'>#</th>
                                     <th style='text-align:center'>대학</th>
                                     <th style='text-align:center'>트랙</th>
-                                    <th style="text-align: center">규칙</th>
                                     <th style='text-align:center'>기초교과</th>
                                     <th style='text-align:center'>응용교과, 심화교과</th>
                                     <th style='text-align:center'>산학연계</th>
@@ -73,7 +89,7 @@
                             <form>
                                 <label for="univ" class="col-form-label"><b>대학</b></label>
                                 <div class="form-group" id="univ">
-                                    <select class="form-control" id="selectUniv">
+                                    <select class="form-control selectUniv">
                                     </select>
                                 </div>
 
@@ -233,9 +249,67 @@
 <script language="JavaScript">
     $(document).ready(function () {
 
-        getAllList();
+        getSearchList(1);
         getUnivList();
         getTrackList(1);
+
+        function getSearchList(univNo) {
+            $.getJSON("ruleAjax/list/" + univNo, function (data) {
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<tr class='ruleID'" + " data-rno='" + this.ruleNo + "'>"
+                            + "<td style='text-align:center'>"+ this.ruleNo + "</td>"
+                            + "<td style='text-align:center'>"+ this.univTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.trackTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.basic + "</td>"
+                            + "<td style='text-align:center'>"+ this.applied + "</td>"
+                            + "<td style='text-align:center'>"+ this.industry + "</td>"
+                            + "<td style='text-align:center'>"+ "<button id='updateRule' type='button'" + " class='btn btn-block btn-warning' data-toggle='modal' data-target='#modalUpdate'>" + "수정" + "</button></td>"
+                            + "<td style='text-align:center'>"+ "<button id='deleteRule' type='button'" + " class='btn btn-block btn-danger' data-toggle='modal' data-target='#modalDelete'>" + "삭제" + "</button></td>"
+                            + "</tr>";
+                    });
+
+                $("#rules").html(str);
+            });
+        }
+
+        <!-- Track, Univ 조회 기능 -->
+        $('.selectUniv').on('change', function() {
+            var selectUniv = this.value;
+            getTrackList(selectUniv)
+
+            var univNo = $('#searchUniv').val();
+            getSearchList(univNo);
+        });
+
+        function getUnivList() {
+            $.getJSON("uploadAjax/univList", function (data) {  //localhost:8080/uploadAjax/univList 주소 들어가보면 json 형태로 출력됨
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
+                    });
+
+                $(".selectUniv").html(str);
+            });
+        }
+
+        function getTrackList(selectUniv) {
+            $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {
+                var str = "";
+                console.log(data.length);
+
+                $(data).each(
+                    function () {
+                        str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
+                    });
+
+                $("#selectTrack").html(str);
+            });
+        }
 
         $("#registRule").on("click", function () {
             var trackId = $('#selectTrack').val();
@@ -252,16 +326,17 @@
                 },
                 dataType: "text",
                 data: JSON.stringify({
-                   trackId : trackId,
-                   basic : basic,
-                   applied : applied,
-                   industry : industry
+                    trackId : trackId,
+                    basic : basic,
+                    applied : applied,
+                    industry : industry
                 }),
                 success: function (result) {
                     if (result == "SUCCESS") {
                         $('#modalRegist').modal('hide');
                         toastr["success"]("새로운 규칙이 추가되었습니다.");
-                        getAllList();
+                        var univNo = $('#searchUniv').val();
+                        getSearchList(univNo);
                     }
                 }
             });
@@ -302,7 +377,8 @@
                     if (result == "SUCCESS") {
                         $('#modalUpdate').modal('hide');
                         toastr["warning"]("규칙이 수정되었습니다.");
-                        getAllList();
+                        var univNo = $('#searchUniv').val();
+                        getSearchList(univNo);
                     }
                 }
             });
@@ -339,67 +415,12 @@
                     if (result == "SUCCESS") {
                         $('#modalDelete').modal('hide');
                         toastr["error"]("규칙이 삭제되었습니다.");
-                        getAllList();
+                        var univNo = $('#searchUniv').val();
+                        getSearchList(univNo);
                     }
                 }
             });
         })
-
-        function getAllList() {
-            $.getJSON("ruleAjax/list", function (data) {
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<tr class='ruleID'" + " data-rno='" + this.ruleNo + "'>"
-                            + "<td style='text-align:center'>"+ this.ruleNo + "</td>"
-                            + "<td style='text-align:center'>"+ this.univTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.trackTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.ruleId + "</td>"
-                            + "<td style='text-align:center'>"+ this.basic + "</td>"
-                            + "<td style='text-align:center'>"+ this.applied + "</td>"
-                            + "<td style='text-align:center'>"+ this.industry + "</td>"
-                            + "<td style='text-align:center'>"+ "<button id='updateRule' type='button'" + " class='btn btn-block btn-warning' data-toggle='modal' data-target='#modalUpdate'>" + "수정" + "</button></td>"
-                            + "<td style='text-align:center'>"+ "<button id='deleteRule' type='button'" + " class='btn btn-block btn-danger' data-toggle='modal' data-target='#modalDelete'>" + "삭제" + "</button></td>"
-                            + "</tr>";
-                    });
-
-                $("#rules").html(str);
-            });
-        }
-
-        <!-- Track, Univ 조회 기능 -->
-        $('#selectUniv').on('change', function() {
-            var selectUniv = this.value;
-            getTrackList(selectUniv)
-        });
-
-        function getUnivList() {
-            $.getJSON("uploadAjax/univList", function (data) {  //localhost:8080/uploadAjax/univList 주소 들어가보면 json 형태로 출력됨
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
-                    });
-
-                $("#selectUniv").html(str);
-            });
-        }
-
-        function getTrackList(selectUniv) {
-            $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {
-                var str = "";
-                console.log(data.length);
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
-                    });
-
-                $("#selectTrack").html(str);
-            });
-        }
     });
 </script>
 
