@@ -1,5 +1,6 @@
 package kr.ac.sejong.controller;
 
+import kr.ac.sejong.domain.degreeVO;
 import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.service.TrackRuleService;
 import org.slf4j.Logger;
@@ -31,6 +32,22 @@ public class TrackRuleAjaxController {
         }catch (Exception e){
             e.printStackTrace();
             entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+    }
+
+    @GetMapping("/degreeList")
+    public ResponseEntity<List<degreeVO>> degreeList(){
+
+        ResponseEntity<List<degreeVO>> entity = null;
+
+        try {
+            entity = new ResponseEntity<>(service.degreeList(), HttpStatus.OK);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return entity;

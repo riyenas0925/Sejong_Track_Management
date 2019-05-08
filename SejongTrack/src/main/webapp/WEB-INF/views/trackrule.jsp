@@ -59,11 +59,12 @@
                                     <th style='text-align:center'>#</th>
                                     <th style='text-align:center'>대학</th>
                                     <th style='text-align:center'>트랙</th>
+                                    <th style="text-align: center;">학위</th>
                                     <th style='text-align:center'>기초교과</th>
-                                    <th style='text-align:center'>응용교과, 심화교과</th>
+                                    <th style='text-align:center'>응용, 심화교과</th>
                                     <th style='text-align:center'>산학연계</th>
                                     <th style='text-align:center' colspan="2">
-                                        <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#modalRegist">추가</button>
+                                        <button id="registRuleBtn" type="button" class="btn btn-block btn-xs btn-success" data-toggle="modal" data-target="#modalRegist"> 추가</button>
                                     </th>
                                 </tr>
                                 </thead>
@@ -87,11 +88,10 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="univ" class="col-form-label"><b>대학</b></label>
-                                <div class="form-group" id="univ">
-                                    <select class="form-control selectUniv">
-                                    </select>
-                                </div>
+                                <label for="univ-regist" class="col-form-label"><b>트랙</b></label>
+                                <!---예시 value---->
+                                <input type="text" class="form-control" id="univ-regist" value="" readonly>
+                                <br>
 
                                 <label for="track" class="col-form-label"><b>트랙</b></label>
                                 <div class="form-group" id="track">
@@ -185,7 +185,7 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="univ" class="col-form-label"><b>트랙</b></label>
+                                <label for="univ_delete" class="col-form-label"><b>트랙</b></label>
                                 <!---예시 value---->
                                 <input type="text" class="form-control" id="univ_delete" value="" readonly>
                                 <br>
@@ -263,11 +263,12 @@
                             + "<td style='text-align:center'>"+ this.ruleNo + "</td>"
                             + "<td style='text-align:center'>"+ this.univTitle + "</td>"
                             + "<td style='text-align:center'>"+ this.trackTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.degreeTitle + "</td>"
                             + "<td style='text-align:center'>"+ this.basic + "</td>"
                             + "<td style='text-align:center'>"+ this.applied + "</td>"
                             + "<td style='text-align:center'>"+ this.industry + "</td>"
-                            + "<td style='text-align:center'>"+ "<button id='updateRule' type='button'" + " class='btn btn-block btn-warning' data-toggle='modal' data-target='#modalUpdate'>" + "수정" + "</button></td>"
-                            + "<td style='text-align:center'>"+ "<button id='deleteRule' type='button'" + " class='btn btn-block btn-danger' data-toggle='modal' data-target='#modalDelete'>" + "삭제" + "</button></td>"
+                            + "<td style='text-align:center'>"+ "<button id='updateRule' type='button'" + " class='btn btn-xs btn-block btn-warning' data-toggle='modal' data-target='#modalUpdate'>" + '<i class="glyphicon glyphicon-trash"></i>' + " 수정" + "</button></td>"
+                            + "<td style='text-align:center'>"+ "<button id='deleteRule' type='button'" + " class='btn btn-xs btn-block btn-danger' data-toggle='modal' data-target='#modalDelete'>" + '<span class="glyphicon glyphicon-zoom-out"></span>' + " 삭제" + "</button></td>"
                             + "</tr>";
                     });
 
@@ -300,7 +301,6 @@
         function getTrackList(selectUniv) {
             $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {
                 var str = "";
-                console.log(data.length);
 
                 $(data).each(
                     function () {
@@ -310,6 +310,11 @@
                 $("#selectTrack").html(str);
             });
         }
+
+        $("#registRuleBtn").on("click",function () {
+            var univNo = $('#searchUniv').html();
+            $('#univ-regist').attr('value', univNo);
+        });
 
         $("#registRule").on("click", function () {
             var trackId = $('#selectTrack').val();
@@ -335,6 +340,7 @@
                     if (result == "SUCCESS") {
                         $('#modalRegist').modal('hide');
                         toastr["success"]("새로운 규칙이 추가되었습니다.");
+
                         var univNo = $('#searchUniv').val();
                         getSearchList(univNo);
                     }
@@ -383,7 +389,6 @@
                 }
             });
         });
-
 
         $("#rules").on("click", ".ruleID #deleteRule",function () {
             var rule = $(this).parent().parent();
