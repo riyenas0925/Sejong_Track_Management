@@ -29,9 +29,20 @@
                 <div class="col-xs-1">
                 </div>
                 <div class="col-xs-11 col-sm-5" style="padding-top:80px; padding-bottom: 80px">
-                    <p style="font-size:20px;"><b style="font-size:30px;">세종대학교<br>통합 트랙 관리 시스템</b><br><br>
-                        뭐라말하지 뭐 적을말없나<br>아무거토엄서요<br>지금 당장 시작해보세요!</p><br><br>
-                    <a href="${path}/trackAll"><button type="button" class="btn btn-success btn-lg active">세종대학교 트랙 확인하기</button></a>
+                    <p style="font-size:20px;"><b style="font-size:30px;">세종대학교<br>통합 트랙 관리 시스템</b><br><br></p>
+
+                    <div class="row">
+                        <div class="col-md-12" style="margin-bottom:20px;">
+                            <a href="${path}/home"><button class="btn-hover color-1" id="home-btn1">공지사항</button></a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${path}/trackAll"><button class="btn-hover color-3">트랙 통계</button></a>
+                        </div>
+                        <div class="col-md-12">
+                            <a href="${path}/uploadForm"><button class="btn-hover color-4" id="home-btn2">전체 트랙</button></a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="${path}/uploadForm"><button class="btn-hover color-9">트랙 조회</button></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
