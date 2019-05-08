@@ -80,6 +80,13 @@
             box-shadow:0 0 0 .2rem rgba(52,58,64,.5)
         }
     </style>
+
+    <script>
+        function go(text){
+            location.href = text;
+            target: _self;
+        }
+    </script>
 </head>
 
 <body class="hold-transition skin-black sidebar-mini">

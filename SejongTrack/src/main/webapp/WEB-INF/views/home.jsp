@@ -13,23 +13,27 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                세종대학교 트랙 홈페이지
+                트랙 관리 프로그램
                 <small>Sejong univ Track</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-                <li class="active">Home</li>
-            </ol>
         </section>
-
+        <br><br>
         <%-- Main content --%>
         <section class="content container-fluid">
-            <%--------------------------
-              | Your Page Content Here |
-              --------------------------%>
+            <div class="row">
+                <div class="col-sm-6" style="text-align: center;">
+                    <img src="../dist/img/home_img1.png" width="80%">
+                </div>
+                <div class="col-xs-1">
+                </div>
+                <div class="col-xs-11 col-sm-5" style="padding-top:80px; padding-bottom: 80px">
+                    <p style="font-size:20px;"><b style="font-size:30px;">세종대학교<br>통합 트랙 관리 시스템</b><br><br>
+                        뭐라말하지 뭐 적을말없나<br>아무거토엄서요<br>지금 당장 시작해보세요!</p><br><br>
+                    <a href="${path}/trackAll"><button type="button" class="btn btn-success btn-lg active">세종대학교 트랙 확인하기</button></a>
+                </div>
+            </div>
         </section>
         <%-- /.content --%>
     </div>
