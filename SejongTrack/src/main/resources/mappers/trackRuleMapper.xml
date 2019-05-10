@@ -40,7 +40,7 @@
 
     <select id="listSearch" resultType="kr.ac.sejong.domain.ruleVO">
         <![CDATA[
-        select tr.ruleNo, tu.univTitle, tt.trackTitle, td.degreeTitle, tr.ruleId, tr.basic, tr.applied, tr.industry
+        select tr.ruleNo, tu.univTitle, tt.trackTitle, td.degreeTitle, tr.ruleId, tr.basic, tr.applied, tr.industry, tr.trackId
         from tbl_rule as tr
             JOIN tbl_track as tt ON tt.trackNo = tr.trackId
             JOIN tbl_univ as tu ON tt.univNO = tu.univNo

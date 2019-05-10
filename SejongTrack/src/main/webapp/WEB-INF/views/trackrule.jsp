@@ -88,14 +88,19 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="univ-regist" class="col-form-label"><b>트랙</b></label>
-                                <!---예시 value---->
+                                <label for="univ-regist" class="col-form-label"><b>대학</b></label>
                                 <input type="text" class="form-control" id="univ-regist" value="" readonly>
                                 <br>
 
                                 <label for="track" class="col-form-label"><b>트랙</b></label>
                                 <div class="form-group" id="track">
                                     <select class="form-control" id="selectTrack">
+                                    </select>
+                                </div>
+
+                                <label for="track" class="col-form-label"><b>학위</b></label>
+                                <div class="form-group" id="degree">
+                                    <select class="form-control selectDegree" id="degreeRegist">
                                     </select>
                                 </div>
 
@@ -144,8 +149,14 @@
 
                                 <label for="track-update" class="col-form-label"><b>트랙</b></label>
                                 <!---예시 value---->
-                                <input type="text" class="form-control" id="track-update" value="" readonly>
+                                <input type="text" class="form-control" id="track-update" data-trackId="" value="" readonly>
                                 <br>
+
+                                <label for="track" class="col-form-label"><b>학위</b></label>
+                                <div class="form-group" id="degree-update">
+                                    <select class="form-control selectDegree" id="degreeUpdate">
+                                    </select>
+                                </div>
 
                                 <label for="credit-update" class="col-form-label"><b>학점</b></label>
 
@@ -252,6 +263,7 @@
         getSearchList(1);
         getUnivList();
         getTrackList(1);
+        getDegreeList();
 
         function getSearchList(univNo) {
             $.getJSON("ruleAjax/list/" + univNo, function (data) {
@@ -267,6 +279,8 @@
                             + "<td style='text-align:center'>"+ this.basic + "</td>"
                             + "<td style='text-align:center'>"+ this.applied + "</td>"
                             + "<td style='text-align:center'>"+ this.industry + "</td>"
+                            + "<td style='text-align:center;display:none;'>"+ this.ruleId + "</td>"
+                            + "<td style='text-align:center;display:none;'>"+ this.trackId + "</td>"
                             + "<td style='text-align:center'>"+ "<button id='updateRule' type='button'" + " class='btn btn-xs btn-block btn-warning' data-toggle='modal' data-target='#modalUpdate'>" + '<i class="glyphicon glyphicon-trash"></i>' + " 수정" + "</button></td>"
                             + "<td style='text-align:center'>"+ "<button id='deleteRule' type='button'" + " class='btn btn-xs btn-block btn-danger' data-toggle='modal' data-target='#modalDelete'>" + '<span class="glyphicon glyphicon-zoom-out"></span>' + " 삭제" + "</button></td>"
                             + "</tr>";
@@ -311,6 +325,19 @@
             });
         }
 
+        function getDegreeList() {
+            $.getJSON("ruleAjax/degreeList", function (data) {
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<option value='" + this.degreeId + "'>" + this.degreeTitle + "</option>"
+                    });
+
+                $(".selectDegree").html(str);
+            });
+        }
+
         $("#registRuleBtn").on("click",function () {
             var univNo = $('#searchUniv').html();
             $('#univ-regist').attr('value', univNo);
@@ -318,6 +345,7 @@
 
         $("#registRule").on("click", function () {
             var trackId = $('#selectTrack').val();
+            var ruleId = $('#degreeRegist').val();
             var basic = $("#basic").val();
             var applied = $("#applied").val();
             var industry = $("#industry").val();
@@ -332,6 +360,7 @@
                 dataType: "text",
                 data: JSON.stringify({
                     trackId : trackId,
+                    ruleId : ruleId,
                     basic : basic,
                     applied : applied,
                     industry : industry
@@ -353,15 +382,19 @@
             var ruleNo = rule.attr("data-rno");
             var td = rule.children();
 
+            console.log(td.eq(8).text());
+
             $('#univ-update').attr('value', td.eq(1).text());
             $('#track-update').attr('value', td.eq(2).text());
+            $('#track-update').attr('data-trackId', td.eq(8).text());
             $('.modal-title').attr('id', ruleNo);
         });
 
         $("#updateRuleBtn").on('click', function () {
             var ruleNo = $('.modal-title').attr('id');
-            var trackId = $('#selectTrack').val();
-            var basic = $("#basic-update").val();
+            var trackId = $('#track-update').attr('data-trackId');
+            var ruleId = $('#degreeUpdate').val();
+            var basic = $('#basic-update').val();
             var applied = $("#applied-update").val();
             var industry = $("#industry-update").val();
 
@@ -375,6 +408,7 @@
                 dataType: "text",
                 data: JSON.stringify({
                     trackId : trackId,
+                    ruleId : ruleId,
                     basic : basic,
                     applied : applied,
                     industry : industry
