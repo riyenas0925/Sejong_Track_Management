@@ -11,12 +11,18 @@
   <!--DataSource, MyBatis 설정 xml 경로-->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/spring-config/applicationContext.xml</param-value>
+    <param-value>
+      /WEB-INF/spring-config/applicationContext.xml
+    </param-value>
   </context-param>
 
   <!--리스너-->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>kr.ac.sejong.common.VisitSessionListener</listener-class>
   </listener>
 
   <!--servlet dispatcher 설정 xml 경로-->
@@ -57,6 +63,16 @@
   </filter>
   <filter-mapping>
     <filter-name>hiddenHttpMethodFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>deviceResolverRequestFilter</filter-name>
+    <filter-class>org.springframework.mobile.device.DeviceResolverRequestFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>deviceResolverRequestFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 

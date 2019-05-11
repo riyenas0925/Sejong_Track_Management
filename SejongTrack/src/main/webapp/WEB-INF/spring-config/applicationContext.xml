@@ -21,6 +21,7 @@
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
     </bean>
 
+    <bean id="visitCountDAO" class="kr.ac.sejong.persistence.VisitCountDAOImpl"></bean>
 
     <context:component-scan base-package="kr.ac.sejong"></context:component-scan>
 
