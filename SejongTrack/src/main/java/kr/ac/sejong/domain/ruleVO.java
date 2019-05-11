@@ -4,6 +4,7 @@ public class ruleVO {
     private Integer ruleNo;
     private String univTitle;
     private String trackTitle;
+    private String degreeTitle;
     private Integer ruleId;
     private Integer trackId;
     private Integer basic;
@@ -74,12 +75,21 @@ public class ruleVO {
         this.univTitle = univTitle;
     }
 
+    public String getDegreeTitle() {
+        return degreeTitle;
+    }
+
+    public void setDegreeTitle(String degreeTitle) {
+        this.degreeTitle = degreeTitle;
+    }
+
     @Override
     public String toString() {
         return "ruleVO{" +
                 "ruleNo=" + ruleNo +
                 ", univTitle='" + univTitle + '\'' +
                 ", trackTitle='" + trackTitle + '\'' +
+                ", degreeTitle=" + degreeTitle +
                 ", ruleId='" + ruleId + '\'' +
                 ", trackId=" + trackId +
                 ", basic=" + basic +

@@ -29,26 +29,36 @@
 
     <select id="listAll" resultType="kr.ac.sejong.domain.ruleVO">
         <![CDATA[
-        select tr.ruleNo, tu.univTitle, tt.trackTitle, tr.ruleId, tr.trackId, tr.basic, tr.applied, tr.industry
+        select tr.ruleNo, tu.univTitle, (select concat_ws(' - ', td.degreeTitle, tt.trackTitle)) as trackTitle, tr.ruleId, tr.basic, tr.applied, tr.industry
         from tbl_rule as tr
-        JOIN tbl_track as tt ON tt.trackNo = tr.trackId
-        JOIN tbl_univ as tu ON tt.univNO = tu.univNo
-        order by trackId asc
+              JOIN tbl_track as tt ON tt.trackNo = tr.trackId
+              JOIN tbl_univ as tu ON tt.univNO = tu.univNo
+              JOIN tbl_degree as td ON tr.ruleId = td.degreeId
+        order by trackId asc;
         ]]>
     </select>
 
     <select id="listSearch" resultType="kr.ac.sejong.domain.ruleVO">
         <![CDATA[
-        select tr.ruleNo, tu.univTitle, tt.trackTitle, tr.ruleId, tr.trackId, tr.basic, tr.applied, tr.industry
+        select tr.ruleNo, tu.univTitle, tt.trackTitle, td.degreeTitle, tr.ruleId, tr.basic, tr.applied, tr.industry, tr.trackId
         from tbl_rule as tr
-        JOIN tbl_track as tt ON tt.trackNo = tr.trackId
-        JOIN tbl_univ as tu ON tt.univNO = tu.univNo
-        and tt.univNo = #{univNo}
-        order by trackId asc
+            JOIN tbl_track as tt ON tt.trackNo = tr.trackId
+            JOIN tbl_univ as tu ON tt.univNO = tu.univNo
+            JOIN tbl_degree as td ON tr.ruleId = td.degreeId
+            and tt.univNo = #{univNo}
+        order by trackId asc, trackTitle asc;
         ]]>
     </select>
 
     <insert id="aiInit">
         ALTER TABLE tbl_rule AUTO_INCREMENT=#{aiNo}
     </insert>
+
+    <select id="degreeList" resultType="kr.ac.sejong.domain.degreeVO">
+        select
+          *
+        from
+          tbl_degree
+        where degreeNo > 0
+    </select>
 </mapper>

@@ -88,4 +88,9 @@ public class TrackRuleDAOTest {
     public void testAiInit() throws Exception{
         dao.aiInit(1);
     }
+
+    @Test
+    public void degreeList() throws Exception{
+        logger.info(dao.degreeList().toString());
+    }
 }

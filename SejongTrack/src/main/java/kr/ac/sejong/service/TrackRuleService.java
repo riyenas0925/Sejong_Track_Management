@@ -1,5 +1,6 @@
 package kr.ac.sejong.service;
 
+import kr.ac.sejong.domain.degreeVO;
 import kr.ac.sejong.domain.ruleVO;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface TrackRuleService {
     public List<ruleVO> listAll() throws Exception;
 
     public List<ruleVO> listSearch(Integer univNo) throws Exception;
+
+    public List<degreeVO> degreeList() throws Exception;
 }

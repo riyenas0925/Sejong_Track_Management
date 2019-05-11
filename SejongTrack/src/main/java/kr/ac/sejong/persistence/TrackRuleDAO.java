@@ -1,5 +1,6 @@
 package kr.ac.sejong.persistence;
 
+import kr.ac.sejong.domain.degreeVO;
 import kr.ac.sejong.domain.ruleVO;
 
 import java.util.List;
@@ -19,4 +20,5 @@ public interface TrackRuleDAO {
 
     public void aiInit(Integer aiNo)throws Exception;
 
+    public List<degreeVO> degreeList()throws Exception;
 }

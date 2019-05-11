@@ -1,5 +1,6 @@
 package kr.ac.sejong.persistence;
 
+import kr.ac.sejong.domain.degreeVO;
 import kr.ac.sejong.domain.ruleVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -48,5 +49,10 @@ public class TrackRuleDAOImpl implements TrackRuleDAO{
     @Override
     public void aiInit(Integer aiNo) throws Exception{
         session.insert(namespace+".aiInit", aiNo);
+    }
+
+    @Override
+    public List<degreeVO> degreeList()throws Exception{
+        return session.selectList(namespace + ".degreeList");
     }
 }

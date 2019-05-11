@@ -1,5 +1,6 @@
 package kr.ac.sejong.service;
 
+import kr.ac.sejong.domain.degreeVO;
 import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.persistence.TrackRuleDAO;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,10 @@ public class TrackRuleServiceImpl implements TrackRuleService {
     @Override
     public List<ruleVO> listSearch(Integer univNo) throws Exception{
         return dao.listSearch(univNo);
+    }
+
+    @Override
+    public List<degreeVO> degreeList() throws Exception{
+        return dao.degreeList();
     }
 }
