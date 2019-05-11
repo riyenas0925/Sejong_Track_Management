@@ -55,18 +55,18 @@
                         <div class="box-body">
                             <table class="table table-bordered">
                                 <thead>
-                                <tr>
-                                    <th style='text-align:center'>#</th>
-                                    <th style='text-align:center'>대학</th>
-                                    <th style='text-align:center'>트랙</th>
-                                    <th style="text-align: center;">학위</th>
-                                    <th style='text-align:center'>기초교과</th>
-                                    <th style='text-align:center'>응용, 심화교과</th>
-                                    <th style='text-align:center'>산학연계</th>
-                                    <th style='text-align:center' colspan="2">
-                                        <button id="registRuleBtn" type="button" class="btn btn-block btn-xs btn-success" data-toggle="modal" data-target="#modalRegist"> 추가</button>
-                                    </th>
-                                </tr>
+                                    <tr>
+                                        <th style='text-align:center'>#</th>
+                                        <th style='text-align:center'>대학</th>
+                                        <th style='text-align:center'>트랙</th>
+                                        <th style="text-align: center;">학위</th>
+                                        <th style='text-align:center'>기초교과</th>
+                                        <th style='text-align:center'>응용, 심화교과</th>
+                                        <th style='text-align:center'>산학연계</th>
+                                        <th style='text-align:center' colspan="2">
+                                            <button id="registRuleBtn" type="button" class="btn btn-block btn-xs btn-success" data-toggle="modal" data-target="#modalRegist"><i class="glyphicon glyphicon-pencil"></i> 추가</button>
+                                        </th>
+                                    </tr>
                                 </thead>
 
                                 <tbody id="rules">
@@ -104,21 +104,20 @@
                                     </select>
                                 </div>
 
-                                <label for="credit" class="col-form-label"><b>학점</b></label>
-
+                                <label for="credit-regist" class="col-form-label"><b>학점</b></label>
                                 <div class="container" id="credit-regist">
                                     <div class="row">
                                         <div class="col-sm-2">
                                             기초교과<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="basic">
+                                            <input type="number" class="form-control" placeholder="학점" min="0" id="basic-regist">
                                         </div>
                                         <div class="col-sm-2">
                                             응용교과<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="applied">
+                                            <input type="number" class="form-control" placeholder="학점" min="0" id="applied-regist">
                                         </div>
                                         <div class="col-sm-2">
                                             산학연계<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="industry">
+                                            <input type="number" class="form-control" placeholder="학점" min="0" id="industry-regist">
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +141,7 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="univ-update" class="col-form-label"><b>트랙</b></label>
+                                <label for="univ-update" class="col-form-label"><b>대학</b></label>
                                 <!---예시 value---->
                                 <input type="text" class="form-control" id="univ-update" value="" readonly>
                                 <br>
@@ -196,7 +195,7 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <label for="univ_delete" class="col-form-label"><b>트랙</b></label>
+                                <label for="univ_delete" class="col-form-label"><b>대학</b></label>
                                 <!---예시 value---->
                                 <input type="text" class="form-control" id="univ_delete" value="" readonly>
                                 <br>
@@ -207,13 +206,12 @@
                                 <br>
 
 
-                                <label for="division" class="col-form-label"><b>구분</b></label><br>
+                                <label for="degree_delete" class="col-form-label"><b>학위</b></label><br>
                                 <!---예시 value---->
-                                <input type="text" class="form-control" id="division" value="학사" readonly>
+                                <input type="text" class="form-control" id="degree_delete" value="" readonly>
                                 <br>
 
                                 <label for="credit" class="col-form-label"><b>학점</b></label>
-
                                 <div class="container" id="credit">
                                     <div class="row">
                                         <div class="col-sm-2">
@@ -260,95 +258,24 @@
 <script language="JavaScript">
     $(document).ready(function () {
 
-        getSearchList(1);
         getUnivList();
-        getTrackList(1);
-        getDegreeList();
-
-        function getSearchList(univNo) {
-            $.getJSON("ruleAjax/list/" + univNo, function (data) {
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<tr class='ruleID'" + " data-rno='" + this.ruleNo + "'>"
-                            + "<td style='text-align:center'>"+ this.ruleNo + "</td>"
-                            + "<td style='text-align:center'>"+ this.univTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.trackTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.degreeTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.basic + "</td>"
-                            + "<td style='text-align:center'>"+ this.applied + "</td>"
-                            + "<td style='text-align:center'>"+ this.industry + "</td>"
-                            + "<td style='text-align:center;display:none;'>"+ this.ruleId + "</td>"
-                            + "<td style='text-align:center;display:none;'>"+ this.trackId + "</td>"
-                            + "<td style='text-align:center'>"+ "<button id='updateRule' type='button'" + " class='btn btn-xs btn-block btn-warning' data-toggle='modal' data-target='#modalUpdate'>" + '<i class="glyphicon glyphicon-trash"></i>' + " 수정" + "</button></td>"
-                            + "<td style='text-align:center'>"+ "<button id='deleteRule' type='button'" + " class='btn btn-xs btn-block btn-danger' data-toggle='modal' data-target='#modalDelete'>" + '<span class="glyphicon glyphicon-zoom-out"></span>' + " 삭제" + "</button></td>"
-                            + "</tr>";
-                    });
-
-                $("#rules").html(str);
-            });
-        }
-
-        <!-- Track, Univ 조회 기능 -->
-        $('.selectUniv').on('change', function() {
-            var selectUniv = this.value;
-            getTrackList(selectUniv)
-
-            var univNo = $('#searchUniv').val();
-            getSearchList(univNo);
-        });
-
-        function getUnivList() {
-            $.getJSON("uploadAjax/univList", function (data) {  //localhost:8080/uploadAjax/univList 주소 들어가보면 json 형태로 출력됨
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
-                    });
-
-                $(".selectUniv").html(str);
-            });
-        }
-
-        function getTrackList(selectUniv) {
-            $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
-                    });
-
-                $("#selectTrack").html(str);
-            });
-        }
-
-        function getDegreeList() {
-            $.getJSON("ruleAjax/degreeList", function (data) {
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.degreeId + "'>" + this.degreeTitle + "</option>"
-                    });
-
-                $(".selectDegree").html(str);
-            });
-        }
 
         $("#registRuleBtn").on("click",function () {
-            var univNo = $('#searchUniv').html();
-            $('#univ-regist').attr('value', univNo);
+            var univNo = $('#searchUniv').val();
+            var univName = $("#searchUniv option:selected").text();
+
+            $('#univ-regist').attr('value', univName);
+
+            getTrackList(univNo);
+            getDegreeList();
         });
 
         $("#registRule").on("click", function () {
             var trackId = $('#selectTrack').val();
             var ruleId = $('#degreeRegist').val();
-            var basic = $("#basic").val();
-            var applied = $("#applied").val();
-            var industry = $("#industry").val();
+            var basic = $("#basic-regist").val();
+            var applied = $("#applied-regist").val();
+            var industry = $("#industry-regist").val();
 
             $.ajax({
                 type: "post",
@@ -370,8 +297,7 @@
                         $('#modalRegist').modal('hide');
                         toastr["success"]("새로운 규칙이 추가되었습니다.");
 
-                        var univNo = $('#searchUniv').val();
-                        getSearchList(univNo);
+                        getSearchList();
                     }
                 }
             });
@@ -382,7 +308,7 @@
             var ruleNo = rule.attr("data-rno");
             var td = rule.children();
 
-            console.log(td.eq(8).text());
+            getDegreeList();
 
             $('#univ-update').attr('value', td.eq(1).text());
             $('#track-update').attr('value', td.eq(2).text());
@@ -417,8 +343,8 @@
                     if (result == "SUCCESS") {
                         $('#modalUpdate').modal('hide');
                         toastr["warning"]("규칙이 수정되었습니다.");
-                        var univNo = $('#searchUniv').val();
-                        getSearchList(univNo);
+
+                        getSearchList();
                     }
                 }
             });
@@ -431,6 +357,7 @@
 
             $('#univ_delete').attr('value', td.eq(1).text());
             $('#track_delete').attr('value', td.eq(2).text());
+            $('#degree_delete').attr('value', td.eq(3).text());
             $('#basic-delete').attr('value', td.eq(4).text());
             $('#applied-delete').attr('value', td.eq(5).text());
             $('#industry-delete').attr('value', td.eq(6).text());
@@ -454,12 +381,89 @@
                     if (result == "SUCCESS") {
                         $('#modalDelete').modal('hide');
                         toastr["error"]("규칙이 삭제되었습니다.");
-                        var univNo = $('#searchUniv').val();
-                        getSearchList(univNo);
+
+                        getSearchList();
                     }
                 }
             });
         })
+
+        <!-- Track, Univ 조회 기능 -->
+        $('.selectUniv').on('change', function() {
+            var univNo = $('#searchUniv').val();
+
+            getSearchList(univNo);
+        });
+
+        function getUnivList() {
+            $.getJSON("uploadAjax/univList", function (data) {
+                var str = "<option value='-1'>- 대학 선택 -</option>";
+
+                $(data).each(
+                    function () {
+                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
+                    });
+
+                $(".selectUniv").html(str);
+            });
+        }
+
+        function getTrackList(selectUniv) {
+            $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {
+                var str = "<option value='-1'>- 트랙 선택 -</option>";
+
+                $(data).each(
+                    function () {
+                        str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
+                    });
+
+                $("#selectTrack").html(str);
+            });
+        }
+
+        function getDegreeList() {
+            $.getJSON("ruleAjax/degreeList", function (data) {
+                var str = "<option value='-1'>- 학위 선택 -</option>";
+
+                $(data).each(
+                    function () {
+                        str += "<option value='" + this.degreeId + "'>" + this.degreeTitle + "</option>"
+                    });
+
+                $(".selectDegree").html(str);
+            });
+        }
+
+        function getSearchList() {
+            var univNo = $('#searchUniv').val();
+
+            $.getJSON("ruleAjax/list/" + univNo, function (data) {
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<tr class='ruleID'" + " data-rno='" + this.ruleNo + "'>"
+                            + "<td style='text-align:center'>"+ this.ruleNo + "</td>"
+                            + "<td style='text-align:center'>"+ this.univTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.trackTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.degreeTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.basic + "</td>"
+                            + "<td style='text-align:center'>"+ this.applied + "</td>"
+                            + "<td style='text-align:center'>"+ this.industry + "</td>"
+                            + "<td style='text-align:center;display:none;'>"+ this.ruleId + "</td>"
+                            + "<td style='text-align:center;display:none;'>"+ this.trackId + "</td>"
+                            + "<td style='text-align:center'>"
+                            + "<button id='updateRule' type='button'" + " class='btn btn-xs btn-block btn-warning' data-toggle='modal' data-target='#modalUpdate'>"
+                            + '<i class="glyphicon glyphicon-repeat"></i>' + " 수정" + "</button></td>"
+                            + "<td style='text-align:center'>"
+                            + "<button id='deleteRule' type='button'" + " class='btn btn-xs btn-block btn-danger' data-toggle='modal' data-target='#modalDelete'>"
+                            + '<i class="glyphicon glyphicon-trash"></i>' + " 삭제" + "</button></td>"
+                            + "</tr>";
+                    });
+
+                $("#rules").html(str);
+            });
+        }
     });
 </script>
 
