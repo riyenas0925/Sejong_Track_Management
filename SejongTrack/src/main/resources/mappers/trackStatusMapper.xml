@@ -20,4 +20,16 @@
             SELECT count(*) FROM tbl_visitor;
         ]]>
     </select>
+
+    <select id="list" resultType="kr.ac.sejong.domain.visitorVO">
+        SELECT * FROM tbl_visitor;
+    </select>
+
+    <select id="deviceGraph" resultType="kr.ac.sejong.domain.graphVO">
+        select device as name, count(*) as num from tbl_visitor group by device;
+    </select>
+
+    <select id="browserGraph" resultType="kr.ac.sejong.domain.graphVO">
+        select browser as name, count(*) as num from tbl_visitor group by browser;
+    </select>
 </mapper>

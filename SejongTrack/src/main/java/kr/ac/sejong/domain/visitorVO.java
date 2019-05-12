@@ -3,6 +3,7 @@ package kr.ac.sejong.domain;
 import java.sql.Timestamp;
 
 public class visitorVO {
+    private Integer visitorNo;
     private String ip;
     private String device;
     private String browser;
@@ -57,6 +58,14 @@ public class visitorVO {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public Integer getVisitorNo() {
+        return visitorNo;
+    }
+
+    public void setVisitorNo(Integer visitorNo) {
+        this.visitorNo = visitorNo;
     }
 
     @Override

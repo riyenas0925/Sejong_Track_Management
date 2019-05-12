@@ -21,7 +21,6 @@
             <small>Sejong univ Track</small>
         </h1>
     </section>
-    <br><br>
     <%-- Main content --%>
     <section class="content container-fluid">
         <div class="row">
@@ -29,7 +28,7 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3 id="today"></h3>
 
                         <p>오늘 접속자 수</p>
                     </div>
@@ -43,7 +42,7 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>53</h3>
+                        <h3 id="total"></h3>
 
                         <p>전체 접속자 수</p>
                     </div>
@@ -57,8 +56,7 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>44</h3>
-
+                        <h3 id="todayTrack"></h3>
                         <p>오늘 트랙 현황 조회 수</p>
                     </div>
                     <div class="icon">
@@ -71,8 +69,7 @@
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>65</h3>
-
+                        <h3 id="allTrack"></h3>
                         <p>전체 트랙 현황 조회 수</p>
                     </div>
                     <div class="icon">
@@ -84,125 +81,44 @@
         </div>
         <!-- /.row -->
         <!-- Main row -->
+         <div class="row">
+            <div class="col-md-6">
+                <!-- AREA CHART -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
 
-        <section class="content">
-            <div class="row">
-                <div class="col-md-6" style="padding:0;">
-                    <!-- AREA CHART -->
-                    <div class="box box-primary">
-                        <div class="box-body">
-                            <div class="chart">
-                                <canvas id="areaChart" style="height:250px"></canvas>
-                            </div>
+                        <h3 class="box-title">주간 접속자</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
-                        <!-- /.box-body -->
                     </div>
-                    <!-- /.box -->
-                </div>
-                <div class="col-md-6" style="padding:0;">
-                    <!-- DONUT CHART -->
-                    <div class="box box-danger">
-                        <div class="box-body">
-                            <canvas id="pieChart" style="height:250px"></canvas>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="areaChart" style="height:250px"></canvas>
                         </div>
-                        <!-- /.box-body -->
                     </div>
-                    <!-- /.box -->
+                    <!-- /.box-body -->
                 </div>
+                <!-- /.box -->
             </div>
-    </section>
+            <div class="col-md-6">
+                <!-- DONUT CHART -->
+                <div class="box box-danger">
+                    <div class="box-body">
+                        <canvas id="pieChart" style="height:250px"></canvas>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
     <%-- /.content --%>
 </div>
 <%-- /.content-wrapper --%>
-
-<script>
-    var config = {
-        type: 'line',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                label: 'Unfilled',
-                fill: false,
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
-            }, {
-                label: 'Dashed',
-                fill: false,
-                backgroundColor: window.chartColors.green,
-                borderColor: window.chartColors.green,
-                borderDash: [5, 5],
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
-            }, {
-                label: 'Filled',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
-                fill: true,
-            }]
-        },
-        options: {
-            responsive: true,
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart'
-            },
-            tooltips: {
-                mode: 'index',
-                intersect: false,
-            },
-            hover: {
-                mode: 'nearest',
-                intersect: true
-            },
-            scales: {
-                xAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Month'
-                    }
-                }],
-                yAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Value'
-                    }
-                }]
-            }
-        }
-    };
-
-    window.onload = function() {
-        var ctx = document.getElementById('areaChart').getContext('2d');
-        window.myLine = new Chart(ctx, config);
-    };
-</script>
 
 <%-- Main Footer --%>
 <%@ include file="include/main-footer.jsp" %>
@@ -220,4 +136,96 @@
         -ms-user-select: none;
     }
 </style>
+
+<script language="JavaScript">
+    $(document).ready(function () {
+        getCount();
+
+        function getCount() {
+
+            $.getJSON("/statusAjax/count", function (data) {
+                var str = "";
+
+                $("#today").text(data[0]);
+                $("#total").text(data[1]);
+                $("#todayTrack").text(data[2]);
+                $("#allTrack").text(data[3]);
+            });
+        }
+
+        setInterval(getCount, 1000);
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: '오늘 접속자 수',
+                    fill: false,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor()
+                    ],
+                }, {
+                    label: '오늘 트랙 현황 조회 수',
+                    fill: false,
+                    backgroundColor: window.chartColors.orange,
+                    borderColor: window.chartColors.orange,
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor()
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: false,
+                    text: 'Chart.js Line Chart'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: false,
+                            labelString: 'Day'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: false,
+                            labelString: 'Count'
+                        }
+                    }]
+                }
+            }
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById('areaChart').getContext('2d');
+            window.myLine = new Chart(ctx, config);
+        };
+    });
+</script>
 </html>

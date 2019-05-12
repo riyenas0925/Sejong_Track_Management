@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,6 +20,7 @@ public class VisitCountDAOTest {
     private static final Logger logger = LoggerFactory.getLogger(VisitCountDAOTest.class);
 
     @Inject
+    @Qualifier("VisitCountDAO")
     private VisitCountDAO dao;
 
     @Test
@@ -28,5 +30,8 @@ public class VisitCountDAOTest {
         dao.visitorCreate(vo);
     }
 
-
+    @Test
+    public void list() throws Exception{
+        logger.info(dao.list().toString());
+    }
 }
