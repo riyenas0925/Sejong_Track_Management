@@ -16,4 +16,5 @@ public class HomeController {
         logger.info("home called.........");
         return "home";
     }
+
 }

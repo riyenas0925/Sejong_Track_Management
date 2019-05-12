@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ac.sejong.mapper.trackStatusMapper">
+    <insert id="createVisitor">
+        insert into tbl_visitor (device, browser, os, ip)
+        value (#{device}, #{browser}, #{os}, #{ip})
+    </insert>
+
+    <select id="todayCount" resultType="Integer">
+        <![CDATA[
+            SELECT count(*) FROM tbl_visitor WHERE DAYOFMONTH(date) = DAYOFMONTH(now());
+        ]]>
+    </select>
+
+    <select id="totalCount" resultType="Integer">
+        <![CDATA[
+            SELECT count(*) FROM tbl_visitor;
+        ]]>
+    </select>
+
+    <select id="list" resultType="kr.ac.sejong.domain.visitorVO">
+        SELECT * FROM tbl_visitor;
+    </select>
+
+    <select id="deviceGraph" resultType="kr.ac.sejong.domain.graphVO">
+        select device as name, count(*) as num from tbl_visitor group by device;
+    </select>
+
+    <select id="browserGraph" resultType="kr.ac.sejong.domain.graphVO">
+        select browser as name, count(*) as num from tbl_visitor group by browser;
+    </select>
+</mapper>
