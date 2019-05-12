@@ -16,4 +16,9 @@ public class HomeController {
         logger.info("home called.........");
         return "home";
     }
+
+    @RequestMapping("/visitor")
+    public String student(){
+        return "visitor";
+    }
 }
