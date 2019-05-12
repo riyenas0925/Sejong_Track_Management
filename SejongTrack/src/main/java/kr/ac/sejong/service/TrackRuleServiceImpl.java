@@ -25,6 +25,12 @@ public class TrackRuleServiceImpl implements TrackRuleService {
     }
 
     @Override
+    public ruleVO readRule(Integer degree, Integer trackNo)throws Exception{
+        return dao.readRule(degree, trackNo);
+    }
+
+
+    @Override
     public void update(ruleVO rule) throws Exception{
         dao.update(rule);
     }

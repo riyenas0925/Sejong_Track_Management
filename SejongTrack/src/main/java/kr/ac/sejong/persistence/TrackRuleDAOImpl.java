@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TrackRuleDAOImpl implements TrackRuleDAO{
@@ -24,6 +26,17 @@ public class TrackRuleDAOImpl implements TrackRuleDAO{
     @Override
     public ruleVO read(Integer ruleNo) throws Exception{
         return session.selectOne(namespace+".read", ruleNo);
+    }
+
+    @Override
+    public ruleVO readRule(Integer degree, Integer trackNo)throws Exception{
+
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        params.put("degree", degree);
+        params.put("trackNo", trackNo);
+
+        return session.selectOne(namespace + ".readRule", params);
     }
 
     @Override

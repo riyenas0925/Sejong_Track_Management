@@ -27,6 +27,9 @@ public class UploadResultServiceImpl implements UploadResultService{
     @Inject
     private UploadResultService service;
 
+    @Inject
+    private TrackRuleService trackRuleService;
+
     @Override
     public ruleVO readRule(Integer ruleNo) throws Exception{
         return dao.readRule(ruleNo);
@@ -140,7 +143,7 @@ public class UploadResultServiceImpl implements UploadResultService{
 
         for(int i=0; i < resultTrackList.size(); i++){
             HashMap<String, List<trackSubjectVO>> standList = service.resultListSub(myList, service.readSub(resultTrackList.get(i).getTrackNo()));
-            ruleVO rule = service.readRule(resultTrackList.get(i).getTrackNo());
+            ruleVO rule = trackRuleService.readRule(1, resultTrackList.get(i).getTrackNo());
 
             Integer totalPercent = 0;
             Integer ruleTotal = rule.getApplied() + rule.getBasic();

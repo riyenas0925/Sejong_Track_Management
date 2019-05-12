@@ -11,11 +11,19 @@
 
     <select id="read" resultType="kr.ac.sejong.domain.ruleVO">
         select
-
           ruleId, trackId, basic, applied, industry
         from
           tbl_rule
-        where ruleNo = #{ruleNo}
+        where trackId = #{ruleNo}
+    </select>
+
+    <select id="readRule" parameterType="hashmap" resultType="kr.ac.sejong.domain.ruleVO">
+        select tr.ruleNo, tu.univTitle, tt.trackTitle, td.degreeTitle , tr.ruleId, tr.basic, tr.applied, tr.industry
+        from tbl_rule as tr
+               JOIN tbl_track as tt ON tt.trackNo = tr.trackId
+               JOIN tbl_univ as tu ON tt.univNO = tu.univNo
+               JOIN tbl_degree as td ON tr.ruleId = td.degreeId
+        where ruleId = #{degree} and trackId = #{trackNo}
     </select>
 
     <update id="update">
