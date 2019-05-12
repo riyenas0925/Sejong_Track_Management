@@ -10,6 +10,8 @@ public interface TrackRuleService {
 
     public ruleVO read(Integer ruleNo)throws Exception;
 
+    public ruleVO readRule(Integer degree, Integer trackNo)throws Exception;
+
     public void update(ruleVO rule)throws Exception;
 
     public void remove(Integer ruleNo)throws Exception;

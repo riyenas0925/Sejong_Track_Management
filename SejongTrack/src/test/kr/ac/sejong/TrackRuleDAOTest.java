@@ -93,4 +93,9 @@ public class TrackRuleDAOTest {
     public void degreeList() throws Exception{
         logger.info(dao.degreeList().toString());
     }
+
+    @Test
+    public void test() throws Exception{
+        logger.info(dao.readRule(1,10).toString());
+    }
 }

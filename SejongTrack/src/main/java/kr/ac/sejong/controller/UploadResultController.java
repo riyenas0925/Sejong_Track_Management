@@ -1,8 +1,10 @@
 package kr.ac.sejong.controller;
 
 import kr.ac.sejong.domain.resultTrackVO;
+import kr.ac.sejong.domain.ruleVO;
 import kr.ac.sejong.domain.subjectVO;
 import kr.ac.sejong.domain.trackSubjectVO;
+import kr.ac.sejong.service.TrackRuleService;
 import kr.ac.sejong.service.UploadResultService;
 
 import org.slf4j.Logger;
@@ -30,15 +32,19 @@ public class UploadResultController {
     @Inject
     private UploadResultService service;
 
+    @Inject
+    private TrackRuleService trackRuleService;
+
     @GetMapping("uploadResult")
     public void uploadResult(Integer univNo, Integer trackNo, Model model, HttpSession httpSession)throws Exception{
         List<subjectVO> mySubList = service.readMySub((MultipartFile)httpSession.getAttribute("file"));
         List<trackSubjectVO> trackList = service.readSub(trackNo);
 
         HashMap<String, List<trackSubjectVO>> resultAllMap = service.resultListSub(mySubList, trackList);
+        ruleVO rule = trackRuleService.readRule(1, trackNo);
 
         model.addAttribute("resultAllMap", resultAllMap);
-        model.addAttribute("rule", service.readRule(trackNo));
+        model.addAttribute("rule", rule);
     }
 
     @PostMapping("uploadResult")

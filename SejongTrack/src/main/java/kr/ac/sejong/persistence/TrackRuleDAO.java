@@ -10,6 +10,8 @@ public interface TrackRuleDAO {
 
     public ruleVO read(Integer ruleNo)throws Exception;
 
+    public ruleVO readRule(Integer degree, Integer trackNo)throws Exception;
+
     public void update(ruleVO vo)throws Exception;
 
     public void delete(Integer ruleNo)throws Exception;

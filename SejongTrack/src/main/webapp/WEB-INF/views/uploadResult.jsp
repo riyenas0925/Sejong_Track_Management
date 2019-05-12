@@ -33,7 +33,7 @@
                 <div class="col-md-6">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title"><c:out value="${rule.track}"/> 트랙 이수 현황</h3>
+                            <h3 class="box-title"><c:out value="${rule.trackTitle}"/> 트랙 이수 현황</h3>
                         </div>
                         <div class="box-body">
                             <table class="table table-bordered"> <!--선택한 트랙 정보-->
@@ -48,8 +48,8 @@
                                 </thead>
 
                                 <tr>
-                                    <td id="univNo"><c:out value="${rule.univ}"/></td>
-                                    <td><c:out value="${rule.track}"/></td>
+                                    <td id="univNo"><c:out value="${rule.univTitle}"/></td>
+                                    <td><c:out value="${rule.trackTitle}"/></td>
                                     <td><c:out value="${resultAllMap.passCredit[0].credit}"/> / <c:out value="${rule.basic}"/> <small>(학점)</small></td>
                                     <td><c:out value="${resultAllMap.passCredit[1].credit}"/> / <c:out value="${rule.applied}"/> <small>(학점)</small></td>
                                     <td><c:out value="${resultAllMap.passCredit[2].credit}"/> / <c:out value="${rule.industry}"/> <small>(학점)</small></td>
