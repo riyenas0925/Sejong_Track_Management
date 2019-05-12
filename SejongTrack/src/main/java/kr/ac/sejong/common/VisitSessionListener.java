@@ -19,10 +19,9 @@ public class VisitSessionListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent arg0) {
         try {
-
             HttpSession session = arg0.getSession();
             WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(session.getServletContext());
-            VisitCountDAO visitCountDAO = (VisitCountDAO)wac.getBean("visitCountDAO");
+            VisitCountDAO visitCountDAO = (VisitCountDAO)wac.getBean("VisitCountDAO");
 
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 
@@ -34,6 +33,12 @@ public class VisitSessionListener implements HttpSessionListener {
             visitorVO vo = new visitorVO(ip, device, agent, os);
             System.out.println(vo.toString());
             visitCountDAO.visitorCreate(vo);
+
+            Integer todayCount = visitCountDAO.todayCount();
+            Integer totalCount = visitCountDAO.totalCount();
+
+            session.setAttribute("totalCount", totalCount);
+            session.setAttribute("todayCount", todayCount);
         }
         catch (Exception e){
             e.printStackTrace();

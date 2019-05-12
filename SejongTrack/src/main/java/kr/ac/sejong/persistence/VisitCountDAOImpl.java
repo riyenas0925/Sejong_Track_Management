@@ -19,4 +19,14 @@ public class VisitCountDAOImpl implements VisitCountDAO{
     public void visitorCreate(visitorVO vo)throws Exception{
         session.insert(namespace+".createVisitor", vo);
     }
+
+    @Override
+    public Integer todayCount()throws Exception{
+        return session.selectOne(namespace + ".todayCount");
+    }
+
+    @Override
+    public Integer totalCount()throws Exception{
+        return session.selectOne(namespace + ".totalCount");
+    }
 }

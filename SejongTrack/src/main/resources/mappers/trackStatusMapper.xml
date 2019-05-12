@@ -8,4 +8,16 @@
         insert into tbl_visitor (device, browser, os, ip)
         value (#{device}, #{browser}, #{os}, #{ip})
     </insert>
+
+    <select id="todayCount" resultType="Integer">
+        <![CDATA[
+            SELECT count(*) FROM tbl_visitor WHERE DAYOFMONTH(date) = DAYOFMONTH(now());
+        ]]>
+    </select>
+
+    <select id="totalCount" resultType="Integer">
+        <![CDATA[
+            SELECT count(*) FROM tbl_visitor;
+        ]]>
+    </select>
 </mapper>
