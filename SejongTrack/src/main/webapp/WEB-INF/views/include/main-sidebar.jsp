@@ -29,58 +29,27 @@
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="treeview active">
-                <a href="#">
-                    <i class="fa fa-home"></i>
-                    <span>HOME</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="${path}/"><i class="fa fa-circle-o"></i> Home</a></li>
-                    <li><a href="${path}"><i class="fa fa-circle-o"></i> 공지사항</a></li>
-                </ul>
-            </li>
+            <li class="header">공지</li>
+            <li><a href="${path}/"><i class="fa  fas fa-home"></i><span>Home</span></a></li>
+            <li><a href="${path}"><i class="fa fas fa-bullhorn"></i><span>공지사항</span></a></li>
+            <li>
 
-            <li class="treeview active">
-                <a href="#">
-                    <i class="fa fa-search"></i>
-                    <span>Sejong Track</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="${path}/trackAll"><i class="fa fa-circle-o"></i> 전체 트랙 보기</a></li>
-                    <li><a href="${path}/uploadForm"><i class="fa fa-circle-o"></i> 트랙 현황 조회</a></li>
-                </ul>
-            </li>
+            <li class="header">Sejong Track</li>
+            <li><a href="${path}/trackAll"><i class="fa  fas fa-sitemap"></i><span>전체 트랙 보기</span></a></li>
+            <li><a href="${path}/uploadForm"><i class="fa fas fa-search"></i><span>트랙 현황 조회</span></a></li>
+            <li>
 
-            <li class="treeview active">
-                <a href="#">
-                    <i class="fa fa-pie-chart"></i>
-                    <span>통계</span>
+            <li class="header">관리자</li>
+            <li><a href="${path}/trackrule"><i class="fa fas fa-cogs"></i><span>트랙 규칙 추가 및 수정</span></a></li>
+            <li class="treeview">
+                <a href="#"><i class="fa far fa-bar-chart"></i> 트랙 통계
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="${path}/visitor"><i class="fa fa-circle-o"></i> 접속자 통계</a></li>
-                    <li><a href="${path}"><i class="fa fa-circle-o"></i> 학생 통계</a></li>
-                </ul>
-            </li>
-
-            <li class="treeview active">
-                <a href="#">
-                    <i class="fa fa-cogs"></i>
-                    <span>관리자</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="${path}/trackrule"><i class="fa fa-circle-o"></i> 트랙 규칙 추가 및 수정</a></li>
+                    <li><a href="${path}/student"><i class="fa fa-circle-o"></i> 학생 통계</a></li>
                 </ul>
             </li>
         </ul>

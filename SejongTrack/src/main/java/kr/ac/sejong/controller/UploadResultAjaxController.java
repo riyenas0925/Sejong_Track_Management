@@ -50,7 +50,11 @@ public class UploadResultAjaxController {
         List<subjectVO> mySubList = uploadResultService.readMySub((MultipartFile)httpSession.getAttribute("file"));
 
         try {
-            entity = new ResponseEntity<>(uploadResultService.resultTrackList(univNo, mySubList), HttpStatus.OK);
+            if(httpSession.getAttribute("resultList") == null){
+                httpSession.setAttribute("resultList", uploadResultService.resultTrackList(univNo, mySubList));
+            }
+
+            entity = new ResponseEntity<>((List<resultTrackVO>)httpSession.getAttribute("resultList") , HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();

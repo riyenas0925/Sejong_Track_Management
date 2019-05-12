@@ -50,5 +50,6 @@ public class UploadResultController {
     @PostMapping("uploadResult")
     public void uploadResult(MultipartFile file, Model model, HttpSession httpSession)throws Exception{
         httpSession.setAttribute("file", file);
+        httpSession.removeAttribute("resultList");
     }
 }
