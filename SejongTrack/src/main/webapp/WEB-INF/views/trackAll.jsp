@@ -53,11 +53,13 @@
                         </div>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover" id="trackTbl">
-                            <!--여기임-->
-                        </table>
-                        <div id="test"></div>
+                    <div class="box-body">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover" id="trackTbl">
+                                <!--여기임-->
+                            </table>
+                            <div id="test"></div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>

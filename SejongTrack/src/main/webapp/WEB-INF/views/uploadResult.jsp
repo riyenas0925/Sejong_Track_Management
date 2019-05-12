@@ -78,25 +78,26 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <!--box-->
+                        <div class="row">
+                            <div class="col-md-4" id="div-1">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">기초교과</h4>
 
-                            <!--구분선-->
-                            <hr align="center" size="10" width="100%" id="hrColor" noshade style="background-color:#d2d6de;border-color:#d2d6de;">
-
-                            <small>※ 과목에 마우스를 올리시면, 해당 과목의 상세정보를 알 수 있습니다.</small><br>
-                            <table class="table table-bordered" style="margin-top:0;">
-                                <tr>
-                                   <td colspan="2"><div class="box-header" style="margin:0;padding:0;"><h3 class="box-title" style="margin:0;padding:0;">자신의 트랙 이수 현황</h3></div></td>
-                                </tr>
-
-                                <tr>
-                                    <td><!--자신의 기초 과목 현황 -->
-                                        <table class="table table-bordered">
-                                            <thead>
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fa fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <table class="table table-bordered" style="width:100%;">
                                             <tr>
-                                                <th><li style="list-style:square;">기초 이수 과목</li></th>
+                                                <th><li style="list-style:square;">기초 이수</li></th>
                                             </tr>
-                                            </thead>
-
+                                            <!--기초교과 이수-->
                                             <c:forEach items="${resultAllMap.passBasicList}" var="subject">
                                                 <tr>
                                                     <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
@@ -104,31 +105,37 @@
                                                 </tr>
                                             </c:forEach>
 
-                                            <thead>
                                             <tr>
-                                                <th><li style="list-style:square;">기초 미이수 과목</li></th>
+                                                <th><li style="list-style:square;">기초 미이수</li></th>
                                             </tr>
-                                            </thead>
 
-
+                                            <!--기초교과 미이수-->
                                             <c:forEach items="${resultAllMap.nonPassBasicList}" var="subject">
                                                 <tr>
                                                     <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
                                                         <c:out value="${subject.courseTitle}"/>(<c:out value="${subject.credit}"/>)</td>
                                                 </tr>
                                             </c:forEach>
-
                                         </table>
-                                    </td>
+                                    </div>
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                            <div class="col-md-4" id="div-2">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">응용교과</h4>
 
-                                    <td> <!--자신의 응용 과목 현황-->
-                                        <table class="table table-bordered">
-                                            <thead>
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fa fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <table class="table table-bordered" style="width:100%">
                                             <tr>
-                                                <th><li style="list-style:square;">응용 이수 과목</li></th>
-                                            </tr>
-                                            </thead>
-
+                                                <th><li style="list-style:square;">응용 이수</li></th>
+                                           </tr>
                                             <c:forEach items="${resultAllMap.passAppliedList}" var="subject">
                                                 <tr>
                                                     <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
@@ -136,27 +143,28 @@
                                                 </tr>
                                             </c:forEach>
 
-
-
-                                            <thead>
-                                                <tr>
-                                                    <th><li style="list-style:square;">응용 미이수 과목</li></th>
-                                                </tr>
-                                            </thead>
+                                            <tr>
+                                                <th><li style="list-style:square;">응용 미이수</li></th>
+                                            </tr>
 
                                             <c:forEach items="${resultAllMap.nonPassAppliedList}" var="subject">
-                                                <tr>
-                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
-                                                        <c:out value="${subject.courseTitle}"/>(<c:out value="${subject.credit}"/>)</td>
-                                                </tr>
+                                            <tr>
+                                                <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
+                                                    <c:out value="${subject.courseTitle}"/>(<c:out value="${subject.credit}"/>)</td>
+                                            </tr>
                                             </c:forEach>
 
                                         </table>
-                                    </td>
-                                </tr>
-                            </table>
+                                    </div>
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                            <div class="col-md-4" id="div-3">
+                                <!--산학부분임 컨트롤러만들어야 뭘하든말든하지만 나는 지금 하기 싫고 잘래-->
+                            </div>
                         </div>
-                    </div>
+
+                    <!-- /.box -->
                 </div><!-- 선택한 트랙 -->
 
                 <!-- 전체 트랙 -->
@@ -202,6 +210,13 @@
 <script language="JavaScript">
 
     $(document).ready(function () {
+        var div1="소프트웨어융합대학";
+        var div2='<c:out value="${rule.univTitle}"/>';
+        if( div1 == div2 ){
+            $("#div-1").attr('class','col-md-6');
+            $("#div-2").attr('class','col-md-6');
+            $("#div-3").removeClass("div-3");
+        }
 
         getAllResult();
 
