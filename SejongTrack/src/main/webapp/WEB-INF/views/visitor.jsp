@@ -97,7 +97,7 @@
                     </div>
                     <div class="box-body">
                         <div class="chart">
-                            <canvas id="areaChart" style="height:250px"></canvas>
+                            <canvas id="areaChart"></canvas>
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -110,7 +110,7 @@
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
 
-                        <h3 class="box-title">브라우저</h3>
+                        <h3 class="box-title">접속 브라우저, 디바이스</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -151,7 +151,9 @@
 
 <script language="JavaScript">
     $(document).ready(function () {
+
         getCount();
+        setTimeout(getDevice, 0);
 
         function getCount() {
 
@@ -164,36 +166,88 @@
                 $("#allTrack").text(data[3]);
             });
         }
+
+        function getDevice() {
+            var chartArray = new Array();
+
+            $.getJSON("/statusAjax/device", function (data) {
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        chartArray.push(this.num);
+                    });
+
+                getBrowser(chartArray);
+            });
+        }
+
+        function getBrowser(chartArray) {
+            $.getJSON("/statusAjax/browser", function (data) {
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        chartArray.push(this.num);
+                    });
+
+                updateChart(chartArray);
+            });
+        }
+
+        function updateChart(chartArray) {
+            window.myDoughnut.data = {
+                datasets: [{
+                    data: [
+                        0,
+                        0,
+                        0,
+                        0,
+                        chartArray[4],
+                        chartArray[5],
+                        chartArray[6],
+                        chartArray[7],
+                        chartArray[8],
+                        chartArray[9],
+                    ],
+                    backgroundColor: [
+                        window.chartColors.yellow,
+                        window.chartColors.green,
+                        window.chartColors.blue,
+                        window.chartColors.grey,
+                        window.chartColors.orange,
+                        window.chartColors.purple,
+                        window.chartColors.yellow,
+                        window.chartColors.blue,
+                        window.chartColors.green,
+                        window.chartColors.grey,
+                    ],
+                    label: 'Dataset 2'
+                },{
+                    data: [ chartArray[0], chartArray[1], chartArray[2], chartArray[3], 0, 0, 0, 0, 0, 0, ],
+                    backgroundColor: [
+                        window.chartColors.yellow,
+                        window.chartColors.green,
+                        window.chartColors.blue,
+                        window.chartColors.grey,
+                        window.chartColors.orange,
+                        window.chartColors.purple,
+                        window.chartColors.yellow,
+                        window.chartColors.blue,
+                        window.chartColors.green,
+                        window.chartColors.grey,
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: ['Phone', 'PC', 'Tablet', 'unknown', 'Android', 'Chrome', 'iPhone', 'MSIE', 'opera', 'unknown',]
+            };
+
+            window.myDoughnut.update();
+        }
     });
 
     var Doughnutconfig = {
         type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                ],
-                backgroundColor: [
-                    window.chartColors.red,
-                    window.chartColors.orange,
-                    window.chartColors.yellow,
-                    window.chartColors.green,
-                    window.chartColors.blue,
-                ],
-                label: 'Dataset 1'
-            }],
-            labels: [
-                'Red',
-                'Orange',
-                'Yellow',
-                'Green',
-                'Blue'
-            ]
-        },
         options: {
             responsive: true,
             legend: {
