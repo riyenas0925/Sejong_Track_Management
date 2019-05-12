@@ -13,42 +13,6 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!--오른쪽 하단 nav-->
-        <div class="nav-rb1">
-            <button type="button" class="btn-nav1" data-toggle="modal" data-target="#modal-default">
-                전체트랙
-            </button>
-        </div>
-        <div class="nav-rb2">
-            <button type="button" class="btn-nav2" data-toggle="modal" data-target="#modal-default">
-                도움말
-            </button>
-        </div>
-
-        <!--도움말 modal-->
-        <div class="modal fade" id="modal-default">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Default Modal</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>One fine body&hellip;</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-
-
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
