@@ -13,6 +13,42 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <!--오른쪽 하단 nav-->
+        <div class="nav-rb1">
+            <button type="button" class="btn-nav1" data-toggle="modal" data-target="#modal-default">
+                전체트랙
+            </button>
+        </div>
+        <div class="nav-rb2">
+            <button type="button" class="btn-nav2" data-toggle="modal" data-target="#modal-default">
+                도움말
+            </button>
+        </div>
+
+        <!--도움말 modal-->
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Default Modal</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body&hellip;</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
@@ -27,6 +63,27 @@
 
         <%-- Main content --%>
         <section class="content container-fluid">
+            <div class="row" style="margin-top:10px;margin-bottom:10px;">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="callout callout-danger">
+                                <h4>파일 형식은 xls입니다.</h4>
+
+                                <p>조회하고자 하는 파일의 형식이 .xls 파일인지 확인하세요.<br>트랙 조회 시스템은 xls 파일만 가능합니다.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="callout callout-danger">
+                                <h4>학사정보에서 기이수성적파일을 다운받으세요.</h4>
+
+                                <p>학사정보시스템에서 제공하는 기이수 성적 파일만을 이용합니다.<br>자세한 방법은 오른쪽 하단 도움말 버튼에 있습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
@@ -34,27 +91,43 @@
                             <h3 class="box-title">기이수 성적 업로드</h3>
                         </div>
 
-                        <div class="box-body">
-                            <div class="form-group">
-                                <select id="selectUniv" class="form-control">
-                                    <option value="">소속대학 선택</option>
-                                </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="box-body">
+                                    <div style="background-color:#d2d6de; padding:5px; padding-left:10px;">
+                                        <h4><b>트랙 조회 시스템</b></h4>
+
+                                        <p>트랙 조회 시스템은 사용자의 기이수 과목 목록으로 조회합니다.<br>현재 수강 과목은 반영되지 않으니 참고하시기 바랍니다.</p>
+                                    </div><br>
+
+                                    <div class="form-group">
+                                        <select id="selectUniv" class="form-control">
+                                            <option value="">소속대학 선택</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select id="selectTrack" class="form-control">
+                                            <option value="">트랙 선택</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <select id="selectTrack" class="form-control">
-                                    <option value="">트랙 선택</option>
-                                </select>
-                            </div>
-
-                            <div class="fileDrop" style="cursor:pointer">
-                                <input type="file" name="file" id="file" class="inputfile" />
-                                <label for="file" id="uploadText"><img src="../dist/img/파일선택.png" width="100px;"></label>
+                            <div class="col-md-6">
+                                <div class="box-body">
+                                    <div class="fileDrop" style="cursor:pointer">
+                                        <input type="file" name="file" id="file" class="inputfile" />
+                                        <label for="file" id="uploadText"><img src="../dist/img/파일선택.png" width="100px;"></label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- 스크롤 박스 약관동의 -->
+
                         <div class="box-footer">
-                            <button id="result" type="submit" class="btn btn-primary">Submit</button>
+                            <button id="result" type="submit" class="btn btn-success">조회</button>
                         </div>
                     </div>
                 </div>
@@ -205,6 +278,8 @@
         font-size: 2em;
         font-style : oblique;
         color : grey;
+        width:100%;
+        cursor:pointer;
     }
 
     .inputfile {
