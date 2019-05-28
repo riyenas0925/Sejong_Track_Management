@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="customAccessDenied"
+          class="kr.ac.sejong.security.CustomAccessDeniedHandler"></bean>
+
+    <security:http>
+        <security:form-login/>
+
+        <security:intercept-url pattern="/trackAll"
+                                access="permitAll" />
+
+        <security:intercept-url
+                pattern="/uploadForm" access="hasRole('ROLE_ADMIN')" />
+
+        <security:intercept-url
+                pattern="/trackrule" access="hasRole('ROLE_MANAGE')"/>
+
+        <security:form-login login-page="/customLogin"/>
+
+        <security:access-denied-handler
+                ref="customAccessDenied" />
+
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="member" password="{noop}member" authorities="ROLE_MANAGE, ROLE_ADMIN"></security:user> <!--관리자-->
+                <security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN"></security:user> <!--일반사용자-->
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>
