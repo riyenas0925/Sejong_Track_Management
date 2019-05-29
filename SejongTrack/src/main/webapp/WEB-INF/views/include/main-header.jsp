@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <%-- Main Header --%>
 <header class="main-header">
@@ -17,38 +18,14 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
 
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Alexander Pierce</span>
-                    </a>
+        <div class="navbar-custom-menu" style="margin:6px;">
+            <sec:authorize access="isAnonymous()">
+                <a href="${CONTEXT }/customLogin" class="btn btn-default btn-flat">로그인</a>
+            </sec:authorize>
 
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                            <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
-                            </p>
-                        </li>
-
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <sec:authorize access="isAuthenticated()">
+                <a href="${CONTEXT }/customLogout" class="btn btn-default btn-flat">로그아웃</a>
+            </sec:authorize>
         </div>
     </nav>
 </header>

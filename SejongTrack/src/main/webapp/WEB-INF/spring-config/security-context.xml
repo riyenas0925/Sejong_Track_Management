@@ -8,30 +8,34 @@
     <bean id="customAccessDenied"
           class="kr.ac.sejong.security.CustomAccessDeniedHandler"></bean>
 
-    <security:http>
-        <security:form-login/>
+    <bean id="customLoginSuccess" class="kr.ac.sejong.security.CustomLoginSuccessHandler"></bean>
+    <security:http auto-config="true" use-expressions="true">
 
         <security:intercept-url pattern="/trackAll"
                                 access="permitAll" />
 
         <security:intercept-url
-                pattern="/uploadForm" access="hasRole('ROLE_ADMIN')" />
+                pattern="/uploadForm" access="hasRole('ROLE_MEMBER')" />
 
         <security:intercept-url
-                pattern="/trackrule" access="hasRole('ROLE_MANAGE')"/>
+                pattern="/trackrule" access="hasRole('ROLE_M')"/>
 
-        <security:form-login login-page="/customLogin"/>
+        <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+
+        <security:logout logout-url="/customLogout" invalidate-session="true"/>
 
         <security:access-denied-handler
                 ref="customAccessDenied" />
 
+        <!-- <security:csrf disabled="true"/> -->
     </security:http>
 
     <security:authentication-manager>
         <security:authentication-provider>
             <security:user-service>
-                <security:user name="member" password="{noop}member" authorities="ROLE_MANAGE, ROLE_ADMIN"></security:user> <!--관리자-->
-                <security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN"></security:user> <!--일반사용자-->
+                <security:user name="manage" password="{noop}manage" authorities="ROLE_MANAGE, ROLE_M"></security:user> <!--관리자-->
+                <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER, ROLE_M"></security:user> <!--DB에 추가된 학생-->
+                <security:user name="nomember" password="{noop}nomember" authorities="ROLE_NOMEMBER"></security:user> <!--DB에 추가되지 않은 학생-->
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>

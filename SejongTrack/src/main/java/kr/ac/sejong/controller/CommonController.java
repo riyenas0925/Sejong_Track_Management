@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -28,7 +29,7 @@ public class CommonController {
         logger.info("logout: " + logout);
 
         if (error != null) {
-            model.addAttribute("error", "Login Error Check Your Account");
+            model.addAttribute("error", "로그인에 실패하였습니다.");
         }
 
         if (logout != null) {
@@ -36,4 +37,20 @@ public class CommonController {
         }
     }
 
+    @RequestMapping("/join")
+    public String join(){
+        logger.info("join.........");
+        return "join";
+    }
+
+    @GetMapping("/customLogout")
+    public void logoutGET(){
+        logger.info("logout........");
+    }
+
+    @PostMapping("/customLogout")
+    public void logoutPost() {
+
+        logger.info("post custom logout");
+    }
 }

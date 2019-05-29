@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <%-- Left side column. contains the logo and sidebar --%>
 <aside class="main-sidebar">
@@ -8,11 +9,43 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <sec:authorize access="isAnonymous()">
+                    <img src="dist/img/login_icon.png" class="img-circle" alt="User Image">
+                </sec:authorize>
+
+                <sec:authorize access="hasRole('ROLE_MEMBER')">
+                    <img src="dist/img/student_icon.png" class="img-circle" alt="User Image">
+                </sec:authorize>
+
+                <sec:authorize access="hasRole('ROLE_NOMEMBER')">
+                    <img src="dist/img/student_icon.png" class="img-circle" alt="User Image">
+                </sec:authorize>
+
+                <sec:authorize access="hasRole('ROLE_MANAGE')">
+                    <img src="dist/img/manager_icon.png" class="img-circle" alt="User Image">
+                </sec:authorize>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <sec:authorize access="isAnonymous()">
+                    <p>미로그인시 <br> 서비스 이용이 <br> 불가능합니다.</p>
+                </sec:authorize>
+
+                <sec:authorize access="isAuthenticated()">
+                    <p>??? 님</p>
+                </sec:authorize>
+
+
+                <sec:authorize access="hasRole('ROLE_MANAGE')">
+                    <a href="#"><i class="fa fa-circle text-success"></i> 관리자</a>
+                </sec:authorize>
+
+                <sec:authorize access="hasRole('ROLE_MEMBER')">
+                    <a href="#"><i class="fa fa-circle text-success"></i> 학생</a>
+                </sec:authorize>
+
+                <sec:authorize access="hasRole('ROLE_NOMEMBER')">
+                    <a href="#"><i class="fa fa-circle text-success"></i> 미가입</a>
+                </sec:authorize>
             </div>
         </div>
 

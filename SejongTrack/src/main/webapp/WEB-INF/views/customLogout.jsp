@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -37,32 +36,18 @@
     <div class="login-logo">
         <a href="/"><b>Sejong</b>Track</a>
     </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">학사정보시스템의 ID/PW와 동일합니다.<br>학번과 자신의 비밀번호를 입력하세요.</p>
-        <h5 style="color:red;"><c:out value="${error}"/></h5>
-        <h5 style="color:red;"><c:out value="${logout}"/></h5>
-        <form method='post' action="/login">
-                <div class="form-group has-feedback">
-                    <input type="text" class="form-control" name="username" placeholder="ID">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control" name="password" placeholder="Password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
 
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                    </div>
-                    <!-- /.col -->
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <div class="login-box-body" style="text-align: center;">
+        <h2>ex)이경은 님</h2>
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-xs-12" style="text-align:center;">
+                <form action="/customLogout" method='post'>
+                    <input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+                    <button class="btn bg-purple margin">로그아웃</button>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
     <!-- /.login-box-body -->
 </div>
@@ -74,14 +59,5 @@
 <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="../../plugins/iCheck/icheck.min.js"></script>
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
-        });
-    });
-</script>
 </body>
 </html>
