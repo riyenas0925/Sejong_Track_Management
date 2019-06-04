@@ -22,7 +22,7 @@ import java.util.List;
 public class TrackStatusAjaxController {
 
     @Inject
-    @Qualifier("VisitCountDAO")
+    //@Qualifier("VisitCountDAO")
     private VisitCountDAO dao;
 
     @GetMapping("/list")
