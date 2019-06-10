@@ -22,6 +22,8 @@ public class Degree {
 
     private String degreeTitle;
 
+    /*
     @OneToMany(mappedBy = "degree", cascade = CascadeType.ALL)
     List<Rule> rules;
+    */
 }

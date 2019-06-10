@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_track")
 @EqualsAndHashCode(of = "trackId")
-@ToString
+@ToString(exclude = {"univ","trackSubjects"})
 public class Track {
 
     @Id
@@ -25,12 +25,16 @@ public class Track {
     private Long trackNo;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "univId")
     Univ univ;
 
     @OneToMany(mappedBy = "track")
+    @JsonIgnore
     List<TrackSubject> trackSubjects;
 
+    /*
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
     List<Rule> rules;
+    */
 }
