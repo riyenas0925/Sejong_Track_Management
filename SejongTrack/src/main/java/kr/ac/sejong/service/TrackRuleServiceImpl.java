@@ -1,8 +1,8 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.degreeVO;
-import kr.ac.sejong.domain.ruleVO;
-import kr.ac.sejong.persistence.TrackRuleDAO;
+import kr.ac.sejong.domain_jpa.Rule;
+import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
+import kr.ac.sejong.persistence_jpa.RuleRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -12,46 +12,42 @@ import java.util.List;
 public class TrackRuleServiceImpl implements TrackRuleService {
 
     @Inject
-    private TrackRuleDAO dao;
+    private RuleRepository ruleRepository;
 
+    /*
     @Override
-    public void regist(ruleVO rule) throws Exception{
-        dao.create(rule);
-    }
-
-    @Override
-    public ruleVO read(Integer ruleNo) throws Exception{
-        return dao.read(ruleNo);
+    public Optional<Rule> read(Long ruleId) throws Exception{
+        return ruleRepository.findById(ruleId);
     }
 
     @Override
     public ruleVO readRule(Integer degree, Integer trackNo)throws Exception{
-        return dao.readRule(degree, trackNo);
+        return ruleRepository.findByRuleId(ruleId);
     }
-
+    */
 
     @Override
-    public void update(ruleVO rule) throws Exception{
-        dao.update(rule);
-    }
+    public void regist(Rule rule) throws Exception{
 
-    @Override
-    public void remove(Integer ruleNo) throws Exception{
-        dao.delete(ruleNo);
     }
 
     @Override
-    public List<ruleVO> listAll() throws Exception{
-        return dao.listAll();
+    public void update(Rule rule) throws Exception{
+
     }
 
     @Override
-    public List<ruleVO> listSearch(Integer univNo) throws Exception{
-        return dao.listSearch(univNo);
+    public void delete(Long ruleId) throws Exception{
+        ruleRepository.deleteById(ruleId);
     }
 
     @Override
-    public List<degreeVO> degreeList() throws Exception{
-        return dao.degreeList();
+    public List<UnivTrackRuleDegreeJoinDto> findRules() throws Exception{
+        return ruleRepository.findRules();
+    }
+
+    @Override
+    public List<UnivTrackRuleDegreeJoinDto> findByUnivId(Long univId) throws Exception{
+        return ruleRepository.findByUnivId(univId);
     }
 }

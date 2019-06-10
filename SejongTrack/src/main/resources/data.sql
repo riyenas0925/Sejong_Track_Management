@@ -1,0 +1,50 @@
+INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "Univ1");
+INSERT INTO tbl_univ(univNo, univTitle) VALUES (1001, "Univ2");
+
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2000, "Track1", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2001, "Track2", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2002, "Track3", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2003, "Track4", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2004, "Track5", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2005, "Track6", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2006, "Track7", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2007, "Track8", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2008, "Track9", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2009, "Track10", 2);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2000, "Track11", 2);
+
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3000, "Subject1");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3001, "Subject2");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3002, "Subject3");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3003, "Subject4");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3004, "Subject5");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3005, "Subject6");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3006, "Subject7");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3007, "Subject8");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3008, "Subject9");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3009, "Subject10");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3010, "Subject11");
+INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3011, "Subject12");
+
+INSERT INTO tbl_degree(degreeTitle) VALUES ("degree1");
+INSERT INTO tbl_degree(degreeTitle) VALUES ("degree2");
+INSERT INTO tbl_degree(degreeTitle) VALUES ("degree3");
+INSERT INTO tbl_degree(degreeTitle) VALUES ("degree4");
+
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,1);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,2);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,3);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,4);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,5);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,6);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,7);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,8);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,9);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,10);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,2,10);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,3,10);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,4,10);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,1,11);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,2,11);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,3,11);
+INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,4,11);
