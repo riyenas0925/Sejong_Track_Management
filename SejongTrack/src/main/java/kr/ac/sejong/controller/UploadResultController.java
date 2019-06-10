@@ -41,10 +41,10 @@ public class UploadResultController {
         List<trackSubjectVO> trackList = service.readSub(trackNo);
 
         HashMap<String, List<trackSubjectVO>> resultAllMap = service.resultListSub(mySubList, trackList);
-        ruleVO rule = trackRuleService.readRule(1, trackNo);
+        //ruleVO rule = trackRuleService.readRule(1, trackNo);
 
         model.addAttribute("resultAllMap", resultAllMap);
-        model.addAttribute("rule", rule);
+        //model.addAttribute("rule", rule);
     }
 
     @PostMapping("uploadResult")
