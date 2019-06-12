@@ -5,26 +5,38 @@ import lombok.Data;
 
 @Data
 public class UnivTrackRuleDegreeJoinDto {
+    private Long univNo;
     private String univTitle;
-    private Long ruleId;
-    private String trackTitle;
+
+    private Long trackId;
     private Long trackNo;
+    private String trackTitle;
+
+    private Long ruleId;
     private Long basicCredit;
     private Long appliedCredit;
     private Long industryCredit;
 
+    private Long degreeId;
     private String degreeTitle;
 
     @QueryProjection
-    public UnivTrackRuleDegreeJoinDto(String univTitle, long ruleId, String trackTitle, long trackNo, long basicCredit,
-                                  long appliedCredit, long industryCredit, String degreeTitle) {
+    public UnivTrackRuleDegreeJoinDto(long univNo, String univTitle, long ruleId,  long trackId, String trackTitle,
+                                      long trackNo, long basicCredit, long appliedCredit, long industryCredit,
+                                      long degreeId, String degreeTitle) {
+        this.univNo = univNo;
         this.univTitle = univTitle;
-        this.ruleId = ruleId;
-        this.trackTitle = trackTitle;
+
+        this.trackId = trackId;
         this.trackNo = trackNo;
+        this.trackTitle = trackTitle;
+
+        this.ruleId = ruleId;
         this.basicCredit = basicCredit;
         this.appliedCredit = appliedCredit;
         this.industryCredit = industryCredit;
+
         this.degreeTitle = degreeTitle;
+        this.degreeId = degreeId;
     }
 }

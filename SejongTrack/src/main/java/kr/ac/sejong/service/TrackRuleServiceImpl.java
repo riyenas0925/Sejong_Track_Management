@@ -14,26 +14,9 @@ public class TrackRuleServiceImpl implements TrackRuleService {
     @Inject
     private RuleRepository ruleRepository;
 
-    /*
     @Override
-    public Optional<Rule> read(Long ruleId) throws Exception{
-        return ruleRepository.findById(ruleId);
-    }
-
-    @Override
-    public ruleVO readRule(Integer degree, Integer trackNo)throws Exception{
-        return ruleRepository.findByRuleId(ruleId);
-    }
-    */
-
-    @Override
-    public void regist(Rule rule) throws Exception{
-
-    }
-
-    @Override
-    public void update(Rule rule) throws Exception{
-
+    public void save(Rule rule) throws Exception{
+        ruleRepository.save(rule);
     }
 
     @Override

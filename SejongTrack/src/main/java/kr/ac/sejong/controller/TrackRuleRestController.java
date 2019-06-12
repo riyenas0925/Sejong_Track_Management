@@ -1,12 +1,9 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain.degreeVO;
-import kr.ac.sejong.domain.ruleVO;
+import kr.ac.sejong.domain_jpa.Rule;
 import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
 import kr.ac.sejong.service.TrackRuleService;
 import lombok.extern.java.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,20 +13,20 @@ import java.util.List;
 
 @RestController
 @Log
-@RequestMapping("/ruleAjax/*")
+@RequestMapping("/rule/*")
 public class TrackRuleRestController {
 
     @Inject
     private TrackRuleService trackRuleService;
 
-    /*
     @PostMapping("/create")
-    public ResponseEntity<String> register(@RequestBody ruleVO vo) {
+    public ResponseEntity<String> register(@RequestBody Rule rule) {
 
         ResponseEntity<String> entity = null;
 
         try {
-            trackRuleService.regist(vo);
+            log.info(rule.toString() + rule.getTrack().toString());
+            trackRuleService.save(rule);
             entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 
         }catch (Exception e){
@@ -39,7 +36,6 @@ public class TrackRuleRestController {
 
         return entity;
     }
-    */
 
     @GetMapping("/list")
     public ResponseEntity<List<UnivTrackRuleDegreeJoinDto>> list(){
@@ -72,24 +68,6 @@ public class TrackRuleRestController {
 
         return entity;
     }
-
-    /*
-    @PutMapping("/update/{ruleNo}")
-    public ResponseEntity<String> update(@PathVariable("ruleNo") Integer ruleNo, @RequestBody ruleVO vo){
-        ResponseEntity<String> entity = null;
-
-        try{
-            vo.setRuleNo(ruleNo);
-            trackRuleService.update(vo);
-            entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-
-        }catch (Exception e){
-            e.printStackTrace();
-            entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        return entity;
-    }
-    */
 
     @DeleteMapping("/delete/{ruleId}")
     public ResponseEntity<String> remove(@PathVariable("ruleId") Long ruleId){

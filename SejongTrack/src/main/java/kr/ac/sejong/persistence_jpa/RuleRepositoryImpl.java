@@ -26,13 +26,16 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                 .innerJoin(rule.track, track)
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(UnivTrackRuleDegreeJoinDto.class,
+                        univ.univNo,
                         univ.univTitle,
                         rule.ruleId,
+                        track.trackId,
                         track.trackTitle,
                         track.trackNo,
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
+                        degree.degreeId,
                         degree.degreeTitle));
 
         return query.fetch();
@@ -51,15 +54,18 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                 .innerJoin(rule.track, track)
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(UnivTrackRuleDegreeJoinDto.class,
+                        univ.univNo,
                         univ.univTitle,
                         rule.ruleId,
+                        track.trackId,
                         track.trackTitle,
                         track.trackNo,
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
+                        degree.degreeId,
                         degree.degreeTitle))
-                .where(univ.id.eq(univId));
+                .where(univ.univId.eq(univId));
 
         return query.fetch();
     }
@@ -76,13 +82,16 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                 .innerJoin(rule.track, track)
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(UnivTrackRuleDegreeJoinDto.class,
+                        univ.univNo,
                         univ.univTitle,
                         rule.ruleId,
+                        track.trackId,
                         track.trackTitle,
                         track.trackNo,
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
+                        degree.degreeId,
                         degree.degreeTitle))
                 .where(rule.ruleId.eq(ruleId));
 

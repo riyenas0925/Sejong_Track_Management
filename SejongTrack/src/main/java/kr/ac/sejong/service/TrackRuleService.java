@@ -7,15 +7,7 @@ import java.util.List;
 
 public interface TrackRuleService {
 
-    /*
-    public Optional<Rule> read(Long ruleNo)throws Exception;
-
-    public ruleVO readRule(Integer degree, Integer trackNo)throws Exception;
-    */
-
-    public void regist(Rule rule)throws Exception;
-
-    public void update(Rule rule)throws Exception;
+    public void save(Rule rule)throws Exception;
 
     public void delete(Long ruleId)throws Exception;
 
