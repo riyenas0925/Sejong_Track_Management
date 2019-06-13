@@ -23,11 +23,11 @@ public class Rule {
     private Long appliedCredit;
     private Long industryCredit;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "trackId")
     Track track;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "degreeId")
     Degree degree;
 

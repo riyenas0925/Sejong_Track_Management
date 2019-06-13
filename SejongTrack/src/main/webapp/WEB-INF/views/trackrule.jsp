@@ -5,252 +5,161 @@
 <%--head.jsp--%>
 <%@ include file="include/head.jsp" %>
 
-    <%-- Main Header --%>
-    <%@ include file="include/main-header.jsp" %>
+<body class="hold-transition skin-black sidebar-mini">
+    <div class="wrapper">
 
-    <%-- Left side column. contains the logo and sidebar --%>
-    <%@ include file="include/main-sidebar.jsp" %>
+        <%-- Main Header --%>
+        <%@ include file="include/main-header.jsp" %>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                트랙 규칙 추가 및 수정
-                <small>Sejong univ Track</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-dashboard"></i>Admin</a></li>
-                <li class="active">Track CRUD</li>
-            </ol>
-        </section>
+        <%-- Left side column. contains the logo and sidebar --%>
+        <%@ include file="include/main-sidebar.jsp" %>
 
-        <%-- Main content --%>
-        <section class="content">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-header">
-                            <h2 class="box-title">대학을 선택하세요</h2>
-                        </div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    트랙 규칙 관리
+                    <small>Track Rule Management</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-dashboard"></i>Admin</a></li>
+                    <li class="active">Track Rule</li>
+                </ol>
+            </section>
 
-                        <div class="box-body">
-                            <div class="form-group">
-                                <select class="form-control selectUniv" id="searchUniv">
-                                </select>
+            <%-- Main content --%>
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <h2 class="box-title">대학을 선택하세요</h2>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <select class="form-control" id="search_univ">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-header">
-                            <h3 class="box-title">트랙 규칙</h3>
-                        </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title">트랙 규칙</h3>
+                            </div>
 
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th style='text-align:center'>#</th>
-                                        <th style='text-align:center'>대학</th>
-                                        <th style='text-align:center'>트랙</th>
-                                        <th style="text-align: center;">학위</th>
-                                        <th style='text-align:center'>기초교과</th>
-                                        <th style='text-align:center'>응용, 심화교과</th>
-                                        <th style='text-align:center'>산학연계</th>
-                                        <th style='text-align:center' colspan="2">
-                                            <button id="registRuleBtn" type="button" class="btn btn-block btn-xs btn-success" data-toggle="modal" data-target="#modalRegist"><i class="glyphicon glyphicon-pencil"></i> 추가</button>
-                                        </th>
-                                    </tr>
-                                </thead>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style='text-align:center'>#</th>
+                                            <th style='text-align:center'>대학</th>
+                                            <th style='text-align:center'>트랙</th>
+                                            <th style='text-align:center'>학위</th>
+                                            <th style='text-align:center'>기초교과</th>
+                                            <th style='text-align:center'>응용, 심화교과</th>
+                                            <th style='text-align:center'>산학연계</th>
+                                            <th style='text-align:center' colspan="2">
+                                                <button id="regist_rule_btn" type="button" class="btn btn-block btn-xs btn-success" data-toggle="modal" data-target="#modal">
+                                                    <i class="glyphicon glyphicon-pencil">추가</i>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody id="rules">
+                                    <tbody id="rule_list">
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 추가 -->
-            <div class="modal fade" id="modalRegist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">추가</h3>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <label for="univ-regist" class="col-form-label"><b>대학</b></label>
-                                <input type="text" class="form-control" id="univ-regist" value="" readonly>
-                                <br>
+                <!-- modal -->
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" id="">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">트랙 규칙 관리</h4>
 
-                                <label for="track" class="col-form-label"><b>트랙</b></label>
-                                <div class="form-group" id="track">
-                                    <select class="form-control" id="selectTrack">
-                                    </select>
-                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <label for="univ" class="col-form-label"><b>대학</b></label>
+                                    <input type="text" class="form-control" id="univ" value="" disabled>
+                                    <br>
 
-                                <label for="track" class="col-form-label"><b>학위</b></label>
-                                <div class="form-group" id="degree">
-                                    <select class="form-control selectDegree" id="degreeRegist">
-                                    </select>
-                                </div>
-
-                                <label for="credit-regist" class="col-form-label"><b>학점</b></label>
-                                <div class="container" id="credit-regist">
                                     <div class="row">
-                                        <div class="col-sm-2">
-                                            기초교과<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="basic-regist">
+                                        <div class="col-md-6">
+                                            <label for="track" class="col-form-label"><b>트랙</b></label>
+                                            <div class="form-group" id="track">
+                                                <select class="form-control" id="track_list">
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-2">
-                                            응용교과<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="applied-regist">
-                                        </div>
-                                        <div class="col-sm-2">
-                                            산학연계<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="industry-regist">
+
+                                        <div class="col-md-6">
+                                            <label for="degree" class="col-form-label"><b>학위</b></label>
+                                            <div class="form-group" id="degree">
+                                                <select class="form-control" id="degree_list">
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-                            <button type="button" class="btn btn-primary" id="registRule">추가</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 수정 -->
-            <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">수정</h3>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <label for="univ-update" class="col-form-label"><b>대학</b></label>
-                                <!---예시 value---->
-                                <input type="text" class="form-control" id="univ-update" value="" readonly>
-                                <br>
-
-                                <label for="track-update" class="col-form-label"><b>트랙</b></label>
-                                <!---예시 value---->
-                                <input type="text" class="form-control" id="track-update" data-trackId="" value="" readonly>
-                                <br>
-
-                                <label for="track" class="col-form-label"><b>학위</b></label>
-                                <div class="form-group" id="degree-update">
-                                    <select class="form-control selectDegree" id="degreeUpdate">
-                                    </select>
-                                </div>
-
-                                <label for="credit-update" class="col-form-label"><b>학점</b></label>
-
-                                <div class="container" id="credit-update">
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                            기초교과<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="basic-update">
-                                        </div>
-                                        <div class="col-sm-2">
-                                            응용교과<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="applied-update">
-                                        </div>
-                                        <div class="col-sm-2">
-                                            산학연계<br>
-                                            <input type="number" class="form-control" placeholder="학점" min="0" id="industry-update">
+                                    <label for="credit-regist" class="col-form-label"><b>학점</b></label>
+                                    <div class="container" id="credit-regist">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                기초교과<br>
+                                                <input type="number" class="form-control" placeholder="학점" min="0" id="basic_credit">
+                                            </div>
+                                            <div class="col-sm-2">
+                                                응용교과<br>
+                                                <input type="number" class="form-control" placeholder="학점" min="0" id="applied_credit">
+                                            </div>
+                                            <div class="col-sm-2">
+                                                산학연계<br>
+                                                <input type="number" class="form-control" placeholder="학점" min="0" id="industry_credit">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-                            <button id="updateRuleBtn" type="button" class="btn btn-primary">수정</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 삭제 -->
-            <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="">삭제</h3>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <label for="univ_delete" class="col-form-label"><b>대학</b></label>
-                                <!---예시 value---->
-                                <input type="text" class="form-control" id="univ_delete" value="" readonly>
-                                <br>
-
-                                <label for="track" class="col-form-label"><b>트랙</b></label>
-                                <!---예시 value---->
-                                <input type="text" class="form-control" id="track_delete" value="" readonly>
-                                <br>
-
-
-                                <label for="degree_delete" class="col-form-label"><b>학위</b></label><br>
-                                <!---예시 value---->
-                                <input type="text" class="form-control" id="degree_delete" value="" readonly>
-                                <br>
-
-                                <label for="credit" class="col-form-label"><b>학점</b></label>
-                                <div class="container" id="credit">
-                                    <div class="row">
-                                        <div class="col-sm-2">
-                                            기초교과<br>
-                                            <input id="basic-delete" type="number" class="form-control" placeholder="학점" min="0" readonly value="">
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            응용교과<br>
-                                            <input id="applied-delete" type="number" class="form-control" placeholder="학점" min="0" readonly value="">
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            산학연계<br>
-                                            <input id="industry-delete" type="number" class="form-control" placeholder="학점" min="0" readonly value="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal">닫기</button>
-                            <button id="deleteRuleBtn" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="트랙을 삭제합니다">삭제</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+                                <button type="button" data-sub = "submit" class="btn btn-primary" id="update_rule">수정</button>
+                                <button type="button" data-sub = "submit" class="btn btn-primary" id="delete_rule">삭제</button>
+                                <button type="button" data-sub = "submit" class="btn btn-primary" id="regist_rule">추가</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <%-- /.content --%>
+        </div>
+        <%-- /.content-wrapper --%>
 
-        </section>
-        <%-- /.content --%>
+        <%-- Main Footer --%>
+        <%@ include file="include/main-footer.jsp" %>
+
     </div>
-    <%-- /.content-wrapper --%>
-
-    <%-- Main Footer --%>
-    <%@ include file="include/main-footer.jsp" %>
-
-</div>
-<%-- ./wrapper --%>
+    <%-- ./wrapper --%>
+    <script src="/track_js/rule.js"></script>
 
 <%@ include file="include/plugins.jsp" %>
 </body>
@@ -260,169 +169,168 @@
 
         getUnivList();
 
-        $("#registRuleBtn").on("click",function () {
-            var univNo = $('#searchUniv').val();
-            var univName = $("#searchUniv option:selected").text();
+        var modal = $(".modal");
 
-            $('#univ-regist').attr('value', univName);
+        /* Track rule create */
+        $("#regist_rule_btn").on("click",function () {
+            var univId = $('#search_univ').val();
+            var univTitle = $("#search_univ option:selected").text();
 
-            getTrackList(univNo);
+            modal.find("button").show();
+            modal.find("button[id != 'regist_rule'][data-sub = 'submit']").hide();
+
+            $("#univ").val(univTitle);
+
+            getTrackList(univId);
             getDegreeList();
+            ruleService.creditDisable(false);
         });
 
-        $("#registRule").on("click", function () {
-            var trackId = $('#selectTrack').val();
-            var ruleId = $('#degreeRegist').val();
-            var basic = $("#basic-regist").val();
-            var applied = $("#applied-regist").val();
-            var industry = $("#industry-regist").val();
+        $('#regist_rule').on('click', function () {
+            var modalAttr = ruleService.modalAttr();
 
-            $.ajax({
-                type: "post",
-                url: "ruleAjax/register",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "POST"
-                },
-                dataType: "text",
-                data: JSON.stringify({
-                    trackId : trackId,
-                    ruleId : ruleId,
-                    basic : basic,
-                    applied : applied,
-                    industry : industry
-                }),
-                success: function (result) {
-                    if (result == "SUCCESS") {
-                        $('#modalRegist').modal('hide');
-                        toastr["success"]("새로운 규칙이 추가되었습니다.");
-
-                        getSearchList();
-                    }
+            ruleService.create(modalAttr, function (result) {
+                if (result == "SUCCESS") {
+                    $('#modal').modal('hide');
+                    toastr["success"]("새로운 규칙이 추가되었습니다.");
+                    getSearchList();
                 }
-            });
-        });
-
-        $("#rules").on("click", ".ruleID #updateRule",function () {
-            var rule = $(this).parent().parent();
-            var ruleNo = rule.attr("data-rno");
-            var td = rule.children();
-
-            getDegreeList();
-
-            $('#univ-update').attr('value', td.eq(1).text());
-            $('#track-update').attr('value', td.eq(2).text());
-            $('#track-update').attr('data-trackId', td.eq(8).text());
-            $('.modal-title').attr('id', ruleNo);
-        });
-
-        $("#updateRuleBtn").on('click', function () {
-            var ruleNo = $('.modal-title').attr('id');
-            var trackId = $('#track-update').attr('data-trackId');
-            var ruleId = $('#degreeUpdate').val();
-            var basic = $('#basic-update').val();
-            var applied = $("#applied-update").val();
-            var industry = $("#industry-update").val();
-
-            $.ajax({
-                type: "put",
-                url: "ruleAjax/update/" + ruleNo,
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "POST"
-                },
-                dataType: "text",
-                data: JSON.stringify({
-                    trackId : trackId,
-                    ruleId : ruleId,
-                    basic : basic,
-                    applied : applied,
-                    industry : industry
-                }),
-                success: function (result) {
-                    if (result == "SUCCESS") {
-                        $('#modalUpdate').modal('hide');
-                        toastr["warning"]("규칙이 수정되었습니다.");
-
-                        getSearchList();
-                    }
-                }
-            });
-        });
-
-        $("#rules").on("click", ".ruleID #deleteRule",function () {
-            var rule = $(this).parent().parent();
-            var ruleNo = rule.attr("data-rno");
-            var td = rule.children();
-
-            $('#univ_delete').attr('value', td.eq(1).text());
-            $('#track_delete').attr('value', td.eq(2).text());
-            $('#degree_delete').attr('value', td.eq(3).text());
-            $('#basic-delete').attr('value', td.eq(4).text());
-            $('#applied-delete').attr('value', td.eq(5).text());
-            $('#industry-delete').attr('value', td.eq(6).text());
-
-            $('.modal-title').attr('id', ruleNo);
-        });
-
-        $('#deleteRuleBtn').on('click', function () {
-            var ruleNo = $('.modal-title').attr('id');
-
-            $.ajax({
-                type: "delete",
-                url: "ruleAjax/remove/" + ruleNo,
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "DELETE"
-                },
-                dataType: "text",
-                success: function (result) {
-                    console.log("result : " + result);
-                    if (result == "SUCCESS") {
-                        $('#modalDelete').modal('hide');
-                        toastr["error"]("규칙이 삭제되었습니다.");
-
-                        getSearchList();
-                    }
-                }
+            }, function(err) {
+                console.log("Error........." + err);
             });
         })
 
-        <!-- Track, Univ 조회 기능 -->
-        $('.selectUniv').on('change', function() {
-            var univNo = $('#searchUniv').val();
+        /* Track rule update*/
+        $("#rule_list").on("click", ".rule_id #update_rule_btn",function () {
+            var rule = ruleService.attribute($(this));
+            var univId = $('#search_univ').val();
+
+            modal.find("button").show();
+            modal.find("button[id != 'update_rule'][data-sub = 'submit']").hide();
+
+            getTrackList(univId);
+            getDegreeList();
+
+            $("#track_list option:eq(2)").attr("selected", "selected");
+
+            $("#univ").val(rule.univTitle);
+            $(".modal-header").attr('id', rule.ruleId);
+
+            ruleService.creditDisable(false, rule.basicCredit, rule.appliedCredit, rule.industryCredit);
+        });
+
+        $('#update_rule').on('click', function () {
+            var modalAttr = ruleService.modalAttr();
+
+            ruleService.update(modalAttr, function (result) {
+                if (result == "SUCCESS") {
+                    $('#modal').modal('hide');
+                    toastr["error"]("규칙이 삭제되었습니다.");
+                    getSearchList();
+                }
+            }, function(err) {
+                console.log("Error........." + err);
+            });
+        });
+
+        /* Track rule delete*/
+        $("#rule_list").on("click", ".rule_id #delete_rule_btn",function () {
+            var rule = ruleService.attribute($(this));
+
+            modal.find("button").show();
+            modal.find("button[id != 'delete_rule'][data-sub = 'submit']").hide();
+
+            getTrackList(1);
+            getDegreeList();
+
+            $("#univ").val(rule.univTitle);
+            $(".modal-header").attr('id', rule.ruleId);
+
+            ruleService.creditDisable(true, rule.basicCredit, rule.appliedCredit, rule.industryCredit);
+        });
+
+        $('#delete_rule').on('click', function () {
+            var ruleId = $(".modal-header").attr('id');
+
+            ruleService.remove(ruleId, function (result) {
+                if (result == "SUCCESS") {
+                    $('#modal').modal('hide');
+                    toastr["error"]("규칙이 삭제되었습니다.");
+                    getSearchList();
+                }
+            }, function(err) {
+                console.log("Error........." + err);
+            });
+        });
+
+        /* Track rule List */
+        function getSearchList() {
+            var univNo = $('#search_univ').val();
+
+            ruleService.list(univNo, function (data) {
+
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<tr class='rule_id'" + " data-rno='" + this.ruleId + "'>"
+                            + "<td style='text-align:center'>"+ this.ruleId + "</td>"
+                            + "<td style='text-align:center'>"+ this.univTitle + " (" + this.univNo + ")" + "</td>"
+                            + "<td style='text-align:center'>"+ this.trackTitle + " (" + this.trackNo + ")" + "</td>"
+                            + "<td style='text-align:center'>"+ this.degreeTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.basicCredit + "</td>"
+                            + "<td style='text-align:center'>"+ this.appliedCredit + "</td>"
+                            + "<td style='text-align:center'>"+ this.industryCredit + "</td>"
+                            + "<td style='text-align:center; display:none;'>"+ this.trackId + "</td>"
+                            + "<td style='text-align:center; display:none;'>"+ this.degreeId + "</td>"
+                            + "<td style='text-align:center'>"
+                            + "<button id='update_rule_btn' type='button' class='btn btn-xs btn-block btn-warning' data-toggle='modal' data-target='#modal'>"
+                            + '<i class="glyphicon glyphicon-repeat">수정</i></button></td>'
+                            + "<td style='text-align:center'>"
+                            + "<button id='delete_rule_btn' type='button' class='btn btn-xs btn-block btn-danger' data-toggle='modal' data-target='#modal'>"
+                            + '<i class="glyphicon glyphicon-trash">삭제</i></button></td>'
+                            + "</tr>";
+                    });
+
+                $("#rule_list").html(str);
+            });
+        }
+
+        /* 아래는 삭제 예정 코드 */
+        $('#search_univ').on('change', function() {
+            var univNo = $('#search_univ').val();
 
             getSearchList(univNo);
         });
 
         function getUnivList() {
-            $.getJSON("uploadAjax/univList", function (data) {
+            $.getJSON("select/univ", function (data) {
                 var str = "<option value='-1'>- 대학 선택 -</option>";
 
                 $(data).each(
                     function () {
-                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
+                        str += "<option value='" + this.univId + "'>" + this.univTitle + "(" + this.univNo + ")" + "</option>"
                     });
 
-                $(".selectUniv").html(str);
+                $("#search_univ").html(str);
             });
         }
 
         function getTrackList(selectUniv) {
-            $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {
+            $.getJSON("select/track/" + selectUniv, function (data) {
                 var str = "<option value='-1'>- 트랙 선택 -</option>";
 
                 $(data).each(
                     function () {
-                        str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
+                        str += "<option value='" + this.trackId + "'>" + this.trackTitle + "(" + this.trackNo + ")" + "</option>"
                     });
 
-                $("#selectTrack").html(str);
+                $("#track_list").html(str);
             });
         }
 
         function getDegreeList() {
-            $.getJSON("ruleAjax/degreeList", function (data) {
+            $.getJSON("select/degree", function (data) {
                 var str = "<option value='-1'>- 학위 선택 -</option>";
 
                 $(data).each(
@@ -430,38 +338,7 @@
                         str += "<option value='" + this.degreeId + "'>" + this.degreeTitle + "</option>"
                     });
 
-                $(".selectDegree").html(str);
-            });
-        }
-
-        function getSearchList() {
-            var univNo = $('#searchUniv').val();
-
-            $.getJSON("ruleAjax/list/" + univNo, function (data) {
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<tr class='ruleID'" + " data-rno='" + this.ruleNo + "'>"
-                            + "<td style='text-align:center'>"+ this.ruleNo + "</td>"
-                            + "<td style='text-align:center'>"+ this.univTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.trackTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.degreeTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.basic + "</td>"
-                            + "<td style='text-align:center'>"+ this.applied + "</td>"
-                            + "<td style='text-align:center'>"+ this.industry + "</td>"
-                            + "<td style='text-align:center;display:none;'>"+ this.ruleId + "</td>"
-                            + "<td style='text-align:center;display:none;'>"+ this.trackId + "</td>"
-                            + "<td style='text-align:center'>"
-                            + "<button id='updateRule' type='button'" + " class='btn btn-xs btn-block btn-warning' data-toggle='modal' data-target='#modalUpdate'>"
-                            + '<i class="glyphicon glyphicon-repeat"></i>' + " 수정" + "</button></td>"
-                            + "<td style='text-align:center'>"
-                            + "<button id='deleteRule' type='button'" + " class='btn btn-xs btn-block btn-danger' data-toggle='modal' data-target='#modalDelete'>"
-                            + '<i class="glyphicon glyphicon-trash"></i>' + " 삭제" + "</button></td>"
-                            + "</tr>";
-                    });
-
-                $("#rules").html(str);
+                $("#degree_list").html(str);
             });
         }
     });

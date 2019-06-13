@@ -28,6 +28,10 @@ public class StaticResourceConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/dist/**")
                 .addResourceLocations("/resources/dist/")
                 .setCachePeriod(20);
+
+        registry.addResourceHandler("/track_js/**")
+                .addResourceLocations("/resources/track_js/")
+                .setCachePeriod(20);
     }
 }
 

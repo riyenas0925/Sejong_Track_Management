@@ -19,7 +19,7 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
         QTrack track = QTrack.track;
 
         JPQLQuery query = from(track)
-                .where(track.univ.id.eq(univId));
+                .where(track.univ.univId.eq(univId));
 
         return query.fetch();
     }

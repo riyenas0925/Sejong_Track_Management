@@ -141,6 +141,8 @@ public class UploadResultServiceImpl implements UploadResultService{
     public List<resultTrackVO> resultTrackList(Integer univNo, List<subjectVO> myList)throws Exception{
         List<resultTrackVO> resultTrackList = dao.trackList(univNo);
 
+        /*
+
         for(int i=0; i < resultTrackList.size(); i++){
             HashMap<String, List<trackSubjectVO>> standList = service.resultListSub(myList, service.readSub(resultTrackList.get(i).getTrackNo()));
             ruleVO rule = trackRuleService.readRule(1, resultTrackList.get(i).getTrackNo());
@@ -161,6 +163,7 @@ public class UploadResultServiceImpl implements UploadResultService{
             resultTrackList.get(i).setPercent(Math.round(((float)totalPercent/ ruleTotal) * 100));
         }
 
+        */
         return resultTrackList;
     }
 

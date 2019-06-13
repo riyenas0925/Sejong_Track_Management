@@ -40,9 +40,9 @@
             <li>
 
             <li class="header">관리자</li>
-            <li><a href="${path}/trackrule"><i class="fa fas fa-cogs"></i><span>트랙 규칙 추가 및 수정</span></a></li>
+            <li><a href="${path}/trackrule"><i class="fa fas fa-cogs"></i><span>트랙 규칙 관리</span></a></li>
             <li class="treeview">
-                <a href="#"><i class="fa far fa-bar-chart"></i> 트랙 통계
+                <a href="#"><i class="fa far fa-bar-chart"></i> 트랙 통계 관리
                     <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>

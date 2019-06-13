@@ -25,12 +25,10 @@ public class Track {
     private Long trackNo;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "univId")
     Univ univ;
 
     @OneToMany(mappedBy = "track")
-    @JsonIgnore
     List<TrackSubject> trackSubjects;
 
     /*

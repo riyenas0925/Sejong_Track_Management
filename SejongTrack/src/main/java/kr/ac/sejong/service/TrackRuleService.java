@@ -1,24 +1,17 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.degreeVO;
-import kr.ac.sejong.domain.ruleVO;
+import kr.ac.sejong.domain_jpa.Rule;
+import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
 
 import java.util.List;
 
 public interface TrackRuleService {
-    public void regist(ruleVO rule)throws Exception;
 
-    public ruleVO read(Integer ruleNo)throws Exception;
+    public void save(Rule rule)throws Exception;
 
-    public ruleVO readRule(Integer degree, Integer trackNo)throws Exception;
+    public void delete(Long ruleId)throws Exception;
 
-    public void update(ruleVO rule)throws Exception;
+    public List<UnivTrackRuleDegreeJoinDto> findRules() throws Exception;
 
-    public void remove(Integer ruleNo)throws Exception;
-
-    public List<ruleVO> listAll() throws Exception;
-
-    public List<ruleVO> listSearch(Integer univNo) throws Exception;
-
-    public List<degreeVO> degreeList() throws Exception;
+    public List<UnivTrackRuleDegreeJoinDto> findByUnivId(Long univId) throws Exception;
 }
