@@ -1,6 +1,6 @@
 package kr.ac.sejong.persistence;
 
-import kr.ac.sejong.domain.trackAllVO;
+import kr.ac.sejong.dto.TrackAllViewDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +16,8 @@ public class TrackAllDAOImpl implements  TrackAllDAO{
     private  static String namespace = "kr.ac.sejong.mapper.trackAllMapper";
 
     @Override
-    public List<trackAllVO> trackAllList(Integer univNo) throws Exception{
+    public List<TrackAllViewDto> trackAllList(Integer univId) throws Exception{
 
-        return session.selectList(namespace+".trackAllList", univNo);
+        return session.selectList(namespace+".trackAllList", univId);
     }
 }

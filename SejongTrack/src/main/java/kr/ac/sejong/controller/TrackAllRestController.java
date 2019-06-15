@@ -1,6 +1,6 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain.trackAllVO;
+import kr.ac.sejong.dto.TrackAllViewDto;
 import kr.ac.sejong.service.TrackAllService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +14,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/trackAll/*")
-public class TrackAllAjaxController {
+public class TrackAllRestController {
 
     @Inject
     private TrackAllService trackAllService;
 
-    @GetMapping("/selectUniv/{univNo}")
-    public ResponseEntity<List<trackAllVO>> list(@PathVariable Integer univNo){
+    @GetMapping("/{univId}")
+    public ResponseEntity<List<TrackAllViewDto>> list(@PathVariable Integer univId){
 
-        ResponseEntity<List<trackAllVO>> entity = null;
+        ResponseEntity<List<TrackAllViewDto>> entity = null;
 
         try {
-            entity = new ResponseEntity<>(trackAllService.trackAll(univNo), HttpStatus.OK);
+            entity = new ResponseEntity<>(trackAllService.trackAll(univId), HttpStatus.OK);
 
         }catch (Exception e){
             e.printStackTrace();

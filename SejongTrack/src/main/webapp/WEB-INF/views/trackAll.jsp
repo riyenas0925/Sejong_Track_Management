@@ -49,7 +49,6 @@
                 <div class="box">
                     <div class="box-header">
                         <div id="univT">
-                            <h2 class="box-title">소프트웨어융합대학</h2>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -82,37 +81,13 @@
 </html>
 
 <script language="JavaScript">
-    $(document).ready(function () { //이거는 필수 ㅇㅇ
+    $(document).ready(function () {
 
-        getUnivList();  //select리스트 처음 로딩때 불러오기
-        trackTbl(1);    //change기 때문에 처음 선택된 소프트웨어융합대학 한번 불러줘야함
+        getUnivList();
+        trackAllList(1);
 
-        $('#selectUniv').on('change', function() {
-            var selectUniv = this.value;    //selectUniv 리스트에서 value값 뽑아내기
-
-            trackTbl(selectUniv)             //트랙 리스트 출력
-
-        });
-
-        function getUnivList() {
-            $.getJSON("uploadAjax/univList", function (data) {  //localhost:8080/uploadAjax/univList 주소 들어가보면 json 형태로 출력됨
-                //uploadFormAjaxController 보면됨
-                var str = "";
-
-                $(data).each(   //for문
-                    function () {
-                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
-                    });
-
-                $("#selectUniv").html(str);
-                //자바스크립트에서 innerHTML같은거
-            });
-        }
-
-        function trackTbl(selectUniv) {
-            $.getJSON("trackAll/selectUniv/" + selectUniv, function (data) {
-                //localhost:8080/trackAll/selectuniv/1 주소로 들어가보면 json으로 출력됨
-                //TrackAllAjaxController 보면 확인 가능
+        function trackAllList(selectUniv) {
+            $.getJSON("trackAll/" + selectUniv, function (data) {
                 var univT= $('#selectUniv option:selected').html();
                 var univStr= '<h2 class="box-title">'+univT+'</h2>';
                 var str = "";
@@ -164,6 +139,26 @@
 
                 $("#trackTbl").html(str);
 
+            });
+        }
+
+        $('#selectUniv').on('change', function() {
+            var selectUniv = this.value;    //selectUniv 리스트에서 value값 뽑아내기
+
+            trackAllList(selectUniv)             //트랙 리스트 출력
+
+        });
+
+        function getUnivList() {
+            $.getJSON("select/univ", function (data) {
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<option value='" + this.univId + "'>" + this.univTitle + "</option>"
+                    });
+
+                $("#selectUniv").html(str);
             });
         }
     });

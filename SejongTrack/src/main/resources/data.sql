@@ -48,3 +48,28 @@ INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, track
 INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,2,11);
 INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,3,11);
 INSERT INTO tbl_rule(appliedCredit, basicCredit, industryCredit, degreeId, trackId) VALUES (3,6,9,4,11);
+
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 1, 1);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 2, 1);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 2, 2);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 3, 2);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 3, 3);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 4, 3);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 4, 4);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 1, 4);
+
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 5, 1);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 6, 1);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 6, 2);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 6, 2);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 7, 3);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 8, 3);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 8, 4);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 5, 4);
+
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 1, 10);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 2, 10);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (3, 3, 10);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 3, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 2, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (3, 1, 11);
