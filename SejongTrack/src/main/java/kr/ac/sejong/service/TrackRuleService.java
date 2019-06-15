@@ -1,6 +1,6 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain_jpa.Rule;
+import kr.ac.sejong.domain.Rule;
 import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
 
 import java.util.List;

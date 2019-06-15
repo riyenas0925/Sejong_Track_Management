@@ -1,8 +1,8 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.trackVO;
-import kr.ac.sejong.domain.univVO;
-import kr.ac.sejong.persistence.UploadFormDAO;
+import kr.ac.sejong.domain_old.trackVO;
+import kr.ac.sejong.domain_old.univVO;
+import kr.ac.sejong.persistence_old.UploadFormDAO;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

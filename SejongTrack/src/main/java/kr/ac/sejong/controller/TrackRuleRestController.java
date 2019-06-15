@@ -1,6 +1,6 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain_jpa.Rule;
+import kr.ac.sejong.domain.Rule;
 import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
 import kr.ac.sejong.service.TrackRuleService;
 import lombok.extern.java.Log;

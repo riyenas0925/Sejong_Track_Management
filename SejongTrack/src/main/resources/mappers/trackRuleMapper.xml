@@ -9,7 +9,7 @@
         values (#{ruleId}, #{trackId}, #{basic}, #{applied}, #{industry})
     </insert>
 
-    <select id="read" resultType="kr.ac.sejong.domain.ruleVO">
+    <select id="read" resultType="kr.ac.sejong.domain_old.ruleVO">
         select
           ruleId, trackId, basic, applied, industry
         from
@@ -17,7 +17,7 @@
         where trackId = #{ruleNo}
     </select>
 
-    <select id="readRule" parameterType="hashmap" resultType="kr.ac.sejong.domain.ruleVO">
+    <select id="readRule" parameterType="hashmap" resultType="kr.ac.sejong.domain_old.ruleVO">
         select tr.ruleNo, tu.univTitle, tt.trackTitle, td.degreeTitle , tr.ruleId, tr.basic, tr.applied, tr.industry
         from tbl_rule as tr
                JOIN tbl_track as tt ON tt.trackNo = tr.trackId
@@ -35,7 +35,7 @@
         delete from tbl_rule where ruleNo = #{ruleNo}
     </delete>
 
-    <select id="listAll" resultType="kr.ac.sejong.domain.ruleVO">
+    <select id="listAll" resultType="kr.ac.sejong.domain_old.ruleVO">
         <![CDATA[
         select tr.ruleNo, tu.univTitle, (select concat_ws(' - ', td.degreeTitle, tt.trackTitle)) as trackTitle, tr.ruleId, tr.basic, tr.applied, tr.industry
         from tbl_rule as tr
@@ -46,7 +46,7 @@
         ]]>
     </select>
 
-    <select id="listSearch" resultType="kr.ac.sejong.domain.ruleVO">
+    <select id="listSearch" resultType="kr.ac.sejong.domain_old.ruleVO">
         <![CDATA[
         select tr.ruleNo, tu.univTitle, tt.trackTitle, td.degreeTitle, tr.ruleId, tr.basic, tr.applied, tr.industry, tr.trackId
         from tbl_rule as tr
@@ -62,7 +62,7 @@
         ALTER TABLE tbl_rule AUTO_INCREMENT=#{aiNo}
     </insert>
 
-    <select id="degreeList" resultType="kr.ac.sejong.domain.degreeVO">
+    <select id="degreeList" resultType="kr.ac.sejong.domain_old.degreeVO">
         select
           *
         from

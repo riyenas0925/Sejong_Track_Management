@@ -1,8 +1,8 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.domain_jpa.Track;
-import kr.ac.sejong.domain_jpa.Univ;
-import kr.ac.sejong.persistence_jpa.TrackRepository;
+import kr.ac.sejong.domain.Track;
+import kr.ac.sejong.domain.Univ;
+import kr.ac.sejong.persistence.TrackRepository;
 import lombok.extern.java.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +11,6 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

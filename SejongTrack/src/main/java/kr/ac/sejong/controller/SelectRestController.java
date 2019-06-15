@@ -1,8 +1,8 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain_jpa.Degree;
-import kr.ac.sejong.domain_jpa.Track;
-import kr.ac.sejong.domain_jpa.Univ;
+import kr.ac.sejong.domain.Degree;
+import kr.ac.sejong.domain.Track;
+import kr.ac.sejong.domain.Univ;
 import kr.ac.sejong.service.SelectListService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

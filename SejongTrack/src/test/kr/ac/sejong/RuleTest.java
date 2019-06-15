@@ -1,9 +1,9 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.domain_jpa.Degree;
-import kr.ac.sejong.domain_jpa.Rule;
-import kr.ac.sejong.domain_jpa.Track;
-import kr.ac.sejong.persistence_jpa.RuleRepository;
+import kr.ac.sejong.domain.Degree;
+import kr.ac.sejong.domain.Rule;
+import kr.ac.sejong.domain.Track;
+import kr.ac.sejong.persistence.RuleRepository;
 import lombok.extern.java.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +12,6 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

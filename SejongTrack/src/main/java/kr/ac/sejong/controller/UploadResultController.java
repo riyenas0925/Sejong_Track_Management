@@ -1,9 +1,7 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain.resultTrackVO;
-import kr.ac.sejong.domain.ruleVO;
-import kr.ac.sejong.domain.subjectVO;
-import kr.ac.sejong.domain.trackSubjectVO;
+import kr.ac.sejong.domain_old.subjectVO;
+import kr.ac.sejong.domain_old.trackSubjectVO;
 import kr.ac.sejong.service.TrackRuleService;
 import kr.ac.sejong.service.UploadResultService;
 
@@ -19,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

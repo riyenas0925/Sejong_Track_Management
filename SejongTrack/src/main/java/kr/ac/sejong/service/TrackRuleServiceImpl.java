@@ -1,8 +1,8 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain_jpa.Rule;
+import kr.ac.sejong.domain.Rule;
 import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
-import kr.ac.sejong.persistence_jpa.RuleRepository;
+import kr.ac.sejong.persistence.RuleRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
