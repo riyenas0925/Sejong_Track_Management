@@ -1,9 +1,9 @@
 package kr.ac.sejong.persistence;
 
-import kr.ac.sejong.domain.trackAllVO;
+import kr.ac.sejong.dto.TrackAllViewDto;
 
 import java.util.List;
 
 public interface TrackAllDAO {
-    public List<trackAllVO> trackAllList(Integer univNo) throws Exception;
+    public List<TrackAllViewDto> trackAllList(Integer univId) throws Exception;
 }
