@@ -1,15 +1,11 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain.graphVO;
-import kr.ac.sejong.domain.ruleVO;
-import kr.ac.sejong.domain.visitorVO;
-import kr.ac.sejong.persistence.TrackRuleDAO;
-import kr.ac.sejong.persistence.VisitCountDAO;
-import org.springframework.beans.factory.annotation.Qualifier;
+import kr.ac.sejong.domain_old.graphVO;
+import kr.ac.sejong.domain_old.visitorVO;
+import kr.ac.sejong.persistence_old.VisitCountDAO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

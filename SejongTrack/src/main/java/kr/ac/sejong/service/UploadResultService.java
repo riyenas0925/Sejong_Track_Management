@@ -1,9 +1,9 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.resultTrackVO;
-import kr.ac.sejong.domain.ruleVO;
-import kr.ac.sejong.domain.subjectVO;
-import kr.ac.sejong.domain.trackSubjectVO;
+import kr.ac.sejong.domain_old.resultTrackVO;
+import kr.ac.sejong.domain_old.ruleVO;
+import kr.ac.sejong.domain_old.subjectVO;
+import kr.ac.sejong.domain_old.trackSubjectVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;

@@ -65,13 +65,13 @@
                                     </div><br>
 
                                     <div class="form-group">
-                                        <select id="selectUniv" class="form-control">
+                                        <select id="select_univ" class="form-control">
                                             <option value="">소속대학 선택</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <select id="selectTrack" class="form-control">
+                                        <select id="select_track" class="form-control">
                                             <option value="">트랙 선택</option>
                                         </select>
                                     </div>
@@ -116,8 +116,8 @@
 
     $(document).ready(function(){
 
-        getUnivList();
-        getTrackList(1);
+        selectService.univ();
+        selectService.track(1);
 
         $(".fileDrop").on("dragenter dragover", function (event) {
             event.preventDefault();
@@ -179,8 +179,8 @@
         });
 
         $('#result').on('click', function (event) {
-           var univ = $('#selectUniv').val();
-           var track = $('#selectTrack').val();
+           var univ = $('#select_univ').val();
+           var track = $('#select_track').val();
 
             self.location = "uploadResult"
                 + '?univNo=' + univ
@@ -193,37 +193,10 @@
         }
 
         <!-- Track, Univ 조회 기능 -->
-        $('#selectUniv').on('change', function() {
-            var selectUniv = this.value;
-            getTrackList(selectUniv)
+        $('#select_univ').on('change', function() {
+            var univId = this.value;
+            selectService.track(univId);
         });
-
-        function getUnivList() {
-            $.getJSON("uploadAjax/univList", function (data) {  //localhost:8080/uploadAjax/univList 주소 들어가보면 json 형태로 출력됨
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.univNo + "'>" + this.univTitle + "</option>"
-                    });
-
-                $("#selectUniv").html(str);
-            });
-        }
-
-        function getTrackList(selectUniv) {
-            $.getJSON("uploadAjax/selectUniv/" + selectUniv, function (data) {
-                var str = "";
-                console.log(data.length);
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.trackNo + "'>" + this.trackTitle + "</option>"
-                    });
-
-                $("#selectTrack").html(str);
-            });
-        }
     });
 </script>
 

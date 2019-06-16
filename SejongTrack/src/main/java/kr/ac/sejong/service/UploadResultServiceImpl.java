@@ -1,18 +1,16 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.resultTrackVO;
-import kr.ac.sejong.domain.ruleVO;
-import kr.ac.sejong.domain.subjectVO;
-import kr.ac.sejong.domain.trackSubjectVO;
-import kr.ac.sejong.persistence.UploadFormDAO;
-import kr.ac.sejong.persistence.UploadResultDAO;
+import kr.ac.sejong.domain_old.resultTrackVO;
+import kr.ac.sejong.domain_old.ruleVO;
+import kr.ac.sejong.domain_old.subjectVO;
+import kr.ac.sejong.domain_old.trackSubjectVO;
+import kr.ac.sejong.persistence_old.UploadResultDAO;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;

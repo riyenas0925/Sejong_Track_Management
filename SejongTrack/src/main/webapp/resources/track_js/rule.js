@@ -3,12 +3,12 @@ var ruleService = (function() {
     function list(univId, callback, error) {
         $.getJSON("rule/list/" + univId,
             function(data) {
-            if(callback){
-                callback(data);
-            }
+                if(callback){
+                    callback(data);
+                }
             }).fail(function(xhr, status, err) {
             if (error) {
-                error();
+                error(err);
             }
         });
     }
@@ -141,8 +141,8 @@ var ruleService = (function() {
             basicCredit: $('#basic_credit').val(),
             appliedCredit: $('#applied_credit').val(),
             industryCredit: $('#industry_credit').val(),
-            trackId: $('#track_list').val(),
-            degreeId: $('#degree_list').val(),
+            trackId: $('#select_track').val(),
+            degreeId: $('#select_degree').val(),
         }
 
         console.log(modal);

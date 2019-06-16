@@ -1,8 +1,8 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain.resultTrackVO;
-import kr.ac.sejong.domain.subjectVO;
-import kr.ac.sejong.domain.trackVO;
+import kr.ac.sejong.domain_old.resultTrackVO;
+import kr.ac.sejong.domain_old.subjectVO;
+import kr.ac.sejong.domain_old.trackVO;
 import kr.ac.sejong.service.UploadFormService;
 import kr.ac.sejong.service.UploadResultService;
 import org.springframework.http.HttpStatus;

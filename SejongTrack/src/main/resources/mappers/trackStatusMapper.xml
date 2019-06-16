@@ -21,15 +21,15 @@
         ]]>
     </select>
 
-    <select id="list" resultType="kr.ac.sejong.domain.visitorVO">
+    <select id="list" resultType="kr.ac.sejong.domain_old.visitorVO">
         SELECT * FROM tbl_visitor;
     </select>
 
-    <select id="deviceGraph" resultType="kr.ac.sejong.domain.graphVO">
+    <select id="deviceGraph" resultType="kr.ac.sejong.domain_old.graphVO">
         select device as name, count(*) as num from tbl_visitor group by device;
     </select>
 
-    <select id="browserGraph" resultType="kr.ac.sejong.domain.graphVO">
+    <select id="browserGraph" resultType="kr.ac.sejong.domain_old.graphVO">
         select browser as name, count(*) as num from tbl_visitor group by browser;
     </select>
 </mapper>

@@ -1,7 +1,7 @@
 package kr.ac.sejong.common;
 
-import kr.ac.sejong.domain.visitorVO;
-import kr.ac.sejong.persistence.VisitCountDAO;
+import kr.ac.sejong.domain_old.visitorVO;
+import kr.ac.sejong.persistence_old.VisitCountDAO;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.web.context.WebApplicationContext;

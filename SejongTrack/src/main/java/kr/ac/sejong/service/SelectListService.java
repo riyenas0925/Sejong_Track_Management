@@ -1,8 +1,8 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain_jpa.Degree;
-import kr.ac.sejong.domain_jpa.Track;
-import kr.ac.sejong.domain_jpa.Univ;
+import kr.ac.sejong.domain.Degree;
+import kr.ac.sejong.domain.Track;
+import kr.ac.sejong.domain.Univ;
 
 import java.util.List;
 

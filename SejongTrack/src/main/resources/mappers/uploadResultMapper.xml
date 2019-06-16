@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.ac.sejong.mapper.uploadResultMapper">
 
-    <select id="readsub" resultType="kr.ac.sejong.domain.trackSubjectVO">
+    <select id="readsub" resultType="kr.ac.sejong.domain_old.trackSubjectVO">
         <![CDATA[
         select
           *
@@ -15,7 +15,7 @@
         ]]>
     </select>
 
-    <select id="readtypesub" parameterType="hashmap" resultType="kr.ac.sejong.domain.trackSubjectVO">
+    <select id="readtypesub" parameterType="hashmap" resultType="kr.ac.sejong.domain_old.trackSubjectVO">
         <![CDATA[
         select
           *
@@ -26,7 +26,7 @@
         ]]>
     </select>
 
-    <select id="resultTrack" resultType="kr.ac.sejong.domain.resultTrackVO">
+    <select id="resultTrack" resultType="kr.ac.sejong.domain_old.resultTrackVO">
         <![CDATA[
         select
           *
