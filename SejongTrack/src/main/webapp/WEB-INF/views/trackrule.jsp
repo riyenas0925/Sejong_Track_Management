@@ -39,7 +39,7 @@
 
                             <div class="box-body">
                                 <div class="form-group">
-                                    <select class="form-control" id="search_univ">
+                                    <select class="form-control" id="select_univ">
                                     </select>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                                         <div class="col-md-6">
                                             <label for="track" class="col-form-label"><b>트랙</b></label>
                                             <div class="form-group" id="track">
-                                                <select class="form-control" id="track_list">
+                                                <select class="form-control" id="select_track">
                                                 </select>
                                             </div>
                                         </div>
@@ -114,7 +114,7 @@
                                         <div class="col-md-6">
                                             <label for="degree" class="col-form-label"><b>학위</b></label>
                                             <div class="form-group" id="degree">
-                                                <select class="form-control" id="degree_list">
+                                                <select class="form-control" id="select_degree">
                                                 </select>
                                             </div>
                                         </div>
@@ -167,22 +167,22 @@
 <script language="JavaScript">
     $(document).ready(function () {
 
-        getUnivList();
+        selectService.univ();
 
         var modal = $(".modal");
 
         /* Track rule create */
         $("#regist_rule_btn").on("click",function () {
-            var univId = $('#search_univ').val();
-            var univTitle = $("#search_univ option:selected").text();
+            var univId = $('#select_univ').val();
+            var univTitle = $("#select_univ option:selected").text();
 
             modal.find("button").show();
             modal.find("button[id != 'regist_rule'][data-sub = 'submit']").hide();
 
             $("#univ").val(univTitle);
 
-            getTrackList(univId);
-            getDegreeList();
+            selectService.track(univId);
+            selectService.degree();
             ruleService.creditDisable(false);
         });
 
@@ -203,13 +203,13 @@
         /* Track rule update*/
         $("#rule_list").on("click", ".rule_id #update_rule_btn",function () {
             var rule = ruleService.attribute($(this));
-            var univId = $('#search_univ').val();
+            var univId = $('#select_univ').val();
 
             modal.find("button").show();
             modal.find("button[id != 'update_rule'][data-sub = 'submit']").hide();
 
-            getTrackList(univId);
-            getDegreeList();
+            selectService.track(univId);
+            selectService.degree();
 
             $("#track_list option:eq(2)").attr("selected", "selected");
 
@@ -225,7 +225,7 @@
             ruleService.update(modalAttr, function (result) {
                 if (result == "SUCCESS") {
                     $('#modal').modal('hide');
-                    toastr["error"]("규칙이 삭제되었습니다.");
+                    toastr["error"]("규칙이 수정되었습니다.");
                     getSearchList();
                 }
             }, function(err) {
@@ -240,8 +240,8 @@
             modal.find("button").show();
             modal.find("button[id != 'delete_rule'][data-sub = 'submit']").hide();
 
-            getTrackList(1);
-            getDegreeList();
+            selectService.track(1);
+            selectService.degree();
 
             $("#univ").val(rule.univTitle);
             $(".modal-header").attr('id', rule.ruleId);
@@ -265,7 +265,7 @@
 
         /* Track rule List */
         function getSearchList() {
-            var univNo = $('#search_univ').val();
+            var univNo = $('#select_univ').val();
 
             ruleService.list(univNo, function (data) {
 
@@ -296,51 +296,11 @@
             });
         }
 
-        /* 아래는 삭제 예정 코드 */
-        $('#search_univ').on('change', function() {
-            var univNo = $('#search_univ').val();
+        $('#select_univ').on('change', function() {
+            var univNo = $('#select_univ').val();
 
             getSearchList(univNo);
         });
-
-        function getUnivList() {
-            $.getJSON("select/univ", function (data) {
-                var str = "<option value='-1'>- 대학 선택 -</option>";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.univId + "'>" + this.univTitle + "(" + this.univNo + ")" + "</option>"
-                    });
-
-                $("#search_univ").html(str);
-            });
-        }
-
-        function getTrackList(selectUniv) {
-            $.getJSON("select/track/" + selectUniv, function (data) {
-                var str = "<option value='-1'>- 트랙 선택 -</option>";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.trackId + "'>" + this.trackTitle + "(" + this.trackNo + ")" + "</option>"
-                    });
-
-                $("#track_list").html(str);
-            });
-        }
-
-        function getDegreeList() {
-            $.getJSON("select/degree", function (data) {
-                var str = "<option value='-1'>- 학위 선택 -</option>";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.degreeId + "'>" + this.degreeTitle + "</option>"
-                    });
-
-                $("#degree_list").html(str);
-            });
-        }
     });
 </script>
 

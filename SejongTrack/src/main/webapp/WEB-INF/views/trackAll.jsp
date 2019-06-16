@@ -36,7 +36,7 @@
 
                     <div class="box-body">
                         <div class="form-group">
-                            <select id="selectUniv" class="form-control">
+                            <select id="select_univ" class="form-control">
                             </select>
                         </div>
                     </div>
@@ -83,12 +83,12 @@
 <script language="JavaScript">
     $(document).ready(function () {
 
-        getUnivList();
-        trackAllList(1);
+        selectService.univ();
+        //trackAllList(1);
 
         function trackAllList(selectUniv) {
             $.getJSON("trackAll/" + selectUniv, function (data) {
-                var univT= $('#selectUniv option:selected').html();
+                var univT= $('#select_univ option:selected').html();
                 var univStr= '<h2 class="box-title">'+univT+'</h2>';
                 var str = "";
                 var industry=1;
@@ -142,24 +142,11 @@
             });
         }
 
-        $('#selectUniv').on('change', function() {
-            var selectUniv = this.value;    //selectUniv 리스트에서 value값 뽑아내기
+        $('#select_univ').on('change', function() {
+            var selectUniv = this.value;
 
-            trackAllList(selectUniv)             //트랙 리스트 출력
+            trackAllList(selectUniv);
 
         });
-
-        function getUnivList() {
-            $.getJSON("select/univ", function (data) {
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<option value='" + this.univId + "'>" + this.univTitle + "</option>"
-                    });
-
-                $("#selectUniv").html(str);
-            });
-        }
     });
 </script>

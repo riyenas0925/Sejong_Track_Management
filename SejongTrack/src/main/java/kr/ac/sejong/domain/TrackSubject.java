@@ -1,5 +1,6 @@
 package kr.ac.sejong.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,10 +24,12 @@ public class TrackSubject {
     private Long subjectType;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "trackId")
     Track track;
 
     @ManyToOne
     @JoinColumn(name = "subjectId")
+    @JsonIgnore
     Subject subject;
 }
