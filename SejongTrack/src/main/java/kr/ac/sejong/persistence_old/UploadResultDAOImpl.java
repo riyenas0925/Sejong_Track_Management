@@ -3,6 +3,7 @@ package kr.ac.sejong.persistence_old;
 import kr.ac.sejong.domain_old.resultTrackVO;
 import kr.ac.sejong.domain_old.ruleVO;
 import kr.ac.sejong.domain_old.trackSubjectVO;
+import kr.ac.sejong.dto.TrackSubjectJoinDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,7 @@ public class UploadResultDAOImpl implements UploadResultDAO{
     }
 
     @Override
-    public List<trackSubjectVO> readSub(Integer trackNo) throws Exception{
+    public List<TrackSubjectJoinDto> readSub(Integer trackNo) throws Exception{
         return session.selectList(namespace+".readsub", trackNo);
     }
 

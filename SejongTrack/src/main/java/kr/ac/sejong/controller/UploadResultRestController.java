@@ -3,6 +3,7 @@ package kr.ac.sejong.controller;
 import kr.ac.sejong.domain_old.resultTrackVO;
 import kr.ac.sejong.domain_old.subjectVO;
 import kr.ac.sejong.domain_old.trackVO;
+import kr.ac.sejong.dto.StudentExcelDto;
 import kr.ac.sejong.service.UploadFormService;
 import kr.ac.sejong.service.UploadResultService;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/uploadAjax/*")
-public class UploadResultAjaxController {
+public class UploadResultRestController {
 
     @Inject
     private UploadFormService uploadFormService;
@@ -47,7 +48,7 @@ public class UploadResultAjaxController {
     public ResponseEntity<List<resultTrackVO>> allResult(@PathVariable Integer univNo, HttpSession httpSession) throws Exception{
 
         ResponseEntity<List<resultTrackVO>> entity = null;
-        List<subjectVO> mySubList = uploadResultService.readMySub((MultipartFile)httpSession.getAttribute("file"));
+        List<StudentExcelDto> mySubList = uploadResultService.readMySub((MultipartFile)httpSession.getAttribute("file"));
 
         try {
             if(httpSession.getAttribute("resultList") == null){

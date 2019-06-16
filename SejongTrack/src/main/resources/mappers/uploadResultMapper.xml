@@ -5,24 +5,26 @@
 
 <mapper namespace="kr.ac.sejong.mapper.uploadResultMapper">
 
-    <select id="readsub" resultType="kr.ac.sejong.domain_old.trackSubjectVO">
+    <select id="readsub" resultType="kr.ac.sejong.dto.TrackSubjectJoinDto">
         <![CDATA[
         select
-          *
+          ts.subjectId, ts.subjectNo, ts.subjectTitle, ts.subjectCredit, tts.subjectType, tts.trackId
         from
-          tbl_subject
-          where trackNo = #{trackName}
+          tbl_subject as ts
+        JOIN tbl_track_subject tts on ts.subjectId = tts.subjectId
+        where trackId = #{trackINo};
         ]]>
     </select>
 
     <select id="readtypesub" parameterType="hashmap" resultType="kr.ac.sejong.domain_old.trackSubjectVO">
         <![CDATA[
         select
-          *
+          ts.subjectId, ts.subjectNo, ts.subjectTitle, ts.subjectCredit, tts.subjectType, tts.trackId
         from
-          tbl_subject
-          where trackNo = #{trackNo}
-          and subtype = #{subtype}
+          tbl_subject as ts
+        JOIN tbl_track_subject tts on ts.subjectId = tts.subjec
+        where trackId = #{trackId}
+        and subtype = #{subtype}
         ]]>
     </select>
 

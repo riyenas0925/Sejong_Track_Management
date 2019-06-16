@@ -19,6 +19,6 @@ public class UploadFormController {
 
     @GetMapping("/uploadForm")
     public void uploadForm(Model model, HttpSession httpSession) throws Exception{
-        httpSession.removeAttribute("file");
+        httpSession.removeAttribute("excelFile");
     }
 }

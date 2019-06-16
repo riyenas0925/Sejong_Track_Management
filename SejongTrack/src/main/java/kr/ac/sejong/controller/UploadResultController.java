@@ -1,10 +1,12 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain_old.subjectVO;
 import kr.ac.sejong.domain_old.trackSubjectVO;
+import kr.ac.sejong.dto.StudentExcelDto;
+import kr.ac.sejong.dto.TrackSubjectJoinDto;
 import kr.ac.sejong.service.TrackRuleService;
 import kr.ac.sejong.service.UploadResultService;
 
+import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,22 +24,23 @@ import java.util.List;
 
 @Controller
 @SessionAttributes("file")
+@Log
 public class UploadResultController {
 
     private static final Logger logger = LoggerFactory.getLogger(UploadResultController.class);
 
     @Inject
-    private UploadResultService service;
+    private UploadResultService uploadResultService;
 
     @Inject
     private TrackRuleService trackRuleService;
 
     @GetMapping("uploadResult")
     public void uploadResult(Integer univNo, Integer trackNo, Model model, HttpSession httpSession)throws Exception{
-        List<subjectVO> mySubList = service.readMySub((MultipartFile)httpSession.getAttribute("file"));
-        List<trackSubjectVO> trackList = service.readSub(trackNo);
+        List<StudentExcelDto> mySubList = (List<StudentExcelDto>) httpSession.getAttribute("studentExcel");
+        List<TrackSubjectJoinDto> trackList = uploadResultService.readSub(trackNo);
 
-        HashMap<String, List<trackSubjectVO>> resultAllMap = service.resultListSub(mySubList, trackList);
+        HashMap<String, List<TrackSubjectJoinDto>> resultAllMap = uploadResultService.resultListSub(mySubList, trackList);
         //ruleVO rule = trackRuleService.readRule(1, trackNo);
 
         model.addAttribute("resultAllMap", resultAllMap);
@@ -46,7 +49,10 @@ public class UploadResultController {
 
     @PostMapping("uploadResult")
     public void uploadResult(MultipartFile file, Model model, HttpSession httpSession)throws Exception{
-        httpSession.setAttribute("file", file);
+
+        List<StudentExcelDto> studentExcel = uploadResultService.readMySub(file);
+
+        httpSession.setAttribute("studentExcel", studentExcel);
         httpSession.removeAttribute("resultList");
     }
 }

@@ -100,8 +100,8 @@
                                             <!--기초교과 이수-->
                                             <c:forEach items="${resultAllMap.passBasicList}" var="subject">
                                                 <tr>
-                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
-                                                        <c:out value="${subject.courseTitle}"/>(<c:out value="${subject.credit}"/>)</td>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.subjectTitle}"/> [학수번호] <c:out value="${subject.subjectNo}"/> [학점] <c:out value="${subject.subjectCredit}"/>'>
+                                                        <c:out value="${subject.subjectTitle}"/>(<c:out value="${subject.subjectCredit}"/>)</td>
                                                 </tr>
                                             </c:forEach>
 
@@ -112,8 +112,8 @@
                                             <!--기초교과 미이수-->
                                             <c:forEach items="${resultAllMap.nonPassBasicList}" var="subject">
                                                 <tr>
-                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
-                                                        <c:out value="${subject.courseTitle}"/>(<c:out value="${subject.credit}"/>)</td>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.subjectTitle}"/> [학수번호] <c:out value="${subject.subjectNo}"/> [학점] <c:out value="${subject.subjectCredit}"/>'>
+                                                        <c:out value="${subject.subjectTitle}"/>(<c:out value="${subject.subjectCredit}"/>)</td>
                                                 </tr>
                                             </c:forEach>
                                         </table>
@@ -138,8 +138,8 @@
                                            </tr>
                                             <c:forEach items="${resultAllMap.passAppliedList}" var="subject">
                                                 <tr>
-                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
-                                                        <c:out value="${subject.courseTitle}"/>(<c:out value="${subject.credit}"/>)</td>
+                                                    <td class="tbl_hover" title='[교과목명] <c:out value="${subject.subjectTitle}"/> [학수번호] <c:out value="${subject.subjectNo}"/> [학점] <c:out value="${subject.subjectCredit}"/>'>
+                                                        <c:out value="${subject.subjectTitle}"/>(<c:out value="${subject.subjectCredit}"/>)</td>
                                                 </tr>
                                             </c:forEach>
 
@@ -149,8 +149,8 @@
 
                                             <c:forEach items="${resultAllMap.nonPassAppliedList}" var="subject">
                                             <tr>
-                                                <td class="tbl_hover" title='[교과목명] <c:out value="${subject.courseTitle}"/> [학수번호] <c:out value="${subject.courseNum}"/> [학점] <c:out value="${subject.credit}"/>'>
-                                                    <c:out value="${subject.courseTitle}"/>(<c:out value="${subject.credit}"/>)</td>
+                                                <td class="tbl_hover" title='[교과목명] <c:out value="${subject.subjectTitle}"/> [학수번호] <c:out value="${subject.subjectNo}"/> [학점] <c:out value="${subject.subjectCredit}"/>'>
+                                                    <c:out value="${subject.subjectTitle}"/>(<c:out value="${subject.subjectCredit}"/>)</td>
                                             </tr>
                                             </c:forEach>
 
@@ -160,7 +160,6 @@
                                 <!-- /.box -->
                             </div>
                             <div class="col-md-4" id="div-3">
-                                <!--산학부분임 컨트롤러만들어야 뭘하든말든하지만 나는 지금 하기 싫고 잘래-->
                             </div>
                         </div>
 
