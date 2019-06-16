@@ -2,9 +2,11 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain_old.resultTrackVO;
 import kr.ac.sejong.domain_old.ruleVO;
-import kr.ac.sejong.domain_old.subjectVO;
 import kr.ac.sejong.domain_old.trackSubjectVO;
+import kr.ac.sejong.dto.StudentExcelDto;
+import kr.ac.sejong.dto.TrackSubjectJoinDto;
 import kr.ac.sejong.persistence_old.UploadResultDAO;
+import lombok.extern.java.Log;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -12,11 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.*;
 
 @Service
+@Log
 public class UploadResultServiceImpl implements UploadResultService{
 
     @Inject
@@ -34,7 +35,7 @@ public class UploadResultServiceImpl implements UploadResultService{
     }
 
     @Override
-    public List<trackSubjectVO> readSub(Integer subType) throws Exception{
+    public List<TrackSubjectJoinDto> readSub(Integer subType) throws Exception{
         return dao.readSub(subType);
     }
 
@@ -44,22 +45,17 @@ public class UploadResultServiceImpl implements UploadResultService{
     }
 
     @Override
-    public List<subjectVO> readMySub(MultipartFile file) throws Exception{
+    public List<StudentExcelDto> readMySub(MultipartFile excelFile) throws Exception{
 
-        List<subjectVO> mySubList = new ArrayList<subjectVO>();
+        List<StudentExcelDto> mySubList = new ArrayList<StudentExcelDto>();
 
-        File convFile = new File(file.getOriginalFilename());
-        file.transferTo(convFile);
-
-        FileInputStream fileInputStream = new FileInputStream(convFile);
-
-        HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
+        HSSFWorkbook workbook = new HSSFWorkbook(excelFile.getInputStream());
         HSSFSheet sheet = workbook.getSheetAt(0);
 
         for(int rowindex = 0; rowindex < sheet.getPhysicalNumberOfRows(); rowindex++){
             if(rowindex != 0){
                 HSSFRow row = sheet.getRow(rowindex);
-                subjectVO vo = new subjectVO();
+                StudentExcelDto vo = new StudentExcelDto();
 
                 vo.setCourseNum(row.getCell(2).getStringCellValue());
                 vo.setCourseTitle(row.getCell(3).getStringCellValue());
@@ -73,20 +69,22 @@ public class UploadResultServiceImpl implements UploadResultService{
     }
 
     @Override
-    public HashMap<String, List<trackSubjectVO>> resultListSub(List<subjectVO> myList, List<trackSubjectVO> standList) throws Exception{
-        HashMap<String, List<trackSubjectVO>> passListSubMap = new HashMap<>();
+    public HashMap<String, List<TrackSubjectJoinDto>> resultListSub(List<StudentExcelDto> myList,
+                                                                    List<TrackSubjectJoinDto> standList) throws Exception{
 
-        List<trackSubjectVO> passBasicList = new ArrayList<>();
-        List<trackSubjectVO> passAppliedList = new ArrayList<>();
-        List<trackSubjectVO> passIndustryList = new ArrayList<>();
+        HashMap<String, List<TrackSubjectJoinDto>> passListSubMap = new HashMap<>();
 
-        List<trackSubjectVO> nonPassBasicList = new ArrayList<>();
-        List<trackSubjectVO> nonPassAppliedList = new ArrayList<>();
-        List<trackSubjectVO> nonPassIndustryList = new ArrayList<>();
+        List<TrackSubjectJoinDto> passBasicList = new ArrayList<>();
+        List<TrackSubjectJoinDto> passAppliedList = new ArrayList<>();
+        List<TrackSubjectJoinDto> passIndustryList = new ArrayList<>();
+
+        List<TrackSubjectJoinDto> nonPassBasicList = new ArrayList<>();
+        List<TrackSubjectJoinDto> nonPassAppliedList = new ArrayList<>();
+        List<TrackSubjectJoinDto> nonPassIndustryList = new ArrayList<>();
 
         for(int i=0; i < standList.size(); i++){
-            if(listContains(myList, standList.get(i).getCourseNum())){
-                switch (standList.get(i).getSubType()){
+            if(listContains(myList, standList.get(i).getSubjectNo())){
+                switch (standList.get(i).getSubjectType()){
                     case 1:
                         passBasicList.add(standList.get(i));
                         break;
@@ -98,7 +96,7 @@ public class UploadResultServiceImpl implements UploadResultService{
                         break;
                 }
             }else{
-                switch (standList.get(i).getSubType()){
+                switch (standList.get(i).getSubjectType()){
                     case 1:
                         nonPassBasicList.add(standList.get(i));
                         break;
@@ -123,10 +121,14 @@ public class UploadResultServiceImpl implements UploadResultService{
         return passListSubMap;
     }
 
-    private Boolean listContains(List<subjectVO> myList, String standListNum){
+    private Boolean listContains(List<StudentExcelDto> myList, String standListNum){
         int cnt = 0;
+
         for(int i=0; i < myList.size(); i++){
+            log.info(standListNum + " == " + myList.get(i).getCourseNum());
+
             if(standListNum.equals(myList.get(i).getCourseNum())) {
+                log.info("test" + cnt);
                 cnt++;
                 break;
             }
@@ -136,7 +138,7 @@ public class UploadResultServiceImpl implements UploadResultService{
     }
 
     @Override
-    public List<resultTrackVO> resultTrackList(Integer univNo, List<subjectVO> myList)throws Exception{
+    public List<resultTrackVO> resultTrackList(Integer univNo, List<StudentExcelDto> myList)throws Exception{
         List<resultTrackVO> resultTrackList = dao.trackList(univNo);
 
         /*

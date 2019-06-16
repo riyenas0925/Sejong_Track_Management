@@ -3,6 +3,7 @@ package kr.ac.sejong;
 import kr.ac.sejong.domain.Track;
 import kr.ac.sejong.domain.Univ;
 import kr.ac.sejong.persistence.TrackRepository;
+import kr.ac.sejong.persistence_old.UploadResultDAO;
 import lombok.extern.java.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,9 @@ public class TrackTest {
 
     @Inject
     private TrackRepository trackRepository;
+
+    @Inject
+    private UploadResultDAO uploadResultDAO;
 
     @Test
     public void createTrack(){
@@ -53,5 +57,10 @@ public class TrackTest {
     @Test
     public void trackList(){
         log.info(trackRepository.findByUnivId(1L).toString());
+    }
+
+    @Test
+    public void subjectList() throws Exception {
+        log.info(uploadResultDAO.readSub(1).toString());
     }
 }
