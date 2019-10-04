@@ -16,6 +16,8 @@
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
+        <!-- 로그인 기능 넣을 자리-->
+        <a href = "/joinView" >회원가입</a>
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
