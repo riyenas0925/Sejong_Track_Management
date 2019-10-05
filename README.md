@@ -1,9 +1,14 @@
 # Sejong-Track-Management-Spring
 세종대학교 트랙관리 프로그램 Spring  
 
-* 프로젝트 받아서 application run시켰는데 안될때?  
+### 프로젝트 받아서 application run시켰는데 안될때?  
 오른쪽 maven열어서 -> plugins -> spring-boot의 run 실행  
 **(이때 application run했던건 다 중지시킨 후 실행해야됨. <i>안그러면 안먹힘</i>)**
+
+
+### Todo    
+- [ ] Ajax공부<br>
+- [ ] ```<a href>```에서 컨트롤러 이용하지 않고 페이지 로드(ajax 이용 or url 수정해보기)<br>
 
 <hr>
 
