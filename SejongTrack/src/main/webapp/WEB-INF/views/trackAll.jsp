@@ -98,16 +98,18 @@
 
                 str += "<thead>"
                     +"<tr>"
-                    +"<th style='width:50px;'>번호</th>"
+                    +"<th style='width:50px;'>번호랑이</th>"
                     +"<th style='width:200px;'>트랙 이름</th>"
                     +"<th>기초 교과</th>"
                     +"<th>응용 교과</th>";
 
                 $(data).each(
                     function () {
-                        if(this.trackIndustry==null){
+                        if(this.trackIndustry == null){
                             industry=0;
                         }
+                        //data순회했는데 하나라도 산학연계가 없으면 칼럼을 없앤다?
+                        // 하나라도 있으면 칼럼 있어야되는것 아닌가
                     }
                 )
 

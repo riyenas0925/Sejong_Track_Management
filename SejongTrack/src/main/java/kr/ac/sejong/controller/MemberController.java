@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.inject.Inject;
 
 @Controller
-public class MemberJoinController {
+public class MemberController {
 
-    private static Logger logger = LoggerFactory.getLogger(MemberJoinController.class);
+    private static Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     @Inject
     MemberService memberService;
@@ -21,6 +21,11 @@ public class MemberJoinController {
     @RequestMapping("/joinView")
     public String joinView(){
         return "joinView";
+    }
+
+    @RequestMapping("/loginView")
+    public String loginView(){
+        return "loginView";
     }
 
     @RequestMapping("/memberJoin")
@@ -36,5 +41,10 @@ public class MemberJoinController {
             model.addAttribute("IsJoin", "No");
         }
         return "joinResult";
+    }
+
+    @RequestMapping("/memberLogin")
+    public String memberLogin(){
+        return "loginResult";
     }
 }
