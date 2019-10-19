@@ -18,20 +18,46 @@ public class MemberServiceImpl implements MemberService {
     MemberRepository memberRepository;
 
     @Override
-    public int join(Member m){
+    public int join(Member m){ // id 중복확인만 하고 join판단
         //중복검사
-        Optional<Member> maybeMember = memberRepository.findById(m.getId());
-        logger.info("mayMember : "+maybeMember.toString());
-        logger.info("isPresent : "+maybeMember.isPresent());
-        if(maybeMember.isPresent()){
-            logger.info("join() : Already exist member........");
-            return -1;
-        }
-        else {
+        if(IsMemberExist(m) == "No"){
             memberRepository.save(m);
-            logger.info("join() : member saved.........");
             return 1;
         }
+        else{
+            return -1;
+        }
+    }
+
+//    @Override
+//    public Optional<Member> login(Member m){ //멤버 존재? + 비밀번호 일치하는지
+////        Optional<Member> opt_m = memberRepository.findById(m.getId());
+////        Member mm = opt_m.get();
+////        Optional<Member> res_m;
+////
+////        if(mm.getPassword().equals(m.getPassword())){
+////            res_m = Optional.ofNullable(mm);
+////        }
+////        else{
+////            res_m = Optional.ofNullable(null);
+////        }
+////
+////        return res_m;
+////
+//
+//    }
+
+    @Override
+    public Optional<Member> findMember(Member m){
+
+        return memberRepository.findById(m.getId());
+    }
+
+    @Override
+    public String IsMemberExist(Member m) {
+        Optional<Member> maybeMember = memberRepository.findById(m.getId());
+        logger.info("maybeMember.isPresent() : "+ maybeMember.isPresent());
+        return (maybeMember.isPresent()) ? "Yes" : "No";
     }
 
 }

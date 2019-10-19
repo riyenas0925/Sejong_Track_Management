@@ -16,9 +16,23 @@
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
+
         <!-- 로그인 기능 넣을 자리-->
-        <a href = "/joinView" >회원가입</a>
-        <a href = "/loginView" >로그인</a>
+        <a href = "${path}/joinView" >회원가입</a>
+        <%
+            if(session.getAttribute("memberInfo")!=null)
+            {
+        %>
+        <a href = "${path}/memberLogout" >로그아웃</a>
+        <%
+            }
+            else
+            {
+        %>
+        <a href = "${path}/loginView" >로그인</a>
+        <%
+            }
+        %>
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
@@ -55,3 +69,11 @@
         </div>
     </nav>
 </header>
+<%--<link rel="stylesheet" href="http://rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.css"/>--%>
+<%--<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>--%>
+<%--<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>--%>
+<%--<script type="text/javascript">--%>
+    <%----%>
+
+
+<%--</script>--%>

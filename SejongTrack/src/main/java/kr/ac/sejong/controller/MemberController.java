@@ -7,8 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 public class MemberController {
@@ -19,32 +22,63 @@ public class MemberController {
     MemberService memberService;
 
     @RequestMapping("/joinView")
-    public String joinView(){
-        return "joinView";
+    public void joinView(Model model) {
+
     }
 
     @RequestMapping("/loginView")
-    public String loginView(){
-        return "loginView";
+    public void loginView(Model model) {
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/memberExist")
+    public String memberExist(Member member) {
+
+        String res = memberService.IsMemberExist(member);
+        logger.info("MemberExist - res : " + res);
+
+        return res;
+    }
+
+    @ResponseBody
+    @RequestMapping("/memberPwCorrect")
+    public String memberPwCorrect(Member member){
+        Optional<Member> m = memberService.findMember(member); //jsp단에서 멤버가 확실히 있음을 이미 체크.
+        if(m.get().getPassword().equals(member.getPassword())){
+            return "Yes";
+        }
+        else{
+            return "No";
+        }
     }
 
     @RequestMapping("/memberJoin")
-    public String memberJoin(Member member, Model model){
+    public String memberJoin(Member member, Model model) {
         int resInt = memberService.join(member);
-        logger.info("resInt : "+resInt);
-        if( resInt == 1)
-        {
+        logger.info("resInt : " + resInt);
+        if (resInt == 1)
             model.addAttribute("IsJoin", "Yes");
-        }
-        else{
-            //실패
+        else
             model.addAttribute("IsJoin", "No");
-        }
+
         return "joinResult";
     }
 
-    @RequestMapping("/memberLogin")
-    public String memberLogin(){
-        return "loginResult";
+
+
+    @RequestMapping("/memberLogin") //세션 저장용
+    public String memberLogin(Member member, HttpSession session) {
+        Optional<Member> m = memberService.findMember(member);  //return Optional한 멤버의 정보
+
+        session.setAttribute("memberInfo", m.get());
+        return "home";
+
+    }
+
+    @RequestMapping("/memberLogout")
+    public String memberLogout(HttpSession session) {
+        session.invalidate();//세션 해제
+        return "home";
     }
 }
