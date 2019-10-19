@@ -52,7 +52,7 @@
         $.ajax({
             url: '/memberPwCorrect',
             data: {"id": id, "password": pw},
-            dataType: 'text', // true 반환시 : 세션저장(controller), home이동
+            dataType: 'text', // true 반환시 : 세션저장, home이동(controller)
             type: 'POST',
             async:false,
             success: function (data) {

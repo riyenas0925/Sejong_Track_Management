@@ -69,11 +69,3 @@
         </div>
     </nav>
 </header>
-<%--<link rel="stylesheet" href="http://rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.css"/>--%>
-<%--<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>--%>
-<%--<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>--%>
-<%--<script type="text/javascript">--%>
-    <%----%>
-
-
-<%--</script>--%>

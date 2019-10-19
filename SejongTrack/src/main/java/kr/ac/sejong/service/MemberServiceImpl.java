@@ -29,24 +29,6 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-//    @Override
-//    public Optional<Member> login(Member m){ //멤버 존재? + 비밀번호 일치하는지
-////        Optional<Member> opt_m = memberRepository.findById(m.getId());
-////        Member mm = opt_m.get();
-////        Optional<Member> res_m;
-////
-////        if(mm.getPassword().equals(m.getPassword())){
-////            res_m = Optional.ofNullable(mm);
-////        }
-////        else{
-////            res_m = Optional.ofNullable(null);
-////        }
-////
-////        return res_m;
-////
-//
-//    }
-
     @Override
     public Optional<Member> findMember(Member m){
 

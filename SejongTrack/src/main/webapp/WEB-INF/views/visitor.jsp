@@ -157,7 +157,7 @@
 
         function getCount() {
 
-             ("/statusAjax/count", function (data) {
+             $.getJSON("/statusAjax/count", function (data) {
                 var str = "";
 
                 $("#today").text(data[0]);
