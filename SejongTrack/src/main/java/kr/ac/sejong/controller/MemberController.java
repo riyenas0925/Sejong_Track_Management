@@ -72,13 +72,13 @@ public class MemberController {
         Optional<Member> m = memberService.findMember(member);  //return Optional한 멤버의 정보
 
         session.setAttribute("memberInfo", m.get());
-        return "home";
+        return "redirect:/"; //home을 리턴하면 home.jsp는 찾아가지만 url은 안바뀐다! joinResult도 url안바뀌는 것처럼.
 
     }
 
     @RequestMapping("/memberLogout")
     public String memberLogout(HttpSession session) {
         session.invalidate();//세션 해제
-        return "home";
+        return "redirect:/";
     }
 }
