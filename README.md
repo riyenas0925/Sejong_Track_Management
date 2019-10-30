@@ -5,8 +5,10 @@
 오른쪽 maven열어서 -> plugins -> spring-boot의 run 실행  
 **(이때 application run했던건 다 중지시킨 후 실행해야됨. <i>안그러면 안먹힘</i>)**
 
+### 기능 개발 전 '이슈 등록'하기!!!
 
 ### Todo    
+- [ ] travis-CI, heroku 사용법 익히기
 - [ ] Ajax, jquery공부<br>
    - [ ] ~~```<a href>```에서 컨트롤러 이용하지 않고 페이지 로드~~(**페이지로드는 해야될것같음**)
    - [x] id중복확인 버튼 만들기
@@ -15,6 +17,7 @@
       - [ ] emailCheck()이메일 형식 체크
       - [ ] pwCheck() 비밀번호 형식 체크
    - [ ] 로딩바 만들기
+
 <hr>
 
 ENH: (Enhancement) 개선하거나 신기능 추가    
