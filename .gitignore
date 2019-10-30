@@ -13,6 +13,5 @@
 *.ear
 
 ### local ###
-/SejongTrack/target/
-/upload/
+/target/
 !.mvn/wrapper/maven-wrapper.jar
