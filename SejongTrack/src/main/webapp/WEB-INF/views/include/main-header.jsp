@@ -17,6 +17,23 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
 
+        <!-- 로그인 기능 넣을 자리-->
+        <a href = "${path}/joinView" >회원가입</a>
+        <%
+            if(session.getAttribute("memberInfo")!=null)
+            {
+        %>
+        <a href = "${path}/memberLogout" >로그아웃</a>
+        <%
+            }
+            else
+            {
+        %>
+        <a href = "${path}/loginView" >로그인</a>
+        <%
+            }
+        %>
+
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- User Account: style can be found in dropdown.less -->
