@@ -26,7 +26,12 @@
                 from tbl_track_subject as tts
                 JOIN tbl_subject as ts
                 ON tts.subjectId = ts.subjectId
-                where subjectType = 3 and trackId = @trackId) as trackIndustry
+                where subjectType = 3 and trackId = @trackId) as trackIndustry,
+            (select group_concat(ts.subjectTitle separator ', ')
+                from tbl_track_subject as tts
+                JOIN tbl_subject as ts
+                ON tts.subjectId = ts.subjectId
+                where subjectType = 4 and trackId = @trackId) as trackExpert
         from
             tbl_track
         where univId = #{univId};
