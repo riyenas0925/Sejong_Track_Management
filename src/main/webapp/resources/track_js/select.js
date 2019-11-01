@@ -2,11 +2,12 @@ var selectService = (function() {
 
     function univ() {
         $.getJSON("select/univ", function (data) {
-            var str = "<option value='-1'>- 대학 선택 -</option>";
+            var str = "";
+            //"<option value='-1'>- 대학 선택 -</option>";
 
             $(data).each(
                 function () {
-                    str += "<option value='" + this.univId + "'>" + this.univTitle + "(" + this.univNo + ")" + "</option>"
+                    str += "<option value='" + this.univId + "'>" + this.univTitle + " (" + this.univNo + ")" + "</option>"
                 });
 
             $("#select_univ").html(str);
