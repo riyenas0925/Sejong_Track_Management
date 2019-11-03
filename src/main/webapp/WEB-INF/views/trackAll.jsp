@@ -16,12 +16,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            세종대학교 전체 트랙
+            세종대학교 트랙 현황
             <small>Sejong univ Track</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i>SejongTrack</a></li>
-            <li class="active">전체 트랙</li>
+            <li class="active">트랙 현황</li>
         </ol>
     </section>
 
@@ -48,16 +48,16 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <div id="univT">
-                        </div>
+                        <h2 id="univ_title" class="box-title">
+
+                        </h2>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover" id="trackTbl">
-                                <!--여기임-->
+                            <table class="table table-hover" id="track_tbl">
+
                             </table>
-                            <div id="test"></div>
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -84,39 +84,27 @@
     $(document).ready(function () {
 
         selectService.univ();
-        //trackAllList(1);
+        trackAllList(1);
 
         function trackAllList(selectUniv) {
             $.getJSON("trackAll/" + selectUniv, function (data) {
-                var univT= $('#select_univ option:selected').html();
-                var univStr= '<h2 class="box-title">'+univT+'</h2>';
+
+                var univ_title= $('#select_univ option:selected').html();
                 var str = "";
-                var industry=1;
                 var cnt=1;
 
-                document.getElementById('univT').innerHTML=univStr;
+                $("#univ_title").html(univ_title);
 
                 str += "<thead>"
-                    +"<tr>"
-                    +"<th style='width:50px;'>번호</th>"
-                    +"<th style='width:200px;'>트랙 이름</th>"
-                    +"<th>기초 교과</th>"
-                    +"<th>응용 교과</th>";
-
-                $(data).each(
-                    function () {
-                        if(this.trackIndustry==null){
-                            industry=0;
-                        }
-                    }
-                )
-
-                if (industry==1){
-                    str += "<th>산학 연계</th>";
-                }
-
-                str += "</tr>"
-                    +"</thead>";
+                    + "<tr>"
+                    + "<th style='width:50px;'>번호</th>"
+                    + "<th style='width:200px;'>트랙 이름</th>"
+                    + "<th>기초 교과</th>"
+                    + "<th>응용 교과</th>"
+                    + "<th>심화 교과</th>"
+                    + "<th>산학 연계 교과</th>"
+                    + "</tr>"
+                    + "</thead>";
 
                 $(data).each(
                     function () {
@@ -125,28 +113,43 @@
                             + "<td style='vertical-align: middle;'>"+ cnt + "</td>"
                             + "<td style='vertical-align: middle;'>"+ this.trackTitle + "</td>"
                             + "<td style='vertical-align: middle;'>"+ this.trackBasic + "</td>"
-                            + "<td style='vertical-align: middle;'>"+ this.trackApplied + "</td>";
-
-                        if (this.trackIndustry!=null){
-                            str += "<td style='margin: 100px 0px;'>"+ this.trackIndustry + "</td>";
-                        }
-
-                        str += "</tr>"
+                            + "<td style='vertical-align: middle;'>"+ this.trackApplied + "</td>"
+                            + "<td style='vertical-align: middle;'>"+ this.trackExpert + "</td>"
+                            + "<td style='vertical-align: middle;'>"+ this.trackIndustry + "</td>"
+                            + "</tr>"
                             + "</tbody>";
 
                         cnt++;
                     });
 
-                $("#trackTbl").html(str);
+                $("#track_tbl").html(str);
+                deleteEmptyCell();
+            });
+        }
 
+        function deleteEmptyCell() {
+            $('#track_tbl').each(function (a, tbl) {
+                var currentTableRows = $(this).find("tr").length - 1;
+                $(tbl).find('th').each(function (i) {
+                    var removeVal = 0;
+                    var currentTable = $(this).parents('#track_tbl');
+
+                    var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
+                    tds.each(function () {
+                        if ($(this).text().trim() == 'null') removeVal++;
+                    });
+
+                    if (removeVal == currentTableRows) {
+                        $(this).hide();
+                        tds.hide();
+                    }
+                });
             });
         }
 
         $('#select_univ').on('change', function() {
             var selectUniv = this.value;
-
             trackAllList(selectUniv);
-
         });
     });
 </script>

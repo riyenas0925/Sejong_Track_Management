@@ -9,4 +9,5 @@ public class TrackAllViewDto {
     private String trackBasic;
     private String trackApplied;
     private String trackIndustry;
+    private String trackExpert;
 }
