@@ -12,9 +12,7 @@
     <input type="submit" value="로그인"> <input type="reset" value="취소">
 </form>
 </html>
-<link rel="stylesheet" href="http://rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.css"/>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<%@ include file="include/plugins.jsp" %>
 <script type="text/javascript">
     function idCheck2() {
         var id = $('input[name=id]').val();
