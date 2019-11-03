@@ -1,19 +1,16 @@
 package kr.ac.sejong.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "tbl_track")
 @EqualsAndHashCode(of = "trackId")
-@ToString(exclude = {"univ","trackSubjects"})
+@ToString(exclude = {"univ","trackSubjects","rules"})
 public class Track {
 
     @Id
@@ -23,15 +20,42 @@ public class Track {
     private String trackTitle;
     private Long trackNo;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "univId")
     Univ univ;
 
-    @OneToMany(mappedBy = "track")
+    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
     List<TrackSubject> trackSubjects;
 
-    /*
+    @JsonIgnore
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
     List<Rule> rules;
-    */
+
+    public Track(){
+
+    }
+
+    @Builder
+    public Track(Long trackId, String trackTitle, Long trackNo, Univ univ){
+        this.trackId = trackId;
+        this.trackTitle = trackTitle;
+        this.trackNo = trackNo;
+        this.univ = univ;
+    }
+
+    public static Track createTrack(String trackTitle, Long trackNo, Univ univ){
+        Track track = Track.builder()
+                .trackTitle(trackTitle)
+                .trackNo(trackNo)
+                .univ(univ)
+                .build();
+        return track;
+    }
+
+    public void updateTrack(String trackTitle, Long trackNo, Univ univ) {
+        this.trackTitle = trackTitle;
+        this.trackNo = trackNo;
+        this.univ = univ;
+    }
 }
