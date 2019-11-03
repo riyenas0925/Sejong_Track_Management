@@ -3,7 +3,7 @@
 <html>
 
 <%--head.jsp--%>
-<%@ include file="include/head.jsp" %>
+<%@ include file="include/head-color.jsp" %>
 
     <%-- Main Header --%>
     <%@ include file="include/main-header.jsp" %>
