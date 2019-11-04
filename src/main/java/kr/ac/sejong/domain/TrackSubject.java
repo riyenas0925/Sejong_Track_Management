@@ -1,15 +1,11 @@
 package kr.ac.sejong.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "tbl_track_subject")
 @EqualsAndHashCode(of = "id")
@@ -32,4 +28,32 @@ public class TrackSubject {
     @JoinColumn(name = "subjectId")
     @JsonIgnore
     Subject subject;
+
+    public TrackSubject(){
+
+    }
+
+    @Builder
+    public TrackSubject(Track track, Subject subject, Long subjectType){
+        this.track = track;
+        this.subject = subject;
+        this.subjectType = subjectType;
+    }
+
+    public static TrackSubject createTrackSubject(Track track, Subject subject, Long subjectType){
+        TrackSubject trackSubject = TrackSubject.builder()
+                .track(track)
+                .subject(subject)
+                .subjectType(subjectType)
+                .build();
+
+        return trackSubject;
+    }
+
+    public void updateTrackSubject(Long id, Track track, Subject subject, Long subjectType){
+        this.id = id;
+        this.track = track;
+        this.subject = subject;
+        this.subjectType = subjectType;
+    }
 }

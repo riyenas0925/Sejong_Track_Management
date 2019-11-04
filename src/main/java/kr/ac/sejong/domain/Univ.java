@@ -1,18 +1,15 @@
 package kr.ac.sejong.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "tbl_univ")
-@EqualsAndHashCode(of = "univId")
-@ToString
+@ToString(exclude = "tracks")
 public class Univ {
 
     @Id
@@ -22,8 +19,18 @@ public class Univ {
     private String univTitle;
     private Long univNo;
 
-    /*
-    @OneToMany(mappedBy = "univ", fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "univ", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Track> tracks;
-    */
+
+    public Univ() {
+
+    }
+
+    @Builder
+    public Univ(Long univId, String univTitle, Long univNo) {
+        this.univId = univId;
+        this.univTitle = univTitle;
+        this.univNo = univNo;
+    }
 }

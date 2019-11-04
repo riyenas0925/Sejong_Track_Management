@@ -10,6 +10,8 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,15 +24,43 @@ public class UnivTest {
 
     @Test
     public void createUniv() {
-        Univ univ1 = new Univ();
-        univ1.setUnivTitle("Test Univ Title");
+        Univ univ = Univ.builder()
+                .univTitle("Test Title")
+                .univNo(1000L)
+                .build();
 
-        univRepository.save(univ1);
+        univRepository.save(univ);
+    }
 
-        Univ univ2 = new Univ();
-        univ2.setUnivId(1L);
-        univ2.setUnivTitle("Update Univ Title");
+    @Test
+    public void updateUniv() {
+        Univ univ2 = Univ.builder()
+                .univId(1L)
+                .univTitle("Test Update Title")
+                .univNo(3333L)
+                .build();
 
         univRepository.save(univ2);
+    }
+
+    @Test
+    public void deleteUniv() {
+        univRepository.deleteById(1L);
+    }
+
+    @Test
+    public void univList() {
+        log.info(univRepository.findById(1L).toString());
+    }
+
+    @Test
+    public void univAllList() {
+        List<Univ> univList = new ArrayList<>();
+
+        univRepository.findAll().forEach(i -> {
+            univList.add(i);
+        });
+
+        log.info(univList.toString());
     }
 }

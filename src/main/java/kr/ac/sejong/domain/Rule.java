@@ -23,25 +23,11 @@ public class Rule {
     private Long appliedCredit;
     private Long industryCredit;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trackId")
     Track track;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "degreeId")
     Degree degree;
-
-    public static Rule createRule(Track track, Degree degree,
-                                  Long basicCredit, Long appliedCredit, Long industryCredit){
-        Rule rule = new Rule();
-
-        rule.setBasicCredit(basicCredit);
-        rule.setAppliedCredit(appliedCredit);
-        rule.setIndustryCredit(industryCredit);
-
-        rule.setDegree(degree);
-        rule.setTrack(track);
-
-        return rule;
-    }
 }
