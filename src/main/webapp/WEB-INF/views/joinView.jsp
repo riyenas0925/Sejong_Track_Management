@@ -73,10 +73,11 @@
 
 <%@ include file="include/plugins.jsp" %>
 <script type="text/javascript">
+
     //아이디 중복확인 체킹
     function idCheck() {
         var id = $('input[name=id]').val();
-        var res;
+        var idRes;
 
         $.ajax({
             url: '/memberExist',
@@ -87,19 +88,19 @@
             success: function (data) {
                 if (data == "No") {
                     $('#idCheckRes').html("사용가능한 아이디입니다.");
-                    res = true;
+                    idRes = true;
                 } else {
                     $('#idCheckRes').html("이미 존재하는 아이디입니다.");
-                    res = false;
+                    idRes = false;
                 }
             },
             error: function (error) {
                 console.log(error);
-                res = false;
+                idRes = false;
             }
 
         });
-        return res;
+        return idRes;
     }
 
     $('#jButton').click(function () {
@@ -107,45 +108,37 @@
     });
 
     //비밀번호 재확인 체킹
+    var pwRes;
     function pwCorrect() {
-        var res;
+
         $("input[name=password]").keyup(function () {
             if ($("input[name=password]").val() == $("input[name=pwRe]").val()) {
                 $("#pwCheckRes").html("비밀번호가 일치합니다.");
-                $('#pwCheckRes').attr('color', '#00c91f');
-                res = true;
+                pwRes = true;
+
             } else {
                 $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
-                $('#pwCheckRes').attr('color', '#F00');
-                res = false;
+                pwRes = false;
             }
         });
 
         $("input[name=pwRe]").keyup(function () {
             if ($("input[name=password]").val() == $("input[name=pwRe]").val()) {
                 $("#pwCheckRes").html("비밀번호가 일치합니다.");
-                $('#pwCheckRes').attr('color', '#00c91f');
-                res = true;
+                pwRes = true;
+
             } else {
                 $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
-                $('#pwCheckRes').attr('color', '#F00');
-                res = false;
+                pwRes = false;
+
             }
         });
-
-        return res;
     }
-
     pwCorrect();
 
     //submit할 때 체킹
     function totalCheck() {
-        if(idCheck() ==true){
-            return (pwCorrect()==true)? true : false;
-        }
-        else
-            return false;
-        //return pwCorrect() && idCheck();
+        return idCheck()&&pwRes;
     }
 
     $('input').iCheck({ //AdminLTE 회원가입 테마 jquery

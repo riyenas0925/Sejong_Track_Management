@@ -10,7 +10,8 @@
 
     <%-- Left side column. contains the logo and sidebar --%>
     <%@ include file="include/main-sidebar.jsp" %>
-
+<body class="hold-transition skin-black sidebar-mini">
+<div class="wrapper">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->

@@ -60,89 +60,77 @@
 
 <%@ include file="include/plugins.jsp" %>
 <script type="text/javascript">
-    $(function () {
-        function idCheck2() {
-            var id = $('input[name=id]').val();
-            var res;
 
-            $.ajax({
-                url: '/memberExist',
-                data: {"id": id},
-                dataType: 'text',
-                type: 'POST',
-                async: false,
-                success: function (data) {
-                    if (data == "No") {
-                        alert("존재하지 않는 회원입니다.");
-                        res = false;
-                    } else {
-                        res = true;
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
+    function idCheck2() {
+        var id = $('input[name=id]').val();
+        var res;
+
+        $.ajax({
+            url: '/memberExist',
+            data: {"id": id},
+            dataType: 'text',
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                if (data == "No") {
+                    alert("존재하지 않는 회원입니다.");
                     res = false;
+                } else {
+                    res = true;
                 }
+            },
+            error: function (error) {
+                console.log(error);
+                res = false;
+            }
 
-            });
-            return res;
-        }
+        });
+        return res;
+    }
 
-        function pwCheck() {
-            var id = $('input[name=id]').val();
-            var pw = $('input[name=password]').val();
-            var res;
+    function pwCheck() {
+        var id = $('input[name=id]').val();
+        var pw = $('input[name=password]').val();
+        var res;
 
-            $.ajax({
-                url: '/memberPwCorrect',
-                data: {"id": id, "password": pw},
-                dataType: 'text', // true 반환시 : 세션저장, home이동(controller)
-                type: 'POST',
-                async: false,
-                success: function (data) {
-                    if (data == "No") {
-                        alert("비밀번호가 일치하지 않습니다.");
-                        res = false;
-                    } else {
-
-                        res = true;
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
+        $.ajax({
+            url: '/memberPwCorrect',
+            data: {"id": id, "password": pw},
+            dataType: 'text', // true 반환시 : 세션저장, home이동(controller)
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                if (data == "No") {
+                    alert("비밀번호가 일치하지 않습니다.");
                     res = false;
+                } else {
+
+                    res = true;
                 }
-
-            });
-            return res;
-        }
-
-        function totalCheck() {
-            if (idCheck2() == false)
-                return false;
-            else {
-                return (pwCheck() == true) ? true : false;
+            },
+            error: function (error) {
+                console.log(error);
+                res = false;
             }
+
+        });
+        return res;
+    }
+
+    function totalCheck() {
+        if (idCheck2() == false)
+            return false;
+        else {
+            return (pwCheck() == true) ? true : false;
         }
+    }
 
 
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
-        });
+    $('input').iCheck({//AdminLTE 회원가입 테마 jquery
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' /* optional */
+    });
 
-        $("input:checkbox[name='rememberCheck']").click(function () {
-            if ($("input:checkbox[name='rememberCheck']").is(":checked") == true) { //체크박스
-                $("input:checkbox[name='rememberCheck']").val("Yes"); //체크안하면 값이 무시되기때문에 설정해준다.
-                alert("Yes");
-            } else {
-                $("input:checkbox[name='rememberCheck']").val("No");
-                alert("No");
-            }
-        });
-
-        $("#area").html($("input:checkbox[name='rememberCheck']").is(":checked"));
-    })
 
 </script>
