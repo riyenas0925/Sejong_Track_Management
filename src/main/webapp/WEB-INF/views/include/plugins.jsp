@@ -12,7 +12,7 @@
 <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- Pace -->
-<script src="/bower_components\PACE/pace.min.js"></script>
+<script src="/bower_components/PACE/pace.min.js"></script>
 <!-- track select -->
 <script src="/track_js/select.js"></script>
 
