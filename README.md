@@ -16,7 +16,6 @@
       - [x] idCheck()아이디 체크
       - [ ] emailCheck()이메일 형식 체크
       - [ ] pwCheck() 비밀번호 형식 체크
-   - [ ] 로딩바 만들기
 
 <hr>
 
