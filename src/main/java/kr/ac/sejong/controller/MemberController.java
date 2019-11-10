@@ -68,18 +68,26 @@ public class MemberController {
 
 
     @RequestMapping("/memberLogin") //세션 저장용
-    public String memberLogin(Member member, HttpSession session) {
+    public String memberLogin(Member member, HttpSession session){ //, @RequestParam(value = "rememberCheck") List<String> rCheck) {
         Optional<Member> m = memberService.findMember(member);  //return Optional한 멤버의 정보
-
         session.setAttribute("memberInfo", m.get());
-        session.setMaxInactiveInterval(60*60*2); //2시간(초단위)
+        //logger.info("List<String> rCheck - "+ rCheck.get(0));
+        //if(rCheck.get(0).equals("Yes")) {
+        //   session.setMaxInactiveInterval(60 * 60 * 24 * 30); //체크햇으면 30일동안 기억
+        //   logger.info("30days");
+
+        // } else {
+            session.setMaxInactiveInterval(60 * 60 * 2); //2시간(초단위)
+            logger.info("2hours");
+        // }
         return "redirect:/"; //home을 리턴하면 home.jsp는 찾아가지만 url은 안바뀐다! joinResult도 url안바뀌는 것처럼.
 
     }
 
     @RequestMapping("/memberLogout")
     public String memberLogout(HttpSession session) {
-        session.invalidate();//세션 해제
+        session.removeAttribute("memberInfo");//세션 해제
+        logger.info("session - 'memberInfo' :"+ session.getAttribute("memberInfo"));
         return "redirect:/";
     }
 }

@@ -1,5 +1,7 @@
+<%@ page import="kr.ac.sejong.domain.Member" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <%-- Main Header --%>
 <header class="main-header">
     <%-- Logo --%>
@@ -18,31 +20,37 @@
         </a>
 
         <!-- 로그인 기능 넣을 자리-->
-        <a href = "${path}/joinView" >회원가입</a>
+        <a href="${path}/joinView">회원가입</a>
         <%
-            if(session.getAttribute("memberInfo")!=null)
-            {
+            if (session.getAttribute("memberInfo") != null) {
         %>
-        <a href = "${path}/memberLogout" >로그아웃</a>
+        <a href="${path}/memberLogout">로그아웃</a>
         <%
-            }
-            else
-            {
+        } else {
         %>
-        <a href = "${path}/loginView" >로그인</a>
+        <a href="${path}/loginView">로그인</a>
         <%
             }
         %>
-
+        <br><%Member ses= (Member) session.getAttribute("memberInfo");%>
+        Issession : <%=ses%>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <span class="hidden-xs">
+                            <%
+                                String name = "Guest" ;
+                                if (session.getAttribute("memberInfo") != null) {
+                                    Member m = (Member) session.getAttribute("memberInfo");
+                                    name = m.getName();
+                                }
+                            %>
+                            <%=name%>
+                        </span>
                     </a>
-
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
