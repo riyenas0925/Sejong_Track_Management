@@ -25,7 +25,7 @@ public class SubjectTest {
     public void createSubject() {
         Subject subject = Subject.builder()
                 .subjectTitle("test 1234")
-                .subjectNo(1234L)
+                .subjectNo("1234")
                 .subjectCredit(10L)
                 .build();
 
@@ -37,7 +37,7 @@ public class SubjectTest {
         Subject subject = Subject.builder()
                 .subjectId(1L)
                 .subjectTitle("test 1234")
-                .subjectNo(1234L)
+                .subjectNo("1234")
                 .subjectCredit(10L)
                 .build();
 

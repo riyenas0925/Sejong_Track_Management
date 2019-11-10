@@ -63,4 +63,9 @@ public class TrackTest {
             log.info(track.toString() + " : " + track.getUniv().toString());
         });
     }
+
+    @Test
+    public void standList(){
+        log.info(trackRepository.standardList(1L).toString());
+    }
 }

@@ -1,8 +1,10 @@
 package kr.ac.sejong.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class StudentExcelDto {
     private String year;            //년도
     private String semester;        //학기

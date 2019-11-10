@@ -18,7 +18,7 @@ public class Subject {
 
     private String subjectTitle;
     private Long subjectCredit;
-    private Long subjectNo;
+    private String subjectNo;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     List<TrackSubject> trackSubjects;
@@ -28,7 +28,7 @@ public class Subject {
     }
 
     @Builder
-    public Subject(Long subjectId, String subjectTitle, Long subjectCredit, Long subjectNo){
+    public Subject(Long subjectId, String subjectTitle, Long subjectCredit, String subjectNo){
         this.subjectId = subjectId;
         this.subjectTitle = subjectTitle;
         this.subjectCredit = subjectCredit;
