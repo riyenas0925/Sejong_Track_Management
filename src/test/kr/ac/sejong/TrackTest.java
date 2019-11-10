@@ -3,7 +3,7 @@ package kr.ac.sejong;
 import kr.ac.sejong.domain.Track;
 import kr.ac.sejong.domain.Univ;
 import kr.ac.sejong.persistence.TrackRepository;
-import kr.ac.sejong.persistence_old.UploadResultDAO;
+import kr.ac.sejong.persistence.UnivRepository;
 import lombok.extern.java.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +12,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,44 +24,48 @@ public class TrackTest {
     private TrackRepository trackRepository;
 
     @Inject
-    private UploadResultDAO uploadResultDAO;
+    private UnivRepository univRepository;
 
     @Test
     public void createTrack(){
 
-        Univ univ = new Univ();
-        univ.setUnivId(1L);
-        univ.setUnivTitle("생성 테스트");
+        Long univId = 1L;
+        String trackTitle = "test";
+        Long trackNo = 1000L;
 
-        Track track = new Track();
-        track.setTrackTitle("Test Track Title");
+        Univ univ = univRepository.getOne(univId);
 
-        track.setUniv(univ);
+        Track track = Track.createTrack(trackTitle, trackNo, univ);
 
         trackRepository.save(track);
     }
 
     @Test
+    @Transactional
     public void updateTrack(){
-        Univ univ = new Univ();
-        univ.setUnivId(1L);
-        univ.setUnivTitle("생성 테스트");
+        Long trackId = 10L;
 
-        Track track = new Track();
-        track.setTrackId(3L);
-        track.setTrackTitle("Update Track Title");
-        track.setUniv(univ);
+        Track track = trackRepository.getOne(trackId);
+        track.updateTrack("test", 1000L, track.getUniv());
 
         trackRepository.save(track);
     }
 
     @Test
-    public void trackList(){
-        log.info(trackRepository.findByUnivId(1L).toString());
+    public void deleteTrack(){
+        trackRepository.deleteById(10L);
     }
 
     @Test
-    public void subjectList() throws Exception {
-        log.info(uploadResultDAO.readSub(1).toString());
+    @Transactional
+    public void trackList(){
+        trackRepository.findByUnivId(2L).forEach(track -> {
+            log.info(track.toString() + " : " + track.getUniv().toString());
+        });
+    }
+
+    @Test
+    public void standList(){
+        log.info(trackRepository.standardList(1L).toString());
     }
 }

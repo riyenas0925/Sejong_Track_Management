@@ -1,19 +1,15 @@
 package kr.ac.sejong.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "tbl_subject")
 @EqualsAndHashCode(of = "subjectId")
-@ToString
+@ToString(exclude = "trackSubjects")
 public class Subject {
 
     @Id
@@ -22,8 +18,20 @@ public class Subject {
 
     private String subjectTitle;
     private Long subjectCredit;
-    private Long subjectNo;
+    private String subjectNo;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     List<TrackSubject> trackSubjects;
+
+    public Subject(){
+
+    }
+
+    @Builder
+    public Subject(Long subjectId, String subjectTitle, Long subjectCredit, String subjectNo){
+        this.subjectId = subjectId;
+        this.subjectTitle = subjectTitle;
+        this.subjectCredit = subjectCredit;
+        this.subjectNo = subjectNo;
+    }
 }

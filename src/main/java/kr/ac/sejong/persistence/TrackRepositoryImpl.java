@@ -1,8 +1,9 @@
 package kr.ac.sejong.persistence;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
-import kr.ac.sejong.domain.QTrack;
-import kr.ac.sejong.domain.Track;
+import kr.ac.sejong.domain.*;
+import kr.ac.sejong.dto.TrackSubjectJoinDto;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.List;
@@ -20,6 +21,28 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
 
         JPQLQuery query = from(track)
                 .where(track.univ.univId.eq(univId));
+
+        return query.fetch();
+    }
+
+    @Override
+    public List<TrackSubjectJoinDto> standardList(Long trackId) {
+
+        QTrack track = QTrack.track;
+        QTrackSubject trackSubject = QTrackSubject.trackSubject;
+        QSubject subject = QSubject.subject;
+
+        JPQLQuery<TrackSubjectJoinDto> query = from(trackSubject)
+                .innerJoin(trackSubject.track, track)
+                .innerJoin(trackSubject.subject, subject)
+                .select(Projections.constructor(TrackSubjectJoinDto.class,
+                        subject.subjectId,
+                        subject.subjectNo,
+                        subject.subjectTitle,
+                        subject.subjectCredit,
+                        trackSubject.subjectType,
+                        track.trackId))
+                .where(track.trackId.eq(trackId));
 
         return query.fetch();
     }

@@ -5,6 +5,7 @@ import kr.ac.sejong.domain_old.ruleVO;
 import kr.ac.sejong.domain_old.trackSubjectVO;
 import kr.ac.sejong.dto.StudentExcelDto;
 import kr.ac.sejong.dto.TrackSubjectJoinDto;
+import kr.ac.sejong.persistence.TrackRepository;
 import kr.ac.sejong.persistence_old.UploadResultDAO;
 import lombok.extern.java.Log;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -18,36 +19,17 @@ import java.util.*;
 
 @Service
 @Log
-public class UploadResultServiceImpl implements UploadResultService{
+public class TrackJudgeServiceImpl implements TrackJudgeService {
 
-    @Inject
-    private UploadResultDAO dao;
-
-    @Inject
-    private UploadResultService service;
-
-    @Inject
-    private TrackRuleService trackRuleService;
+    @Inject private UploadResultDAO dao;
+    @Inject private TrackJudgeService service;
+    @Inject private TrackRuleService trackRuleService;
+    @Inject private TrackRepository trackRepository;
 
     @Override
-    public ruleVO readRule(Integer ruleNo) throws Exception{
-        return dao.readRule(ruleNo);
-    }
+    public List<StudentExcelDto> readMySubject(MultipartFile excelFile) throws Exception{
 
-    @Override
-    public List<TrackSubjectJoinDto> readSub(Integer subType) throws Exception{
-        return dao.readSub(subType);
-    }
-
-    @Override
-    public List<trackSubjectVO> readTypeSub(Integer trackNo, Integer subType)throws Exception{
-        return dao.readTypeSub(trackNo, subType);
-    }
-
-    @Override
-    public List<StudentExcelDto> readMySub(MultipartFile excelFile) throws Exception{
-
-        List<StudentExcelDto> mySubList = new ArrayList<StudentExcelDto>();
+        List<StudentExcelDto> mySubjectList = new ArrayList<>();
 
         HSSFWorkbook workbook = new HSSFWorkbook(excelFile.getInputStream());
         HSSFSheet sheet = workbook.getSheetAt(0);
@@ -55,57 +37,72 @@ public class UploadResultServiceImpl implements UploadResultService{
         for(int rowindex = 0; rowindex < sheet.getPhysicalNumberOfRows(); rowindex++){
             if(rowindex != 0){
                 HSSFRow row = sheet.getRow(rowindex);
-                StudentExcelDto vo = new StudentExcelDto();
+                StudentExcelDto vo = StudentExcelDto.builder()
+                        .year(row.getCell(2).getStringCellValue())
+                        .semester(row.getCell(2).getStringCellValue())
+                        .courseNum(row.getCell(2).getStringCellValue())
+                        .courseTitle(row.getCell(3).getStringCellValue())
+                        .completionType(row.getCell(4).getStringCellValue())
+                        .teaching(row.getCell(5).getStringCellValue())
+                        .selectedArea(row.getCell(6).getStringCellValue())
+                        .credit(row.getCell(7).getStringCellValue())
+                        .evaluation(row.getCell(8).getStringCellValue())
+                        .grade(row.getCell(9).getStringCellValue())
+                        .gradePoint(row.getCell(10).getStringCellValue())
+                        .departmentCode(row.getCell(11).getStringCellValue())
+                        .build();
 
-                vo.setCourseNum(row.getCell(2).getStringCellValue());
-                vo.setCourseTitle(row.getCell(3).getStringCellValue());
-                vo.setCompletionType(row.getCell(4).getStringCellValue());
-
-                mySubList.add(vo);
+                mySubjectList.add(vo);
             }
         }
 
-        return mySubList;
+        return mySubjectList;
     }
 
     @Override
     public HashMap<String, List<TrackSubjectJoinDto>> resultListSub(List<StudentExcelDto> myList,
-                                                                    List<TrackSubjectJoinDto> standList) throws Exception{
+                                                                    List<TrackSubjectJoinDto> standardList) throws Exception{
 
         HashMap<String, List<TrackSubjectJoinDto>> passListSubMap = new HashMap<>();
 
         List<TrackSubjectJoinDto> passBasicList = new ArrayList<>();
         List<TrackSubjectJoinDto> passAppliedList = new ArrayList<>();
         List<TrackSubjectJoinDto> passIndustryList = new ArrayList<>();
+        List<TrackSubjectJoinDto> passExpertList = new ArrayList<>();
 
         List<TrackSubjectJoinDto> nonPassBasicList = new ArrayList<>();
         List<TrackSubjectJoinDto> nonPassAppliedList = new ArrayList<>();
         List<TrackSubjectJoinDto> nonPassIndustryList = new ArrayList<>();
+        List<TrackSubjectJoinDto> nonPassExpertList = new ArrayList<>();
 
-        for(int i=0; i < standList.size(); i++){
-            if(listContains(myList, standList.get(i).getSubjectNo())){
-                switch (standList.get(i).getSubjectType()){
+        for(int i=0; i < standardList.size(); i++){
+            if(listContains(myList, standardList.get(i).getSubjectNo())){
+                switch (standardList.get(i).getSubjectType().intValue()){
                     case 1:
-                        passBasicList.add(standList.get(i));
+                        passBasicList.add(standardList.get(i));
                         break;
                     case 2:
-                        passAppliedList.add(standList.get(i));
+                        passAppliedList.add(standardList.get(i));
                         break;
                     case 3:
-                        passIndustryList.add(standList.get(i));
+                        passIndustryList.add(standardList.get(i));
                         break;
+                    case 4:
+                        passExpertList.add(standardList.get(i));
                 }
             }else{
-                switch (standList.get(i).getSubjectType()){
+                switch (standardList.get(i).getSubjectType().intValue()){
                     case 1:
-                        nonPassBasicList.add(standList.get(i));
+                        nonPassBasicList.add(standardList.get(i));
                         break;
                     case 2:
-                        nonPassAppliedList.add(standList.get(i));
+                        nonPassAppliedList.add(standardList.get(i));
                         break;
                     case 3:
-                        nonPassIndustryList.add(standList.get(i));
+                        nonPassIndustryList.add(standardList.get(i));
                         break;
+                    case 4:
+                        nonPassExpertList.add(standardList.get(i));
                 }
             }
         }
@@ -113,28 +110,45 @@ public class UploadResultServiceImpl implements UploadResultService{
         passListSubMap.put("passBasicList", passBasicList);
         passListSubMap.put("passAppliedList", passAppliedList);
         passListSubMap.put("passIndustryList",passIndustryList);
+        passListSubMap.put("passExpertList",passExpertList);
 
         passListSubMap.put("nonPassBasicList",nonPassBasicList);
         passListSubMap.put("nonPassAppliedList",nonPassAppliedList);
         passListSubMap.put("nonPassIndustryList",nonPassIndustryList);
+        passListSubMap.put("nonPassExpertList",nonPassExpertList);
 
         return passListSubMap;
     }
 
-    private Boolean listContains(List<StudentExcelDto> myList, String standListNum){
+    private Boolean listContains(List<StudentExcelDto> myList, String standardSubjectNo){
         int cnt = 0;
 
         for(int i=0; i < myList.size(); i++){
-            log.info(standListNum + " == " + myList.get(i).getCourseNum());
+            log.info(standardSubjectNo + " == " + myList.get(i).getCourseNum());
 
-            if(standListNum.equals(myList.get(i).getCourseNum())) {
-                log.info("test" + cnt);
+            if(standardSubjectNo.equals(myList.get(i).getCourseNum())) {
                 cnt++;
                 break;
             }
         }
 
         return cnt != 0;
+    }
+
+    @Override
+    public List<TrackSubjectJoinDto> readSub(Long trackId) throws Exception{
+        //return dao.readSub(subType);
+        return trackRepository.standardList(trackId);
+    }
+
+    @Override
+    public ruleVO readRule(Integer ruleNo) throws Exception{
+        return dao.readRule(ruleNo);
+    }
+
+    @Override
+    public List<trackSubjectVO> readTypeSub(Integer trackNo, Integer subType)throws Exception{
+        return dao.readTypeSub(trackNo, subType);
     }
 
     @Override

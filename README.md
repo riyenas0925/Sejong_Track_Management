@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿# Sejong-Track-Management-Spring
 세종대학교 트랙관리 프로그램 Spring  
 
@@ -146,3 +147,7 @@ Hibernate:
 =======
 
 >>>>>>> Stashed changes
+=======
+# Sejong-Track-Management-Spring [![Build Status](https://travis-ci.org/riyenas0925/Project-Sejong-Track-Management.svg?branch=develop)](https://travis-ci.org/riyenas0925/Project-Sejong-Track-Management)
+세종대학교 트랙관리 프로그램 Spring
+>>>>>>> c2d67ee2035099b0cc24a3030c2870ae7504b13b

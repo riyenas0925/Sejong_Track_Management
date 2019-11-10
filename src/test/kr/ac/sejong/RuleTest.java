@@ -2,7 +2,6 @@ package kr.ac.sejong;
 
 import kr.ac.sejong.domain.Degree;
 import kr.ac.sejong.domain.Rule;
-import kr.ac.sejong.domain.Track;
 import kr.ac.sejong.persistence.RuleRepository;
 import lombok.extern.java.Log;
 import org.junit.Test;
@@ -12,6 +11,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,17 +29,19 @@ public class RuleTest {
         rule.setAppliedCredit(2L);
         rule.setIndustryCredit(3L);
 
+        /*
         Track track = new Track();
         track.setTrackId(1L);
         track.setTrackTitle("test Track");
         track.setTrackNo(9999L);
 
+*/
         Degree degree = new Degree();
         degree.setDegreeId(1L);
         degree.setDegreeTitle("test Degree");
 
         rule.setDegree(degree);
-        rule.setTrack(track);
+        //rule.setTrack(track);
 
         ruleRepository.save(rule);
     }
@@ -52,22 +54,25 @@ public class RuleTest {
         rule.setAppliedCredit(9L);
         rule.setIndustryCredit(9L);
 
+        /*
         Track track = new Track();
         track.setTrackId(1L);
         track.setTrackTitle("test Track");
         track.setTrackNo(9999L);
 
+*/
         Degree degree = new Degree();
         degree.setDegreeId(1L);
         degree.setDegreeTitle("test Degree");
 
         rule.setDegree(degree);
-        rule.setTrack(track);
+        //rule.setTrack(track);
 
         ruleRepository.save(rule);
     }
 
     @Test
+    @Transactional
     public void findOne(){
 
         Rule rule = ruleRepository.findById(1L).get();
