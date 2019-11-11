@@ -3,7 +3,7 @@
 <html>
 
 <%--head.jsp--%>
-<%@ include file="include/head.jsp" %>
+<%@ include file="include/head-color.jsp" %>
 
 <body class="hold-transition skin-black sidebar-mini">
     <div class="wrapper">

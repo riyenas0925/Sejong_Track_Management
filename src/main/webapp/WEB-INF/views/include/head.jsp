@@ -21,6 +21,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
     <!-- Morris chart -->
     <link rel="stylesheet" href="bower_components/morris.js/morris.css">
     <!-- jvectormap -->
@@ -160,6 +162,3 @@
         }
     </script>
 </head>
-
-<body class="hold-transition skin-black sidebar-mini">
-    <div class="wrapper">
