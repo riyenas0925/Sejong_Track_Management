@@ -12,6 +12,10 @@
 *.war
 *.ear
 
+# goorm ide #
+goorm.manifest
+.project
+
 ### local ###
 /target/
 !.mvn/wrapper/maven-wrapper.jar
