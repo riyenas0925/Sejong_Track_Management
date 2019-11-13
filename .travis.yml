@@ -13,3 +13,7 @@ before_install:
 cache:
   directories:
     - $HOME/.m2a    
+
+# Test skip
+install: true
+script: mvn clean package -DskipTests=true
