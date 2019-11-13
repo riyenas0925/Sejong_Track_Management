@@ -1,18 +1,16 @@
 package kr.ac.sejong.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.util.List;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Getter
-@Setter
 @Entity
 @Table(name = "tbl_degree")
-@EqualsAndHashCode(of = "degreeId")
-@ToString
+@ToString(exclude = "rules")
 public class Degree {
 
     @Id
@@ -20,9 +18,18 @@ public class Degree {
     private Long degreeId;
 
     private String degreeTitle;
-
-    /*
-    @OneToMany(mappedBy = "degree", cascade = CascadeType.ALL)
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "degree", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Rule> rules;
-    */
+    
+    public Degree() {
+        
+    }
+    
+    @Builder
+    public Degree(Long degreeId, String degreeTitle) {
+        this.degreeId = degreeId;
+        this.degreeTitle = degreeTitle;
+    }
 }

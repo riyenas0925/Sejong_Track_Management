@@ -16,20 +16,43 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Log
-@Commit
 public class DegreeTest {
 
     @Inject
     private DegreeRepository degreeRepository;
-
+    
     @Test
     public void degreeList(){
         List<Degree> degreeList = new ArrayList<>();
-
+        
         degreeRepository.findAll().forEach(i -> {
             degreeList.add(i);
         });
-
+        
         log.info(degreeList.toString());
+    }
+    
+    @Test
+    public void deleteDegree(){
+        degreeRepository.deleteById(1L);
+    }
+    
+    @Test
+    public void createDegree() {
+        Degree degree = Degree.builder()
+            .degreeTitle("test1")
+            .build();
+            
+        degreeRepository.save(degree);
+    }
+    
+    @Test
+    public void updateDegree() {
+        Degree degree = Degree.builder()
+            .degreeId(1L)
+            .degreeTitle("test1")
+            .build();
+            
+        degreeRepository.save(degree);
     }
 }

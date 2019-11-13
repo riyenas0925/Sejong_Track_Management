@@ -2,7 +2,10 @@ package kr.ac.sejong;
 
 import kr.ac.sejong.domain.Degree;
 import kr.ac.sejong.domain.Rule;
+import kr.ac.sejong.domain.Track;
 import kr.ac.sejong.persistence.RuleRepository;
+import kr.ac.sejong.persistence.TrackRepository;
+import kr.ac.sejong.persistence.DegreeRepository;
 import lombok.extern.java.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,65 +22,32 @@ import javax.transaction.Transactional;
 @Commit
 public class RuleTest {
 
-    @Inject
-    private RuleRepository ruleRepository;
+    @Inject private RuleRepository ruleRepository;
+    @Inject private TrackRepository trackRepository;
+    @Inject private DegreeRepository degreeRepository;
 
     @Test
     public void createRule(){
-        Rule rule = new Rule();
-        rule.setBasicCredit(1L);
-        rule.setAppliedCredit(2L);
-        rule.setIndustryCredit(3L);
+        Long degreeId = 1L;
+        Long trackId = 10L;
+        Long basicCredit = 9999L;
+        Long appliedCredit = 9999L;
+        Long industryCredit = 9999L;
+        Long expertCredit = 9999L;
 
-        /*
-        Track track = new Track();
-        track.setTrackId(1L);
-        track.setTrackTitle("test Track");
-        track.setTrackNo(9999L);
+        Track track = trackRepository.getOne(trackId);
+        Degree degree = degreeRepository.getOne(degreeId);
 
-*/
-        Degree degree = new Degree();
-        degree.setDegreeId(1L);
-        degree.setDegreeTitle("test Degree");
-
-        rule.setDegree(degree);
-        //rule.setTrack(track);
+        Rule rule = Rule.createRule(track, degree, 
+                                    basicCredit, appliedCredit,
+                                    industryCredit, expertCredit);
 
         ruleRepository.save(rule);
     }
-
+    
     @Test
     public void updateRule(){
-        Rule rule = new Rule();
-        rule.setRuleId(1L);
-        rule.setBasicCredit(9L);
-        rule.setAppliedCredit(9L);
-        rule.setIndustryCredit(9L);
-
-        /*
-        Track track = new Track();
-        track.setTrackId(1L);
-        track.setTrackTitle("test Track");
-        track.setTrackNo(9999L);
-
-*/
-        Degree degree = new Degree();
-        degree.setDegreeId(1L);
-        degree.setDegreeTitle("test Degree");
-
-        rule.setDegree(degree);
-        //rule.setTrack(track);
-
-        ruleRepository.save(rule);
-    }
-
-    @Test
-    @Transactional
-    public void findOne(){
-
-        Rule rule = ruleRepository.findById(1L).get();
-
-        log.info(rule.toString() + rule.getTrack().toString() + rule.getDegree().toString());
+        
     }
 
     @Test
@@ -87,16 +57,18 @@ public class RuleTest {
 
     @Test
     public void findRules(){
-        log.info(ruleRepository.findRules().toString());
+        log.info(ruleRepository.findRules().toString());        
     }
 
     @Test
     public void findByUnivId(){
+        //대학 이름으로 규칙 조회하는 메소드
         log.info(ruleRepository.findByUnivId(2L).toString());
     }
 
     @Test
     public void findByRuleId(){
-        log.info(ruleRepository.findByRuleId(2L).toString());
+        //ruleId(Primary Key)로 조회하는 메소드
+        log.info("test : " + ruleRepository.findByRuleId(4L, 1L).toString());
     }
 }

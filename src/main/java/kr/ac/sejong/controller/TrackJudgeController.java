@@ -2,6 +2,7 @@ package kr.ac.sejong.controller;
 
 import kr.ac.sejong.dto.StudentExcelDto;
 import kr.ac.sejong.dto.TrackSubjectJoinDto;
+import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
 import kr.ac.sejong.service.TrackJudgeService;
 import kr.ac.sejong.service.TrackRuleService;
 import org.slf4j.Logger;
@@ -31,30 +32,31 @@ public class TrackJudgeController {
 
     @GetMapping("/uploadForm")
     public void uploadForm(Model model, HttpSession httpSession) throws Exception{
-        httpSession.removeAttribute("excelFile");
+        httpSession.removeAttribute("studentExcel");
     }
 
-    @GetMapping("/uploadResult")
-    public void uploadResult(@RequestParam("univId") Integer univId, @RequestParam("trackId") Long trackId, Model model,
+    @GetMapping("/trackJudge")
+    public void trackJudge(@RequestParam("univId") Integer univId, @RequestParam("trackId") Long trackId, @RequestParam("degreeId") Long degreeId, Model model,
                              HttpSession httpSession)throws Exception{
 
         List<StudentExcelDto> myList = (List<StudentExcelDto>) httpSession.getAttribute("studentExcel");
         List<TrackSubjectJoinDto> standardList = trackJudgeService.readSub(trackId);
 
         HashMap<String, List<TrackSubjectJoinDto>> resultAllMap = trackJudgeService.resultListSub(myList, standardList);
-
-
-        //ruleVO rule = trackRuleService.readRule(1, trackNo);
-
+        
+        UnivTrackRuleDegreeJoinDto rule = trackRuleService.findByRuleId(trackId, degreeId).get(0);
+        
         model.addAttribute("resultAllMap", resultAllMap);
-        //model.addAttribute("rule", rule);
+        model.addAttribute("rule", rule);
     }
 
-    @PostMapping("/uploadResult")
-    public void uploadResult(MultipartFile file, Model model, HttpSession httpSession)throws Exception{
+    @PostMapping("/trackJudge")
+    public void trackJudge(MultipartFile file, Model model, HttpSession httpSession)throws Exception{
 
         List<StudentExcelDto> studentExcel = trackJudgeService.readMySubject(file);
-
+        
+        logger.info("test =" + studentExcel.toString());
+        
         httpSession.setAttribute("studentExcel", studentExcel);
         httpSession.removeAttribute("resultList");
     }

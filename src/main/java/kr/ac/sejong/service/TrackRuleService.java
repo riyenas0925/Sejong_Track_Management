@@ -14,4 +14,6 @@ public interface TrackRuleService {
     public List<UnivTrackRuleDegreeJoinDto> findRules() throws Exception;
 
     public List<UnivTrackRuleDegreeJoinDto> findByUnivId(Long univId) throws Exception;
+    
+    public List<UnivTrackRuleDegreeJoinDto> findByRuleId(Long trackId, Long degreeId) throws Exception;
 }

@@ -28,7 +28,7 @@ var selectService = (function() {
 
     function degree() {
         $.getJSON("select/degree", function (data) {
-            var str = "<option value='-1'>- 학위 선택 -</option>";
+            var str = "";
 
             $(data).each(
                 function () {

@@ -10,5 +10,5 @@ public interface RuleCustomRepository {
 
     public List<UnivTrackRuleDegreeJoinDto> findByUnivId(Long univId);
 
-    public List<UnivTrackRuleDegreeJoinDto> findByRuleId(Long ruleId);
+    public List<UnivTrackRuleDegreeJoinDto> findByRuleId(Long trackId, Long degreeId);
 }

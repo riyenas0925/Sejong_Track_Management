@@ -78,7 +78,7 @@
 
                                     <div class="form-group">
                                         <label>학위</label>
-                                        <select id="" class="form-control">
+                                        <select class="form-control" id="select_degree">
                                         </select>
                                     </div>
 
@@ -133,6 +133,7 @@
 
         selectService.univ();
         selectService.track(1);
+        selectService.degree();
 
         $(".fileDrop").on("dragenter dragover", function (event) {
             event.preventDefault();
@@ -148,7 +149,7 @@
             formData.append("file", file);
 
             $.ajax({
-                url: '/uploadResult',
+                url: '/trackJudge',
                 data: formData,
                 dataType: 'text',
                 processData: false,
@@ -174,7 +175,7 @@
             formData.append("file", file);
 
             $.ajax({
-                url: '/uploadResult',
+                url: '/trackJudge',
                 data: formData,
                 dataType: 'text',
                 processData: false,
@@ -194,12 +195,14 @@
         });
 
         $('#result').on('click', function (event) {
-           var univId = $('#select_univ').val();
-           var trackId = $('#select_track').val();
-
-            self.location = "uploadResult"
+            var univId = $('#select_univ').val();
+            var trackId = $('#select_track').val();
+            var degreeId = $('#select_degree').val();
+            
+            self.location = "trackJudge"
                 + '?univId=' + univId
-                + '&trackId=' + trackId;
+                + '&trackId=' + trackId
+                + '&degreeId=' + degreeId;
         });
 
         function checkExcelType(fileName){
