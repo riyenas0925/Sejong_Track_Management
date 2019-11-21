@@ -35,6 +35,7 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
+                        rule.expertCredit,
                         degree.degreeId,
                         degree.degreeTitle));
 
@@ -63,6 +64,7 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
+                        rule.expertCredit,
                         degree.degreeId,
                         degree.degreeTitle))
                 .where(univ.univId.eq(univId));
@@ -71,7 +73,7 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
     }
 
     @Override
-    public List<UnivTrackRuleDegreeJoinDto> findByRuleId(Long ruleId){
+    public List<UnivTrackRuleDegreeJoinDto> findByRuleId(Long trackId, Long degreeId){
         QRule rule = QRule.rule;
         QDegree degree = QDegree.degree;
         QTrack track = QTrack.track;
@@ -91,9 +93,11 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
+                        rule.expertCredit,
                         degree.degreeId,
                         degree.degreeTitle))
-                .where(rule.ruleId.eq(ruleId));
+                .where(track.trackId.eq(trackId))
+                .where(degree.degreeId.eq(degreeId));
 
         return query.fetch();
     }

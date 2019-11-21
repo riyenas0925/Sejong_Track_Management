@@ -38,8 +38,8 @@ public class TrackJudgeServiceImpl implements TrackJudgeService {
             if(rowindex != 0){
                 HSSFRow row = sheet.getRow(rowindex);
                 StudentExcelDto vo = StudentExcelDto.builder()
-                        .year(row.getCell(2).getStringCellValue())
-                        .semester(row.getCell(2).getStringCellValue())
+                        .year(row.getCell(0).getStringCellValue())
+                        .semester(row.getCell(1).getStringCellValue())
                         .courseNum(row.getCell(2).getStringCellValue())
                         .courseTitle(row.getCell(3).getStringCellValue())
                         .completionType(row.getCell(4).getStringCellValue())
@@ -47,7 +47,7 @@ public class TrackJudgeServiceImpl implements TrackJudgeService {
                         .selectedArea(row.getCell(6).getStringCellValue())
                         .credit(row.getCell(7).getStringCellValue())
                         .evaluation(row.getCell(8).getStringCellValue())
-                        .grade(row.getCell(9).getStringCellValue())
+                        //.grade(row.getCell(9).getStringCellValue())
                         .gradePoint(row.getCell(10).getStringCellValue())
                         .departmentCode(row.getCell(11).getStringCellValue())
                         .build();

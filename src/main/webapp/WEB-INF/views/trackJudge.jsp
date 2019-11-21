@@ -51,10 +51,10 @@
                                 <tr>
                                     <td id="univNo"><c:out value="${rule.univTitle}"/></td>
                                     <td><c:out value="${rule.trackTitle}"/></td>
-                                    <td><c:out value="${resultAllMap.passCredit[0].credit}"/> / <c:out value="${rule.basic}"/> <small>(학점)</small></td>
-                                    <td><c:out value="${resultAllMap.passCredit[1].credit}"/> / <c:out value="${rule.applied}"/> <small>(학점)</small></td>
-                                    <td><c:out value="${resultAllMap.passCredit[2].credit}"/> / <c:out value="${rule.industry}"/> <small>(학점)</small></td>
-                                    <td><c:out value="${resultAllMap.passCredit[2].credit}"/> / <c:out value="${rule.expert}"/> <small>(학점)</small></td>
+                                    <td><c:out value="${resultAllMap.passCredit[0].credit}"/> / <c:out value="${rule.basicCredit}"/> <small>(학점)</small></td>
+                                    <td><c:out value="${resultAllMap.passCredit[1].credit}"/> / <c:out value="${rule.appliedCredit}"/> <small>(학점)</small></td>
+                                    <td><c:out value="${resultAllMap.passCredit[2].credit}"/> / <c:out value="${rule.industryCredit}"/> <small>(학점)</small></td>
+                                    <td><c:out value="${resultAllMap.passCredit[2].credit}"/> / <c:out value="${rule.expertCredit}"/> <small>(학점)</small></td>
                                 </tr>
                             </table>
 
@@ -84,7 +84,7 @@
                     </div>
                     <!--box-->
                     <div class="row">
-                        <div class="col-md-4" id="div-1">
+                        <div class="col-md-6" id="div-1">
                             <div class="box">
                                 <div class="box-header with-border">
                                     <h4 class="box-title">기초교과</h4>
@@ -123,7 +123,7 @@
                             </div>
                             <!-- /.box -->
                         </div>
-                        <div class="col-md-4" id="div-2">
+                        <div class="col-md-6" id="div-2">
                             <div class="box">
                                 <div class="box-header with-border">
                                     <h4 class="box-title">응용교과</h4>
@@ -161,7 +161,9 @@
                             </div>
                             <!-- /.box -->
                         </div>
-                        <div class="col-md-4" id="div-3">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" id="div-3">
                             <div class="box">
                                 <div class="box-header with-border">
                                     <h4 class="box-title">심화교과</h4>
@@ -199,9 +201,7 @@
                             </div>
                             <!-- /.box -->
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4" id="div-4">
+                        <div class="col-md-6" id="div-4">
                             <div class="box">
                                 <div class="box-header with-border">
                                     <h4 class="box-title">산학연계교과</h4>

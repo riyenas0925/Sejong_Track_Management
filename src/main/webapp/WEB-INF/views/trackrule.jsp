@@ -64,7 +64,8 @@
                                             <th style='text-align:center'>트랙</th>
                                             <th style='text-align:center'>학위</th>
                                             <th style='text-align:center'>기초교과</th>
-                                            <th style='text-align:center'>응용, 심화교과</th>
+                                            <th style='text-align:center'>응용교과</th>
+                                            <th style='text-align:center'>심화교과</th>
                                             <th style='text-align:center'>산학연계</th>
                                             <th style='text-align:center' colspan="2">
                                                 <button id="regist_rule_btn" type="button" class="btn btn-block btn-xs btn-success" data-toggle="modal" data-target="#modal">
@@ -132,6 +133,10 @@
                                                 <input type="number" class="form-control" placeholder="학점" min="0" id="applied_credit">
                                             </div>
                                             <div class="col-sm-2">
+                                                심화교과<br>
+                                                <input type="number" class="form-control" placeholder="학점" min="0" id="expert_credit">
+                                            </div>
+                                            <div class="col-sm-2">
                                                 산학연계<br>
                                                 <input type="number" class="form-control" placeholder="학점" min="0" id="industry_credit">
                                             </div>
@@ -168,6 +173,47 @@
     $(document).ready(function () {
 
         selectService.univ();
+        getSearchList(1);
+        
+        $('#select_univ').on('change', function() {
+            var univId = $('#select_univ').val();
+            getSearchList(univId);
+        });
+        
+        /* Track rule List */
+        function getSearchList(univId) {
+
+            ruleService.list(univId, function (data) {
+
+                var str = "";
+
+                $(data).each(
+                    function () {
+                        str += "<tr class='rule_id'" + " data-rno='" + this.ruleId + "'>"
+                            + "<td style='text-align:center'>"+ this.ruleId + "</td>"
+                            + "<td style='text-align:center'>"+ this.univTitle + " (" + this.univNo + ")" + "</td>"
+                            + "<td style='text-align:center'>"+ this.trackTitle + " (" + this.trackNo + ")" + "</td>"
+                            + "<td style='text-align:center'>"+ this.degreeTitle + "</td>"
+                            + "<td style='text-align:center'>"+ this.basicCredit + "</td>"
+                            + "<td style='text-align:center'>"+ this.appliedCredit + "</td>"
+                            + "<td style='text-align:center'>"+ this.expertCredit + "</td>"
+                            + "<td style='text-align:center'>"+ this.industryCredit + "</td>"
+                            + "<td style='text-align:center; display:none;'>"+ this.trackId + "</td>"
+                            + "<td style='text-align:center; display:none;'>"+ this.degreeId + "</td>"
+                            + "<td style='text-align:center'>"
+                            + "<button id='update_rule_btn' type='button' class='btn btn-xs btn-block btn-warning' data-toggle='modal' data-target='#modal'>"
+                            + '<i class="glyphicon glyphicon-repeat">수정</i></button></td>'
+                            + "<td style='text-align:center'>"
+                            + "<button id='delete_rule_btn' type='button' class='btn btn-xs btn-block btn-danger' data-toggle='modal' data-target='#modal'>"
+                            + '<i class="glyphicon glyphicon-trash">삭제</i></button></td>'
+                            + "</tr>";
+                    });
+
+                $("#rule_list").html(str);
+            });
+        }
+        
+        /*************************************************************** Track Clean up 작업 완성 *****************************************************************************************/
 
         var modal = $(".modal");
 
@@ -261,45 +307,6 @@
             }, function(err) {
                 console.log("Error........." + err);
             });
-        });
-
-        /* Track rule List */
-        function getSearchList() {
-            var univNo = $('#select_univ').val();
-
-            ruleService.list(univNo, function (data) {
-
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<tr class='rule_id'" + " data-rno='" + this.ruleId + "'>"
-                            + "<td style='text-align:center'>"+ this.ruleId + "</td>"
-                            + "<td style='text-align:center'>"+ this.univTitle + " (" + this.univNo + ")" + "</td>"
-                            + "<td style='text-align:center'>"+ this.trackTitle + " (" + this.trackNo + ")" + "</td>"
-                            + "<td style='text-align:center'>"+ this.degreeTitle + "</td>"
-                            + "<td style='text-align:center'>"+ this.basicCredit + "</td>"
-                            + "<td style='text-align:center'>"+ this.appliedCredit + "</td>"
-                            + "<td style='text-align:center'>"+ this.industryCredit + "</td>"
-                            + "<td style='text-align:center; display:none;'>"+ this.trackId + "</td>"
-                            + "<td style='text-align:center; display:none;'>"+ this.degreeId + "</td>"
-                            + "<td style='text-align:center'>"
-                            + "<button id='update_rule_btn' type='button' class='btn btn-xs btn-block btn-warning' data-toggle='modal' data-target='#modal'>"
-                            + '<i class="glyphicon glyphicon-repeat">수정</i></button></td>'
-                            + "<td style='text-align:center'>"
-                            + "<button id='delete_rule_btn' type='button' class='btn btn-xs btn-block btn-danger' data-toggle='modal' data-target='#modal'>"
-                            + '<i class="glyphicon glyphicon-trash">삭제</i></button></td>'
-                            + "</tr>";
-                    });
-
-                $("#rule_list").html(str);
-            });
-        }
-
-        $('#select_univ').on('change', function() {
-            var univNo = $('#select_univ').val();
-
-            getSearchList(univNo);
         });
     });
 </script>

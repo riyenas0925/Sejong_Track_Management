@@ -50,7 +50,7 @@ public class UnivTest {
 
     @Test
     public void univList() {
-        log.info(univRepository.findById(1L).toString());
+        log.info(univRepository.findById(2L).toString());
     }
 
     @Test
