@@ -4,6 +4,8 @@ ALTER TABLE tbl_track convert to charset utf8;
 ALTER TABLE tbl_track_subject convert to charset utf8;
 ALTER TABLE tbl_subject convert to charset utf8;
 ALTER TABLE tbl_univ convert to charset utf8;
+ALTER TABLE tbl_member convert to charset utf8;
+ALTER TABLE tbl_member_role convert to charset utf8;
 
 INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "소프트웨어융합대학");
 

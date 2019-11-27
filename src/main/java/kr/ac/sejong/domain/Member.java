@@ -20,6 +20,7 @@ import java.util.List;
 public class Member {
 
     @Id
+    @Column(name="memberId")
     private String id;
 
     private String password;
@@ -31,8 +32,4 @@ public class Member {
 
     @UpdateTimestamp
     private Timestamp updatedate;
-
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name = "member")
-    private List<MemberRole> roles;
 }
