@@ -1,7 +1,8 @@
+<%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
-<%@ include file="include/head.jsp" %>
+<%@ include file="../include/head.jsp" %>
 
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -12,7 +13,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form action="/memberLogin" id="form-login" method="post" onsubmit="return totalCheck()">
+        <form th:th:action="@{/memberLogin}" id="form-login" method="post" onsubmit="return totalCheck()">
             <div class="form-group has-feedback">
                 <input type="id" class="form-control" name="id" required placeholder="Id">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span></div>
@@ -58,7 +59,7 @@
 </body>
 </html>
 
-<%@ include file="include/plugins.jsp" %>
+<%@ include file="../include/plugins.jsp" %>
 <script type="text/javascript">
 
     function idCheck2() {

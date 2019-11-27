@@ -1,9 +1,6 @@
 package kr.ac.sejong.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,6 +14,7 @@ import java.util.List;
 @Table(name = "tbl_member")
 @EqualsAndHashCode(of = "id")
 @ToString
+
 public class Member {
 
     @Id
@@ -32,4 +30,23 @@ public class Member {
 
     @UpdateTimestamp
     private Timestamp updatedate;
+
+    @OneToMany(mappedBy="member", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JoinColumn(name = "member")
+    private List<MemberRole> roles;
+
+    public Member toEntity(){
+        return Member.builder()
+                .id(id)
+                .email(email)
+                .password(password)
+                .build();
+    }
+    @Builder
+    public Member(String id,String password,String name,String email){
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+    }
 }

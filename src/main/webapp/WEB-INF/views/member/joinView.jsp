@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
-<%@ include file="include/head.jsp" %>
+<%@ include file="../include/head.jsp" %>
 
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -12,7 +12,7 @@
     <div class="register-box-body">
         <p class="login-box-msg">Register a new membership</p>
 
-        <form id="joinForm" action="/memberJoin" method="post" onsubmit="return totalCheck()">
+        <form id="joinForm" th:action="@{/memberJoin}" method="post" onsubmit="return totalCheck()">
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" name="id" placeholder="Id"> <input type="button" id="jButton"
                                                                                            value="중복확인">
@@ -71,7 +71,7 @@
 </body>
 </html>
 
-<%@ include file="include/plugins.jsp" %>
+<%@ include file="../include/plugins.jsp" %>
 <script type="text/javascript">
 
     //아이디 중복확인 체킹
