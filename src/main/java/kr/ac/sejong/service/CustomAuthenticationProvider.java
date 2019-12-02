@@ -54,7 +54,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw e;
         }
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
-        /* 인증처리 후 인가 */
+        /* 인증처리 후 권한부여해서 로그인 마무리 */
         return new UsernamePasswordAuthenticationToken(userInfo, null, authorities);
 
     }
