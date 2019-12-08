@@ -6,6 +6,7 @@ ALTER TABLE tbl_subject convert to charset utf8;
 ALTER TABLE tbl_univ convert to charset utf8;
 
 INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "소프트웨어융합대학");
+INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "무인기융합트랙");
 
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2000, "HCI&비쥬얼컴퓨팅", 1);
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2001, "멀티미디어", 1);
@@ -17,6 +18,9 @@ INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2006, "정보보호",
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2007, "데이터사이언스", 1);
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2008, "SW교육", 1);
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2009, "사이버국방", 1);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2009, "무인기 1", 2);
+INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2009, "무인기 2", 2);
+
 
 INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3001, "시험 과목 1");
 INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3002, "시험 과목 2");
@@ -88,6 +92,17 @@ INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 28, 3)
 INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 29, 3);
 INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 30, 3);
 
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 21, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 22, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 23, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 24, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 25, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (3, 26, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (3, 27, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (3, 28, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (4, 29, 11);
+INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (4, 30, 11);
+
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,1);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,2);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,3);
@@ -98,3 +113,6 @@ INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, track
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,8);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,9);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (24,0,0,1,10);
+INSERT INTO tbl_rule(basicCredit, appliedCredit, expertCredit, industryCredit, degreeId, trackId) VALUES (24,18,21,36,1,11);
+INSERT INTO tbl_rule(basicCredit, appliedCredit, expertCredit, industryCredit, degreeId, trackId) VALUES (4,8,1,6,2,11);
+

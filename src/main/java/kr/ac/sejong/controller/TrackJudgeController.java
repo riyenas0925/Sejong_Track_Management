@@ -1,8 +1,6 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.dto.StudentExcelDto;
-import kr.ac.sejong.dto.TrackSubjectJoinDto;
-import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
+import kr.ac.sejong.dto.*;
 import kr.ac.sejong.service.TrackJudgeService;
 import kr.ac.sejong.service.TrackRuleService;
 import org.slf4j.Logger;
@@ -24,11 +22,8 @@ import java.util.List;
 public class TrackJudgeController {
     private static final Logger logger = LoggerFactory.getLogger(TrackJudgeController.class);
 
-    @Inject
-    private TrackJudgeService trackJudgeService;
-
-    @Inject
-    private TrackRuleService trackRuleService;
+    @Inject private TrackJudgeService trackJudgeService;
+    @Inject private TrackRuleService trackRuleService;
 
     @GetMapping("/uploadForm")
     public void uploadForm(Model model, HttpSession httpSession) throws Exception{
@@ -36,27 +31,26 @@ public class TrackJudgeController {
     }
 
     @GetMapping("/trackJudge")
-    public void trackJudge(@RequestParam("univId") Integer univId, @RequestParam("trackId") Long trackId, @RequestParam("degreeId") Long degreeId, Model model,
-                             HttpSession httpSession)throws Exception{
+    public void trackJudge(@RequestParam("univId") Long univId, 
+                           @RequestParam("trackId") Long trackId, 
+                           @RequestParam("degreeId") Long degreeId, 
+                           Model model, HttpSession httpSession)throws Exception{
 
-        List<StudentExcelDto> myList = (List<StudentExcelDto>) httpSession.getAttribute("studentExcel");
-        List<TrackSubjectJoinDto> standardList = trackJudgeService.readSub(trackId);
+        List<StudentExcelDto> studentSubList = (List<StudentExcelDto>) httpSession.getAttribute("studentExcel");
+        List<TrackSubjectJoinDto> standardSubList = trackJudgeService.readSub(trackId);
 
-        HashMap<String, List<TrackSubjectJoinDto>> resultAllMap = trackJudgeService.resultListSub(myList, standardList);
+        HashMap<String, List<TrackSubjectJoinDto>> resultAllMap = trackJudgeService.resultListSub(studentSubList, standardSubList);
         
-        UnivTrackRuleDegreeJoinDto rule = trackRuleService.findByRuleId(trackId, degreeId).get(0);
-        
+        TrackJudgeAllViewDto resultTrack = trackJudgeService.trackJudgeOne(univId, trackId, degreeId, studentSubList);
+
         model.addAttribute("resultAllMap", resultAllMap);
-        model.addAttribute("rule", rule);
+        model.addAttribute("resultTrack", resultTrack);
     }
 
     @PostMapping("/trackJudge")
     public void trackJudge(MultipartFile file, Model model, HttpSession httpSession)throws Exception{
-
         List<StudentExcelDto> studentExcel = trackJudgeService.readMySubject(file);
-        
-        logger.info("test =" + studentExcel.toString());
-        
+                
         httpSession.setAttribute("studentExcel", studentExcel);
         httpSession.removeAttribute("resultList");
     }
