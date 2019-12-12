@@ -1,16 +1,20 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain_old.resultTrackVO;
-import kr.ac.sejong.domain_old.ruleVO;
-import kr.ac.sejong.domain_old.trackSubjectVO;
+import kr.ac.sejong.domain.Track;
+
 import kr.ac.sejong.dto.StudentExcelDto;
+import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
 import kr.ac.sejong.dto.TrackSubjectJoinDto;
+import kr.ac.sejong.dto.TrackJudgeAllViewDto;
+
 import kr.ac.sejong.persistence.TrackRepository;
-import kr.ac.sejong.persistence_old.UploadResultDAO;
+
 import lombok.extern.java.Log;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +25,7 @@ import java.util.*;
 @Log
 public class TrackJudgeServiceImpl implements TrackJudgeService {
 
-    @Inject private UploadResultDAO dao;
-    @Inject private TrackJudgeService service;
+    @Inject private TrackJudgeService trackJudgeService;
     @Inject private TrackRuleService trackRuleService;
     @Inject private TrackRepository trackRepository;
 
@@ -136,58 +139,89 @@ public class TrackJudgeServiceImpl implements TrackJudgeService {
     }
 
     @Override
-    public List<TrackSubjectJoinDto> readSub(Long trackId) throws Exception{
-        //return dao.readSub(subType);
-        return trackRepository.standardList(trackId);
+    public List<TrackJudgeAllViewDto> trackJudgeList(Long univId, List<StudentExcelDto> studentExcel)throws Exception{
+        List<TrackJudgeAllViewDto> trackJudgeList = trackRepository.findByUnivIdDTO(univId);
+        
+        Long degreeId = trackJudgeList.get(0).getDegreeId();
+        
+        trackJudgeList = trackJudge(degreeId, trackJudgeList, studentExcel);
+        
+        return trackJudgeList;
     }
-
+    
     @Override
-    public ruleVO readRule(Integer ruleNo) throws Exception{
-        return dao.readRule(ruleNo);
+    public TrackJudgeAllViewDto trackJudgeOne(Long univId, Long trackId, Long degreeId, List<StudentExcelDto> studentExcel)throws Exception{
+        List<TrackJudgeAllViewDto> trackJudgeOne = trackRepository.findByUnivIdAndTrackIdAndDegreeIdDto(univId, trackId, degreeId);
+        
+        trackJudgeOne = trackJudge(degreeId, trackJudgeOne, studentExcel);
+        
+        return trackJudgeOne.get(0);
     }
+    
+    private List<TrackJudgeAllViewDto> trackJudge(Long degreeId,
+                                                  List<TrackJudgeAllViewDto> trackJudgeList,
+                                                  List<StudentExcelDto> myList)throws Exception{
+        
+        for(int i=0; i < trackJudgeList.size(); i++){
+            Long trackId = trackJudgeList.get(i).getTrackId();
+            
+            List<TrackSubjectJoinDto> standList = trackJudgeService.readSub(trackId);
 
-    @Override
-    public List<trackSubjectVO> readTypeSub(Integer trackNo, Integer subType)throws Exception{
-        return dao.readTypeSub(trackNo, subType);
-    }
+            HashMap<String, List<TrackSubjectJoinDto>> resultListSub = trackJudgeService.resultListSub(myList, standList);
 
-    @Override
-    public List<resultTrackVO> resultTrackList(Integer univNo, List<StudentExcelDto> myList)throws Exception{
-        List<resultTrackVO> resultTrackList = dao.trackList(univNo);
+            UnivTrackRuleDegreeJoinDto rule = trackRuleService.findByRuleId(trackId, degreeId).get(0);
+                                    
+            Long ruleTotal = rule.getAppliedCredit() 
+                           + rule.getBasicCredit() 
+                           + rule.getIndustryCredit() 
+                           + rule.getExpertCredit();
 
-        /*
+            Long basicCreditTotal = calCredit(resultListSub.get("passBasicList"));
+            Long appliedCreditTotal = calCredit(resultListSub.get("passAppliedList"));
+            Long expertCreditTotal = calCredit(resultListSub.get("passExpertList"));
+            Long industryCreditTotal = calCredit(resultListSub.get("passIndustryList"));
+            
+            Long studentTotal = basicCreditTotal
+                              + appliedCreditTotal
+                              + expertCreditTotal
+                              + industryCreditTotal;
+            
+            Long percent = new Long(Math.round(((float)studentTotal/ruleTotal) * 100));
+            
+            List<Long> studentCredits = new ArrayList<>(
+                Arrays.asList(basicCreditTotal, 
+                              appliedCreditTotal,
+                              expertCreditTotal,
+                              industryCreditTotal)
+            );
 
-        for(int i=0; i < resultTrackList.size(); i++){
-            HashMap<String, List<trackSubjectVO>> standList = service.resultListSub(myList, service.readSub(resultTrackList.get(i).getTrackNo()));
-            ruleVO rule = trackRuleService.readRule(1, resultTrackList.get(i).getTrackNo());
+            List<Long> ruleCredits = new ArrayList<>(
+                Arrays.asList(rule.getBasicCredit(), 
+                              rule.getAppliedCredit(),
+                              rule.getExpertCredit(),
+                              rule.getIndustryCredit())
+            );
 
-            Integer totalPercent = 0;
-            Integer ruleTotal = rule.getApplied() + rule.getBasic();
-
-            if(rule.getIndustry() == null){
-                ruleTotal += 0;
-            }else{
-                ruleTotal += rule.getIndustry();
-            }
-
-            totalPercent += calCredit(standList.get("passBasicList"))
-                         + calCredit(standList.get("passAppliedList"))
-                         + calCredit(standList.get("passIndustryList"));
-
-            resultTrackList.get(i).setPercent(Math.round(((float)totalPercent/ ruleTotal) * 100));
+            trackJudgeList.get(i).setPercent(percent);
+            trackJudgeList.get(i).setStudentCredits(studentCredits);
+            trackJudgeList.get(i).setRuleCredits(ruleCredits);
         }
-
-        */
-        return resultTrackList;
+        
+        return trackJudgeList;
     }
 
-    private Integer calCredit(List<trackSubjectVO> standList){
-        Integer totalCredit = 0;
-
-        for(int i=0; i < standList.size(); i++){
-            totalCredit += standList.get(i).getCredit();
+    private Long calCredit(List<TrackSubjectJoinDto> subjectList){
+        Long totalCredit = 0L;
+                    
+        for(int i=0; i < subjectList.size(); i++){
+            totalCredit += subjectList.get(i).getSubjectCredit();
         }
 
         return totalCredit;
+    }
+    
+    @Override
+    public List<TrackSubjectJoinDto> readSub(Long trackId) throws Exception{
+        return trackRepository.standardList(trackId);
     }
 }
