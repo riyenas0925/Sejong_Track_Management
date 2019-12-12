@@ -25,7 +25,7 @@ public class TrackTest {
 
     @Inject
     private UnivRepository univRepository;
-
+    
     @Test
     public void createTrack(){
 
@@ -67,5 +67,20 @@ public class TrackTest {
     @Test
     public void standList(){
         log.info(trackRepository.standardList(1L).toString());
+    }
+    
+    @Test
+    public void findByUnivIdDTO(){
+        log.info(trackRepository.findByUnivIdDTO(12L).toString());
+    }
+    
+    @Test
+    public void findByTrackIdDto() {
+        log.info(trackRepository.findByTrackIdDto(1L).toString());
+    }
+    
+    @Test
+    public void findByTrackIdAndDegreeIdDto(){
+        log.info(trackRepository.findByTrackIdAndDegreeIdDto(11L, 2L).toString());
     }
 }

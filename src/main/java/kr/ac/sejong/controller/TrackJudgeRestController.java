@@ -1,7 +1,8 @@
 package kr.ac.sejong.controller;
 
-import kr.ac.sejong.domain_old.resultTrackVO;
 import kr.ac.sejong.dto.StudentExcelDto;
+import kr.ac.sejong.dto.TrackSubjectJoinDto;
+import kr.ac.sejong.dto.TrackJudgeAllViewDto;
 import kr.ac.sejong.service.TrackJudgeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,30 +11,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-@RequestMapping("/uploadAjax/*")
+@RequestMapping("/trackudge/*")
 public class TrackJudgeRestController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TrackJudgeRestController.class);
+    
     @Inject
     private TrackJudgeService trackJudgeService;
 
-    @GetMapping("/allResult/{univNo}")
-    public ResponseEntity<List<resultTrackVO>> allResult(@PathVariable Integer univNo, HttpSession httpSession) throws Exception{
+    @GetMapping("/all/{univId}")
+    public ResponseEntity<List<TrackJudgeAllViewDto>> trackJudgeListRest(@PathVariable Long univId, HttpSession httpSession) throws Exception{
 
-        ResponseEntity<List<resultTrackVO>> entity = null;
-        List<StudentExcelDto> mySubList = trackJudgeService.readMySubject((MultipartFile)httpSession.getAttribute("file"));
-
+        ResponseEntity<List<TrackJudgeAllViewDto>> entity = null;
+                
+        List<StudentExcelDto> mySubList = (List<StudentExcelDto>) httpSession.getAttribute("studentExcel");
+                
         try {
             if(httpSession.getAttribute("resultList") == null){
-                httpSession.setAttribute("resultList", trackJudgeService.resultTrackList(univNo, mySubList));
+                logger.info("첫번째 조회");
+                httpSession.setAttribute("resultList", trackJudgeService.trackJudgeList(univId, mySubList));
             }
-
-            entity = new ResponseEntity<>((List<resultTrackVO>)httpSession.getAttribute("resultList") , HttpStatus.OK);
+            
+            logger.info("일반 조회");
+            entity = new ResponseEntity<>((List<TrackJudgeAllViewDto>)httpSession.getAttribute("resultList") , HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
