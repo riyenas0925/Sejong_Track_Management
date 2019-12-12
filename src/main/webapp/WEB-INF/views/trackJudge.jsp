@@ -4,7 +4,6 @@
 
 <%--head.jsp--%>
 <%@ include file="include/head-color.jsp" %>
-
     <%-- Main Header --%>
     <%@ include file="include/main-header.jsp" %>
 
@@ -294,14 +293,15 @@
                         </div>
                     </div>
                 </div>
-                <!-- 전체 트랙 -->
             </div>
-        </section>
-    </div>
-    <%-- /.content-wrapper --%>
+            <!-- 전체 트랙 -->
+        </div>
+    </section>
+</div>
+<%-- /.content-wrapper --%>
 
-    <%-- Main Footer --%>
-    <%@ include file="include/main-footer.jsp" %>
+<%-- Main Footer --%>
+<%@ include file="include/main-footer.jsp" %>
 
 </div>
 <%-- ./wrapper --%>

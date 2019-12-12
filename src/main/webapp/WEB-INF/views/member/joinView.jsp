@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
-<%@ include file="include/head.jsp" %>
+<%@ include file="../include/head.jsp" %>
 
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -46,6 +46,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
                 </div>
                 <!-- /.col -->
@@ -71,13 +72,15 @@
 </body>
 </html>
 
-<%@ include file="include/plugins.jsp" %>
+<%@ include file="../include/plugins.jsp" %>
 <script type="text/javascript">
 
+    var idRes;
+    var pwRes;
+    var IsjButtonClicked = false;
     //아이디 중복확인 체킹
     function idCheck() {
         var id = $('input[name=id]').val();
-        var idRes;
 
         $.ajax({
             url: '/memberExist',
@@ -85,6 +88,9 @@
             dataType: 'text',
             type: 'POST',
             async: false,
+            beforeSend:function(xhr){
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
             success: function (data) {
                 if (data == "No") {
                     $('#idCheckRes').html("사용가능한 아이디입니다.");
@@ -98,17 +104,16 @@
                 console.log(error);
                 idRes = false;
             }
-
         });
-        return idRes;
     }
 
     $('#jButton').click(function () {
+        IsjButtonClicked = true;
         idCheck();
     });
 
+
     //비밀번호 재확인 체킹
-    var pwRes;
     function pwCorrect() {
 
         $("input[name=password]").keyup(function () {
@@ -138,7 +143,11 @@
 
     //submit할 때 체킹
     function totalCheck() {
-        return idCheck()&&pwRes;
+        if(IsjButtonClicked == false)
+        {
+            alert(" 중복확인을 해주세요 ");
+        }
+        return IsjButtonClicked && idRes && pwRes;
     }
 
     $('input').iCheck({ //AdminLTE 회원가입 테마 jquery

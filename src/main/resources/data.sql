@@ -1,9 +1,13 @@
+SET foreign_key_checks =0;
 ALTER TABLE tbl_degree convert to charset utf8;
 ALTER TABLE tbl_rule convert to charset utf8;
 ALTER TABLE tbl_track convert to charset utf8;
 ALTER TABLE tbl_track_subject convert to charset utf8;
 ALTER TABLE tbl_subject convert to charset utf8;
 ALTER TABLE tbl_univ convert to charset utf8;
+ALTER TABLE tbl_member_role convert to charset utf8;
+ALTER TABLE tbl_member convert to charset utf8;
+SET foreign_key_checks =1;
 
 INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "소프트웨어융합대학");
 INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "무인기융합트랙");
@@ -113,6 +117,14 @@ INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, track
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,8);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,9);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (24,0,0,1,10);
+
+INSERT INTO tbl_member(memberId, email, name, password) VALUES ("student","k@h.com", "김학생", "{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG");
+INSERT INTO tbl_member(memberId, email, name, password) VALUES ("pro","k@n", "김교수님", "{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG");
+INSERT INTO tbl_member(memberId, email, name, password) VALUES ("admin","k@g", "김관리자", "{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG");
+
+# INSERT INTO tbl_member_role(roleId,role_enum, memberId) VALUES (1,role_enum.'STUDENT', "student");
+# INSERT INTO tbl_member_role(roleId,role_enum, memberId) VALUES (2,role_enum.'PRO', "pro");
+# INSERT INTO tbl_member_role(roleId,role_enum, memberId) VALUES (3,role_enum.'ADMIN', "admin");
+
 INSERT INTO tbl_rule(basicCredit, appliedCredit, expertCredit, industryCredit, degreeId, trackId) VALUES (24,18,21,36,1,11);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, expertCredit, industryCredit, degreeId, trackId) VALUES (4,8,1,6,2,11);
-

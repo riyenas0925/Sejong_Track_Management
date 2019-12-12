@@ -7,6 +7,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- try for ajax call ... 403 error By security csrf token -->
+    <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+    <!-- try for ajax call ... 403 error By security csrf token -->
+
+
     <title>Sejong Track</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
