@@ -25,8 +25,6 @@ public class MemberController_security {
     @Inject
     private CustomUserDetailsService customUserDetailsService;
 
-    @Inject
-    PasswordEncoder passwordEncoder;
 
     // 회원가입 페이지
     @GetMapping("/joinView")
@@ -41,7 +39,7 @@ public class MemberController_security {
         customUserDetailsService.joinMember(member);
         log.info("Here is memberJoin() : "+" ending joinMember().....");
 
-        return "redirect:/";
+        return "member/loginView";
     }
 
     @ResponseBody
@@ -61,35 +59,40 @@ public class MemberController_security {
         return res;
     }
 
+    // 내 정보 페이지
+    @GetMapping("/modifyView")
+    public String modifyView() {
+        return "member/modify";
+    }
+
+    // 정보 수정 처리
+    @PostMapping("/memberModify")
+    public void memberModify(Member member){
+        CustomUserDetails mem = (CustomUserDetails) customUserDetailsService.loadUserByUserId(member.getId());
+    }
+
     // 로그인 페이지
     @GetMapping("/loginView")
     public String loginView() {
-        return "member/loginView";
+        log.info("loginView called.........");return "member/loginView";
     }
-
-//    // 로그인 성공
-//    @GetMapping("/memberLoginSuccess")
-//    public String memberLoginSuccess(HttpSession session) {
-//        return "redirect:/";
-//    }
 
     // 로그아웃 결과 페이지
     @GetMapping("/memberLogout")
     public String memberLogout() {
-        return "/";
+        return "redirect:/";
     }
 
-    // 접근 거부 페이지
-    @GetMapping("/user/denied")
-    public String dispDenied() {
-        return "/denied";
+    // 중복 로그인 : 선 로그인의 접근
+    @GetMapping("/memberExpired")
+    public String memberExpired() { return "member/expired"; }
+
+    // 권한상 접근 거부 페이지
+    @GetMapping("/memberDenied")
+    public String memberDenied() {
+        return "member/denied";
     }
 
-    // 내 정보 페이지
-    @GetMapping("/myInfo")
-    public String disMyInfo() {
-        return "/myInfo";
-    }
 
     // 어드민 페이지
     @GetMapping("/admin")

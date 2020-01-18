@@ -55,7 +55,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.STUDENT.toString()));
         }
 
-        return new CustomUserDetails(member.getId(), member.getPassword(), authorities);
+        return new CustomUserDetails(member.getId(), member.getPassword(), member.getName(),
+                member.getEmail(), authorities);
     }
 
     @Override

@@ -26,7 +26,6 @@
                     <div class="checkbox icheck">
                         <label>
                             <input type="checkbox" name="rememberCheck"> Remember Me
-                            <br><span id="area">?</span>
                         </label>
                     </div>
                 </div>
@@ -38,18 +37,7 @@
                 <!-- /.col -->
             </div>
         </form>
-
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in
-                using
-                Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in
-                using
-                Google+</a>
-        </div>
         <!-- /.social-auth-links -->
-
         <a href="#">I forgot my password</a><br>
         <a href="${path}/joinView" class="text-center">Register a new membership</a>
 
@@ -60,7 +48,6 @@
 </body>
 </html>
 
-<%@ include file="../include/plugins.jsp" %>
 <script type="text/javascript">
 
     $('input').iCheck({//AdminLTE 회원가입 테마 jquery

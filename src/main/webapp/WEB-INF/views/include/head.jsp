@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <head>
@@ -42,7 +43,7 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!-- toastr -->
-    <link rel="stylesheet" href="plugins/toastr/toastr.css" />
+    <link rel="stylesheet" href="plugins/toastr/toastr.css"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -51,18 +52,19 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <link rel="stylesheet" href="plugins/pace/pace.min.css">
 
     <style>
         th {
-            background-color:#f9f9f9;
+            background-color: #f9f9f9;
         }
 
-        .tbl_hover:hover{
-            background-color:#f8d2d8;
-            font-weight:bold;
+        .tbl_hover:hover {
+            background-color: #f8d2d8;
+            font-weight: bold;
         }
 
         .btn-hover {
@@ -72,7 +74,7 @@
             color: #fff;
             cursor: pointer;
             height: 55px;
-            text-align:center;
+            text-align: center;
             border: none;
             background-size: 300% 100%;
 
@@ -116,57 +118,74 @@
         }
 
         #home-btn1 {
-            margin-bottom:20px;
+            margin-bottom: 20px;
         }
+
         #home-btn2 {
-            margin-bottom:20px;
+            margin-bottom: 20px;
         }
 
         .btn-nav1 {
-            width:80px;
-            height:80px;
-            border-radius:40px;
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
             background-color: #f56954;
             box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
             font-size: 16px;
             font-weight: 600;
             color: #fff;
             cursor: pointer;
-            border:none;
+            border: none;
         }
 
         .btn-nav2 {
-            width:80px;
-            height:80px;
-            border-radius:40px;
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
             background-color: #f39c12;
             box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
             font-size: 16px;
             font-weight: 600;
             color: #fff;
             cursor: pointer;
-            border:none;
+            border: none;
         }
 
         .nav-rb1 {
-            z-index:1;
+            z-index: 1;
             position: fixed;
-            bottom:120px;
-            right:20px;
+            bottom: 120px;
+            right: 20px;
         }
 
         .nav-rb2 {
-            z-index:1;
+            z-index: 1;
             position: fixed;
-            bottom:20px;
-            right:20px;
+            bottom: 20px;
+            right: 20px;
         }
     </style>
 
-    <script>
-        function go(text){
+    <%@ include file="../include/plugins.jsp" %>
+    <c:set var="sessionChk" value="${isUser}"/>
+    <%--<sec:authorize access="isAuthenticated()">--%>
+        <%--<c:set var="isAuth" value="yes"/>--%>
+    <%--</sec:authorize>--%>
+    <script type="text/javascript">
+
+        function go(text) {
             location.href = text;
             target: _self;
         }
+
+        $(document).ready(function (){
+
+            console.log('sessionChk : ' + '<c:out value="${sessionChk}"/>');
+
+            if ('<c:out value="${sessionChk}"/>' == 'no')
+            {
+                alert('세션이 만료되었습니다. 로그인 후 이용하세요.');
+            }
+        });
     </script>
 </head>

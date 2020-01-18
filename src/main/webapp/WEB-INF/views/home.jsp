@@ -56,8 +56,8 @@
 </div>
 <%-- ./wrapper --%>
 
-<%@ include file="include/plugins.jsp" %>
 </body>
 <script type="text/javascript">
+
 </script>
 </html>
