@@ -8,11 +8,35 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <sec:authorize access="isAuthenticated()">
+                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                </sec:authorize>
+                <sec:authorize access="isAnonymous()">
+                    <img src="dist/img/unknown-160x160.jpg"class="img-circle" alt="User Image">
+                </sec:authorize>
+
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <p>
+                    <sec:authorize access="isAuthenticated()">
+                        <sec:authentication property="principal.name"/>
+                        &nbsp<a href="/modifyView"><u><small>내정보</small></u></a>
+                    </sec:authorize>
+                    <sec:authorize access="isAnonymous()">
+                        Guest
+                    </sec:authorize>
+                </p>
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authorize access="hasAuthority('STUDENT')">
+                        <a>17학번 | 스마트기기공학과</a>
+                    </sec:authorize>
+                    <sec:authorize access="hasAuthority('PRO')">
+                        <a>소프트웨어융합대학 소속</a>
+                    </sec:authorize>
+                </sec:authorize>
+                <sec:authorize access="isAnonymous()">
+                    <a>로그인을 해주세요</a>
+                </sec:authorize>
             </div>
         </div>
 

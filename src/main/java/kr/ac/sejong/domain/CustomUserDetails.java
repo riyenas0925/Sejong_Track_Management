@@ -5,6 +5,7 @@
 
 package kr.ac.sejong.domain;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,21 +23,24 @@ import java.util.List;
  * 유저가 입력한 아이디를 통해 디비에서 읽어온 비밀번호 (이미 회원가입할때 암호화 되어있음)와
  * 유저가 입력한 비밀번호를 암호화한 암호화된 비밀번호를 비교해서 로그인 인증을 처리해줄지 안할지를 결정하게 되는것입니다.
  * */
+@EqualsAndHashCode(of="id")
 public class CustomUserDetails implements UserDetails {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L; //serial 상속받은 클래스는 serialVersionUID 꼭 선언하는것 권유
 
     private String id;
     private String password;
-    private String name; // 필요없으면 삭제
+    private String name;
+    private String email;
 
     private List<GrantedAuthority> authorities; //세션을 위한 객제인듯. 따라서 필드는 id, pw만 쓰겠음.
 
-    public CustomUserDetails(String id, String password,
+    public CustomUserDetails(String id, String password, String name, String email,
                              List<GrantedAuthority> authorities) {
         super();
         this.id = id;
-        this.name = null;
+        this.name = name;
         this.password = password;
+        this.email = email;
         this.authorities = authorities;
     }
 
@@ -53,7 +57,6 @@ public class CustomUserDetails implements UserDetails {
             authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.PRO.toString()));
         }
         return authorities;
-//        return this.authorities;
     }
 
     @Override
@@ -64,10 +67,11 @@ public class CustomUserDetails implements UserDetails {
     public String getId() {return this.id;}
 
     public String getName() {return this.name;}
+
+    public String getEmail() {return this.email;}
+
     @Override
-    public String getUsername() {
-        return null;
-    }
+    public String getUsername() {return this.name;}
 
     @Override
     public boolean isAccountNonExpired() {

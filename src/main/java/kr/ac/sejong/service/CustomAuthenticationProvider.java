@@ -29,7 +29,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     CustomUserDetailsService customUserDetailsService;
 
     @Inject
-    //@Autowired
     PasswordEncoder passwordEncoder;
 
     @Override
@@ -42,10 +41,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         try {
             userInfo = (CustomUserDetails) customUserDetailsService.loadUserByUserId(authToken.getName()); //UserDetailsService에서 유저정보를 불러온다.
 
-            log.info("userInfo.getPassword() : " +userInfo.getPassword()); //bcrypt_pw
-            log.info("authToken.getCredentials() : " + authToken.getCredentials()); //raw_pw
-            log.info("AreTheyMatch? : "+ passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword()));
-            if (!passwordEncoder.matches(authToken.getCredentials().toString(),userInfo.getPassword())) {
+            log.info("AreTheyMatch? : "+ passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())); //raw, bcrypt
+            if (!passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())) {
 
                 throw new BadCredentialsException("not matching userId or password");
             }
@@ -53,10 +50,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         } catch (UsernameNotFoundException e) {
             throw e;
         }
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
-        /* 인증처리 후 인가 */
-        return new UsernamePasswordAuthenticationToken(userInfo, null, authorities);
 
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
+        log.info("provider - getAuthorities() : " + authorities);
+        /* 인증처리 후 인가. 인가할 때는 비밀번호는 null로 */
+        return new UsernamePasswordAuthenticationToken(userInfo, null, authorities);
     }
 
     /* 입력받은 class가 Authentication을 구현했는지 검사하는 메소드 */

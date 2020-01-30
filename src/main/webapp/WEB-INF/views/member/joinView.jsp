@@ -14,11 +14,17 @@
 
         <form id="joinForm" action="/memberJoin" method="post" onsubmit="return totalCheck()">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="id" placeholder="Id"> <input type="button" id="jButton"
-                                                                                           value="중복확인">
-                <span id="idCheckRes"></span>
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <input type="text" class="form-control" name="id" required placeholder="Id">
+                <span class="glyphicon glyphicon-eye-open form-control-feedback"></span>
+                <div class="row" style="margin: 6px 0px">
+                    <div class="col-xs-8"><span id="idCheckRes"></span></div>
+                    <div class="col-xs-4">
+                        <input type="button" id="jButton" class="btn btn-block btn-default btn-flat" value="중복확인">
+                    </div>
+                </div>
             </div>
+
+
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" name="name" required placeholder="Full name">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -53,16 +59,6 @@
             </div>
         </form>
 
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up
-                using
-                Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up
-                using
-                Google+</a>
-        </div>
-
         <a href="${path}/loginView" class="text-center">I already have a membership</a>
     </div>
     <!-- /.form-box -->
@@ -72,40 +68,53 @@
 </body>
 </html>
 
-<%@ include file="../include/plugins.jsp" %>
 <script type="text/javascript">
 
-    var idRes;
+    var idRes = false;
     var pwRes;
     var IsjButtonClicked = false;
+
     //아이디 중복확인 체킹
     function idCheck() {
         var id = $('input[name=id]').val();
 
-        $.ajax({
-            url: '/memberExist',
-            data: {"id": id},
-            dataType: 'text',
-            type: 'POST',
-            async: false,
-            beforeSend:function(xhr){
-                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-            },
-            success: function (data) {
-                if (data == "No") {
-                    $('#idCheckRes').html("사용가능한 아이디입니다.");
-                    idRes = true;
-                } else {
-                    $('#idCheckRes').html("이미 존재하는 아이디입니다.");
+        if (id == "") {
+            $('#idCheckRes').css("color", 'red');
+            $('#idCheckRes').html("아이디를 입력해주세요.");
+            idRes = false;
+        } else {
+            $.ajax({
+                url: '/memberExist',
+                data: {"id": id},
+                dataType: 'text',
+                type: 'POST',
+                async: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+                success: function (data) {
+                    if (data == "No") {
+                        $('#idCheckRes').css("color", 'green');
+                        $('#idCheckRes').html("사용가능한 아이디입니다.");
+                        idRes = true;
+                    } else {
+                        $('#idCheckRes').css("color", 'red');
+                        $('#idCheckRes').html("이미 존재하는 아이디입니다.");
+                        idRes = false;
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
                     idRes = false;
                 }
-            },
-            error: function (error) {
-                console.log(error);
-                idRes = false;
-            }
-        });
+            });
+        }
     }
+
+    $('input[name=id]').change(function () {
+        idRes = false;
+        IsjButtonClicked = false
+    });
 
     $('#jButton').click(function () {
         IsjButtonClicked = true;
@@ -139,12 +148,12 @@
             }
         });
     }
+
     pwCorrect();
 
     //submit할 때 체킹
     function totalCheck() {
-        if(IsjButtonClicked == false)
-        {
+        if (IsjButtonClicked == false) {
             alert(" 중복확인을 해주세요 ");
         }
         return IsjButtonClicked && idRes && pwRes;

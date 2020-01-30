@@ -2,15 +2,9 @@ package kr.ac.sejong.domain;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.security.core.CredentialsContainer;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -32,12 +26,18 @@ public class Member {
     private String email;
 
     @CreationTimestamp
-    private Timestamp regdate;
+    private Date regdate = new Date();
 
-    @UpdateTimestamp
-    private Timestamp updatedate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifydate;
 
-    @OneToMany(mappedBy="member",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date logindate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date logoutdate;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<MemberRole> roles;
 
     public Member toEntity() {
@@ -48,12 +48,12 @@ public class Member {
                 .build();
     }
 
-    public Member(){
+    public Member() {
 
     }
 
     @Builder
-    public Member (String id, String password, String name, String email) {
+    public Member(String id, String password, String name, String email) {
         this.id = id;
         this.password = password;
         this.name = name;

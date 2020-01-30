@@ -10,7 +10,6 @@ ALTER TABLE tbl_member convert to charset utf8;
 SET foreign_key_checks =1;
 
 INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "소프트웨어융합대학");
-INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "무인기융합트랙");
 
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2000, "HCI&비쥬얼컴퓨팅", 1);
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2001, "멀티미디어", 1);
@@ -22,9 +21,6 @@ INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2006, "정보보호",
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2007, "데이터사이언스", 1);
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2008, "SW교육", 1);
 INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2009, "사이버국방", 1);
-INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2009, "무인기 1", 2);
-INSERT INTO tbl_track(trackNo, trackTitle, univId) VALUES (2009, "무인기 2", 2);
-
 
 INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3001, "시험 과목 1");
 INSERT INTO tbl_subject(subjectCredit, subjectNo, subjectTitle) VALUES (3, 3002, "시험 과목 2");
@@ -96,17 +92,6 @@ INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 28, 3)
 INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 29, 3);
 INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 30, 3);
 
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 21, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (1, 22, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 23, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 24, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (2, 25, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (3, 26, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (3, 27, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (3, 28, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (4, 29, 11);
-INSERT INTO tbl_track_subject(subjectType, subjectId, trackId) VALUES (4, 30, 11);
-
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,1);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,2);
 INSERT INTO tbl_rule(basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9,18,0,1,3);
@@ -122,9 +107,6 @@ INSERT INTO tbl_member(memberId, email, name, password) VALUES ("student","k@h.c
 INSERT INTO tbl_member(memberId, email, name, password) VALUES ("pro","k@n", "김교수님", "{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG");
 INSERT INTO tbl_member(memberId, email, name, password) VALUES ("admin","k@g", "김관리자", "{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG");
 
-# INSERT INTO tbl_member_role(roleId,role_enum, memberId) VALUES (1,role_enum.'STUDENT', "student");
-# INSERT INTO tbl_member_role(roleId,role_enum, memberId) VALUES (2,role_enum.'PRO', "pro");
-# INSERT INTO tbl_member_role(roleId,role_enum, memberId) VALUES (3,role_enum.'ADMIN', "admin");
-
-INSERT INTO tbl_rule(basicCredit, appliedCredit, expertCredit, industryCredit, degreeId, trackId) VALUES (24,18,21,36,1,11);
-INSERT INTO tbl_rule(basicCredit, appliedCredit, expertCredit, industryCredit, degreeId, trackId) VALUES (4,8,1,6,2,11);
+INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("STUDENT", "student");
+INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("PRO", "pro");
+INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("ADMIN", "admin");
