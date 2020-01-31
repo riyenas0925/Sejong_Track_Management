@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Enumeration;
 
 @Log
 @Component("loginSuccessHandler")
@@ -43,14 +42,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         //세션 지속시간 설정 : 세션의 기본 객체가 사용될 때마다 세션의 최근 접근 시간은 갱신된다.
         request.getSession().setMaxInactiveInterval(TIME);
-//        request.getSession().setAttribute("isSession","yes");
-//        log.info("login session 궁금하지?");
-//        Enumeration e = request.getSession().getAttributeNames();
-//        int i=0;
-//        while( e.hasMoreElements()){
-//            String t_name = e.nextElement().toString();
-//            log.info("| "+ ++i + " |"+ t_name+":"+request.getSession().getAttribute(t_name));
-//        }
 
         //로그인 한 날짜 기록
         updateLoginDate(auth);
@@ -79,10 +70,11 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 
-    protected void updateLoginDate(Authentication auth){
-        log.info("authToken & getPrincipal() : " + auth.getPrincipal()); /** auth.getName()은 auth의 Principal의 종류를 매칭한 후
-                                                                                * (이 경우 CustomUserDetails)
-                                                                                * 그 객체의 name정보를 가져오는 것 */
+    protected void updateLoginDate(Authentication auth) {
+        log.info("authToken & getPrincipal() : " + auth.getPrincipal());
+        /** auth.getName()은 auth의 Principal의 종류를 매칭한 후
+         * (이 경우 CustomUserDetails)
+         * 그 객체의 name정보를 가져오는 것 */
         String user_id = ((CustomUserDetails) auth.getPrincipal()).getId();
         log.info("authToken & cast to CustomUserDetials : " + user_id);
         Member member = memberRepository.findById(user_id).get();

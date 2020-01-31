@@ -5,9 +5,7 @@ import kr.ac.sejong.domain.Member;
 import kr.ac.sejong.service.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @AllArgsConstructor
@@ -35,9 +32,9 @@ public class MemberController_security {
     // 회원가입 처리
     @PostMapping("/memberJoin")
     public String memberJoin(Member member) {
-        log.info("Here is memberJoin() : "+"starting joinMember().....");
+        log.info("Here is memberJoin() : " + "starting joinMember().....");
         customUserDetailsService.joinMember(member);
-        log.info("Here is memberJoin() : "+" ending joinMember().....");
+        log.info("Here is memberJoin() : " + "ending joinMember().....");
 
         return "member/loginView";
     }
@@ -67,25 +64,22 @@ public class MemberController_security {
 
     // 정보 수정 처리
     @PostMapping("/memberModify")
-    public void memberModify(Member member){
+    public void memberModify(Member member) {
         CustomUserDetails mem = (CustomUserDetails) customUserDetailsService.loadUserByUserId(member.getId());
     }
 
     // 로그인 페이지
     @GetMapping("/loginView")
     public String loginView() {
-        log.info("loginView called.........");return "member/loginView";
-    }
-
-    // 로그아웃 결과 페이지
-    @GetMapping("/memberLogout")
-    public String memberLogout() {
-        return "redirect:/";
+        log.info("loginView called.........");
+        return "member/loginView";
     }
 
     // 중복 로그인 : 선 로그인의 접근
     @GetMapping("/memberExpired")
-    public String memberExpired() { return "member/expired"; }
+    public String memberExpired() {
+        return "member/expired";
+    }
 
     // 권한상 접근 거부 페이지
     @GetMapping("/memberDenied")
