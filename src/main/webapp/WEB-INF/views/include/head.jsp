@@ -174,12 +174,6 @@
             location.href = text;
             target: _self;
         }
-        $(document).ready(function (){
-            var userState = sessionStorage.getItem(sessionState);
 
-            if(userState == 'timeout') {
-                alert('세션이 만료되었습니다. 로그인 후 이용하세요.');
-            }
-        });
     </script>
 </head>

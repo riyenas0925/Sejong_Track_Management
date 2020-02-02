@@ -32,7 +32,7 @@ public class CustomUserDetails implements UserDetails {
     private String name;
     private String email;
 
-    private List<GrantedAuthority> authorities; //세션을 위한 객제인듯. 따라서 필드는 id, pw만 쓰겠음.
+    private List<GrantedAuthority> authorities; //세션을 위한 객제인듯.
 
     public CustomUserDetails(String id, String password, String name, String email,
                              List<GrantedAuthority> authorities) {

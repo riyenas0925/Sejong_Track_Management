@@ -21,8 +21,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
                                 Authentication authentication) throws IOException, ServletException {
         HttpSession session = request.getSession();
         try {
-            log.info("onLogoutSuccess"); /*로그아웃 하는*/
-
             if (authentication != null && authentication.getDetails() != null) {
                 try {
                     request.getSession().invalidate();

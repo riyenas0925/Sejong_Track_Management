@@ -25,7 +25,7 @@ import java.util.Date;
 @Log
 @Component("loginSuccessHandler")
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
-    private static int TIME = 10; // 30분
+    private static int TIME = 30*60; // 30분
 
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -71,12 +71,11 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
     protected void updateLoginDate(Authentication auth) {
-        log.info("authToken & getPrincipal() : " + auth.getPrincipal());
         /** auth.getName()은 auth의 Principal의 종류를 매칭한 후
          * (이 경우 CustomUserDetails)
          * 그 객체의 name정보를 가져오는 것 */
         String user_id = ((CustomUserDetails) auth.getPrincipal()).getId();
-        log.info("authToken & cast to CustomUserDetials : " + user_id);
+
         Member member = memberRepository.findById(user_id).get();
         member.setLogindate(new Date());
         memberRepository.save(member);

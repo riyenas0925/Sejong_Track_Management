@@ -34,7 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         /* Authentication을 상속받는 클래스. principal, credential, authorities 제공 */
-        UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication; //유저가 입력한 정보를 이이디비번으로만든다.(로그인한 유저아이디비번정보를담는다)
+        UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication; //로그인한 유저아이디비번정보를담는다.
         CustomUserDetails userInfo = null;
 
         /* 회원정보 로드, 패스워드 인증 로직 */
@@ -52,7 +52,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
-        log.info("provider - getAuthorities() : " + authorities);
+
         /* 인증처리 후 인가. 인가할 때는 비밀번호는 null로 */
         return new UsernamePasswordAuthenticationToken(userInfo, null, authorities);
     }
