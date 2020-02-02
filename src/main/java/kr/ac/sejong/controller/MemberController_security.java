@@ -5,12 +5,10 @@ import kr.ac.sejong.domain.Member;
 import kr.ac.sejong.service.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 
@@ -21,7 +19,6 @@ public class MemberController_security {
 
     @Inject
     private CustomUserDetailsService customUserDetailsService;
-
 
     // 회원가입 페이지
     @GetMapping("/joinView")
@@ -63,9 +60,33 @@ public class MemberController_security {
     }
 
     // 정보 수정 처리
-    @PostMapping("/memberModify")
-    public void memberModify(Member member) {
-        CustomUserDetails mem = (CustomUserDetails) customUserDetailsService.loadUserByUserId(member.getId());
+    @PostMapping("/modifyMemberInfo")
+    public String modifyMemberInfo(Member target) {
+
+        String targetId = target.getId();
+        String targetPw = target.getPassword();
+
+        try {
+            customUserDetailsService.modifyMember(targetId, targetPw, target);
+
+        }catch(BadCredentialsException e){
+            return "member/modify";
+        }
+        return "redirect:/memberLogout";
+    }
+
+    @PostMapping("/modifyPw")
+    public String modifyPw(@RequestParam("id") String targetId,
+                         @RequestParam("password") String targetPw, @RequestParam("newPw") String resultPw){
+
+        try {
+            customUserDetailsService.modifyPw(targetId, targetPw, resultPw);
+
+        }catch(BadCredentialsException e){
+            return "member/modify";
+        }
+
+        return "redirect:/memberLogout";
     }
 
     // 로그인 페이지
@@ -92,5 +113,10 @@ public class MemberController_security {
     @GetMapping("/admin")
     public String disAdmin() {
         return "/admin";
+    }
+
+    @GetMapping("/popupPwModify")
+    public String popupPwModify() {
+        return "member/pw_popup";
     }
 }
