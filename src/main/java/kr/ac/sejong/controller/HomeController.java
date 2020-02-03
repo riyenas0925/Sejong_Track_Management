@@ -17,4 +17,9 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping("/bootstrap")
+    public String bootstrap(){
+        return "index";
+    }
+
 }
