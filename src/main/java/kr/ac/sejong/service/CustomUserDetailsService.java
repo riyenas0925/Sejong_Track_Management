@@ -1,13 +1,12 @@
 package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.CustomUserDetails;
-import kr.ac.sejong.domain.Member;
-import kr.ac.sejong.domain.MemberRoleEnum;
-import kr.ac.sejong.persistence.MemberRepository;
+import kr.ac.sejong.domain.Member.Member;
+import kr.ac.sejong.domain.Member.MemberRoleEnum;
+import kr.ac.sejong.domain.Member.MemberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

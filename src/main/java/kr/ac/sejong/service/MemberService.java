@@ -1,6 +1,6 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.Member;
+import kr.ac.sejong.domain.Member.Member;
 
 import java.util.Optional;
 

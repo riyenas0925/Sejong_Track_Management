@@ -1,7 +1,7 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.Rule;
-import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
+import kr.ac.sejong.domain.Rule.Rule;
+import kr.ac.sejong.web.dto.UnivTrackRuleDegreeJoinDto;
 
 import java.util.List;
 

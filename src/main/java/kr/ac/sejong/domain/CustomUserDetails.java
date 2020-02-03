@@ -5,6 +5,7 @@
 
 package kr.ac.sejong.domain;
 
+import kr.ac.sejong.domain.Member.MemberRoleEnum;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

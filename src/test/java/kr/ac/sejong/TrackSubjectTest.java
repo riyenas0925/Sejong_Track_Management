@@ -1,11 +1,11 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.domain.Subject;
-import kr.ac.sejong.domain.Track;
-import kr.ac.sejong.domain.TrackSubject;
-import kr.ac.sejong.persistence.SubjectRepository;
-import kr.ac.sejong.persistence.TrackRepository;
-import kr.ac.sejong.persistence.TrackSubjectRepository;
+import kr.ac.sejong.domain.Subject.Subject;
+import kr.ac.sejong.domain.Track.Track;
+import kr.ac.sejong.domain.Track.TrackRepository;
+import kr.ac.sejong.domain.TrackSubject.TrackSubject;
+import kr.ac.sejong.domain.Subject.SubjectRepository;
+import kr.ac.sejong.domain.TrackSubject.TrackSubjectRepository;
 
 import lombok.extern.java.Log;
 

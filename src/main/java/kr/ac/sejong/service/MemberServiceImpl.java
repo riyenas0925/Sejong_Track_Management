@@ -1,7 +1,7 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.Member;
-import kr.ac.sejong.persistence.MemberRepository;
+import kr.ac.sejong.domain.Member.Member;
+import kr.ac.sejong.domain.Member.MemberRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

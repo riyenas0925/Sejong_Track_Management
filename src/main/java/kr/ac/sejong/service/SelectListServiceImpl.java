@@ -1,11 +1,11 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.Degree;
-import kr.ac.sejong.domain.Track;
-import kr.ac.sejong.domain.Univ;
-import kr.ac.sejong.persistence.DegreeRepository;
-import kr.ac.sejong.persistence.TrackRepository;
-import kr.ac.sejong.persistence.UnivRepository;
+import kr.ac.sejong.domain.Degree.Degree;
+import kr.ac.sejong.domain.Track.Track;
+import kr.ac.sejong.domain.Track.TrackRepository;
+import kr.ac.sejong.domain.Univ.Univ;
+import kr.ac.sejong.domain.Degree.DegreeRepository;
+import kr.ac.sejong.domain.Univ.UnivRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
