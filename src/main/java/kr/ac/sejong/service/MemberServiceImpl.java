@@ -1,7 +1,7 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.Member;
-import kr.ac.sejong.persistence.MemberRepository;
+import kr.ac.sejong.domain.member.Member;
+import kr.ac.sejong.domain.member.MemberRepository;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 

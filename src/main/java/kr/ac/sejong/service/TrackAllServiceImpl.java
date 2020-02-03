@@ -1,7 +1,7 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.dto.TrackAllViewDto;
-import kr.ac.sejong.persistence_old.TrackAllDAO;
+import kr.ac.sejong.web.dto.TrackAllViewDto;
+import kr.ac.sejong.domain.track.TrackAllDAO;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

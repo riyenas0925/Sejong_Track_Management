@@ -1,7 +1,7 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.domain.Univ;
-import kr.ac.sejong.persistence.UnivRepository;
+import kr.ac.sejong.domain.univ.Univ;
+import kr.ac.sejong.domain.univ.UnivRepository;
 import lombok.extern.java.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;

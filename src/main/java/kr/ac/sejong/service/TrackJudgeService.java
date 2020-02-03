@@ -1,8 +1,8 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.dto.StudentExcelDto;
-import kr.ac.sejong.dto.TrackSubjectJoinDto;
-import kr.ac.sejong.dto.TrackJudgeAllViewDto;
+import kr.ac.sejong.web.dto.StudentExcelDto;
+import kr.ac.sejong.web.dto.TrackSubjectJoinDto;
+import kr.ac.sejong.web.dto.TrackJudgeAllViewDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
