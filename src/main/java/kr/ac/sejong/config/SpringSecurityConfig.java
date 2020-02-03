@@ -2,8 +2,8 @@
 
 package kr.ac.sejong.config;
 
-import kr.ac.sejong.handler.CustomLoginSuccessHandler;
-import kr.ac.sejong.handler.CustomLogoutSuccessHandler;
+import kr.ac.sejong.web.handler.CustomLoginSuccessHandler;
+import kr.ac.sejong.web.handler.CustomLogoutSuccessHandler;
 import kr.ac.sejong.service.CustomAuthenticationProvider;
 import lombok.extern.java.Log;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.dto.TrackAllViewDto;
+import kr.ac.sejong.web.dto.TrackAllViewDto;
 
 import java.util.List;
 

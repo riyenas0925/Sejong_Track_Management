@@ -1,13 +1,11 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.Track;
+import kr.ac.sejong.web.dto.StudentExcelDto;
+import kr.ac.sejong.web.dto.UnivTrackRuleDegreeJoinDto;
+import kr.ac.sejong.web.dto.TrackSubjectJoinDto;
+import kr.ac.sejong.web.dto.TrackJudgeAllViewDto;
 
-import kr.ac.sejong.dto.StudentExcelDto;
-import kr.ac.sejong.dto.UnivTrackRuleDegreeJoinDto;
-import kr.ac.sejong.dto.TrackSubjectJoinDto;
-import kr.ac.sejong.dto.TrackJudgeAllViewDto;
-
-import kr.ac.sejong.persistence.TrackRepository;
+import kr.ac.sejong.domain.track.TrackRepository;
 
 import lombok.extern.java.Log;
 

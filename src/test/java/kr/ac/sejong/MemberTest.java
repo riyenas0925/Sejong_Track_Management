@@ -1,11 +1,10 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.domain.CustomUserDetails;
-import kr.ac.sejong.domain.Member;
-import kr.ac.sejong.domain.MemberRole;
-import kr.ac.sejong.domain.MemberRoleEnum;
-import kr.ac.sejong.persistence.MemberRepository;
-import kr.ac.sejong.persistence.MemberRoleRepository;
+import kr.ac.sejong.domain.member.Member;
+import kr.ac.sejong.domain.member.MemberRole;
+import kr.ac.sejong.domain.member.MemberRoleEnum;
+import kr.ac.sejong.domain.member.MemberRepository;
+import kr.ac.sejong.domain.member.MemberRoleRepository;
 import kr.ac.sejong.service.CustomAuthenticationProvider;
 import kr.ac.sejong.service.CustomUserDetailsService;
 import lombok.extern.java.Log;
@@ -14,9 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
@@ -24,7 +20,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
