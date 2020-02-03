@@ -36,8 +36,6 @@ public class CustomHttpSessionEventPublisher extends HttpSessionEventPublisher {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {    //문제점 : timeout에 의한 로그아웃이 자동기록이 안됨.
-        log.info("eventPublisher - sessionDestroyed  ");
-
         // session
         HttpSession session = event.getSession();
 
@@ -57,7 +55,5 @@ public class CustomHttpSessionEventPublisher extends HttpSessionEventPublisher {
             member.setLogoutdate(new Date());
             memberRepository.save(member);
         }
-
-
     }
 }

@@ -168,7 +168,6 @@
 <%-- ./wrapper --%>
 <script src="/track_js/rule.js"></script>
 
-<%@ include file="include/plugins.jsp" %>
 </body>
 
 <script language="JavaScript">

@@ -32,6 +32,7 @@ public class MemberRole implements GrantedAuthority, Serializable {
     }
 
     public MemberRole(){}
+
     @Builder
     public MemberRole(Long roleId, MemberRoleEnum roleEnum, Member member) {
         this.roleId = roleId;

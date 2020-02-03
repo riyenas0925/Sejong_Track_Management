@@ -167,10 +167,7 @@
     </style>
 
     <%@ include file="../include/plugins.jsp" %>
-    <c:set var="sessionChk" value="${isUser}"/>
-    <%--<sec:authorize access="isAuthenticated()">--%>
-        <%--<c:set var="isAuth" value="yes"/>--%>
-    <%--</sec:authorize>--%>
+
     <script type="text/javascript">
 
         function go(text) {
@@ -178,14 +175,5 @@
             target: _self;
         }
 
-        $(document).ready(function (){
-
-            console.log('sessionChk : ' + '<c:out value="${sessionChk}"/>');
-
-            if ('<c:out value="${sessionChk}"/>' == 'no')
-            {
-                alert('세션이 만료되었습니다. 로그인 후 이용하세요.');
-            }
-        });
     </script>
 </head>

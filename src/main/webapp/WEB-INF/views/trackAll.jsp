@@ -76,7 +76,6 @@
 </div>
 <%-- ./wrapper --%>
 
-<%@ include file="include/plugins.jsp" %>
 </body>
 </html>
 
