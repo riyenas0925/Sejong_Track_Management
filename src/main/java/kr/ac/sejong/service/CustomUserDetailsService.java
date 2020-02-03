@@ -5,9 +5,10 @@ import kr.ac.sejong.domain.Member;
 import kr.ac.sejong.domain.MemberRoleEnum;
 import kr.ac.sejong.persistence.MemberRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Log
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Inject
@@ -41,18 +43,50 @@ public class CustomUserDetailsService implements UserDetailsService {
         return repo.save(member).getId();
     }
 
+    @Transactional
+    public void modifyMember(String targetId, String targetPw, Member result) throws BadCredentialsException {
+        Optional<Member> targetWrapper = repo.findById(targetId);
+        Member target = targetWrapper.get();
+
+        if (!passwordEncoder.matches(targetPw, target.getPassword())) { //raw, bcrypt
+            throw new BadCredentialsException("not matching userId or password");
+        } else {
+            target.setName(result.getName());
+            target.setEmail(result.getEmail());
+        }
+
+        repo.save(target);
+    }
+
+    @Transactional
+    public void modifyPw(String targetId, String targetPw, String resultPw) {
+        Optional<Member> targetWrapper = repo.findById(targetId);
+        Member target = targetWrapper.get();
+
+        if (!passwordEncoder.matches(targetPw, target.getPassword())) { //raw, bcrypt
+            throw new BadCredentialsException("not matching userId or password");
+        } else {
+            target.setPassword(passwordEncoder.encode(resultPw));
+        }
+
+        repo.save(target);
+    }
+
     public UserDetails loadUserByUserId(String id) throws UsernameNotFoundException {
         /*id 일치하는 멤버 조회*/
         Optional<Member> memberEntityWrapper = repo.findById(id);
+
         /*만약 id가 없으면 에러 던지고 아니면 member에 담는다.*/
-        Member member = memberEntityWrapper.orElseThrow(()-> new UsernameNotFoundException(id));
+        Member member = memberEntityWrapper.orElseThrow(() -> new UsernameNotFoundException(id));
 
         List<GrantedAuthority> authorities = new ArrayList<>(); /*권한*/
 
         if (("admin").equals(id)) {
             authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.ADMIN.toString()));
-        } else {
+        } else if (("student").equals(id)) {
             authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.STUDENT.toString()));
+        } else if (("pro").equals(id)) {
+            authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.PRO.toString()));
         }
 
         return new CustomUserDetails(member.getId(), member.getPassword(), member.getName(),

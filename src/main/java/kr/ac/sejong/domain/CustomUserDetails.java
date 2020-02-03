@@ -32,7 +32,7 @@ public class CustomUserDetails implements UserDetails {
     private String name;
     private String email;
 
-    private List<GrantedAuthority> authorities; //세션을 위한 객제인듯. 따라서 필드는 id, pw만 쓰겠음.
+    private List<GrantedAuthority> authorities; //세션을 위한 객제인듯.
 
     public CustomUserDetails(String id, String password, String name, String email,
                              List<GrantedAuthority> authorities) {
@@ -43,7 +43,6 @@ public class CustomUserDetails implements UserDetails {
         this.email = email;
         this.authorities = authorities;
     }
-
 
     /** db에서 꺼내와서 이 유저가 가질 권한 add해줘서 리턴 */
     @Override

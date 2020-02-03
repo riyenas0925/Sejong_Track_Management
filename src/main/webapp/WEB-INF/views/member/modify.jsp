@@ -15,40 +15,35 @@
     <div class="register-box-body">
         <p class="login-box-msg">profile</p>
 
-        <form id="joinForm" action="/memberJoin" method="post" onsubmit="return totalCheck()">
-            <sec:authorize access="isAuthenticated()">
-                Id
+        <form id="joinForm" action="/modifyMemberInfo" method="post">
+            Id
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="id" disabled value=<sec:authentication property="principal.id"/>>
+                <input type="text" class="form-control" name="id" readonly value=<sec:authentication
+                        property="principal.id"/>>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
-                Password
+            Password
             <div class="form-group has-feedback">
-                <button>modify password</button>
+                <input type="button" value="modify password" onclick="showPopup_pw()"/>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
-                Name
+            Name
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="name"  value=<sec:authentication property="principal.name"/>>
+                <input type="text" class="form-control" name="name" value=<sec:authentication
+                        property="principal.name"/>>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
-                Email
+            Email
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" name="email"  value=<sec:authentication property="principal.email"/>>
+                <input type="email" class="form-control" name="email" value=<sec:authentication
+                    property="principal.email"/>>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-                <br>Please enter a password to modify the information.
+            <br>Please enter a password to modify the information.
             <div class="form-group has-feedback">
                 <input type="password" class="form-control" name="password" required placeholder="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
-
-            <div class="form-group has-feedback">
-                <input type="passwordCheck" class="form-control" name="password" required placeholder="retype password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-
-            </sec:authorize>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
@@ -73,6 +68,10 @@
 </html>
 
 <script type="text/javascript">
+
+    function showPopup_pw() {
+        window.open("/popupPwModify", "비밀번호 변경", "width=400,height=300, left=100, top=100, scrollbars=no");
+    }
 
     $('input').iCheck({ //AdminLTE 회원가입 테마 jquery
         checkboxClass: 'icheckbox_square-blue',

@@ -129,7 +129,6 @@
 </div>
 <%-- ./wrapper --%>
 
-<%@ include file="include/plugins.jsp" %>
 </body>
 <script language="JavaScript">
     $(document).ajaxStart(function () {
