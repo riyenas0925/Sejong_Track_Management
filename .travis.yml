@@ -1,0 +1,19 @@
+language: java
+jdk:
+  - openjdk8
+
+branches:
+  only:
+    - develop
+    
+before_install:
+  - chmod +x mvnw
+
+# Travis CI
+cache:
+  directories:
+    - $HOME/.m2a    
+
+# Test skip
+install: true
+script: mvn clean package -DskipTests=true
