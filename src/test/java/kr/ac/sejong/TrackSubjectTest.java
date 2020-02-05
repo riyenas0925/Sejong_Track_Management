@@ -5,8 +5,8 @@ import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.tracksubject.TrackSubject;
 import kr.ac.sejong.domain.subject.SubjectRepository;
 import kr.ac.sejong.domain.track.TrackRepository;
-import kr.ac.sejong.domain.tracksubject.TrackSubjectRepository;
 
+import kr.ac.sejong.domain.tracksubject.TrackSubjectRepository;
 import lombok.extern.java.Log;
 
 import org.junit.Test;
@@ -24,9 +24,14 @@ import javax.transaction.Transactional;
 @Commit
 public class TrackSubjectTest {
 
-    @Inject private TrackSubjectRepository trackSubjectRepository;
-    @Inject private TrackRepository trackRepository;
-    @Inject private SubjectRepository subjectRepository;
+    @Inject
+    private TrackSubjectRepository trackSubjectRepository;
+
+    @Inject
+    private TrackRepository trackRepository;
+
+    @Inject
+    private SubjectRepository subjectRepository;
 
     @Test
     public void createTrackSubject() {

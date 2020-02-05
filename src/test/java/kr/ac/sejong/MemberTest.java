@@ -32,6 +32,7 @@ public class MemberTest {
 
     @Inject
     MemberRepository repo;
+
     @Inject
     MemberRoleRepository rolerepo;
 

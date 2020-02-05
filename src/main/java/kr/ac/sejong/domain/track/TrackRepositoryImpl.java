@@ -141,10 +141,10 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
                 .innerJoin(trackSubject.track, track)
                 .innerJoin(trackSubject.subject, subject)
                 .select(Projections.constructor(TrackSubjectJoinDto.class,
-                        subject.subjectId,
-                        subject.subjectNo,
-                        subject.subjectTitle,
-                        subject.subjectCredit,
+                        subject.id,
+                        subject.courseNum,
+                        subject.courseTitle,
+                        subject.credit,
                         trackSubject.subjectType,
                         track.trackId))
                 .where(track.trackId.eq(trackId));
