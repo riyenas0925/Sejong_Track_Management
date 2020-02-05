@@ -17,4 +17,14 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping("/bootstrap")
+    public String ex1(){
+        return "index";
+    }
+
+    @RequestMapping("/default")
+    public String ex2(){
+        return "default";
+    }
+
 }
