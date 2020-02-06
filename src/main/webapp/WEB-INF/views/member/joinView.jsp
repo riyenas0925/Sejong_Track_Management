@@ -1,75 +1,118 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<%@ include file="../include/head.jsp" %>
 
-<body class="hold-transition register-page">
-<div class="register-box">
-    <div class="register-logo">
-        <a href="/"><b>Sejong-Track</b> Join</a>
-    </div>
+<%@ include file="../include/setting-h.jsp" %>
 
-    <div class="register-box-body">
-        <p class="login-box-msg">Register a new membership</p>
+<body class="bg-default" style="background-color:#172b4d">
+<div class="main-content">
+    <%@ include file="../include/member-header.jsp" %>
 
-        <form id="joinForm" action="/memberJoin" method="post" onsubmit="return totalCheck()">
-            <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="id" required placeholder="Id">
-                <span class="glyphicon glyphicon-eye-open form-control-feedback"></span>
-                <div class="row" style="margin: 6px 0px">
-                    <div class="col-xs-8"><span id="idCheckRes"></span></div>
-                    <div class="col-xs-4">
-                        <input type="button" id="jButton" class="btn btn-block btn-default btn-flat" value="중복확인">
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+        <div class="container">
+            <div class="header-body text-center mb-7">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-6">
+                        <h1 class="text-white">Welcome!</h1>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="separator separator-bottom separator-skew zindex-100">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </div>
 
+    <!-- Page content -->
+    <div class="container mt--9 pb-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-body px-lg-5 py-lg-5">
+                        <div class="text-center text-muted mb-4">
+                            <small>Register a new membership</small>
+                        </div>
+                        <form action="/memberJoin" id="joinForm" method="post" onsubmit="return totalCheck()">
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="ID" name="id" required>
+                                </div>
+                                <div style="margin-top:10px;">
+                                    <div style="float:left;"><span id="idCheckRes"></span></div>
+                                    <div style="float:right;">
+                                        <input type="button" id="jButton" class="btn btn-danger btn-sm" value="중복확인">
+                                    </div>
+                                    <br style="clear:both;">
+                                </div>
+                            </div>
 
-            <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="name" required placeholder="Full name">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="email" class="form-control" name="email" required placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" name="password" required placeholder="Password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" name="pwRe" required placeholder="Retype password">
-                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-                <div id="pwCheckRes"></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> I agree to the <a href="#">terms</a>
-                        </label>
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="name" required placeholder="Full name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control" name="email" required placeholder="Email">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="PassWord" type="password" name="password" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control" name="pwRe" required placeholder="Retype password">
+                                </div>
+                                <div id="pwCheckRes" style="margin-top:10px;"></div>
+                            </div>
+
+                            <div class="text-center">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-primary my-4">Register</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                <div class="row mt-3">
+                    <div class="col-12 text-right">
+                        <a href="${path}/loginView" class="text-light"><small>I already have a membership</small></a>
+                    </div>
                 </div>
-                <!-- /.col -->
             </div>
-        </form>
-
-        <a href="${path}/loginView" class="text-center">I already have a membership</a>
+        </div>
     </div>
-    <!-- /.form-box -->
 </div>
-<!-- /.register-box -->
 
-</body>
-</html>
+<!--   Core   -->
+<script src="../resources/js/plugins/jquery/dist/jquery.min.js"></script>
+<script src="../resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--   Optional JS   -->
+<!--   Argon JS   -->
+<script src="../resources/js/argon-dashboard.min.js?v=1.1.1"></script>
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
-<script type="text/javascript">
-
+<script>
     var idRes = false;
     var pwRes;
     var IsjButtonClicked = false;
@@ -121,10 +164,8 @@
         idCheck();
     });
 
-
     //비밀번호 재확인 체킹
     function pwCorrect() {
-
         $("input[name=password]").keyup(function () {
             if ($("input[name=password]").val() == $("input[name=pwRe]").val()) {
                 $("#pwCheckRes").html("비밀번호가 일치합니다.");
@@ -158,10 +199,7 @@
         }
         return IsjButtonClicked && idRes && pwRes;
     }
-
-    $('input').iCheck({ //AdminLTE 회원가입 테마 jquery
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%' /* optional */
-    });
 </script>
+
+</body>
+</html>
