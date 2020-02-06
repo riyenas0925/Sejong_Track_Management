@@ -17,14 +17,12 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/bootstrap")
+    @RequestMapping("/test")
     public String ex1(){
-        return "index";
+        return "test";
     }
 
-    @RequestMapping("/default")
-    public String ex2(){
-        return "default";
-    }
+    @RequestMapping("/modify")
+    public String ex3() { return "member/modify"; }
 
 }
