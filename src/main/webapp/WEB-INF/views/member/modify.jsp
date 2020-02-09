@@ -10,7 +10,7 @@
     <!--header -->
     <%@ include file="../include/header.jsp" %>
     <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(../resources/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(../resources/img/theme/sejongbg.png); background-size: cover; background-position: center top;">
         <!-- Mask -->
         <span class="mask bg-gradient-default opacity-8"></span>
         <!-- Header container -->
@@ -31,14 +31,14 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
-                                <a href="#">
-                                    <img src="../resources/img/theme/team-4-800x800.jpg" class="rounded-circle">
-                                </a>
+
+                                    <img src="../resources/img/theme/student_y.png" class="rounded-circle">
+
                             </div>
                         </div>
                     </div>
                     <div class="card-body pt-0 pt-md-4">
-                        <div class="text-center" style="margin-top:120px;">
+                        <div class="text-center" style="margin-top:140px;">
                             <h3>
                                 <sec:authentication property="principal.name"/><span class="font-weight-light"></span>
                             </h3>
@@ -68,9 +68,10 @@
                             <div class="col-8">
                                 <h3 class="mb-0">My account</h3>
                             </div>
-                            <div class="col-4 text-right">
-                                <input type="button" class="btn btn-sm btn-danger" value="비밀번호 변경" onclick="showPopup_pw()"/>
+                            <div class="col-4 text-right" style="font-size:10px;">
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#passwordChange">비밀번호변경</button>
                             </div>
+                            <%@ include file="pwChange.jsp" %>
                         </div>
                     </div>
                     <div class="card-body">
@@ -129,7 +130,7 @@
                                 </div>
                                 <div class="col-lg-12" style="text-align:center">
                                     <div class="alert alert-danger" role="alert">
-                                        <strong>Danger! </strong> 정보 수정 후 재 로그인 바랍니다.
+                                        <strong>Danger! </strong>정보 수정 후 재로그인 바랍니다.
                                     </div>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     <button type="submit" class="btn btn-primary my-4">Modify</button>
@@ -144,16 +145,46 @@
         <%@ include file="../include/footer.jsp" %>
     </div>
 </div>
-<%@ include file="../include/setting-f.jsp" %>
-<script type="text/javascript">
+</body>
+</html>
+<!--   Core   -->
+<script src="../resources/js/plugins/jquery/dist/jquery.min.js"></script>
+<script src="../resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--   Optional JS   -->
+<!--   Argon JS   -->
+<script src="../resources/js/argon-dashboard.min.js?v=1.1.1"></script>
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
-    function showPopup_pw() {
-        window.open("/popupPwModify", "비밀번호 변경", "width=400,height=300, left=100, top=100, scrollbars=no");
+<script type="text/javascript">
+    var psRes=false;
+
+    //비밀번호 재확인 체킹
+    function pwCorrect() {
+
+        $("input[name=newPw]").keyup(function () {
+            if ($("input[name=newPw]").val() == $("input[name=newPwRe]").val()) {
+                $("#pwCheckRes").html("비밀번호가 일치합니다.");
+                pwRes = true;
+            } else {
+                $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
+                pwRes = false;
+            }
+        });
+
+        $("input[name=newPwRe]").keyup(function () {
+            if ($("input[name=newPw]").val() == $("input[name=newPwRe]").val()) {
+                $("#pwCheckRes").html("비밀번호가 일치합니다.");
+                pwRes = true;
+            } else {
+                $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
+                pwRes = false;
+            }
+        });
     }
 
-    $('input').iCheck({ //AdminLTE 회원가입 테마 jquery
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%' /* optional */
-    });
+    pwCorrect();
+
+    function totalCheck(){
+        return pwRes;
+    }
 </script>
