@@ -7,7 +7,7 @@
     <%@ include file="../include/member-header.jsp" %>
 
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8">
+    <div class="header bg-gradient-primary py-7 py-lg-6">
         <div class="container">
             <div class="header-body text-center mb-7">
                 <div class="row justify-content-center">
@@ -29,7 +29,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">
-                    <div class="card-body px-lg-5 py-lg-5">
+                    <div class="card-body px-lg-5 py-lg-3">
                         <div class="text-center text-muted mb-4">
                             <small>Register a new membership</small>
                         </div>

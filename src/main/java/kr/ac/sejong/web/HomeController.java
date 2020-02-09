@@ -19,7 +19,7 @@ public class HomeController {
 
     @RequestMapping("/test")
     public String ex1(){
-        return "test";
+        return "member/pro";
     }
 
     @RequestMapping("/modify")

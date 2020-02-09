@@ -7,7 +7,7 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Sejong Track Management</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="${path}/">Sejong Track Management</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
             <div class="form-group mb-0">
@@ -50,7 +50,7 @@
                     <sec:authorize access="isAuthenticated()">
                         <a href="${path}/modify" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>정보수정</span>
+                            <span>내 정보</span>
                         </a>
                     </sec:authorize>
 

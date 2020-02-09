@@ -13,8 +13,8 @@
             <div class="header-body text-center mb-7">
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-md-6">
-                        <h1 class="text-white">Welcome!</h1>
-                        <p class="text-lead text-light" style="margin-bottom:0px;">세종대학교 트랙 관리 프로그램입니다.</p>
+                        <h1 class="text-white">Sign in</h1>
+                        <p class="text-lead text-light" style="margin-bottom:0px;">세종대학교 트랙 관리 프로그램</p>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>sign in</small>
+                            <small>Sign in to your account</small>
                         </div>
                         <form role="form" action="/memberLogin" id="form-login" method="post">
                             <div class="form-group mb-3">

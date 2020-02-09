@@ -10,7 +10,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="./index.html">
+        <a class="navbar-brand pt-0" href="${path}/">
             <img src="../resources/img/brand/sejongtrack_blue.png" class="navbar-brand-img" alt="...">
         </a>
         <!-- 모바일 User -->
@@ -41,7 +41,7 @@
                     <sec:authorize access="isAuthenticated()">
                     <a href="${path}/modify" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
-                        <span>정보수정</span>
+                        <span>내 정보</span>
                     </a>
                     </sec:authorize>
 
@@ -66,7 +66,7 @@
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="./index.html">
+                        <a href="${path}/">
                             <img src="../resources/img/brand/sejongtrack_blue.png">
                         </a>
                     </div>
@@ -93,12 +93,12 @@
                 <li class="nav-item">
                     <sec:authorize access="isAuthenticated()">
                     <a class="nav-link" href="${path}/modify">
-                        <i class="ni ni-single-02 text-blue"></i> 정보수정
+                        <i class="ni ni-single-02 text-blue"></i> 내 정보
                     </a>
                     </sec:authorize>
                     <sec:authorize access="isAnonymous()">
                         <a class="nav-link" href="${path}/loginView">
-                            <i class="ni ni-single-02 text-blue"></i> 정보수정
+                            <i class="ni ni-single-02 text-blue"></i> 내 정보
                         </a>
                     </sec:authorize>
                 </li>
