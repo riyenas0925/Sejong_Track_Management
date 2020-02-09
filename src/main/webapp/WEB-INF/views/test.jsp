@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ include file="../include/setting-h.jsp" %>
+<%@ include file="include/setting-h.jsp" %>
 
 <body class="bg-default" style="background-color:#172b4d">
 <div class="main-content">
-    <%@ include file="../include/member-header.jsp" %>
+    <%@ include file="include/member-header.jsp" %>
 
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-6">
+    <div class="header bg-gradient-primary py-7 py-lg-8">
         <div class="container">
             <div class="header-body text-center mb-7">
                 <div class="row justify-content-center">
@@ -29,7 +29,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">
-                    <div class="card-body px-lg-5 py-lg-3">
+                    <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
                             <small>Register a new membership</small>
                         </div>
@@ -103,16 +103,9 @@
         </div>
     </div>
 </div>
-
-<!--   Core   -->
-<script src="../resources/js/plugins/jquery/dist/jquery.min.js"></script>
-<script src="../resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<!--   Optional JS   -->
-<!--   Argon JS   -->
-<script src="../resources/js/argon-dashboard.min.js?v=1.1.1"></script>
-<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-
-<script>
+</body>
+</html>
+<script type="text/javascript">
     var idRes = false;
     var pwRes;
     var IsjButtonClicked = false;
@@ -164,8 +157,10 @@
         idCheck();
     });
 
+
     //비밀번호 재확인 체킹
     function pwCorrect() {
+
         $("input[name=password]").keyup(function () {
             if ($("input[name=password]").val() == $("input[name=pwRe]").val()) {
                 $("#pwCheckRes").html("비밀번호가 일치합니다.");
@@ -200,6 +195,11 @@
         return IsjButtonClicked && idRes && pwRes;
     }
 </script>
+<!--   Core   -->
+<script src="../assets/js/plugins/jquery/dist/jquery.min.js"></script>
+<script src="../assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--   Optional JS   -->
+<!--   Argon JS   -->
+<script src="../assets/js/argon-dashboard.min.js?v=1.1.1"></script>
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
-</body>
-</html>

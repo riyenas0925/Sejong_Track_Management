@@ -141,10 +141,10 @@
     <div class='wave -two'></div>
     <div class='wave -three'></div>
     <div class='errorTitle1'>
-        <b style="font-size:130px;font-weight:normal">OOPS!</b>
+        <b style="font-size:100px;font-weight:normal">COMING</b>
     </div>
     <div class='errorTitle2'>
-        <b style="font-size:30px;font-weight:normal">Your account has expired</b>
+        <b style="font-size:100px;font-weight:normal">SOON</b>
     </div>
     <div class="errorBtn">
         <a href="${path}/"><img src="../resources/img/brand/sejongtrack_blue.png" width="200" id="hover-img"></a>

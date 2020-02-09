@@ -10,7 +10,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="./index.html">
+        <a class="navbar-brand pt-0" href="${path}/">
             <img src="../resources/img/brand/sejongtrack_blue.png" class="navbar-brand-img" alt="...">
         </a>
         <!-- 모바일 User -->
@@ -28,6 +28,36 @@
                             </span>
                     </div>
                 </a>
+                <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+                    <div class=" dropdown-header noti-title">
+                        <sec:authorize access="isAnonymous()">
+                        <h6 class="text-overflow m-0">안녕하세요.<br>로그인하세요.</h6>
+                        </sec:authorize>
+                        <sec:authorize access="isAuthenticated()">
+                            <h6 class="text-overflow m-0">안녕하세요.<br><sec:authentication property="principal.name"/>님!</h6>
+                        </sec:authorize>
+                    </div>
+
+                    <sec:authorize access="isAuthenticated()">
+                    <a href="${path}/modify" class="dropdown-item">
+                        <i class="ni ni-single-02"></i>
+                        <span>내 정보</span>
+                    </a>
+                    </sec:authorize>
+
+                    <div class="dropdown-divider"></div>
+
+                    <div class="dropdown-item">
+                        <i class="ni ni-user-run"></i>
+                        <sec:authorize access="isAuthenticated()">
+                        <span OnClick="location.href='${path}/memberLogout'">Logout</span>
+                        </sec:authorize>
+                        <sec:authorize access="isAnonymous()">
+                        <span OnClick="location.href='${path}/loginView'">Login</span>
+                        </sec:authorize>
+                    </div>
+                </div>
+
             </li>
         </ul>
         <!-- Collapse -->
@@ -36,7 +66,7 @@
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="./index.html">
+                        <a href="${path}/">
                             <img src="../resources/img/brand/sejongtrack_blue.png">
                         </a>
                     </div>
@@ -61,9 +91,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${path}/prepare">
-                        <i class="ni ni-single-02 text-blue"></i> 정보수정
+                    <sec:authorize access="isAuthenticated()">
+                    <a class="nav-link" href="${path}/modify">
+                        <i class="ni ni-single-02 text-blue"></i> 내 정보
                     </a>
+                    </sec:authorize>
+                    <sec:authorize access="isAnonymous()">
+                        <a class="nav-link" href="${path}/loginView">
+                            <i class="ni ni-single-02 text-blue"></i> 내 정보
+                        </a>
+                    </sec:authorize>
                 </li>
 
                 <hr class="my-3">
@@ -74,9 +111,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="${path}/uploadForm">
-                        <i class="ni ni-bullet-list-67 text-red"></i> 트랙 현황 조회
-                    </a>
+                    <sec:authorize access="isAuthenticated()">
+                        <a class="nav-link" href="${path}/uploadForm">
+                            <i class="ni ni-bullet-list-67 text-red"></i> 트랙 현황 조회
+                        </a>
+                    </sec:authorize>
+                    <sec:authorize access="isAnonymous()">
+                        <a class="nav-link" href="${path}/loginView">
+                            <i class="ni ni-bullet-list-67 text-red"></i> 트랙 현황 조회
+                        </a>
+                    </sec:authorize>
                 </li>
             </ul>
             <!-- Divider -->
@@ -86,14 +130,14 @@
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
-                    <a class="nav-link" href="${path}/prepare">
-                        <i class="ni ni-spaceship"></i> 강의시간표 추가
-                    </a>
+                        <a class="nav-link" href="${path}/prepare">
+                            <i class="ni ni-spaceship"></i> 강의시간표 추가
+                        </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${path}/trackrule">
-                        <i class="ni ni-palette"></i> 트랙 규칙 수정
-                    </a>
+                        <a class="nav-link" href="${path}/trackrule">
+                            <i class="ni ni-palette"></i> 트랙 규칙 수정
+                        </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${path}/prepare">
