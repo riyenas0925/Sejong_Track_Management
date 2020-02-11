@@ -17,4 +17,10 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping("/modify")
+    public String ex2() { return "member/modify"; }
+
+    @RequestMapping("/prepare")
+    public String ex3() { return "prepare"; }
+
 }
