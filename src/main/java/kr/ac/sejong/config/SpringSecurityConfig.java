@@ -98,6 +98,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                  * 먼저 로그인한 사람이 링크를 클릭하여 사이트내의 페이지를 이동하면 expiredUrl 로
                  * 지정된 곳으로 보내진다.
                  **/
+
+                super.configure(http);
+                http.csrf().disable();
     }
 
 }
