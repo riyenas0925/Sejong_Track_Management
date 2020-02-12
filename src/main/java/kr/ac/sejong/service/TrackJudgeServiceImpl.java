@@ -1,12 +1,13 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.web.dto.StudentExcelDto;
+import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
 import kr.ac.sejong.web.dto.UnivTrackRuleDegreeJoinDto;
 import kr.ac.sejong.web.dto.TrackSubjectJoinDto;
 import kr.ac.sejong.web.dto.TrackJudgeAllViewDto;
 
 import kr.ac.sejong.domain.track.TrackRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -19,49 +20,16 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.inject.Inject;
 import java.util.*;
 
+@RequiredArgsConstructor
 @Service
 @Log
 public class TrackJudgeServiceImpl implements TrackJudgeService {
 
-    @Inject private TrackJudgeService trackJudgeService;
-    @Inject private TrackRuleService trackRuleService;
-    @Inject private TrackRepository trackRepository;
+    private final TrackRuleService trackRuleService;
+    private final TrackRepository trackRepository;
 
     @Override
-    public List<StudentExcelDto> readMySubject(MultipartFile excelFile) throws Exception{
-
-        List<StudentExcelDto> mySubjectList = new ArrayList<>();
-
-        HSSFWorkbook workbook = new HSSFWorkbook(excelFile.getInputStream());
-        HSSFSheet sheet = workbook.getSheetAt(0);
-
-        for(int rowindex = 0; rowindex < sheet.getPhysicalNumberOfRows(); rowindex++){
-            if(rowindex != 0){
-                HSSFRow row = sheet.getRow(rowindex);
-                StudentExcelDto vo = StudentExcelDto.builder()
-                        .year(row.getCell(0).getStringCellValue())
-                        .semester(row.getCell(1).getStringCellValue())
-                        .courseNum(row.getCell(2).getStringCellValue())
-                        .courseTitle(row.getCell(3).getStringCellValue())
-                        .completionType(row.getCell(4).getStringCellValue())
-                        .teaching(row.getCell(5).getStringCellValue())
-                        .selectedArea(row.getCell(6).getStringCellValue())
-                        .credit(row.getCell(7).getStringCellValue())
-                        .evaluation(row.getCell(8).getStringCellValue())
-                        //.grade(row.getCell(9).getStringCellValue())
-                        .gradePoint(row.getCell(10).getStringCellValue())
-                        .departmentCode(row.getCell(11).getStringCellValue())
-                        .build();
-
-                mySubjectList.add(vo);
-            }
-        }
-
-        return mySubjectList;
-    }
-
-    @Override
-    public HashMap<String, List<TrackSubjectJoinDto>> resultListSub(List<StudentExcelDto> myList,
+    public HashMap<String, List<TrackSubjectJoinDto>> resultListSub(List<ReportCardExcelDto> myList,
                                                                     List<TrackSubjectJoinDto> standardList) throws Exception{
 
         HashMap<String, List<TrackSubjectJoinDto>> passListSubMap = new HashMap<>();
@@ -121,7 +89,7 @@ public class TrackJudgeServiceImpl implements TrackJudgeService {
         return passListSubMap;
     }
 
-    private Boolean listContains(List<StudentExcelDto> myList, String standardSubjectNo){
+    private Boolean listContains(List<ReportCardExcelDto> myList, String standardSubjectNo){
         int cnt = 0;
 
         for(int i=0; i < myList.size(); i++){
@@ -137,7 +105,7 @@ public class TrackJudgeServiceImpl implements TrackJudgeService {
     }
 
     @Override
-    public List<TrackJudgeAllViewDto> trackJudgeList(Long univId, List<StudentExcelDto> studentExcel)throws Exception{
+    public List<TrackJudgeAllViewDto> trackJudgeList(Long univId, List<ReportCardExcelDto> studentExcel)throws Exception{
         List<TrackJudgeAllViewDto> trackJudgeList = trackRepository.findByUnivIdDTO(univId);
         
         Long degreeId = trackJudgeList.get(0).getDegreeId();
@@ -148,7 +116,7 @@ public class TrackJudgeServiceImpl implements TrackJudgeService {
     }
     
     @Override
-    public TrackJudgeAllViewDto trackJudgeOne(Long univId, Long trackId, Long degreeId, List<StudentExcelDto> studentExcel)throws Exception{
+    public TrackJudgeAllViewDto trackJudgeOne(Long univId, Long trackId, Long degreeId, List<ReportCardExcelDto> studentExcel)throws Exception{
         List<TrackJudgeAllViewDto> trackJudgeOne = trackRepository.findByUnivIdAndTrackIdAndDegreeIdDto(univId, trackId, degreeId);
         
         trackJudgeOne = trackJudge(degreeId, trackJudgeOne, studentExcel);
@@ -158,14 +126,14 @@ public class TrackJudgeServiceImpl implements TrackJudgeService {
     
     private List<TrackJudgeAllViewDto> trackJudge(Long degreeId,
                                                   List<TrackJudgeAllViewDto> trackJudgeList,
-                                                  List<StudentExcelDto> myList)throws Exception{
+                                                  List<ReportCardExcelDto> myList)throws Exception{
         
         for(int i=0; i < trackJudgeList.size(); i++){
             Long trackId = trackJudgeList.get(i).getTrackId();
             
-            List<TrackSubjectJoinDto> standList = trackJudgeService.readSub(trackId);
+            List<TrackSubjectJoinDto> standList = readSub(trackId);
 
-            HashMap<String, List<TrackSubjectJoinDto>> resultListSub = trackJudgeService.resultListSub(myList, standList);
+            HashMap<String, List<TrackSubjectJoinDto>> resultListSub = resultListSub(myList, standList);
 
             UnivTrackRuleDegreeJoinDto rule = trackRuleService.findByRuleId(trackId, degreeId).get(0);
                                     
