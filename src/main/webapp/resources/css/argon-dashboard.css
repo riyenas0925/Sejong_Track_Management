@@ -52,6 +52,30 @@
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0); border: 0;
+}
+
+.filebtn {
+  width : 100%;
+}
+
+.fileBtn {
+  width : 220px;
+}
+
+#nav-up {
+  position:fixed;
+  z-index:100;
+  bottom:20px;
+  right:10px;
+}
 *,
 *::before,
 *::after {
@@ -14360,6 +14384,10 @@ button.section-darker:focus {
 @media (min-width: 768px) {
   .row.row-grid>[class*="col-md-"]+[class*="col-md-"] {
     margin-top: 0;
+  }
+
+  .bg-gradient-primary-1 {
+    background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
   }
 }
 
