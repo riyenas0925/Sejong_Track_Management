@@ -2,7 +2,8 @@ package kr.ac.sejong;
 
 import kr.ac.sejong.service.CourseScheduleService;
 import kr.ac.sejong.service.SubjectService;
-import kr.ac.sejong.web.dto.courseschedule.CourseScheduleExcelDto;
+import kr.ac.sejong.web.dto.excel.ExcelDto;
+import kr.ac.sejong.web.dto.excel.CourseScheduleExcelDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleRequestDto;
 import kr.ac.sejong.web.dto.SubjectRequestDto;
 import lombok.extern.java.Log;
@@ -53,24 +54,32 @@ public class SubjectTest {
     public void importCourseScheduleExcelFile() throws IOException {
 
         //HTTP Response
-        CourseScheduleExcelDto excelDto = CourseScheduleExcelDto.builder()
+        ExcelDto excelDto = ExcelDto.builder()
                 .multipartFile(multipartFile)
-                .fileName(multipartFile.getOriginalFilename())
                 .build();
 
+        List<CourseScheduleExcelDto> courseScheduleRequestDto = excelDto.toCourseScheduleExcelDtos();
+
+        log.info(courseScheduleRequestDto.toString());
+    }
+
+    @Test
+    public void test() throws IOException {
+        ExcelDto excelDto = ExcelDto.builder()
+                .multipartFile(multipartFile)
+                .build();
 
         CourseScheduleRequestDto courseScheduleRequestDto = CourseScheduleRequestDto.builder()
                 .name(excelDto.getFileName())
                 .subjects(
-                        excelDto.toSubjectDtos().stream()
+                        excelDto.toCourseScheduleExcelDtos().stream()
+                                .map(CourseScheduleExcelDto::toSubjectDto)
                                 .distinct()
                                 .collect(Collectors.toList())
                 )
                 .build();
 
-        courseScheduleService.save(courseScheduleRequestDto);
-
-        log.info(courseScheduleService.findAll().toString());
+        log.info(courseScheduleRequestDto.toString());
     }
 
     @Test

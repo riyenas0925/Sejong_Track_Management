@@ -4,12 +4,14 @@ import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
 import kr.ac.sejong.domain.subject.Subject;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.java.Log;
 
 @Log
 @Getter
 @ToString
+@RequiredArgsConstructor
 public class SubjectRequestDto {
 
     private String courseNum;       //학수번호
