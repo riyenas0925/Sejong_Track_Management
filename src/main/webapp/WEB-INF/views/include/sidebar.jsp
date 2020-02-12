@@ -130,7 +130,7 @@
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
-                        <a class="nav-link" href="${path}/prepare">
+                        <a class="nav-link" href="${path}/trackSubject">
                             <i class="ni ni-spaceship"></i> 강의시간표 추가
                         </a>
                 </li>
