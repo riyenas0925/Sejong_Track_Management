@@ -2,7 +2,8 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
 import kr.ac.sejong.domain.courseSchedule.CourseScheduleRepository;
-import kr.ac.sejong.web.dto.courseschedule.CourseScheduleExcelDto;
+import kr.ac.sejong.web.dto.excel.ExcelDto;
+import kr.ac.sejong.web.dto.excel.CourseScheduleExcelDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleRequestDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleResponseDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleSelectResponseDto;
@@ -30,18 +31,17 @@ public class CourseScheduleService {
 
     @Transactional
     public Long saveCourseScheduleWithSubject(MultipartFile multipartFile) throws IOException {
-        CourseScheduleExcelDto excelDto = CourseScheduleExcelDto.builder()
+        ExcelDto excelDto = ExcelDto.builder()
                 .multipartFile(multipartFile)
-                .fileName(multipartFile.getOriginalFilename())
                 .build();
-
 
         CourseScheduleRequestDto courseScheduleRequestDto = CourseScheduleRequestDto.builder()
                 .name(excelDto.getFileName())
                 .subjects(
-                        excelDto.toSubjectDtos().stream()
-                            .distinct()
-                            .collect(Collectors.toList())
+                        excelDto.toCourseScheduleExcelDtos().stream()
+                                .map(CourseScheduleExcelDto::toSubjectDto)
+                                .distinct()
+                                .collect(Collectors.toList())
                 )
                 .build();
 

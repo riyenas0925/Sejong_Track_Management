@@ -1,6 +1,6 @@
 package kr.ac.sejong.web;
 
-import kr.ac.sejong.web.dto.StudentExcelDto;
+import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
 import kr.ac.sejong.web.dto.TrackJudgeAllViewDto;
 import kr.ac.sejong.service.TrackJudgeService;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class TrackJudgeRestController {
 
         ResponseEntity<List<TrackJudgeAllViewDto>> entity = null;
                 
-        List<StudentExcelDto> mySubList = (List<StudentExcelDto>) httpSession.getAttribute("studentExcel");
+        List<ReportCardExcelDto> mySubList = (List<ReportCardExcelDto>) httpSession.getAttribute("studentExcel");
                 
         try {
             if(httpSession.getAttribute("resultList") == null){
