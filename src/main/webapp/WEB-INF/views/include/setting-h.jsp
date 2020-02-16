@@ -27,6 +27,30 @@
     <!-- CSS Files -->
     <link href="../resources/css/argon-dashboard.css?v=1.1.1" rel="stylesheet" />
 
+    <style>
+        .wrap-loading{ /*화면 전체를 어둡게 합니다.*/
+            position: fixed;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            background: rgba(0,0,0,0.2); /*not in ie */
+            filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000',endColorstr='#20000000');    /* ie */
+            z-index:999999;
+        }
+
+        .wrap-loading div{ /*로딩 이미지*/
+            position: fixed;
+            top:20%;
+            width:100%;
+            text-align:center;
+            z-index:999999;
+        }
+        .display-none{ /*감추기*/
+            display:none;
+        }
+    </style>
+
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>

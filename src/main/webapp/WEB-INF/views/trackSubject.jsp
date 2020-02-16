@@ -4,6 +4,12 @@
 <!--sidebar -->
 <%@ include file="include/sidebar.jsp" %>
 <div class="main-content" id="top">
+    <div class="wrap-loading display-none">
+        <div>
+            <img src="../resources/img/theme/loading.gif" width="150">
+        </div>
+    </div>
+
     <!--header -->
     <%@ include file="include/header.jsp" %>
 
@@ -109,7 +115,7 @@
 <%@ include file="include/setting-f.jsp" %>
 
 <script>
-    jQuery(document).ready(function(){
+    $(document).ready(function(){
         var navBg = $('#navbar-main');
 
         navBg.addClass('bg-gradient-primary-1');
@@ -149,6 +155,7 @@
 <script>
     $(document).ready(function() {
         getSubject();
+
         function getSubject() {
             $.ajax({
                 type : "GET",
@@ -162,6 +169,33 @@
 
             });
         }
+
+        $(document).on('click','.removeClick',function(){
+            var con = confirm("정말 삭제하시겠습니까?");
+
+            if(con == true){
+                $.ajax({
+                    url: "${path}/api/v1/admin/courseSchedule/delete/"+$(this).attr("id"),
+                    type: "DELETE",
+                    data: {"id" : $(this).attr("id")},
+
+                    success:function(data){
+                        alert("강의시간표가 삭제되었습니다.");
+                        window.location.replace("${path}/trackSubject");
+                    },
+                    beforeSend:function(){
+                        $('.wrap-loading').removeClass('display-none');
+                    },
+                    complete:function(){
+                        $('.wrap-loading').addClass('display-none');
+                    }
+                });
+            }
+            else if(con == false){
+                return false;
+            }
+        })
+
 
         //trackSubject.jsp table
         function createTr(data) {
@@ -195,7 +229,7 @@
                     str += "    <th scope='row' class='name text-center'>" + this.id + "</th>";
                     str += "    <td class='budget'>" + this.name + "</th>";
                     str += "    <td class='text-right'>";
-                    str += "        <button type='button' class='btn btn-warning btn-sm'>삭제</button>";
+                    str += "        <button type='button' class='btn btn-warning btn-sm removeClick' id='"+ this.id +"'>삭제</button>";
                     str += "    </td></tr>";
                 }
             );
