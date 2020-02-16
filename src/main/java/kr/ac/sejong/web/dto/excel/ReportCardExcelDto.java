@@ -1,6 +1,6 @@
 package kr.ac.sejong.web.dto.excel;
 
-import kr.ac.sejong.web.dto.SubjectRequestDto;
+import kr.ac.sejong.web.dto.subject.SubjectRequestDto;
 import lombok.*;
 
 @Getter

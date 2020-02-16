@@ -31,9 +31,7 @@ public class CourseScheduleService {
 
     @Transactional
     public Long saveCourseScheduleWithSubject(MultipartFile multipartFile) throws IOException {
-        ExcelDto excelDto = ExcelDto.builder()
-                .multipartFile(multipartFile)
-                .build();
+        ExcelDto excelDto = new ExcelDto(multipartFile);
 
         CourseScheduleRequestDto courseScheduleRequestDto = CourseScheduleRequestDto.builder()
                 .name(excelDto.getFileName())

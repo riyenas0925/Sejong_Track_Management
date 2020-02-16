@@ -5,7 +5,7 @@ import kr.ac.sejong.service.SubjectService;
 import kr.ac.sejong.web.dto.excel.ExcelDto;
 import kr.ac.sejong.web.dto.excel.CourseScheduleExcelDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleRequestDto;
-import kr.ac.sejong.web.dto.SubjectRequestDto;
+import kr.ac.sejong.web.dto.subject.SubjectRequestDto;
 import lombok.extern.java.Log;
 import org.junit.Assert;
 import org.junit.Before;

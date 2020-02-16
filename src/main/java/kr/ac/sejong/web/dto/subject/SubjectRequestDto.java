@@ -1,4 +1,4 @@
-package kr.ac.sejong.web.dto;
+package kr.ac.sejong.web.dto.subject;
 
 import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
 import kr.ac.sejong.domain.subject.Subject;
@@ -40,28 +40,5 @@ public class SubjectRequestDto {
                 .selectedArea(selectedArea)
                 .courseNum(courseNum)
                 .build();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null) {
-            return false;
-        }
-
-        final SubjectRequestDto requestDto = (SubjectRequestDto) obj;
-
-        if(this == requestDto) {
-            return true;
-        } else {
-            return (this.courseTitle.equals(requestDto.courseTitle));
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        int result = courseTitle != null ? courseTitle.hashCode() : 0;
-        result = 31 * result + (courseNum != null ? courseNum.hashCode() : 0);
-        result = 31 * result + (credit != null ? credit.hashCode() : 0);
-        return result;
     }
 }

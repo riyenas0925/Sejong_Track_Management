@@ -1,21 +1,50 @@
 package kr.ac.sejong.service;
 
+import kr.ac.sejong.domain.tracksubject.TrackSubjectRepository;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
-import kr.ac.sejong.web.dto.TrackSubjectJoinDto;
-import kr.ac.sejong.web.dto.TrackJudgeAllViewDto;
-import org.springframework.web.multipart.MultipartFile;
+import kr.ac.sejong.domain.trackJudge.TrackStatistic;
+import kr.ac.sejong.web.dto.tracksubject.TrackSubjectDto;
+import kr.ac.sejong.web.dto.tracksubject.TrackSubjectResponseDto;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
+@Service
+@Log
+public class TrackJudgeService {
 
-public interface TrackJudgeService {
-    public HashMap<String, List<TrackSubjectJoinDto>> resultListSub(List<ReportCardExcelDto> studentExcel,
-                                                                    List<TrackSubjectJoinDto> standList) throws Exception;
+    private final TrackSubjectRepository trackSubjectRepository;
 
-    public List<TrackSubjectJoinDto> readSub(Long trackId) throws Exception;
+    @Transactional(readOnly = true)
+    public List<TrackSubjectResponseDto> findByTrackId(Long trackId) {
+        return trackSubjectRepository.findByTrackId(trackId).stream()
+                .map(TrackSubjectResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
-    public List<TrackJudgeAllViewDto> trackJudgeList(Long univId, List<ReportCardExcelDto> studentExcel)throws Exception;
-    
-    public TrackJudgeAllViewDto trackJudgeOne(Long univId, Long trackId, Long degreeId, List<ReportCardExcelDto> studentExcel)throws Exception;
+    @Transactional(readOnly = true)
+    public List<TrackSubjectResponseDto> findByUnivId(Long univId) {
+        return trackSubjectRepository.findByUnivId(univId).stream()
+                .map(TrackSubjectResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<TrackStatistic> trackJudge(List<ReportCardExcelDto> reportCardExcelSubjects,
+                                                      List<TrackSubjectDto>...standardSubjects) {
+
+        List<TrackStatistic> trackStatistics = new ArrayList<>();
+
+        for (List<TrackSubjectDto> standardSubject : standardSubjects) {
+            TrackStatistic trackStatistic = new TrackStatistic(reportCardExcelSubjects, standardSubject);
+            trackStatistics.add(trackStatistic);
+        }
+
+        return trackStatistics;
+    }
 }

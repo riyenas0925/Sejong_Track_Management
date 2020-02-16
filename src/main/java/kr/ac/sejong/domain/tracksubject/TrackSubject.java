@@ -7,11 +7,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "tbl_track_subject")
-@EqualsAndHashCode(of = "id")
-@ToString
 public class TrackSubject {
 
     @Id
@@ -19,30 +18,51 @@ public class TrackSubject {
     @Column(name = "trackSubjectId")
     private Long id;
 
-    private Long subjectType;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Type subjectType;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "trackId")
     Track track;
 
     @ManyToOne
     @JoinColumn(name = "subjectId")
-    @JsonIgnore
     Subject subject;
 
-    public TrackSubject(){
+    public enum Type {
+        BASIC("basic"),
+        COMMON("common"),
+        EXPERT("expert"),
+        INDUSTRY("industry"),
+        APPLIED("applied");
 
+        private String text;
+
+        Type(String text) {
+            this.text = text;
+        }
+
+        public String getText() {
+            return text;
+        }
     }
 
     @Builder
-    public TrackSubject(Track track, Subject subject, Long subjectType){
+    public TrackSubject(Track track, Subject subject, Type subjectType){
         this.track = track;
         this.subject = subject;
         this.subjectType = subjectType;
     }
 
-    public static TrackSubject createTrackSubject(Track track, Subject subject, Long subjectType){
+    public void updateTrackSubject(Long id, Track track, Subject subject, Type subjectType){
+        this.id = id;
+        this.track = track;
+        this.subject = subject;
+        this.subjectType = subjectType;
+    }
+
+    public static TrackSubject createTrackSubject(Track track, Subject subject, Type subjectType){
         TrackSubject trackSubject = TrackSubject.builder()
                 .track(track)
                 .subject(subject)
@@ -50,12 +70,5 @@ public class TrackSubject {
                 .build();
 
         return trackSubject;
-    }
-
-    public void updateTrackSubject(Long id, Track track, Subject subject, Long subjectType){
-        this.id = id;
-        this.track = track;
-        this.subject = subject;
-        this.subjectType = subjectType;
     }
 }

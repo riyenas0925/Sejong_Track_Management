@@ -1,19 +1,10 @@
 package kr.ac.sejong.web.dto.excel;
 
-import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
-import kr.ac.sejong.web.dto.SubjectRequestDto;
+import kr.ac.sejong.web.dto.subject.SubjectRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @ToString
