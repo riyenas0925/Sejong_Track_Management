@@ -156,35 +156,37 @@
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
 <script type="text/javascript">
-    var psRes=false;
+    $(document).ready(function() {
+        var psRes = false;
 
-    //비밀번호 재확인 체킹
-    function pwCorrect() {
+        //비밀번호 재확인 체킹
+        function pwCorrect() {
 
-        $("input[name=newPw]").keyup(function () {
-            if ($("input[name=newPw]").val() == $("input[name=newPwRe]").val()) {
-                $("#pwCheckRes").html("비밀번호가 일치합니다.");
-                pwRes = true;
-            } else {
-                $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
-                pwRes = false;
-            }
-        });
+            $("input[name=newPw]").keyup(function () {
+                if ($("input[name=newPw]").val() == $("input[name=newPwRe]").val()) {
+                    $("#pwCheckRes").html("비밀번호가 일치합니다.");
+                    pwRes = true;
+                } else {
+                    $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
+                    pwRes = false;
+                }
+            });
 
-        $("input[name=newPwRe]").keyup(function () {
-            if ($("input[name=newPw]").val() == $("input[name=newPwRe]").val()) {
-                $("#pwCheckRes").html("비밀번호가 일치합니다.");
-                pwRes = true;
-            } else {
-                $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
-                pwRes = false;
-            }
-        });
-    }
+            $("input[name=newPwRe]").keyup(function () {
+                if ($("input[name=newPw]").val() == $("input[name=newPwRe]").val()) {
+                    $("#pwCheckRes").html("비밀번호가 일치합니다.");
+                    pwRes = true;
+                } else {
+                    $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
+                    pwRes = false;
+                }
+            });
+        }
 
-    pwCorrect();
+        pwCorrect();
 
-    function totalCheck(){
-        return pwRes;
-    }
+        function totalCheck() {
+            return pwRes;
+        }
+    });
 </script>

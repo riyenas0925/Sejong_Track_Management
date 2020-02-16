@@ -14,44 +14,10 @@
                 <div class="row">
                     <div class="table-responsive">
                         <div>
-                            <table class="table align-items-center">
-                                <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">
-                                        Project
-                                    </th>
-                                    <th scope="col">
-                                        Budget
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody class="list">
-
-                                <tr>
-                                    <th scope="row" class="name">
-                                        1
-                                    </th>
-                                    <td class="budget">
-                                        강의시간표 1
-                                    </td>
-
-                                    <td class="text-right">
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                </tbody>
-                            </table>
+                            <input type="text" name="id">
+                            <button type="button" class="btn btn-primary" id="jButton">button</button>
                         </div>
+                        <span id="idCheckRes"></span>
 
                     </div>
                 </div>
@@ -62,33 +28,41 @@
 </div>
 <%@ include file="include/setting-f.jsp" %>
 
-<script>
-    jQuery(document).ready(function(){
-        var navBg = $('#navbar-main');
 
-        navBg.addClass('bg-gradient-primary-1');
-    });
-</script>
 <script>
-    function myFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
+    $(document).ready(function() {
+        $('#jButton').click(function () {
+            idCheck();
+        });
 
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
+        function idCheck() {
+            var id = $('input[name=id]').val();
+
+            if (id == "") {
+                $('#idCheckRes').css("color", 'red');
+                $('#idCheckRes').html("아이디를 입력해주세요.");
+            } else {
+                $.ajax({
+                    url: '/memberExist',
+                    data: {"id": id},
+                    dataType: 'text',
+                    type: 'POST',
+                    async: false,
+
+                    success: function (data) {
+                        if (data == "No") {
+                            $('#idCheckRes').css("color", 'green');
+                            $('#idCheckRes').html("사용가능한 아이디입니다.");
+                        } else {
+                            $('#idCheckRes').css("color", 'red');
+                            $('#idCheckRes').html("이미 존재하는 아이디입니다.");
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
             }
         }
-    }
+    });
 </script>

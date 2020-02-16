@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <%@ include file="../include/setting-h.jsp" %>
 
@@ -33,7 +36,7 @@
                         <div class="text-center text-muted mb-4">
                             <small>Register a new membership</small>
                         </div>
-                        <form action="/memberJoin" id="joinForm" method="post" onsubmit="return totalCheck()">
+                        <form action="/memberJoin" id="joinForm" method="post">
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
@@ -113,92 +116,101 @@
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
 <script>
-    var idRes = false;
-    var pwRes;
-    var IsjButtonClicked = false;
+    $(document).ready(function() {
+        var idRes = false;
+        var pwRes;
+        var IsjButtonClicked = false;
 
-    //아이디 중복확인 체킹
-    function idCheck() {
-        var id = $('input[name=id]').val();
+        $('#jButton').click(function () {
+            IsjButtonClicked = true;
+            idCheck();
+        });
 
-        if (id == "") {
-            $('#idCheckRes').css("color", 'red');
-            $('#idCheckRes').html("아이디를 입력해주세요.");
-            idRes = false;
-        } else {
-            $.ajax({
-                url: '/memberExist',
-                data: {"id": id},
-                dataType: 'text',
-                type: 'POST',
-                async: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                },
-                success: function (data) {
-                    if (data == "No") {
-                        $('#idCheckRes').css("color", 'green');
-                        $('#idCheckRes').html("사용가능한 아이디입니다.");
-                        idRes = true;
-                    } else {
-                        $('#idCheckRes').css("color", 'red');
-                        $('#idCheckRes').html("이미 존재하는 아이디입니다.");
+        //아이디 중복확인 체킹
+        function idCheck() {
+            var id = $('input[name=id]').val();
+
+            if (id == "") {
+                $('#idCheckRes').css("color", 'red');
+                $('#idCheckRes').html("아이디를 입력해주세요.");
+                idRes = false;
+            } else {
+                $.ajax({
+                    url: '/memberExist',
+                    data: {"id": id},
+                    dataType: 'text',
+                    type: 'POST',
+                    async: false,
+
+                    success: function (data) {
+                        if (data == "No") {
+                            $('#idCheckRes').css("color", 'green');
+                            $('#idCheckRes').html("사용가능한 아이디입니다.");
+                            idRes = true;
+                        } else {
+                            $('#idCheckRes').css("color", 'red');
+                            $('#idCheckRes').html("이미 존재하는 아이디입니다.");
+                            idRes = false;
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
                         idRes = false;
                     }
-                },
-                error: function (error) {
-                    console.log(error);
-                    idRes = false;
+                });
+            }
+        }
+
+        $('input[name=id]').change(function () {
+            idRes = false;
+            IsjButtonClicked = false
+        });
+
+        //비밀번호 재확인 체킹
+        function pwCorrect() {
+            $("input[name=password]").keyup(function () {
+                if ($("input[name=password]").val() == $("input[name=pwRe]").val()) {
+                    $("#pwCheckRes").html("비밀번호가 일치합니다.");
+                    pwRes = true;
+
+                } else {
+                    $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
+                    pwRes = false;
+                }
+            });
+
+            $("input[name=pwRe]").keyup(function () {
+                if ($("input[name=password]").val() == $("input[name=pwRe]").val()) {
+                    $("#pwCheckRes").html("비밀번호가 일치합니다.");
+                    pwRes = true;
+
+                } else {
+                    $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
+                    pwRes = false;
+
                 }
             });
         }
-    }
 
-    $('input[name=id]').change(function () {
-        idRes = false;
-        IsjButtonClicked = false
-    });
+        pwCorrect();
 
-    $('#jButton').click(function () {
-        IsjButtonClicked = true;
-        idCheck();
-    });
+        //submit checking
+        $('#joinForm').submit(function(){
+            if (IsjButtonClicked == false) {
+                alert(" 아이디 중복확인을 해주세요 ");
+                return false;
+            }
 
-    //비밀번호 재확인 체킹
-    function pwCorrect() {
-        $("input[name=password]").keyup(function () {
-            if ($("input[name=password]").val() == $("input[name=pwRe]").val()) {
-                $("#pwCheckRes").html("비밀번호가 일치합니다.");
-                pwRes = true;
+            else if (IsjButtonClicked && idRes && pwRes){
+                alert(' 회원가입 성공하였습니다 ');
+            }
 
-            } else {
-                $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
-                pwRes = false;
+            else {
+                alert(' 아이디와 비밀번호를 다시 확인하세요 ');
+                return false;
             }
         });
-
-        $("input[name=pwRe]").keyup(function () {
-            if ($("input[name=password]").val() == $("input[name=pwRe]").val()) {
-                $("#pwCheckRes").html("비밀번호가 일치합니다.");
-                pwRes = true;
-
-            } else {
-                $("#pwCheckRes").html("비밀번호가 일치하지 않습니다.");
-                pwRes = false;
-
-            }
-        });
-    }
-
-    pwCorrect();
-
-    //submit할 때 체킹
-    function totalCheck() {
-        if (IsjButtonClicked == false) {
-            alert(" 중복확인을 해주세요 ");
-        }
-        return IsjButtonClicked && idRes && pwRes;
-    }
+    });
 </script>
 
 </body>

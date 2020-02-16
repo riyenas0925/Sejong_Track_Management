@@ -24,6 +24,7 @@ import java.util.List;
  * 유저가 입력한 아이디를 통해 디비에서 읽어온 비밀번호 (이미 회원가입할때 암호화 되어있음)와
  * 유저가 입력한 비밀번호를 암호화한 암호화된 비밀번호를 비교해서 로그인 인증을 처리해줄지 안할지를 결정하게 되는것입니다.
  * */
+
 @EqualsAndHashCode(of="id")
 public class CustomUserDetails implements UserDetails {
     private static final long serialVersionUID = 1L; //serial 상속받은 클래스는 serialVersionUID 꼭 선언하는것 권유
@@ -49,11 +50,12 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();  //원래코드
-        if (this.id.equals("admin")) {
+
+        if (this.id.equals("ADMIN")) {
             authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.ADMIN.toString()));
-        } else if(this.id.equals("student")){
+        } else if(this.id.equals("STUDENT")){
             authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.STUDENT.toString()));
-        } else if(this.id.equals("pro")){
+        } else if(this.id.equals("PRO")){
             authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.PRO.toString()));
         }
         return authorities;
