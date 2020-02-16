@@ -4,20 +4,20 @@ import kr.ac.sejong.domain.notice.Notice;
 import kr.ac.sejong.domain.notice.NoticeRepository;
 import kr.ac.sejong.web.dto.NoticeRequestDto;
 import kr.ac.sejong.web.dto.NoticeResponseDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Log
 @Service
+@RequiredArgsConstructor
 public class NoticeService {
 
-    @Inject
-    NoticeRepository repo;
+    private final NoticeRepository repo;
 
     @Transactional
     public Long saveNotice(NoticeRequestDto nrDto) {
@@ -33,7 +33,7 @@ public class NoticeService {
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find the Notice: " + id));
 
         target.update(nrDto.getTitle(), nrDto.getAuthor(), nrDto.getContent());
-        log.info("update Target: "+target);
+        log.info("update Target: " + target);
         return id;
     }
 
@@ -47,6 +47,7 @@ public class NoticeService {
         return id;
     }
 
+    @Transactional(readOnly = true)
     public NoticeResponseDto findById(Long id) {
         Notice target = repo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find the Notice: " + id));
@@ -54,6 +55,7 @@ public class NoticeService {
         return new NoticeResponseDto(target);
     }
 
+    @Transactional(readOnly = true)
     public List<NoticeResponseDto> findAllDesc() {
         return repo.findAllDesc().stream()
                 .map(NoticeResponseDto::new) // Stream < R > map(Function<? super T, ? extends R> mapper):  입력 T타입을 R타입 요소로 변환한 스트림 생성
