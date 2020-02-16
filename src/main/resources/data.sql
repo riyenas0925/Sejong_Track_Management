@@ -7,6 +7,7 @@ ALTER TABLE tbl_subject convert to charset utf8;
 ALTER TABLE tbl_univ convert to charset utf8;
 ALTER TABLE tbl_member_role convert to charset utf8;
 ALTER TABLE tbl_member convert to charset utf8;
+ALTER TABLE tbl_notice convert to charset utf8;
 SET foreign_key_checks =1;
 
 INSERT INTO tbl_univ(univNo, univTitle) VALUES (1000, "소프트웨어융합대학");

@@ -55,7 +55,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">공지</li>
             <li><a href="${path}/"><i class="fa  fas fa-home"></i><span>Home</span></a></li>
-            <li><a href="${path}"><i class="fa fas fa-bullhorn"></i><span>공지사항</span></a></li>
+            <li><a href="${path}/noticeList"><i class="fa fas fa-bullhorn"></i><span>공지사항</span></a></li>
             <li>
 
             <li class="header">Sejong Track</li>

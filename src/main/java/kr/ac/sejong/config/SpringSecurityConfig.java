@@ -52,6 +52,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 /*페이지 권한 설정*/
                 .antMatchers("/visitor/**", "/student/**", "/uploadForm/**", "/trackJudge/**").hasAnyAuthority("ADMIN", "PRO", "STUDENT")
                 .antMatchers("/trackrule/**").hasAnyAuthority("ADMIN", "PRO")
+                .antMatchers("/notice/create","/notice/update/**", "/notice/delete/**").hasAuthority("ADMIN")
                 .antMatchers("/modifyView/**", "/memberModify/**").authenticated()
                 .antMatchers("/**").permitAll()
 
