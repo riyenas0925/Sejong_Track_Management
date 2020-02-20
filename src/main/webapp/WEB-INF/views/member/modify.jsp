@@ -10,7 +10,8 @@
     <!--header -->
     <%@ include file="../include/header.jsp" %>
     <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(../resources/img/theme/sejongbg.png); background-size: cover; background-position: center top;">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+         style="min-height: 600px; background-image: url(../resources/img/theme/sejongbg.png); background-size: cover; background-position: center top;">
         <!-- Mask -->
         <span class="mask bg-gradient-default opacity-8"></span>
         <!-- Header container -->
@@ -18,7 +19,8 @@
             <div class="row">
                 <div class="col-lg-7 col-md-10">
                     <h1 class="display-2 text-white">안녕하세요.<br><sec:authentication property="principal.name"/>님!</h1>
-                    <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+                    <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with
+                        your work and manage your projects or assigned tasks</p>
                 </div>
             </div>
         </div>
@@ -32,7 +34,7 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
 
-                                    <img src="../resources/img/theme/student_y.png" class="rounded-circle">
+                                <img src="../resources/img/theme/student_y.png" class="rounded-circle">
 
                             </div>
                         </div>
@@ -55,7 +57,7 @@
                                 <i class="ni education_hat mr-2"></i>컴퓨터공학과
                             </div>
 
-                            <hr class="my-4" />
+                            <hr class="my-4"/>
                             <a href="${path}/uploadForm">트랙 현황 조회 바로가기</a><br>
                         </div>
                     </div>
@@ -69,7 +71,9 @@
                                 <h3 class="mb-0">My account</h3>
                             </div>
                             <div class="col-4 text-right" style="font-size:10px;">
-                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#passwordChange">비밀번호변경</button>
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                                        data-target="#passwordChange">비밀번호변경
+                                </button>
                             </div>
                             <%@ include file="pwChange.jsp" %>
                         </div>
@@ -81,13 +85,17 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="id">ID</label>
-                                            <input type="text" name="id" id="id" class="form-control form-control-alternative" value="<sec:authentication property='principal.id'/>" readonly>
+                                            <input type="text" name="id" id="id"
+                                                   class="form-control form-control-alternative"
+                                                   value="<sec:authentication property='principal.id'/>" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="name">이름</label>
-                                            <input type="text" name="name" id="name" class="form-control form-control-alternative" value="<sec:authentication property='principal.name'/>">
+                                            <input type="text" name="name" id="name"
+                                                   class="form-control form-control-alternative"
+                                                   value="<sec:authentication property='principal.name'/>">
                                         </div>
                                     </div>
                                 </div>
@@ -95,13 +103,15 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="ex1">학과</label>
-                                            <input type="text" id="ex1" class="form-control form-control-alternative" placeholder="컴퓨터공학과" readonly>
+                                            <input type="text" id="ex1" class="form-control form-control-alternative"
+                                                   placeholder="컴퓨터공학과" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="ex2">학번</label>
-                                            <input type="number" id="ex2" class="form-control form-control-alternative" placeholder="17010491" readonly>
+                                            <input type="number" id="ex2" class="form-control form-control-alternative"
+                                                   placeholder="17010491" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -109,23 +119,29 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="email">이메일</label>
-                                            <input type="email" name="email" id="email" class="form-control form-control-alternative" value="<sec:authentication property='principal.email'/>">
+                                            <input type="email" name="email" id="email"
+                                                   class="form-control form-control-alternative"
+                                                   value="<sec:authentication property='principal.email'/>">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="ex">예시1</label>
-                                            <input type="text" id="ex" class="form-control form-control-alternative" placeholder="예시" readonly>
+                                            <input type="text" id="ex" class="form-control form-control-alternative"
+                                                   placeholder="예시" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <hr class="my-4" />
+                            <hr class="my-4"/>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="password">Please enter a password to modify the information.</label>
-                                        <input type="password" id="password" name="password" class="form-control form-control-alternative" required placeholder="비밀번호 입력">
+                                        <label class="form-control-label" for="password">Please enter a password to
+                                            modify the information.</label>
+                                        <input type="password" id="password" name="password"
+                                               class="form-control form-control-alternative" required
+                                               placeholder="비밀번호 입력">
                                     </div>
                                 </div>
                                 <div class="col-lg-12" style="text-align:center">
@@ -147,17 +163,17 @@
 </div>
 </body>
 </html>
-<!--   Core   -->
+<!-- Core -->
 <script src="../resources/js/plugins/jquery/dist/jquery.min.js"></script>
 <script src="../resources/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<!--   Optional JS   -->
-<!--   Argon JS   -->
+<!-- Optional JS -->
+<!-- Argon JS -->
 <script src="../resources/js/argon-dashboard.min.js?v=1.1.1"></script>
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        var psRes = false;
+    $(document).ready(function () {
+        var pwRes = false;
 
         //비밀번호 재확인 체킹
         function pwCorrect() {
@@ -188,5 +204,46 @@
         function totalCheck() {
             return pwRes;
         }
+
+        $('input[name=modifyBtn]').on('click', function () {
+
+            if ($('input[name=password]').val() == "" || $('input[name=newPw]').val() == ""
+                ||$('input[name=newPwRe]').val() == ""){
+                alert('비밀번호를 입력해주세요');
+            }
+            else if (totalCheck() == false) {
+                alert('재입력한 비밀번호를 다시 확인해주세요.');  // 비밀번호 재확인경고알림
+            }
+            else {
+
+                var target = {
+                    id: $('input[name=id]').val(),
+                    password: $('input[name=password]').val(),
+                    newPw: $('input[name=newPw]').val()
+                };
+
+                $.ajax({
+                    url: "/api/v1/member/modifyPw",
+                    type: "POST",
+                    dataType: "text",       //'text'로 하면 잘 됨.(but error까지 string으로 받아져서 예외발생도 success로 들어감.)
+                                                //'json'으로 하면 success로 안 감.. -> 받은게 json형식이 아니어서그렇다.
+                    data: JSON.stringify(target),
+                    contentType: 'application/json; charset=utf-8',
+                    async: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                    },
+                    success: function (data) {
+                        alert("비밀번호가 변경되었습니다.");
+                            window.location.href="/memberLogout";
+
+                    },
+                    error: function (request, status, error) {
+                        alert(request.responseText);
+                        console.log("code:" + request.status + "\n\n" + "reponseType:" + request.responseType + "\n\n" + "message:" + request.responseText + "\n\n" + "error:" + error);
+                    }
+                });
+            }
+        });
     });
 </script>

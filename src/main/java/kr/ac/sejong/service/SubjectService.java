@@ -2,8 +2,8 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.subject.Subject;
 import kr.ac.sejong.domain.subject.SubjectRepository;
-import kr.ac.sejong.web.dto.SubjectRequestDto;
-import kr.ac.sejong.web.dto.SubjectResponseDto;
+import kr.ac.sejong.web.dto.subject.SubjectRequestDto;
+import kr.ac.sejong.web.dto.subject.SubjectResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;

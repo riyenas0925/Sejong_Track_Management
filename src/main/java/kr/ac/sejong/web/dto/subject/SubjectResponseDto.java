@@ -1,8 +1,11 @@
-package kr.ac.sejong.web.dto;
+package kr.ac.sejong.web.dto.subject;
 
 import kr.ac.sejong.domain.subject.Subject;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 @Getter
 @ToString
@@ -19,5 +22,15 @@ public class SubjectResponseDto {
         this.completionType = entity.getCompletionType();
         this.selectedArea = entity.getSelectedArea();
         this.credit = entity.getCredit();
+    }
+
+    public SubjectDto toSubjectDto() {
+        return SubjectDto.builder()
+                .courseNum(this.courseNum)
+                .courseTitle(this.courseTitle)
+                .completionType(this.completionType)
+                .selectedArea(this.selectedArea)
+                .credit(this.credit)
+                .build();
     }
 }

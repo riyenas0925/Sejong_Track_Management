@@ -48,7 +48,7 @@
                     </div>
 
                     <sec:authorize access="isAuthenticated()">
-                        <a href="${path}/modify" class="dropdown-item">
+                        <a href="${path}/modifyView" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>내 정보</span>
                         </a>

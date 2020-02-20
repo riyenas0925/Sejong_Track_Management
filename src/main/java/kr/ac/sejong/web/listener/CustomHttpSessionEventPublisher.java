@@ -52,7 +52,7 @@ public class CustomHttpSessionEventPublisher extends HttpSessionEventPublisher {
 
             String user_id = ((CustomUserDetails) auth.getPrincipal()).getId();
             Member member = memberRepository.findById(user_id).get();
-            member.setLogoutdate(new Date());
+            member.updateLogoutdate(new Date());
             memberRepository.save(member);
         }
     }

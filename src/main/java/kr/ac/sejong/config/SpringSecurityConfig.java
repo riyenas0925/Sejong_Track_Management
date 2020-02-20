@@ -42,7 +42,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/bower_components/**", "/plugins/**", "/dist/**", "/track_js/**"); /* 리소스 제한 허용 */
+                .antMatchers("./**");/* 리소스 제한 허용 */
     }
 
     /* 각종 시큐어 패턴등록 */
@@ -50,10 +50,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 /*페이지 권한 설정*/
-                .antMatchers("/visitor/**", "/student/**", "/uploadForm/**", "/trackJudge/**").hasAnyAuthority("ADMIN", "PRO", "STUDENT")
-                .antMatchers("/trackrule/**").hasAnyAuthority("ADMIN", "PRO")
-                .antMatchers("/notice/create","/notice/update/**", "/notice/delete/**").hasAuthority("ADMIN")
-                .antMatchers("/modifyView/**", "/memberModify/**").authenticated()
+                .antMatchers("/visitor/**", "/student/**", "/uploadForm/**",
+                        "/trackJudge/**", "/modifyView/**", "/memberModify/**").authenticated()
+//                .antMatchers("/trackSubject/**", "/trackrule/**").hasAnyAuthority("ADMIN", "PRO")
+//                .antMatchers("/rule/**","/notice/create", "/notice/update/**", "/notice/delete/**").hasAuthority("ADMIN")
+
                 .antMatchers("/**").permitAll()
 
                 .and() //로그인 설정
@@ -101,7 +102,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                  **/
 
                 super.configure(http);
-                http.csrf().disable();
     }
 
 }
