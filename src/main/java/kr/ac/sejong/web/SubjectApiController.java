@@ -1,8 +1,7 @@
 package kr.ac.sejong.web;
 
-import kr.ac.sejong.service.CourseScheduleService;
 import kr.ac.sejong.service.SubjectService;
-import kr.ac.sejong.web.dto.SubjectResponseDto;
+import kr.ac.sejong.web.dto.subject.SubjectResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

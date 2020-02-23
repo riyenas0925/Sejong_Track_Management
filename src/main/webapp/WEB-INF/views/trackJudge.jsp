@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,8 @@
                 <li class="active">트랙 현황 조회</li>
             </ol>
         </section>
+
+        ${classifySubjects}
 
         <!-- 선택한 트랙 -->
         <section class="content">
@@ -311,25 +314,11 @@
 <script language="JavaScript">
 
     $(document).ready(function () {
+        trackJudgeOne();
 
-        getAllResult();
-        
-        function getAllResult() {
+        function trackJudgeOne() {
+            $.getJSON("/api/v1/trackJudge/track/" + 1, function (data) {
 
-            $.getJSON("/trackJudge/all/" + 2, function (data) {
-                var str = "";
-
-                $(data).each(
-                    function () {
-                        str += "<tr>"
-                                + "<td style='text-align:center'>" + this.trackId + "</td>"
-                                + "<td><a href='trackJudge?univId=" + this.univId + "&trackId=" + this.trackId + "&degreeId=" + this.degreeId +"'>" + this.trackTitle + "</a></td>"
-                                + "<td><div class='progress progress-xs'><div class='progress-bar progress-bar-warning' style='width:" + this.percent+ "%'></div></div></td>"
-                                + "<td><span class='badge bg-orange'>" + this.percent + "%</span></td>"
-                            + "</tr>"
-                    });
-
-                $("#resultTrack").html(str);
             });
         }
     });

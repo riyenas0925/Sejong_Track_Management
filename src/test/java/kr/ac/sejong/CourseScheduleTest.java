@@ -28,18 +28,28 @@ public class CourseScheduleTest {
     MultipartFile multipartFile;
 
     @Before
-    public void after() throws IOException {
+    public void before() throws IOException {
         String fileName = "testCourseSchedule.xlsx";
         String filePath = "src/test/resources/testCourseSchedulel.xlsx";
 
         //when
-        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(new File(filePath)));
+        multipartFile = new MockMultipartFile(fileName, new FileInputStream(new File(filePath)));
     }
 
 
     @Test
     public void importExcelCourseScheduleFile() throws IOException {
         courseScheduleService.saveCourseScheduleWithSubject(multipartFile);
+    }
+
+    @Test
+    public void deleteError() throws IOException {
+        courseScheduleService.saveCourseScheduleWithSubject(multipartFile);
+        courseScheduleService.saveCourseScheduleWithSubject(multipartFile);
+
+        courseScheduleService.delete(2L);
+
+        log.info(courseScheduleService.select().toString());
     }
 
     /*

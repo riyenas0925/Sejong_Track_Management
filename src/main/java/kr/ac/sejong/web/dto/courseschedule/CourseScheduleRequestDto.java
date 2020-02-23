@@ -1,7 +1,7 @@
 package kr.ac.sejong.web.dto.courseschedule;
 
 import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
-import kr.ac.sejong.web.dto.SubjectRequestDto;
+import kr.ac.sejong.web.dto.subject.SubjectRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
