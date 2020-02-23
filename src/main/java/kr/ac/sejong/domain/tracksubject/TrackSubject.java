@@ -1,6 +1,5 @@
 package kr.ac.sejong.domain.tracksubject;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import kr.ac.sejong.domain.subject.Subject;
 import kr.ac.sejong.domain.track.Track;
 import lombok.*;
@@ -31,11 +30,11 @@ public class TrackSubject {
     Subject subject;
 
     public enum Type {
-        BASIC("basic"),
-        COMMON("common"),
-        EXPERT("expert"),
-        INDUSTRY("industry"),
-        APPLIED("applied");
+        BASIC("기초 교과"),
+        COMMON("공통 교과"),
+        EXPERT("심화 교과"),
+        INDUSTRY("산학 연계"),
+        APPLIED("응용 교과");
 
         private String text;
 
