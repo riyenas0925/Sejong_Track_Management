@@ -1,68 +1,118 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<html>
+<head>
+    <style>
+        $loader-color: #FF0068;
+        $loader-size: 100px;
+        $blob-size: 56px;
+        $canvas-size: 190px;
+        $canvas-padding: 24px;
 
-<%@ include file="include/setting-h.jsp" %>
+        $ease-in: cubic-bezier(0.02, 0.01, 0.21, 1);
+        $ease-out: cubic-bezier(0.3, 0.27, 0.07, 1.64);
 
-<div class="main-content" id="top">
-    <!--header -->
-    <%@ include file="include/header.jsp" %>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
 
-    <div class="header pb-8 pt-5 pt-md-7">
-        <div class="container-fluid">
-            <div class="header-body">
-                <div class="row">
-                    <div class="table-responsive">
-                        <div>
-                            <input type="text" name="id">
-                            <button type="button" class="btn btn-primary" id="jButton">button</button>
-                        </div>
-                        <span id="idCheckRes"></span>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+        }
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        .Loader {
+            width: $canvas-size;
+            height: $canvas-size;
+            position: relative;
+            padding: $canvas-padding;
 
-</div>
-<%@ include file="include/setting-f.jsp" %>
+            filter:url("#tooltip-filter");
+            transform: rotate(0deg);
+            animation: rotate 5s forwards infinite linear;
+        }
 
+        .Loader-circle,
+        .Loader-blob {
+            position: absolute;
+        }
 
-<script>
-    $(document).ready(function() {
-        $('#jButton').click(function () {
-            idCheck();
-        });
+        .Loader-circle {
+            width: $loader-size;
+            height: $loader-size;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background-color: $loader-color;
+        }
 
-        function idCheck() {
-            var id = $('input[name=id]').val();
+        .Loader-blob {
+            width: $blob-size;
+            height: $blob-size;
+            bottom: $canvas-padding;
+            left: $canvas-padding;
+            animation: xAxis 2.5s infinite $ease-in;
+        }
 
-            if (id == "") {
-                $('#idCheckRes').css("color", 'red');
-                $('#idCheckRes').html("아이디를 입력해주세요.");
-            } else {
-                $.ajax({
-                    url: '/memberExist',
-                    data: {"id": id},
-                    dataType: 'text',
-                    type: 'POST',
-                    async: false,
+        .Loader-blob::after {
+            content:'';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: $loader-color;
+            border-radius: 50%;
+            position: absolute;
+            animation: yAxis 2.5s infinite $ease-out alternate;
+        }
+        .Loader-blob::before {
+            content:'';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: $loader-color;
+            border-radius: 50%;
+            position: absolute;
+            animation: yAxis 2.5s infinite $ease-out 2.5s;
+        }
 
-                    success: function (data) {
-                        if (data == "No") {
-                            $('#idCheckRes').css("color", 'green');
-                            $('#idCheckRes').html("사용가능한 아이디입니다.");
-                        } else {
-                            $('#idCheckRes').css("color", 'red');
-                            $('#idCheckRes').html("이미 존재하는 아이디입니다.");
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+        @keyframes xAxis {
+            50% {
+                animation-timing-function: $ease-in;
+                transform: translateX($canvas-size - $blob-size);
             }
         }
-    });
-</script>
+
+        @keyframes yAxis {
+            50% {
+                animation-timing-function: $ease-out;
+                transform: translateY(-($canvas-size - $blob-size));
+            }
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="Loader">
+    <div class="Loader-circle"></div>
+    <div class="Loader-blob"></div>
+</div>
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
+    <defs>
+        <filter id="tooltip-filter">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+        </filter>
+    </defs>
+</svg>
+</body>
+</html>

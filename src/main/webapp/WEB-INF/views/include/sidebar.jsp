@@ -39,7 +39,7 @@
                     </div>
 
                     <sec:authorize access="isAuthenticated()">
-                    <a href="${path}/modify" class="dropdown-item">
+                    <a href="${path}/modifyView" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
                         <span>내 정보</span>
                     </a>
@@ -91,16 +91,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <sec:authorize access="isAuthenticated()">
-                    <a class="nav-link" href="${path}/modify">
+                    <a class="nav-link" href="${path}/modifyView">
                         <i class="ni ni-single-02 text-blue"></i> 내 정보
                     </a>
-                    </sec:authorize>
-                    <sec:authorize access="isAnonymous()">
-                        <a class="nav-link" href="${path}/loginView">
-                            <i class="ni ni-single-02 text-blue"></i> 내 정보
-                        </a>
-                    </sec:authorize>
                 </li>
 
                 <hr class="my-3">
@@ -111,16 +104,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <sec:authorize access="isAuthenticated()">
                         <a class="nav-link" href="${path}/uploadForm">
                             <i class="ni ni-bullet-list-67 text-red"></i> 트랙 현황 조회
                         </a>
-                    </sec:authorize>
-                    <sec:authorize access="isAnonymous()">
-                        <a class="nav-link" href="${path}/loginView">
-                            <i class="ni ni-bullet-list-67 text-red"></i> 트랙 현황 조회
-                        </a>
-                    </sec:authorize>
                 </li>
             </ul>
             <!-- Divider -->
