@@ -33,14 +33,14 @@ public class RuleTest {
         Long appliedCredit = 9999L;
         Long industryCredit = 9999L;
         Long expertCredit = 9999L;
-        Long commoncredit = 9999L;
+        Long commonCredit = 9999L;
 
         Track track = trackRepository.getOne(trackId);
         Degree degree = degreeRepository.getOne(degreeId);
 
         Rule rule = Rule.createRule(track, degree, 
                                     basicCredit, appliedCredit,
-                                    industryCredit, expertCredit,commoncredit);
+                                    industryCredit, expertCredit,commonCredit);
 
         ruleRepository.save(rule);
     }
