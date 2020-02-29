@@ -4,6 +4,7 @@ import kr.ac.sejong.domain.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.member.MemberRoleEnum;
 import kr.ac.sejong.domain.member.MemberRepository;
+import kr.ac.sejong.web.dto.MemberPwModifyDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -45,31 +46,28 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Transactional
     public void modifyMember(String targetId, String targetPw, Member result) throws BadCredentialsException {
-        Optional<Member> targetWrapper = repo.findById(targetId);
-        Member target = targetWrapper.get();
+        Member target = repo.findById(targetId).orElseThrow(()->new IllegalArgumentException("아이디가 존재하지 않습니다."));
 
         if (!passwordEncoder.matches(targetPw, target.getPassword())) { //raw, bcrypt
-            throw new BadCredentialsException("not matching userId or password");
+            throw new BadCredentialsException("기존 비밀번호가 일치하지 않습니다.");
         } else {
-            target.setName(result.getName());
-            target.setEmail(result.getEmail());
+            target.update(result.getEmail(), result.getName());
         }
 
         repo.save(target);
     }
 
     @Transactional
-    public void modifyPw(String targetId, String targetPw, String resultPw) {
-        Optional<Member> targetWrapper = repo.findById(targetId);
-        Member target = targetWrapper.get();
+    public String modifyPw(MemberPwModifyDto dto) {
+        Member target = repo.findById(dto.getId()).orElseThrow(()->new IllegalArgumentException("아이디가 존재하지 않습니다."));
 
-        if (!passwordEncoder.matches(targetPw, target.getPassword())) { //raw, bcrypt
-            throw new BadCredentialsException("not matching userId or password");
+        if (!passwordEncoder.matches(dto.getPassword(), target.getPassword())) { //raw, bcrypt
+            throw new BadCredentialsException("기존 비밀번호가 일치하지 않습니다.");
         } else {
-            target.setPassword(passwordEncoder.encode(resultPw));
+            target.updatePw(passwordEncoder.encode(dto.getNewPw()));
         }
 
-        repo.save(target);
+        return dto.getId();
     }
 
     public UserDetails loadUserByUserId(String id) throws UsernameNotFoundException {

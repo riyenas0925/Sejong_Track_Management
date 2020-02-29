@@ -86,7 +86,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="${path}/prepare">
+                    <a class="nav-link " href="${path}/api/v1/notice/listView">
                         <i class="ni ni-planet text-blue"></i> 공지사항
                     </a>
                 </li>
@@ -121,7 +121,7 @@
                         </a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="${path}/trackrule">
+                        <a class="nav-link" href="${path}/trackRule">
                             <i class="ni ni-palette"></i> 트랙 규칙 수정
                         </a>
                 </li>

@@ -37,6 +37,9 @@
                     <div class="box-body">
                         <div class="form-group">
                             <select class="form-control" id="select_univ">
+
+                                <!--대학 이름 들어가는 부분-->
+
                             </select>
                         </div>
                     </div>
@@ -236,7 +239,7 @@
         $('#regist_rule').on('click', function () {
             var modalAttr = ruleService.modalAttr();
 
-            ruleService.create(modalAttr, function (result) {
+            ruleService.create(modalAttr, function (result) {                   //진짜 보내는 버튼
                 if (result == "SUCCESS") {
                     $('#modal').modal('hide');
                     toastr["success"]("새로운 규칙이 추가되었습니다.");
@@ -266,7 +269,7 @@
             ruleService.creditDisable(false, rule.basicCredit, rule.appliedCredit, rule.industryCredit);
         });
 
-        $('#update_rule').on('click', function () {
+        $('#update_rule').on('click', function () {             //진짜 수정하는 버튼
             var modalAttr = ruleService.modalAttr();
 
             ruleService.update(modalAttr, function (result) {
@@ -296,7 +299,7 @@
             ruleService.creditDisable(true, rule.basicCredit, rule.appliedCredit, rule.industryCredit);
         });
 
-        $('#delete_rule').on('click', function () {
+        $('#delete_rule').on('click', function () {         //진짜 삭제하는 버튼
             var ruleId = $(".modal-header").attr('id');
 
             ruleService.remove(ruleId, function (result) {
