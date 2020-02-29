@@ -77,7 +77,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         String user_id = ((CustomUserDetails) auth.getPrincipal()).getId();
 
         Member member = memberRepository.findById(user_id).get();
-        member.setLogindate(new Date());
+        member.updateLogindate(new Date());
         memberRepository.save(member);
 
     }

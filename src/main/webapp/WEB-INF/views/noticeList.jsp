@@ -33,7 +33,7 @@
         $.ajax({
             url: '/notice/list',
             type: 'GET',
-            data: 'json',
+            dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {

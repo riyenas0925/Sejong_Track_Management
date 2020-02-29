@@ -8,10 +8,10 @@ import java.util.Date;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "tbl_member")
 @EqualsAndHashCode(of = "id")
+@NoArgsConstructor
 @ToString
 public class Member {
     @Id
@@ -40,18 +40,22 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<MemberRole> roles;
 
-    public Member toEntity() {
-        return Member.builder()
-                .id(id)
-                .email(email)
-                .password(password)
-                .build();
+    public void update(String name, String email){
+        this.email = email;
+        this.name = name;
     }
 
-    public Member() {
-
+    public void updatePw(String password){
+        this.password = password;
     }
 
+    public void updateLogindate(Date logindate){
+        this.logindate = logindate;
+    }
+
+    public void updateLogoutdate(Date logoutdate){
+        this.logoutdate = logoutdate;
+    }
     @Builder
     public Member(String id, String password, String name, String email) {
         this.id = id;
