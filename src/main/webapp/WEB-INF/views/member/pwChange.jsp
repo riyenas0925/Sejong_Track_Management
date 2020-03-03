@@ -43,9 +43,6 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input type="button" name="modifyBtn" class="btn btn-primary" value="modify"/>
             </div>
-                <div class="alert alert-danger" role="alert" style="border-radius: 0">
-                    <strong>Danger! </strong>정보 수정 후 재로그인 바랍니다.
-                </div>
             </form>
         </div>
     </div>

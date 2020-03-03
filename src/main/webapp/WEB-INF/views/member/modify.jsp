@@ -209,10 +209,10 @@
 
             if ($('input[name=password]').val() == "" || $('input[name=newPw]').val() == ""
                 ||$('input[name=newPwRe]').val() == ""){
-                alert('비밀번호를 입력해주세요');
+                toastr.warning('비밀번호를 입력해주세요');
             }
             else if (totalCheck() == false) {
-                alert('재입력한 비밀번호를 다시 확인해주세요.');  // 비밀번호 재확인경고알림
+                toastr.warning('재입력한 비밀번호를 다시 확인해주세요.');  // 비밀번호 재확인경고알림
             }
             else {
 
@@ -233,12 +233,12 @@
                         xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
                     },
                     success: function (data) {
-                        alert("비밀번호가 변경되었습니다.");
+                        toastr.success("비밀번호가 변경되었습니다.");
                             window.location.href="/memberLogout";
 
                     },
                     error: function (request, status, error) {
-                        alert(request.responseText);
+                        toastr.warning(request.responseText);
                         console.log("code:" + request.status + "\n\n" + "reponseType:" + request.responseType + "\n\n" + "message:" + request.responseText + "\n\n" + "error:" + error);
                     }
                 });
@@ -246,3 +246,6 @@
         });
     });
 </script>
+
+<!-- toastr js 라이브러리 -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
