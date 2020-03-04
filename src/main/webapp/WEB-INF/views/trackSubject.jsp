@@ -142,6 +142,7 @@
 
             else{
                 $('#upload-name').html(filename);
+                toastr.success("xlsx 파일 형식입니다");
                 $('#filelabel').html('Success!!');
                 $('#filelabel').removeClass('btn-danger');
                 $('#filelabel').addClass('btn-success');
@@ -179,8 +180,8 @@
                     type: "DELETE",
                     data: {"id" : $(this).attr("id")},
 
-                    success:function(data){
-                        alert("강의시간표가 삭제되었습니다.");
+                    success:function(){
+                        toastr.warning("강의시간표가 삭제되었습니다.");
                         window.location.replace("${path}/trackSubject");
                     },
                     beforeSend:function(){
@@ -263,3 +264,6 @@
     }
 
 </script>
+
+<!-- toastr js 라이브러리 -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

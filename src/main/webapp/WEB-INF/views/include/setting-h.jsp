@@ -17,6 +17,8 @@
     <!-- default header name is X-CSRF-TOKEN -->
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 
+    <!-- toastr -->
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <!-- Favicon -->
     <link href="../resources/img/brand/favicon.png" rel="icon" type="image/png">
     <!-- Fonts -->
@@ -50,7 +52,6 @@
             display:none;
         }
     </style>
-
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>
