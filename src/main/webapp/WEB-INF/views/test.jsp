@@ -1,118 +1,188 @@
-<html>
-<head>
-    <style>
-        $loader-color: #FF0068;
-        $loader-size: 100px;
-        $blob-size: 56px;
-        $canvas-size: 190px;
-        $canvas-padding: 24px;
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-        $ease-in: cubic-bezier(0.02, 0.01, 0.21, 1);
-        $ease-out: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+<%@ include file="include/setting-h.jsp" %>
+<!--sidebar -->
+<%@ include file="include/sidebar.jsp" %>
+<div class="main-content" id="top">
+    <div class="wrap-loading display-none">
+        <div>
+            <img src="../resources/img/theme/loading.gif" width="150">
+        </div>
+    </div>
 
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
+    <!--header -->
+    <%@ include file="include/header.jsp" %>
 
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #fff;
-        }
+    <div class="header pb-7 pt-5 pt-md-7">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row">
+                    <div class="col-12 ct-content">
+                        <div class="ct-page-title">
+                            <h1 class="ct-title">전체 트랙 보기</h1>
 
-        .Loader {
-            width: $canvas-size;
-            height: $canvas-size;
-            position: relative;
-            padding: $canvas-padding;
+                        </div>
+                        <p class="ct-lead">세종대학교 각 대학에서 시행하는 트랙을 한 눈에 볼 수 있는 서비스입니다.</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mt--7">
+        <div class="row">
+            <div class="col-xl-12">
+                <select class="form-control form-control-sm" id="select_univ">
+                    <option value="default">----- 대학 선택 -----</option>
+                    <option value="1">소프트웨어융합대학</option>
+                </select>
+            </div>
+        </div>
 
-            filter:url("#tooltip-filter");
-            transform: rotate(0deg);
-            animation: rotate 5s forwards infinite linear;
-        }
+        <div class="row mt-5">
+            <div class="col-xl-12 mb-xl-0">
+                <div class="card shadow">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0" id="univName"><!-- 대학이름 --></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="height:500px;">
+                        <!-- Projects table -->
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr id="thead"><!-- 테이블 헤드 --><th></th></tr>
+                            </thead>
+                            <tbody id="table"><!-- 테이블 --></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        .Loader-circle,
-        .Loader-blob {
-            position: absolute;
-        }
+        <!-- nav-up -->
+        <div id="nav-up" class="section-nav">
+            <a href="#top" class="avatar rounded-circle mr-3 bg-primary">
+                <i class="ni ni-bold-up text-white" style="font-size:24px;"></i>
+            </a>
+        </div>
 
-        .Loader-circle {
-            width: $loader-size;
-            height: $loader-size;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background-color: $loader-color;
-        }
-
-        .Loader-blob {
-            width: $blob-size;
-            height: $blob-size;
-            bottom: $canvas-padding;
-            left: $canvas-padding;
-            animation: xAxis 2.5s infinite $ease-in;
-        }
-
-        .Loader-blob::after {
-            content:'';
-            display: block;
-            width: 100%;
-            height: 100%;
-            background-color: $loader-color;
-            border-radius: 50%;
-            position: absolute;
-            animation: yAxis 2.5s infinite $ease-out alternate;
-        }
-        .Loader-blob::before {
-            content:'';
-            display: block;
-            width: 100%;
-            height: 100%;
-            background-color: $loader-color;
-            border-radius: 50%;
-            position: absolute;
-            animation: yAxis 2.5s infinite $ease-out 2.5s;
-        }
-
-        @keyframes xAxis {
-            50% {
-                animation-timing-function: $ease-in;
-                transform: translateX($canvas-size - $blob-size);
-            }
-        }
-
-        @keyframes yAxis {
-            50% {
-                animation-timing-function: $ease-out;
-                transform: translateY(-($canvas-size - $blob-size));
-            }
-        }
-
-        @keyframes rotate {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-</head>
-
-<body>
-<div class="Loader">
-    <div class="Loader-circle"></div>
-    <div class="Loader-blob"></div>
+        <!-- footer -->
+        <%@ include file="include/footer.jsp" %>
+    </div>
 </div>
+<%@ include file="include/setting-f.jsp" %>
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
-    <defs>
-        <filter id="tooltip-filter">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-            <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-        </filter>
-    </defs>
-</svg>
-</body>
-</html>
+<script language="JavaScript">
+    $(document).ready(function () {
+        //시작
+        getJson("default");
+
+        //select 값 변경
+        $('#select_univ').on('change', function() {
+            $("#table").html("");
+            $("#thead").html("<th></th>");
+
+            var selectUniv = this.value;
+            getJson(selectUniv);
+        });
+
+        //selectUniv > GET json data
+        function getJson(selectUniv) {
+            if (selectUniv == "default"){
+                $("#univName").html("대학을 선택하세요.");
+                return false; //함수 강제 종료
+            }
+
+            //table title
+            var univ_Name= $('#select_univ option:selected').html();
+            $("#univName").html(univ_Name);
+
+            //get data
+            $.ajax({
+                url: "${path}/api/v1/trackAll/"+selectUniv,
+                type: "GET",
+                data: JSON,
+
+                beforeSend:function(){
+                    //loding?
+                },
+                success:function(data){
+                    trackName(data);
+                },
+            });
+
+        }
+
+        //thead
+        function thead(data){
+            console.log(data);
+            $("#thead").html("<th scope='col'>트랙 명</th>");
+            $.each(data,function(key,value){
+                $.each(value,function(key){
+                    $("#thead").append("<th scope='col'>"+key+"</th>");
+                });
+                return false;
+            })
+        }
+
+        //tbody - track name
+        function trackName(data){
+            var str = "";
+
+            thead(data);
+
+            $.each(data,function(key,value){
+                str += "<tr>";
+                str += "    <th>"+key+"</th>";
+
+                $.each(value,function(key,value){
+                    //course
+                    str += jsonArray(value);
+                });
+
+                str += "</tr>";
+                $("#table").append(str);
+                str = ""; //초기화
+            });
+        }
+
+        //tbody - course
+        function jsonArray(data){
+            var courseNum="";
+            var str="<td>";
+
+            $.each(data,function(index){
+                $.each(data[index],function(key,value){
+                    if(key=="courseNum"){
+                        courseNum+="학수번호 : "+ value;
+                    }
+                    else if(key=="courseTitle"){
+                        str += '<a class="badge badge-pill badge-secondary" title="'+ courseNum +'">';
+                        str += value +'</a>';
+
+                        //초기화
+                        courseNum = "";
+                    }
+                });
+            });
+
+            str += "</td>";
+            return str;
+        }
+
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        var navBg = $('#navbar-main');
+
+        navBg.addClass('bg-gradient-primary-1');
+
+    });
+</script>
+
+<!-- toastr js 라이브러리 -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
