@@ -11,10 +11,10 @@
         <tr>
             <th>제목</th>
             <td>
-                <sec:authorize access="hasAuthority('ADMIN')">
+                <sec:authorize access="hasRole('ADMIN')">
                     <input type="text" id="selectedTitle" value="${noticeModel.title}"/>
                 </sec:authorize>
-                <sec:authorize access="!hasAuthority('ADMIN')">
+                <sec:authorize access="!hasRole('ADMIN')">
                     ${noticeModel.title}
                 </sec:authorize>
             </td>
@@ -31,16 +31,16 @@
         <tr>
             <th>내용</th>
             <td>
-                <sec:authorize access="hasAuthority('ADMIN')">
+                <sec:authorize access="hasRole('ADMIN')">
                     <textarea id="selectedContent">${noticeModel.content}</textarea>
                 </sec:authorize>
-                <sec:authorize access="!hasAuthority('ADMIN')">
+                <sec:authorize access="!hasRole('ADMIN')">
                     ${noticeModel.content}
                 </sec:authorize>
             </td>
         </tr>
     </table>
-    <sec:authorize access="hasAuthority('ADMIN')">
+    <sec:authorize access="hasRole('ADMIN')">
         <input type="button" value="글 수정" onclick="updateNotice(${noticeModel.id})"/>
         <input type="button" value="글 삭제" onclick="deleteNotice(${noticeModel.id})"/>
     </sec:authorize>

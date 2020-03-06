@@ -5,7 +5,7 @@
 <%@ include file="include/head.jsp" %>
 <body>
 <h1>IT IS NOTICE PAGE</h1>
-<sec:authorize access="hasAuthority('ADMIN')">
+<sec:authorize access="hasRole('ADMIN')">
     <h4>[관리자]님 공지를 추가하세요</h4>
     <div id="textBox">
         <form>

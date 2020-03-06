@@ -108,6 +108,6 @@ INSERT INTO tbl_member(memberId, email, name, password) VALUES ("student","k@h.c
 INSERT INTO tbl_member(memberId, email, name, password) VALUES ("pro","k@n", "김교수님", "{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG");
 INSERT INTO tbl_member(memberId, email, name, password) VALUES ("admin","k@g", "김관리자", "{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG");
 
-INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("STUDENT", "student");
-INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("PRO", "pro");
-INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("ADMIN", "admin");
+INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("ROLE_STUDENT", "student");
+INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("ROLE_PRO", "pro");
+INSERT INTO tbl_member_role(role_enum, memberId) VALUES ("ROLE_ADMIN", "admin");

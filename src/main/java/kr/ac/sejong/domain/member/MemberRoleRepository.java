@@ -1,7 +1,6 @@
 package kr.ac.sejong.domain.member;
 
-import kr.ac.sejong.domain.member.MemberRole;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRoleRepository extends CrudRepository<MemberRole,Long> {
+public interface MemberRoleRepository extends JpaRepository<MemberRole, Long> {
 }

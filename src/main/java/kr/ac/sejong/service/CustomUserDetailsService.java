@@ -2,14 +2,12 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
-import kr.ac.sejong.domain.member.MemberRoleEnum;
 import kr.ac.sejong.domain.member.MemberRepository;
 import kr.ac.sejong.web.dto.MemberPwModifyDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +18,6 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -72,20 +69,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public UserDetails loadUserByUserId(String id) throws UsernameNotFoundException {
         /*id 일치하는 멤버 조회*/
-        Optional<Member> memberEntityWrapper = repo.findById(id);
-
         /*만약 id가 없으면 에러 던지고 아니면 member에 담는다.*/
-        Member member = memberEntityWrapper.orElseThrow(() -> new UsernameNotFoundException(id));
+        Member member = repo.findById(id).orElseThrow(() -> new UsernameNotFoundException(id));
 
         List<GrantedAuthority> authorities = new ArrayList<>(); /*권한*/
-
-        if (("admin").equals(id)) {
-            authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.ADMIN.toString()));
-        } else if (("student").equals(id)) {
-            authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.STUDENT.toString()));
-        } else if (("pro").equals(id)) {
-            authorities.add(new SimpleGrantedAuthority(MemberRoleEnum.PRO.toString()));
-        }
 
         return new CustomUserDetails(member.getId(), member.getPassword(), member.getName(),
                 member.getEmail(), authorities);

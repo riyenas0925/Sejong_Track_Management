@@ -10,9 +10,9 @@ public class TrackRuleController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    @RequestMapping("/trackrule")
+    @RequestMapping("/trackRule")
     public String user(){
 
-        return "trackrule";
+        return "trackRule";
     }
 }

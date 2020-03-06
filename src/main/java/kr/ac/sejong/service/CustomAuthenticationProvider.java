@@ -40,19 +40,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         try {
             userInfo = (CustomUserDetails) customUserDetailsService.loadUserByUserId(authToken.getName()); //UserDetailsService에서 유저정보를 불러온다.
 
-            log.info("AreTheyMatch? : "+ passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())); //raw, bcrypt
+            log.info("AreTheyMatch? : " + passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())); //raw, bcrypt
             if (!passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())) {
 
                 throw new BadCredentialsException("not matching userId or password");
             }
 
         } catch (UsernameNotFoundException e) {
+            log.warning("Authentication Provide failed...." + e.getMessage());
             throw e;
         }
 
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
-
         /* 인증처리 후 인가. 인가할 때는 비밀번호는 null로 */
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) userInfo.getAuthorities();
         return new UsernamePasswordAuthenticationToken(userInfo, null, authorities);
     }
 
