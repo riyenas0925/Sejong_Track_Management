@@ -18,7 +18,7 @@ public class MemberRole implements GrantedAuthority, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roleId;
 
-    @Column(nullable = false, name = "role_enum", columnDefinition = "enum('ADMIN','PRO','STUDENT')") //관리자, 교수, 학생
+    @Column(nullable = false, name = "role_enum", columnDefinition = "enum('ROLE_ADMIN','ROLE_PRO','ROLE_STUDENT')") //관리자, 교수, 학생
     @Enumerated(EnumType.STRING)
     private MemberRoleEnum roleEnum;
 

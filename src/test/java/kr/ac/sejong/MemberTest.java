@@ -92,13 +92,13 @@ public class MemberTest {
         repo.save(m);
         MemberRole role1 = MemberRole.builder()
                 .roleId(1L)
-                .roleEnum(MemberRoleEnum.STUDENT)
+                .roleEnum(MemberRoleEnum.ROLE_STUDENT)
                 .member(m)
                 .build();
         rolerepo.save(role1);
         MemberRole role2 = MemberRole.builder()
                 .roleId(2L)
-                .roleEnum(MemberRoleEnum.PRO)
+                .roleEnum(MemberRoleEnum.ROLE_PRO)
                 .member(m)
                 .build();
         rolerepo.save(role2);

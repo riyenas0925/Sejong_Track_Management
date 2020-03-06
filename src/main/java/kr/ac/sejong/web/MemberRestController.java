@@ -5,7 +5,6 @@ import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.service.CustomUserDetailsService;
 import kr.ac.sejong.web.dto.MemberPwModifyDto;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +12,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-import static org.springframework.http.HttpStatus.OK;
 
 @Controller
 @AllArgsConstructor
@@ -47,10 +45,10 @@ public class MemberRestController {
         try {
             CustomUserDetails mem = (CustomUserDetails) service.loadUserByUserId(member.getId());
             res = "Yes";
-            log.info("There is already match member");
+            log.warning("There is already match member");
 
         } catch (UsernameNotFoundException e) {
-            log.info("There is no match member");
+            log.warning("There is no match member");
             res = "No";
         }
         return res;
@@ -67,6 +65,7 @@ public class MemberRestController {
             service.modifyMember(targetId, targetPw, target);
 
         } catch (BadCredentialsException e) {
+            log.warning("cannot modify member's info...." + e.getMessage());
             return "member/modify";
         }
         return "redirect:/memberLogout";
@@ -83,10 +82,11 @@ public class MemberRestController {
             entity = new ResponseEntity<>(HttpStatus.OK);
 
         } catch (BadCredentialsException e) {   // 비밀번호(실제 유저와 비밀번호가 맞지않음)
-
+            log.warning("cannot modify member's Password...." + e.getMessage());
             entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 
         } catch (IllegalArgumentException e) {   // 찾는 유저가 없음(동시에 타 브라우저에서 탈퇴햇을 경우)
+            log.warning("cannot modify member's Password...." + e.getMessage());
             entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 

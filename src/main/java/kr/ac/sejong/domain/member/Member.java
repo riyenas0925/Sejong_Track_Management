@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "tbl_member")
-@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @ToString
 public class Member {
