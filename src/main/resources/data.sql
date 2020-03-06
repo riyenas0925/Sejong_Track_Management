@@ -6,7 +6,7 @@ ALTER TABLE tbl_track_subject convert to charset utf8;
 ALTER TABLE tbl_subject convert to charset utf8;
 ALTER TABLE tbl_univ convert to charset utf8;
 ALTER TABLE tbl_member_role convert to charset utf8;
-ALTER TABLE tbl_member convert to charset utf8;
+ALTER TABLE tbl_member convert to charset utf8, MODIFY memberId VARCHAR(255) BINARY NOT NULL;
 ALTER TABLE tbl_notice convert to charset utf8;
 SET foreign_key_checks =1;
 
