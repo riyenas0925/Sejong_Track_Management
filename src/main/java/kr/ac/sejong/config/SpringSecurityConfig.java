@@ -48,6 +48,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     /* 각종 시큐어 패턴등록 */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable()
+                .headers().frameOptions().disable();
+
         http.authorizeRequests()
                 /*페이지 권한 설정*/
                 .antMatchers("/visitor/**", "/student/**", "/uploadForm/**",
