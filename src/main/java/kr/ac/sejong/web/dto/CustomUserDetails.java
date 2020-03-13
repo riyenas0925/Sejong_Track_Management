@@ -3,7 +3,7 @@
  * 다른 추가적인 회원 정보 컬럼이 있다면 멤버변수로 추가하고 getter, setter을 추가해주면 된다.
  */
 
-package kr.ac.sejong.domain;
+package kr.ac.sejong.web.dto;
 
 import kr.ac.sejong.domain.member.MemberRoleEnum;
 import lombok.EqualsAndHashCode;

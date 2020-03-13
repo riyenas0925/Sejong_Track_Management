@@ -1,4 +1,4 @@
-package kr.ac.sejong.web.handler;
+package kr.ac.sejong.config.auth;
 
 import lombok.extern.java.Log;
 import org.springframework.security.core.Authentication;
