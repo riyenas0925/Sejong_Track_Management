@@ -1,6 +1,6 @@
-package kr.ac.sejong.web.listener;
+package kr.ac.sejong.config.auth;
 
-import kr.ac.sejong.domain.CustomUserDetails;
+import kr.ac.sejong.web.dto.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.member.MemberRepository;
 import lombok.extern.java.Log;

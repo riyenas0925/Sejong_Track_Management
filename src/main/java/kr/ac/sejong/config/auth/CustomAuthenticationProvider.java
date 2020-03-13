@@ -1,6 +1,7 @@
-package kr.ac.sejong.service;
+package kr.ac.sejong.config.auth;
 
-import kr.ac.sejong.domain.CustomUserDetails;
+import kr.ac.sejong.web.dto.CustomUserDetails;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -20,15 +20,14 @@ import java.util.List;
  * CustomUserDetailsService.class - loadUserByUserId() 에서 불러온 유저정보를 여기로 넘긴다.
  * 사용자가 입력한 아이디와 비밀번호를 확인하고 해당 권한을 부여
  */
+
+@RequiredArgsConstructor
 @Log
-@Component("authProvider")
+@Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    @Inject
-    CustomUserDetailsService customUserDetailsService;
-
-    @Inject
-    PasswordEncoder passwordEncoder;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -42,7 +41,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
             log.info("AreTheyMatch? : " + passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())); //raw, bcrypt
             if (!passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())) {
-
                 throw new BadCredentialsException("not matching userId or password");
             }
 

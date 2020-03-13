@@ -2,40 +2,36 @@
 
 package kr.ac.sejong.config;
 
-import kr.ac.sejong.web.handler.CustomLoginSuccessHandler;
-import kr.ac.sejong.web.handler.CustomLogoutSuccessHandler;
-import kr.ac.sejong.service.CustomAuthenticationProvider;
+import kr.ac.sejong.config.auth.CustomAuthenticationProvider;
+import kr.ac.sejong.config.auth.CustomUserDetailsService;
+import kr.ac.sejong.config.auth.CustomLoginSuccessHandler;
+import kr.ac.sejong.config.auth.CustomLogoutSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.inject.Inject;
-
+@RequiredArgsConstructor
+@Log
 @Configuration
 @EnableWebSecurity
-@Log
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Inject
-    CustomAuthenticationProvider authProvider;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
+    private final CustomLoginSuccessHandler loginSuccessHandler;
+    private final CustomLogoutSuccessHandler logoutSuccessHandler;
 
-    @Inject
-    CustomLoginSuccessHandler loginSuccessHandler;
-
-    @Inject
-    CustomLogoutSuccessHandler logoutSuccessHandler;
-
-    /* Password Encoder 등록 */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService)
+            .and()
+            .authenticationProvider(customAuthenticationProvider);
     }
 
     /* Security 제외 패턴 */
@@ -78,13 +74,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
 
-
                 .and()
                 .exceptionHandling() /*예외처리*/
-                .accessDeniedPage("/memberDenied") // 접근 권한 예외 페이지로 이동
-
-                .and()
-                .authenticationProvider(authProvider); /*로그인 검증*/
+                .accessDeniedPage("/memberDenied"); // 접근 권한 예외 페이지로 이동
 
         http.sessionManagement()
                 .maximumSessions(1)/*최대 허용 가능 중복 세션 수*/
