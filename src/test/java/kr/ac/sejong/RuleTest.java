@@ -57,7 +57,7 @@ public class RuleTest {
 
     @Test
     public void findRules(){
-        log.info(ruleRepository.findRules().toString());        
+        log.info(ruleRepository.findRules().toString());
     }
 
     @Test

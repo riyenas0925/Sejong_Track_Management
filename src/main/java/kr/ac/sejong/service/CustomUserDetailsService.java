@@ -4,7 +4,6 @@ import kr.ac.sejong.domain.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.member.MemberRepository;
 import kr.ac.sejong.web.dto.MemberPwModifyDto;
-import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 @Log
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -43,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Transactional
     public void modifyMember(String targetId, String targetPw, Member result) throws BadCredentialsException {
-        Member target = repo.findById(targetId).orElseThrow(()->new IllegalArgumentException("아이디가 존재하지 않습니다."));
+        Member target = repo.findById(targetId).orElseThrow(() -> new IllegalArgumentException("아이디가 존재하지 않습니다."));
 
         if (!passwordEncoder.matches(targetPw, target.getPassword())) { //raw, bcrypt
             throw new BadCredentialsException("기존 비밀번호가 일치하지 않습니다.");
@@ -51,12 +49,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             target.update(result.getEmail(), result.getName());
         }
 
-        repo.save(target);
     }
 
     @Transactional
     public String modifyPw(MemberPwModifyDto dto) {
-        Member target = repo.findById(dto.getId()).orElseThrow(()->new IllegalArgumentException("아이디가 존재하지 않습니다."));
+        Member target = repo.findById(dto.getId()).orElseThrow(() -> new IllegalArgumentException("아이디가 존재하지 않습니다."));
 
         if (!passwordEncoder.matches(dto.getPassword(), target.getPassword())) { //raw, bcrypt
             throw new BadCredentialsException("기존 비밀번호가 일치하지 않습니다.");

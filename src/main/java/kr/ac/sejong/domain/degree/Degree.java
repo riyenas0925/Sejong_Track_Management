@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "tbl_degree")
 @ToString(exclude = "rules")
+@NoArgsConstructor
 public class Degree {
 
     @Id
@@ -23,11 +24,7 @@ public class Degree {
     @JsonIgnore
     @OneToMany(mappedBy = "degree", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Rule> rules;
-    
-    public Degree() {
-        
-    }
-    
+
     @Builder
     public Degree(Long degreeId, String degreeTitle) {
         this.degreeId = degreeId;

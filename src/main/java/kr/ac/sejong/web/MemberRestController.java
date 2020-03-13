@@ -4,7 +4,6 @@ import kr.ac.sejong.domain.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.service.CustomUserDetailsService;
 import kr.ac.sejong.web.dto.MemberPwModifyDto;
-import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 
-@Controller
-@AllArgsConstructor
 @Log
+@Controller
 public class MemberRestController {
 
     @Inject
@@ -33,7 +31,6 @@ public class MemberRestController {
     @PostMapping("/memberJoin")
     public String memberJoin(Member member) {   //-> rest로 바꾸자
         service.joinMember(member);
-
         return "member/loginView";
     }
 

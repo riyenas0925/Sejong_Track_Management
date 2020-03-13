@@ -11,39 +11,30 @@ import java.util.List;
 
 @Log
 @RestController
-@RequestMapping("/notice")
 public class NoticeRestController {
-
     @Inject
-    NoticeService service;
+    private NoticeService service;
 
-    @PostMapping("/create")
+    @PostMapping("/api/v1/admin/notice/create")
     public Long create(@RequestBody NoticeRequestDto nrDto) {
         log.info("create()진입");
         return service.saveNotice(nrDto);
     }
 
-//    @GetMapping("/{id}")
-//    public NoticeResponseDto findById(@PathVariable Long id) {
-//        NoticeResponseDto dto = service.findById(id);
-//        log.info("findById()진입: " + dto);
-//        return service.findById(id);
-//    } 안씀. NoticeController에서 작업.
-
-    @GetMapping("/list")
+    @GetMapping("/notice/list")
     public List<NoticeResponseDto> findAllDesc() {
         log.info("findAllDesc()진입");
         return service.findAllDesc();
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/api/v1/admin/notice/update/{id}")
     public Long update(@PathVariable Long id, @RequestBody NoticeRequestDto nrDto) {
         log.info("update()진입");
 
         return service.updateNotice(id, nrDto);
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/api/v1/admin/notice/delete/{id}")
     public Long delete(@PathVariable Long id) {
         log.info("delete()진입");
         return service.deleteNotice(id);
