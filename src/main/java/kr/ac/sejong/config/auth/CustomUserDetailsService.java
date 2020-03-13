@@ -1,10 +1,10 @@
-package kr.ac.sejong.service;
+package kr.ac.sejong.config.auth;
 
-import kr.ac.sejong.domain.CustomUserDetails;
+import kr.ac.sejong.web.dto.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.member.MemberRepository;
 import kr.ac.sejong.web.dto.MemberPwModifyDto;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,20 +14,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
-@AllArgsConstructor
 @Log
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Inject
-    private MemberRepository repo;
-    @Inject
-    private PasswordEncoder passwordEncoder;
+    private final MemberRepository repo;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public String joinMember(Member m) {

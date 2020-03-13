@@ -1,8 +1,8 @@
 package kr.ac.sejong.web;
 
-import kr.ac.sejong.domain.CustomUserDetails;
+import kr.ac.sejong.web.dto.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
-import kr.ac.sejong.service.CustomUserDetailsService;
+import kr.ac.sejong.config.auth.CustomUserDetailsService;
 import kr.ac.sejong.web.dto.MemberPwModifyDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
