@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Entity
-@Table(name = "tbl_member")
+@Table(name = "member")
 @NoArgsConstructor
 @ToString
 public class Member {

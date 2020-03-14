@@ -35,7 +35,7 @@ public class CourseScheduleService {
 
         CourseScheduleRequestDto courseScheduleRequestDto = CourseScheduleRequestDto.builder()
                 .name(excelDto.getFileName())
-                .subjects(
+                .courses(
                         excelDto.toCourseScheduleExcelDtos().stream()
                                 .map(CourseScheduleExcelDto::toSubjectDto)
                                 .distinct()

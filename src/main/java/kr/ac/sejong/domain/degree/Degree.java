@@ -10,15 +10,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Entity
-@Table(name = "tbl_degree")
+@Table(name = "degree")
 @ToString(exclude = "rules")
 public class Degree {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long degreeId;
+    private Long id;
 
-    private String degreeTitle;
+    private String title;
     
     @JsonIgnore
     @OneToMany(mappedBy = "degree", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -29,8 +29,8 @@ public class Degree {
     }
     
     @Builder
-    public Degree(Long degreeId, String degreeTitle) {
-        this.degreeId = degreeId;
-        this.degreeTitle = degreeTitle;
+    public Degree(Long id, String title) {
+        this.id = id;
+        this.title = title;
     }
 }

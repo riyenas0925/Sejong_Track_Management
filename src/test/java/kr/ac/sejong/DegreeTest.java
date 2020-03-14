@@ -39,7 +39,7 @@ public class DegreeTest {
     @Test
     public void createDegree() {
         Degree degree = Degree.builder()
-            .degreeTitle("test1")
+            .title("test1")
             .build();
             
         degreeRepository.save(degree);
@@ -48,8 +48,8 @@ public class DegreeTest {
     @Test
     public void updateDegree() {
         Degree degree = Degree.builder()
-            .degreeId(1L)
-            .degreeTitle("test1")
+            .id(1L)
+            .title("test1")
             .build();
             
         degreeRepository.save(degree);

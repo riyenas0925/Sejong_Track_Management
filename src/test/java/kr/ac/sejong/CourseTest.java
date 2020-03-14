@@ -1,11 +1,11 @@
 package kr.ac.sejong;
 
 import kr.ac.sejong.service.CourseScheduleService;
-import kr.ac.sejong.service.SubjectService;
+import kr.ac.sejong.service.CourseService;
 import kr.ac.sejong.web.dto.excel.ExcelDto;
 import kr.ac.sejong.web.dto.excel.CourseScheduleExcelDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleRequestDto;
-import kr.ac.sejong.web.dto.subject.SubjectRequestDto;
+import kr.ac.sejong.web.dto.course.CourseRequestDto;
 import lombok.extern.java.Log;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,10 +31,10 @@ import static org.hamcrest.Matchers.is;
 @SpringBootTest
 @Log
 @Commit
-public class SubjectTest {
+public class CourseTest {
 
     @Autowired
-    private SubjectService subjectService;
+    private CourseService courseService;
 
     @Autowired
     private CourseScheduleService courseScheduleService;
@@ -71,7 +71,7 @@ public class SubjectTest {
 
         CourseScheduleRequestDto courseScheduleRequestDto = CourseScheduleRequestDto.builder()
                 .name(excelDto.getFileName())
-                .subjects(
+                .courses(
                         excelDto.toCourseScheduleExcelDtos().stream()
                                 .map(CourseScheduleExcelDto::toSubjectDto)
                                 .distinct()
@@ -84,25 +84,25 @@ public class SubjectTest {
 
     @Test
     public void nonDistinctSubjcetsTest() {
-        List<SubjectRequestDto> requestDtos = Arrays.asList(
-                SubjectRequestDto.builder()
-                        .courseTitle("test1")
-                        .courseNum("9888")
+        List<CourseRequestDto> requestDtos = Arrays.asList(
+                CourseRequestDto.builder()
+                        .title("test1")
+                        .courseNo("9888")
                         .credit(3L)
                         .build(),
-                SubjectRequestDto.builder()
-                        .courseTitle("test")
-                        .courseNum("9999")
+                CourseRequestDto.builder()
+                        .title("test")
+                        .courseNo("9999")
                         .credit(3L)
                         .build(),
-                SubjectRequestDto.builder()
-                        .courseTitle("test")
-                        .courseNum("9999")
+                CourseRequestDto.builder()
+                        .title("test")
+                        .courseNo("9999")
                         .credit(2L)
                         .build(),
-                SubjectRequestDto.builder()
-                        .courseTitle("test")
-                        .courseNum("9999")
+                CourseRequestDto.builder()
+                        .title("test")
+                        .courseNo("9999")
                         .credit(1L)
                         .build()
         );

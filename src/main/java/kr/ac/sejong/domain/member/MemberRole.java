@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "tbl_member_role")
+@Table(name = "member_role")
 @EqualsAndHashCode(of = "roleId")
 @ToString
 public class MemberRole implements GrantedAuthority, Serializable {

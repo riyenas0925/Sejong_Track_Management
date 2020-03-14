@@ -25,7 +25,7 @@ public class UnivTest {
     @Test
     public void createUniv() {
         Univ univ = Univ.builder()
-                .univTitle("Test Title")
+                .title("Test Title")
                 .univNo(1000L)
                 .build();
 
@@ -35,8 +35,8 @@ public class UnivTest {
     @Test
     public void updateUniv() {
         Univ univ2 = Univ.builder()
-                .univId(1L)
-                .univTitle("Test Update Title")
+                .id(1L)
+                .title("Test Update Title")
                 .univNo(3333L)
                 .build();
 

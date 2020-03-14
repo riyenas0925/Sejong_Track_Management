@@ -1,6 +1,6 @@
 package kr.ac.sejong.domain.track;
 
-import kr.ac.sejong.domain.tracksubject.TrackSubject;
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.domain.univ.Univ;
 import kr.ac.sejong.domain.rule.Rule;
 import lombok.*;
@@ -11,14 +11,14 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "tbl_track")
+@Table(name = "track")
 public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long trackId;
+    private Long id;
 
-    private String trackTitle;
+    private String title;
     private Long trackNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,22 +26,22 @@ public class Track {
     Univ univ;
 
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
-    List<TrackSubject> trackSubjects;
+    List<TrackCourse> trackCourses;
 
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
     List<Rule> rules;
 
     @Builder
-    public Track(Long trackId, String trackTitle, Long trackNo, Univ univ){
-        this.trackId = trackId;
-        this.trackTitle = trackTitle;
+    public Track(Long id, String title, Long trackNo, Univ univ){
+        this.id = id;
+        this.title = title;
         this.trackNo = trackNo;
         this.univ = univ;
     }
 
     public static Track createTrack(String trackTitle, Long trackNo, Univ univ){
         Track track = Track.builder()
-                .trackTitle(trackTitle)
+                .title(trackTitle)
                 .trackNo(trackNo)
                 .univ(univ)
                 .build();
@@ -49,7 +49,7 @@ public class Track {
     }
 
     public void updateTrack(String trackTitle, Long trackNo, Univ univ) {
-        this.trackTitle = trackTitle;
+        this.title = trackTitle;
         this.trackNo = trackNo;
         this.univ = univ;
     }
