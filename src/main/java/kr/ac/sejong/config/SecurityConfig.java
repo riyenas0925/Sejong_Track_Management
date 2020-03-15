@@ -53,14 +53,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/visitor/**", "/student/**", "/uploadForm/**",
                         "/trackJudge/**", "/modifyView/**", "/memberModify/**").authenticated()
                 .antMatchers("/trackSubject/**", "/trackRule/**").hasAnyRole("ADMIN", "PRO")
-                .antMatchers("/rule/**","/notice/create", "/notice/update/**", "/notice/delete/**").hasRole("ADMIN")
+                .antMatchers("/rule/**", "/api/v1/admin/").hasRole("ADMIN")
 
                 .antMatchers("/**").permitAll()
 
                 .and() //로그인 설정
                 .formLogin() /* 로그인 폼 나오도록 */
                 .loginPage("/loginView") /* 내가 만든 로그인 페이지 */
-                .loginProcessingUrl("/memberLogin")
+                .loginProcessingUrl("/api/v1/member/login")
                 .usernameParameter("id")
                 .passwordParameter("password")
                 .successHandler(loginSuccessHandler) /* 로그인 성공시 핸들러 */
@@ -81,21 +81,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 .maximumSessions(1)/*최대 허용 가능 중복 세션 수*/
                 .maxSessionsPreventsLogin(false) /*true: 로그인이 이미 되어있는 경우 중복 로그인이 안된다,false면 두번째 로그인 되고, 첫번째가 세션만료된다*/
-                .expiredUrl("/memberExpired")/*
-                                             *중복 로그인이 일어낫을 경우 선 로그인 유저가 이동할 페이지
-                                             *invalidSessionUrl : 세션만료됐을 경우 로그아웃시키는 url페이지. (우선순위)
-                                             *expiredUrl : 강제로그아웃되고, url로 이동.
-                                             */
+                .expiredUrl("/memberExpired")
+                /**
+                 *중복 로그인이 일어낫을 경우 선 로그인 유저가 이동할 페이지
+                 *invalidSessionUrl : 세션만료됐을 경우 로그아웃시키는 url페이지. (우선순위)
+                 *expiredUrl : 강제로그아웃되고, url로 이동.
+                 */
 
                 .and()
                 .sessionFixation().newSession(); /* 사용자 로그인 때마다 새로운 세션을 생성한다 */
 
-                /**
-                 * 위와 같이 설정하면 한 명이 로그인하고, 다른 곳에서 동일한 아이디로 로그인 하게 되면
-                 * 먼저 로그인한 사람의 세션이 끊김.
-                 * 먼저 로그인한 사람이 링크를 클릭하여 사이트내의 페이지를 이동하면 expiredUrl 로
-                 * 지정된 곳으로 보내진다.
-                 **/
+        /**
+         * 위와 같이 설정하면 한 명이 로그인하고, 다른 곳에서 동일한 아이디로 로그인 하게 되면
+         * 먼저 로그인한 사람의 세션이 끊김.
+         * 먼저 로그인한 사람이 링크를 클릭하여 사이트내의 페이지를 이동하면 expiredUrl 로
+         * 지정된 곳으로 보내진다.
+         **/
     }
 
 }

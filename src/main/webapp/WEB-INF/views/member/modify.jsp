@@ -77,6 +77,7 @@
                             </div>
                             <%@ include file="pwChange.jsp" %>
                         </div>
+
                     </div>
                     <div class="card-body">
                         <form id="joinForm" action="/modifyMemberInfo" method="post">
@@ -85,7 +86,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="id">ID</label>
-                                            <input type="text" name="id" id="id"
+                                            <input type="text" id="id"
                                                    class="form-control form-control-alternative"
                                                    value="<sec:authentication property='principal.id'/>" readonly>
                                         </div>
@@ -93,7 +94,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="name">이름</label>
-                                            <input type="text" name="name" id="name"
+                                            <input type="text" id="name"
                                                    class="form-control form-control-alternative"
                                                    value="<sec:authentication property='principal.name'/>">
                                         </div>
@@ -119,7 +120,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="email">이메일</label>
-                                            <input type="email" name="email" id="email"
+                                            <input type="email" id="email"
                                                    class="form-control form-control-alternative"
                                                    value="<sec:authentication property='principal.email'/>">
                                         </div>
@@ -146,10 +147,11 @@
                                 </div>
                                 <div class="col-lg-12" style="text-align:center">
                                     <div class="alert alert-danger" role="alert">
-                                        <strong>Danger! </strong>정보 수정 후 재로그인 바랍니다.
+                                        <strong>정보 수정 후 로그아웃 됩니다.</strong>
                                     </div>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <button type="submit" class="btn btn-primary my-4">Modify</button>
+                                    <button type="button" name="totalModifyBtn" class="btn btn-primary my-4">Modify
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -205,20 +207,18 @@
             return pwRes;
         }
 
-        $('input[name=modifyBtn]').on('click', function () {
+        $('input[name=pwModifyBtn]').on('click', function () {
 
-            if ($('input[name=password]').val() == "" || $('input[name=newPw]').val() == ""
-                ||$('input[name=newPwRe]').val() == ""){
+            if ($('input[name=originalPassword]').val() == "" || $('input[name=newPw]').val() == ""
+                || $('input[name=newPwRe]').val() == "") {
                 toastr.warning('비밀번호를 입력해주세요');
-            }
-            else if (totalCheck() == false) {
+            } else if (totalCheck() == false) {
                 toastr.warning('재입력한 비밀번호를 다시 확인해주세요.');  // 비밀번호 재확인경고알림
-            }
-            else {
+            } else {
 
                 var target = {
                     id: $('input[name=id]').val(),
-                    password: $('input[name=password]').val(),
+                    password: $('input[name=originalPassword]').val(),
                     newPw: $('input[name=newPw]').val()
                 };
 
@@ -229,20 +229,54 @@
                     data: JSON.stringify(target),
                     contentType: 'application/json; charset=utf-8',
                     async: false,
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-                    },
+                    <%--beforeSend: function (xhr) {--%>
+                    <%--xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");--%>
+                    <%--},--%>
                     success: function (data) {
-                        toastr.success("비밀번호가 변경되었습니다.");
-                            window.location.href="/memberLogout";
+                        alert("비밀번호가 변경되었습니다.");
+                        window.location.href = "/memberLogout";
 
                     },
                     error: function (request, status, error) {
-                        toastr.warning(request.responseText);
+                        alert(request.responseText);
                         console.log("code:" + request.status + "\n\n" + "reponseType:" + request.responseType + "\n\n" + "message:" + request.responseText + "\n\n" + "error:" + error);
                     }
                 });
             }
+        });
+
+        $('button[name=totalModifyBtn]').on('click', function () {
+            if ($('input[id=password]').val() == "") {
+                alert('비밀번호를 입력해주세요');
+            }
+
+            var target = {
+                id: $('input[id=id]').val(),
+                password: $('input[id=password]').val(),
+                email: $('input[id=email]').val(),
+                name: $('input[id=name]').val()
+            };
+
+            $.ajax({
+                url: "/api/vi/member/modifyInfo",
+                type: "POST",
+                dataType: "text",
+                data: JSON.stringify(target),
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                <%--beforeSend: function (xhr) {--%>
+                <%--xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");--%>
+                <%--},--%>
+                success: function (data) {
+                    alert("정보가 수정되었습니다.");
+                    window.location.href = "/memberLogout";
+
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                    console.log("code:" + request.status + "\n\n" + "reponseType:" + request.responseType + "\n\n" + "message:" + request.responseText + "\n\n" + "error:" + error);
+                }
+            });
         });
     });
 </script>

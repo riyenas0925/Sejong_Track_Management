@@ -1,12 +1,8 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.domain.member.Member;
-import kr.ac.sejong.domain.member.MemberRole;
-import kr.ac.sejong.domain.member.MemberRoleEnum;
-import kr.ac.sejong.domain.member.MemberRepository;
-import kr.ac.sejong.domain.member.MemberRoleRepository;
 import kr.ac.sejong.config.auth.CustomAuthenticationProvider;
 import kr.ac.sejong.config.auth.CustomUserDetailsService;
+import kr.ac.sejong.domain.member.*;
 import lombok.extern.java.Log;
 import org.junit.Assert;
 import org.junit.Before;
@@ -124,15 +120,15 @@ public class MemberTest {
             //x
         }
         try {
-            u=1;
-        }catch(Exception e){
+            u = 1;
+        } catch (Exception e) {
 
         }
-        log.info("u: "+u); //u=1로 나옴.
+        log.info("u: " + u); //u=1로 나옴.
     }
 
     @Test
-    public void password_Decoding(){
+    public void password_Decoding() {
 
     }
 

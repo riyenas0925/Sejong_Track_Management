@@ -67,9 +67,9 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-            },
+            <%--beforeSend: function (xhr) {--%>
+                <%--xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");--%>
+            <%--},--%>
             success: function (data) {
                 alert("공지가 수정되었습니다.");
             },
@@ -95,9 +95,9 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-            },
+            <%--beforeSend: function (xhr) {--%>
+                <%--xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");--%>
+            <%--},--%>
             success: function (data) {
                 alert("공지가 삭제되었습니다.");
             },

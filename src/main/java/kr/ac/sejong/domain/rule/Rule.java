@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rule")
 @ToString(exclude = {"degree", "track"})
+@NoArgsConstructor
 public class Rule {
 
     @Id
@@ -29,10 +30,6 @@ public class Rule {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "degreeId")
     Degree degree;
-
-    public Rule() {
-
-    }
 
     @Builder
     public Rule(Track track, Degree degree,
