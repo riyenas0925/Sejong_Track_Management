@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles(value = {"develop-h2"})
 @SpringBootTest
 @Log
 @Commit
@@ -25,7 +27,7 @@ public class UnivTest {
     @Test
     public void createUniv() {
         Univ univ = Univ.builder()
-                .univTitle("Test Title")
+                .title("Test Title")
                 .univNo(1000L)
                 .build();
 
@@ -35,8 +37,8 @@ public class UnivTest {
     @Test
     public void updateUniv() {
         Univ univ2 = Univ.builder()
-                .univId(1L)
-                .univTitle("Test Update Title")
+                .id(1L)
+                .title("Test Update Title")
                 .univNo(3333L)
                 .build();
 

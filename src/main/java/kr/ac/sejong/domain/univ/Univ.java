@@ -9,15 +9,15 @@ import java.util.List;
 
 @Getter
 @Entity
-@Table(name = "tbl_univ")
+@Table(name = "univ")
 @ToString(exclude = "tracks")
 public class Univ {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long univId;
+    private Long id;
 
-    private String univTitle;
+    private String title;
     private Long univNo;
 
     @JsonIgnore
@@ -29,9 +29,9 @@ public class Univ {
     }
 
     @Builder
-    public Univ(Long univId, String univTitle, Long univNo) {
-        this.univId = univId;
-        this.univTitle = univTitle;
+    public Univ(Long id, String title, Long univNo) {
+        this.id = id;
+        this.title = title;
         this.univNo = univNo;
     }
 }

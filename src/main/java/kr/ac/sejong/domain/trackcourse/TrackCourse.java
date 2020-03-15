@@ -1,6 +1,6 @@
-package kr.ac.sejong.domain.tracksubject;
+package kr.ac.sejong.domain.trackcourse;
 
-import kr.ac.sejong.domain.subject.Subject;
+import kr.ac.sejong.domain.course.Course;
 import kr.ac.sejong.domain.track.Track;
 import lombok.*;
 
@@ -9,25 +9,24 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "tbl_track_subject")
-public class TrackSubject {
+@Table(name = "track_course")
+public class TrackCourse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "trackSubjectId")
     private Long id;
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Type subjectType;
+    private Type courseType;
 
     @ManyToOne
     @JoinColumn(name = "trackId")
     Track track;
 
     @ManyToOne
-    @JoinColumn(name = "subjectId")
-    Subject subject;
+    @JoinColumn(name = "courseId")
+    Course course;
 
     public enum Type {
         BASIC("기초 교과"),
@@ -48,26 +47,26 @@ public class TrackSubject {
     }
 
     @Builder
-    public TrackSubject(Track track, Subject subject, Type subjectType){
+    public TrackCourse(Track track, Course course, Type courseType){
         this.track = track;
-        this.subject = subject;
-        this.subjectType = subjectType;
+        this.course = course;
+        this.courseType = courseType;
     }
 
-    public void updateTrackSubject(Long id, Track track, Subject subject, Type subjectType){
+    public void updateTrackCourse(Long id, Track track, Course course, Type courseType){
         this.id = id;
         this.track = track;
-        this.subject = subject;
-        this.subjectType = subjectType;
+        this.course = course;
+        this.courseType = courseType;
     }
 
-    public static TrackSubject createTrackSubject(Track track, Subject subject, Type subjectType){
-        TrackSubject trackSubject = TrackSubject.builder()
+    public static TrackCourse createTrackCourse(Track track, Course course, Type courseType){
+        TrackCourse trackCourse = TrackCourse.builder()
                 .track(track)
-                .subject(subject)
-                .subjectType(subjectType)
+                .course(course)
+                .courseType(courseType)
                 .build();
 
-        return trackSubject;
+        return trackCourse;
     }
 }

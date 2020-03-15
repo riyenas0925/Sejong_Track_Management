@@ -1,7 +1,7 @@
 package kr.ac.sejong.web.dto.courseschedule;
 
 import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
-import kr.ac.sejong.web.dto.subject.SubjectResponseDto;
+import kr.ac.sejong.web.dto.course.CourseResponseDto;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 public class CourseScheduleResponseDto {
     private Long id;
     private String name;
-    private List<SubjectResponseDto> subjects;
+    private List<CourseResponseDto> courses;
 
     public CourseScheduleResponseDto(CourseSchedule entity) {
         this.id = entity.getId();
         this.name = entity.getName();
-        this.subjects = entity.getSubjects().stream()
-                .map(SubjectResponseDto::new)
+        this.courses = entity.getCourses().stream()
+                .map(CourseResponseDto::new)
                 .collect(Collectors.toList());
     }
 }

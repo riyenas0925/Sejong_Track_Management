@@ -1,6 +1,6 @@
 package kr.ac.sejong.web.dto.excel;
 
-import kr.ac.sejong.web.dto.subject.SubjectRequestDto;
+import kr.ac.sejong.web.dto.course.CourseRequestDto;
 import lombok.*;
 
 @Getter
@@ -9,7 +9,7 @@ import lombok.*;
 public class ReportCardExcelDto {
     private String year;            //년도
     private String semester;        //학기
-    private String courseNum;       //학수번호
+    private String courseNo;       //학수번호
     private String courseTitle;     //교과목명
     private String completionType;  //이수구분
     private String teaching;        //교직영역
@@ -21,12 +21,12 @@ public class ReportCardExcelDto {
     private String departmentCode;  //개설학과코드
 
     @Builder
-    public ReportCardExcelDto(String year, String semester, String courseNum, String courseTitle, String completionType,
+    public ReportCardExcelDto(String year, String semester, String courseNo, String courseTitle, String completionType,
                               String teaching, String selectedArea, String credit, String evaluation, String grade,
                               String gradePoint, String departmentCode) {
         this.year = year;
         this.semester = semester;
-        this.courseNum = courseNum;
+        this.courseNo = courseNo;
         this.courseTitle = courseTitle;
         this.completionType = completionType;
         this.teaching = teaching;
@@ -38,10 +38,10 @@ public class ReportCardExcelDto {
         this.departmentCode = departmentCode;
     }
 
-    public SubjectRequestDto toSubjectDto() {
-        return new SubjectRequestDto().builder()
-                .courseNum(this.courseNum)
-                .courseTitle(this.courseTitle)
+    public CourseRequestDto toSubjectDto() {
+        return new CourseRequestDto().builder()
+                .courseNo(this.courseNo)
+                .title(this.courseTitle)
                 //.credit(this.credit)
                 .completionType(this.completionType)
                 .selectedArea(this.selectedArea)

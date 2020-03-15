@@ -29,17 +29,17 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(UnivTrackRuleDegreeJoinDto.class,
                         univ.univNo,
-                        univ.univTitle,
-                        rule.ruleId,
-                        track.trackId,
-                        track.trackTitle,
+                        univ.title,
+                        rule.id,
+                        track.id,
+                        track.title,
                         track.trackNo,
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
                         rule.expertCredit,
-                        degree.degreeId,
-                        degree.degreeTitle));
+                        degree.id,
+                        degree.title));
 
         return query.fetch();
     }
@@ -58,18 +58,18 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(UnivTrackRuleDegreeJoinDto.class,
                         univ.univNo,
-                        univ.univTitle,
-                        rule.ruleId,
-                        track.trackId,
-                        track.trackTitle,
+                        univ.title,
+                        rule.id,
+                        track.id,
+                        track.title,
                         track.trackNo,
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
                         rule.expertCredit,
-                        degree.degreeId,
-                        degree.degreeTitle))
-                .where(univ.univId.eq(univId));
+                        degree.id,
+                        degree.title))
+                .where(univ.id.eq(univId));
 
         return query.fetch();
     }
@@ -87,19 +87,19 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(UnivTrackRuleDegreeJoinDto.class,
                         univ.univNo,
-                        univ.univTitle,
-                        rule.ruleId,
-                        track.trackId,
-                        track.trackTitle,
+                        univ.title,
+                        rule.id,
+                        track.id,
+                        track.title,
                         track.trackNo,
                         rule.basicCredit,
                         rule.appliedCredit,
                         rule.industryCredit,
                         rule.expertCredit,
-                        degree.degreeId,
-                        degree.degreeTitle))
-                .where(track.trackId.eq(trackId))
-                .where(degree.degreeId.eq(degreeId));
+                        degree.id,
+                        degree.title))
+                .where(track.id.eq(trackId))
+                .where(degree.id.eq(degreeId));
 
         return query.fetch();
     }

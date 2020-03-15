@@ -1,6 +1,6 @@
 package kr.ac.sejong.web.dto.trackjudge;
 
-import kr.ac.sejong.web.dto.tracksubject.TrackSubjectDto;
+import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,13 +11,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public class SubjectStatisticDto {
-    private List<TrackSubjectDto> trackSubjectDtos;
+public class CourseStatisticDto {
+    private List<TrackCourseDto> trackCourseDtos;
     private Long sumCredit;
 
     @Builder
-    public SubjectStatisticDto(List<TrackSubjectDto> trackSubjectDtos, Long sumCredit) {
-        this.trackSubjectDtos = trackSubjectDtos;
+    public CourseStatisticDto(List<TrackCourseDto> trackCourseDtos, Long sumCredit) {
+        this.trackCourseDtos = trackCourseDtos;
         this.sumCredit = sumCredit;
     }
 }

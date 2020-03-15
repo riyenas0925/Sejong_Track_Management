@@ -2,13 +2,13 @@ package kr.ac.sejong.domain.track;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
+import kr.ac.sejong.domain.course.QCourse;
 import kr.ac.sejong.domain.degree.QDegree;
 import kr.ac.sejong.domain.rule.QRule;
-import kr.ac.sejong.domain.subject.QSubject;
-import kr.ac.sejong.domain.tracksubject.QTrackSubject;
+import kr.ac.sejong.domain.trackcourse.QTrackCourse;
 import kr.ac.sejong.domain.univ.QUniv;
-import kr.ac.sejong.web.dto.TrackSubjectJoinDto;
 import kr.ac.sejong.web.dto.TrackJudgeAllViewDto;
+import kr.ac.sejong.web.dto.TrackSubjectJoinDto;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
         QTrack track = QTrack.track;
 
         JPQLQuery query = from(track)
-                .where(track.univ.univId.eq(univId));
+                .where(track.univ.id.eq(univId));
 
         return query.fetch();
     }
@@ -43,15 +43,15 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
                 .innerJoin(rule.track, track)
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(TrackJudgeAllViewDto.class,
-                        univ.univId,
-                        univ.univTitle,
+                        univ.id,
+                        univ.title,
                         univ.univNo,
-                        track.trackId,
-                        track.trackTitle,
+                        track.id,
+                        track.title,
                         track.trackNo,
-                        degree.degreeId,
-                        degree.degreeTitle))
-                .where(track.univ.univId.eq(univId));
+                        degree.id,
+                        degree.title))
+                .where(track.univ.id.eq(univId));
         return query.fetch();
     }
     
@@ -67,15 +67,15 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
                 .innerJoin(rule.track, track)
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(TrackJudgeAllViewDto.class,
-                        univ.univId,
-                        univ.univTitle,
+                        univ.id,
+                        univ.title,
                         univ.univNo,
-                        track.trackId,
-                        track.trackTitle,
+                        track.id,
+                        track.title,
                         track.trackNo,
-                        degree.degreeId,
-                        degree.degreeTitle))
-                .where(track.trackId.eq(trackId));
+                        degree.id,
+                        degree.title))
+                .where(track.id.eq(trackId));
         return query.fetch();
     }
     
@@ -91,16 +91,16 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
                 .innerJoin(rule.track, track)
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(TrackJudgeAllViewDto.class,
-                        univ.univId,
-                        univ.univTitle,
+                        univ.id,
+                        univ.title,
                         univ.univNo,
-                        track.trackId,
-                        track.trackTitle,
+                        track.id,
+                        track.title,
                         track.trackNo,
-                        degree.degreeId,
-                        degree.degreeTitle))
-                .where(track.trackId.eq(trackId)
-                .and(degree.degreeId.eq(degreeId)));
+                        degree.id,
+                        degree.title))
+                .where(track.id.eq(trackId)
+                .and(degree.id.eq(degreeId)));
         return query.fetch();
     }
     
@@ -116,17 +116,17 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
                 .innerJoin(rule.track, track)
                 .innerJoin(track.univ, univ)
                 .select(Projections.constructor(TrackJudgeAllViewDto.class,
-                        univ.univId,
-                        univ.univTitle,
+                        univ.id,
+                        univ.title,
                         univ.univNo,
-                        track.trackId,
-                        track.trackTitle,
+                        track.id,
+                        track.title,
                         track.trackNo,
-                        degree.degreeId,
-                        degree.degreeTitle))
-                .where(track.trackId.eq(trackId)
-                .and(degree.degreeId.eq(degreeId))
-                .and(univ.univId.eq(univId)));
+                        degree.id,
+                        degree.title))
+                .where(track.id.eq(trackId)
+                .and(degree.id.eq(degreeId))
+                .and(univ.id.eq(univId)));
         return query.fetch();
     }
 
@@ -134,20 +134,20 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
     public List<TrackSubjectJoinDto> standardList(Long trackId) {
 
         QTrack track = QTrack.track;
-        QTrackSubject trackSubject = QTrackSubject.trackSubject;
-        QSubject subject = QSubject.subject;
+        QTrackCourse trackCourse = QTrackCourse.trackCourse;
+        QCourse course = QCourse.course;
 
-        JPQLQuery<TrackSubjectJoinDto> query = from(trackSubject)
-                .innerJoin(trackSubject.track, track)
-                .innerJoin(trackSubject.subject, subject)
+        JPQLQuery<TrackSubjectJoinDto> query = from(trackCourse)
+                .innerJoin(trackCourse.track, track)
+                .innerJoin(trackCourse.course, course)
                 .select(Projections.constructor(TrackSubjectJoinDto.class,
-                        subject.id,
-                        subject.courseNum,
-                        subject.courseTitle,
-                        subject.credit,
-                        trackSubject.subjectType,
-                        track.trackId))
-                .where(track.trackId.eq(trackId));
+                        course.id,
+                        course.courseNo,
+                        course.title,
+                        course.credit,
+                        trackCourse.courseType,
+                        track.id))
+                .where(track.id.eq(trackId));
 
         return query.fetch();
     }
