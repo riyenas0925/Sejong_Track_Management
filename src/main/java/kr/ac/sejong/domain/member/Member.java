@@ -1,6 +1,9 @@
 package kr.ac.sejong.domain.member;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -38,11 +41,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<MemberRole> roles;
-
-    public void update(String name, String email){
-        this.email = email;
-        this.name = name;
-    }
 
     public void updatePw(String password){
         this.password = password;

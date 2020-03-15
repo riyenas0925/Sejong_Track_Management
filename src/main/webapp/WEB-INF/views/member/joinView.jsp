@@ -21,7 +21,8 @@
             </div>
         </div>
         <div class="separator separator-bottom separator-skew zindex-100">
-            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                 xmlns="http://www.w3.org/2000/svg">
                 <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
             </svg>
         </div>
@@ -36,7 +37,7 @@
                         <div class="text-center text-muted mb-4">
                             <small>Register a new membership</small>
                         </div>
-                        <form action="/memberJoin" id="joinForm" method="post">
+                        <form>
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
@@ -58,7 +59,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="name" required placeholder="Full name">
+                                    <input type="text" class="form-control" name="name" required
+                                           placeholder="Full name">
                                 </div>
                             </div>
 
@@ -76,7 +78,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="PassWord" type="password" name="password" required>
+                                    <input class="form-control" placeholder="PassWord" type="password" name="password"
+                                           required>
                                 </div>
                             </div>
 
@@ -85,21 +88,24 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input type="password" class="form-control" name="pwRe" required placeholder="Retype password">
+                                    <input type="password" class="form-control" name="pwRe" required
+                                           placeholder="Retype password">
                                 </div>
                                 <div id="pwCheckRes" style="margin-top:10px;"></div>
                             </div>
 
                             <div class="text-center">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button type="submit" class="btn btn-primary my-4">Register</button>
+                                <button type="button" name="registerBtn" class="btn btn-primary my-4">Register</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-12 text-right">
-                        <a href="${path}/loginView" class="text-light"><small>I already have a membership</small></a>
+                        <a href="${path}/loginView" class="text-light">
+                            <small>I already have a membership</small>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -116,7 +122,7 @@
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         var idRes = false;
         var pwRes;
         var IsjButtonClicked = false;
@@ -136,7 +142,7 @@
                 idRes = false;
             } else {
                 $.ajax({
-                    url: '/memberExist',
+                    url: '/api/v1/member/exist',
                     data: {"id": id},
                     dataType: 'text',
                     type: 'POST',
@@ -194,22 +200,44 @@
 
         pwCorrect();
 
-        //submit checking
-        $('#joinForm').submit(function(){
-            if (IsjButtonClicked == false) {
+        //회원가입
+        $('button[name=registerBtn]').on('click', function () {
+            if (IsjButtonClicked == false ) {
                 alert(" 아이디 중복확인을 해주세요 ");
                 return false;
             }
+            else if (IsjButtonClicked && idRes && pwRes) {
+                var target = {
+                    "id": $('input[name=id]').val(),
+                    "name": $('input[name=name]').val(),
+                    "email": $('input[name=email]').val(),
+                    "password": $('input[name=password]').val()
+                };
 
-            else if (IsjButtonClicked && idRes && pwRes){
-                alert(' 회원가입 성공하였습니다 ');
-            }
-
-            else {
-                alert(' 아이디와 비밀번호를 다시 확인하세요 ');
+                $.ajax({
+                    url: "/api/v1/member/join",
+                    type: "POST",
+                    dataType: "text",
+                    data: JSON.stringify(target),
+                    contentType: 'application/json; charset=utf-8',
+                    async: false,
+                    <%--beforeSend: function (xhr) {--%>
+                    <%--xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");--%>
+                    <%--},--%>
+                    success: function (data) {
+                        alert("회원가입 되었습니다! 로그인 해 주세요");
+                        window.location.href = "/loginView";
+                    },
+                    error: function (request, status, error) {
+                        alert(request.responseText);
+                        console.log("code:" + request.status + "\n\n" + "reponseType:" + request.responseType + "\n\n" + "message:" + request.responseText + "\n\n" + "error:" + error);
+                    }
+                });
+            } else {
+                alert('비밀번호를 다시 확인하세요');
                 return false;
             }
-        });
+        })
     });
 </script>
 

@@ -1,4 +1,4 @@
-package kr.ac.sejong.web.dto;
+package kr.ac.sejong.web.dto.member;
 
 import kr.ac.sejong.domain.member.Member;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class MemberPwModifyDto {
+public class MemberModifyPwDto {
 
     private String id;
     private String password;

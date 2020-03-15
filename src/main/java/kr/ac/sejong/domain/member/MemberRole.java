@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "member_role")
 @EqualsAndHashCode(of = "roleId")
+@NoArgsConstructor
 @ToString
 public class MemberRole implements GrantedAuthority, Serializable {
 
@@ -30,8 +30,6 @@ public class MemberRole implements GrantedAuthority, Serializable {
     public String getAuthority() {
         return this.getRoleEnum().toString();
     }
-
-    public MemberRole(){}
 
     @Builder
     public MemberRole(Long roleId, MemberRoleEnum roleEnum, Member member) {

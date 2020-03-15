@@ -1,9 +1,9 @@
 package kr.ac.sejong.config.auth;
 
-import kr.ac.sejong.web.dto.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.member.MemberRepository;
-import kr.ac.sejong.web.dto.MemberPwModifyDto;
+import kr.ac.sejong.web.dto.CustomUserDetails;
+import kr.ac.sejong.web.dto.member.MemberModifyPwDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public String joinMember(Member m) {
+    public String join(Member m) {
         Member member = Member.builder()
                 .id(m.getId())
                 .password(passwordEncoder.encode(m.getPassword())) /*비밀번호 암호화*/
@@ -39,27 +39,29 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Transactional
-    public void modifyMember(String targetId, String targetPw, Member result) throws BadCredentialsException {
+    public void modifyInfo(String targetId, String targetPw, Member result) throws BadCredentialsException {
         Member target = repo.findById(targetId).orElseThrow(() -> new IllegalArgumentException("아이디가 존재하지 않습니다."));
 
         if (!passwordEncoder.matches(targetPw, target.getPassword())) { //raw, bcrypt
-            throw new BadCredentialsException("기존 비밀번호가 일치하지 않습니다.");
+            throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
         } else {
-            target.update(result.getEmail(), result.getName());
+            target = Member.builder()
+                    .name(result.getName())
+                    .email(result.getEmail())
+                    .build();
         }
-
     }
 
     @Transactional
-    public String modifyPw(MemberPwModifyDto dto) {
+    public String modifyPw(MemberModifyPwDto dto) {
         Member target = repo.findById(dto.getId()).orElseThrow(() -> new IllegalArgumentException("아이디가 존재하지 않습니다."));
 
+        log.info("modifyPw 비밀번호가 일치하는가?: " + passwordEncoder.matches(dto.getPassword(), target.getPassword()));
         if (!passwordEncoder.matches(dto.getPassword(), target.getPassword())) { //raw, bcrypt
             throw new BadCredentialsException("기존 비밀번호가 일치하지 않습니다.");
         } else {
             target.updatePw(passwordEncoder.encode(dto.getNewPw()));
         }
-
         return dto.getId();
     }
 

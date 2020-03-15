@@ -1,17 +1,17 @@
 package kr.ac.sejong.web;
 
 import kr.ac.sejong.service.NoticeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.inject.Inject;
-
 @Controller
+@RequiredArgsConstructor
 public class NoticeController {
-    @Inject
-    NoticeService service;
+
+    private final NoticeService service;
 
     @GetMapping("/noticeList")
     public String NoticeListView() {

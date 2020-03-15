@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label class="form-control-label" for="password">기존 비밀번호</label>
-                                <input type="password" class="form-control" name="password" id="password" required
+                                <label class="form-control-label" for="originalPassword">기존 비밀번호</label>
+                                <input type="password" class="form-control" name="originalPassword" id="originalPassword" required
                                        placeholder="original password">
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <input type="hidden" name="id" value="<sec:authentication property='principal.id'/>"/>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="button" name="modifyBtn" class="btn btn-primary" value="modify"/>
+                <input type="button" name="pwModifyBtn" class="btn btn-primary" value="modify"/>
             </div>
             </form>
         </div>
