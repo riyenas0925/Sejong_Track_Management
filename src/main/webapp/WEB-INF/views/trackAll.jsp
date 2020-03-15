@@ -151,20 +151,20 @@
 
         //tbody - course
         function jsonArray(data){
-            var courseNum="";
+            var courseNo="";
             var str="<td>";
 
             $.each(data,function(index){
                 $.each(data[index],function(key,value){
-                    if(key=="courseNum"){
-                        courseNum+="학수번호 : "+ value;
+                    if(key=="courseNo"){
+                        courseNo+="학수번호 : "+ value;
                     }
-                    else if(key=="courseTitle"){
-                        str += '<a class="badge badge-pill badge-secondary" title="'+ courseNum +'">';
-                        str += value +'</a>';
+                    else if(key=="title"){
+                        str += '<a title="'+ courseNo +'"><mark>';
+                        str += value +'</mark></a> &nbsp;&nbsp;';
 
                         //초기화
-                        courseNum = "";
+                        courseNo = "";
                     }
                 });
             });
