@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() //로그인 설정
                 .formLogin() /* 로그인 폼 나오도록 */
                 .loginPage("/loginView") /* 내가 만든 로그인 페이지 */
-                .loginProcessingUrl("/memberLogin")
+                .loginProcessingUrl("/api/v1/member/login")
                 .usernameParameter("id")
                 .passwordParameter("password")
                 .successHandler(loginSuccessHandler) /* 로그인 성공시 핸들러 */

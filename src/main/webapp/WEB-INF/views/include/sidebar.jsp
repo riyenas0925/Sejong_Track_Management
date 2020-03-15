@@ -86,7 +86,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="${path}/api/v1/notice/listView">
+                    <a class="nav-link " href="${path}/noticeList">
                         <i class="ni ni-planet text-blue"></i> 공지사항
                     </a>
                 </li>

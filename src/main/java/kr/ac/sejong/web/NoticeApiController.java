@@ -3,19 +3,20 @@ package kr.ac.sejong.web;
 import kr.ac.sejong.service.NoticeService;
 import kr.ac.sejong.web.dto.NoticeRequestDto;
 import kr.ac.sejong.web.dto.NoticeResponseDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Log
-@RestController
-public class NoticeRestController {
-    @Inject
-    private NoticeService service;
+@RequiredArgsConstructor
+@RestController("/api/v1/*")
+public class NoticeApiController {
 
-    @PostMapping("/api/v1/admin/notice/create")
+    private final NoticeService service;
+
+    @PostMapping("/admin/notice/create")
     public Long create(@RequestBody NoticeRequestDto nrDto) {
         log.info("create()진입");
         return service.saveNotice(nrDto);
@@ -27,14 +28,14 @@ public class NoticeRestController {
         return service.findAllDesc();
     }
 
-    @PostMapping("/api/v1/admin/notice/update/{id}")
+    @PostMapping("/admin/notice/update/{id}")
     public Long update(@PathVariable Long id, @RequestBody NoticeRequestDto nrDto) {
         log.info("update()진입");
 
         return service.updateNotice(id, nrDto);
     }
 
-    @PostMapping("/api/v1/admin/notice/delete/{id}")
+    @PostMapping("/admin/notice/delete/{id}")
     public Long delete(@PathVariable Long id) {
         log.info("delete()진입");
         return service.deleteNotice(id);

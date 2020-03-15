@@ -36,9 +36,9 @@
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-            },
+            <%--beforeSend: function (xhr) {--%>
+                <%--xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");--%>
+            <%--},--%>
             success: function (data) { //리스트 -> json
                 var str = "<tr><th>제목</th><th>날짜</th><th>작성자</th></tr>" + printList(data);
                 $('#noticeList').html(str);
@@ -64,9 +64,9 @@
             dataType: 'json',
             data: JSON.stringify(data),
             async: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-            },
+            <%--beforeSend: function (xhr) {--%>
+                <%--xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");--%>
+            <%--},--%>
             success: function (data) {
                 alert("공지가 등록되었습니다.");
             },

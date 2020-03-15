@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/member/*")
 @RestController
 @RequiredArgsConstructor
-public class MemberRestController {
+public class MemberApiController {
 
     private final CustomUserDetailsService service;
     private final PasswordEncoder pe;

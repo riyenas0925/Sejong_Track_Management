@@ -35,7 +35,7 @@
                         <div class="text-center text-muted mb-4">
                             <small>Sign in to your account</small>
                         </div>
-                        <form role="form" action="/memberLogin" id="form-login" method="post">
+                        <form role="form" action = "/api/v1/member/login" id="form-login" method="post">
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
@@ -60,7 +60,7 @@
                             </div>
                             <div class="text-center">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                                <button type="submit" name="signInBtn" class="btn btn-primary my-4">Sign in</button>
                             </div>
                         </form>
                     </div>
@@ -85,11 +85,42 @@
 <script src="../resources/js/argon-dashboard.min.js?v=1.1.1"></script>
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 <script>
-    window.TrackJS &&
-    TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "argon-dashboard-free"
-    });
+    $(document).ready(function () {
+        //---------------test중(form옵션, 제출버튼 타입 고려)-------------------//
+        <%--var target = {--%>
+            <%--"id": $('input[name=id]').val(),--%>
+            <%--"password":$('input[name=password]').val()--%>
+        <%--};--%>
+
+        <%--$('button[name=signInBtn]').on('click',function(){--%>
+        <%--$.ajax({--%>
+            <%--url: "/api/v1/member/login",--%>
+            <%--type: "POST",--%>
+            <%--dataType: "text",--%>
+            <%--data: JSON.stringify(target),--%>
+            <%--contentType: 'application/json; charset=utf-8',--%>
+            <%--async: false,--%>
+            <%--&lt;%&ndash;beforeSend: function (xhr) {&ndash;%&gt;--%>
+            <%--&lt;%&ndash;xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");&ndash;%&gt;--%>
+            <%--&lt;%&ndash;},&ndash;%&gt;--%>
+            <%--success: function (data) {--%>
+                <%--alert("세상에 ajax 작동!");--%>
+                <%--window.location.href = "/";--%>
+            <%--},--%>
+            <%--error: function (request, status, error) {--%>
+                <%--alert(request.responseText);--%>
+                <%--console.log("code:" + request.status + "\n\n" + "reponseType:" + request.responseType + "\n\n" + "message:" + request.responseText + "\n\n" + "error:" + error);--%>
+            <%--}--%>
+
+        <%--});--%>
+        <%--});--%>
+        //-------------------------------------------------------//
+        window.TrackJS &&
+        TrackJS.install({
+           token: "ee6fab19c5a04ac1a32a645abde4613a",
+          application: "argon-dashboard-free"
+         });
+    })
 </script>
 </body>
 </html>
