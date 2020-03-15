@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles(value = {"develop-h2"})
 @SpringBootTest
 @Log
 @Commit

@@ -9,12 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles(value = {"develop-h2"})
 @SpringBootTest
 @Log
 @Commit
