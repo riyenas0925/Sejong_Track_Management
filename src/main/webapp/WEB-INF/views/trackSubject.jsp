@@ -205,10 +205,10 @@
             $(data).each(
                 function () {
                     id=this.id;
-                    $(this.subjects).each(function(){
+                    $(this.courses).each(function(){
                         str += "<tr>";
-                        str += "    <td>" + this.courseNum + "</td>";
-                        str += "    <th>" + this.courseTitle + "</th>";
+                        str += "    <td>" + this.courseNo + "</td>";
+                        str += "    <th>" + this.title + "</th>";
                         str += "    <td>" + this.completionType + "</td>";
                         str += "    <td>" + this.credit + "</td>";
                         str += "    <td>" + id + "</td>";
