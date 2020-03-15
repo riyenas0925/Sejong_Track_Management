@@ -1,7 +1,7 @@
-package kr.ac.sejong.domain.subject;
+package kr.ac.sejong.domain.course;
 
 import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
-import kr.ac.sejong.domain.tracksubject.TrackSubject;
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,31 +10,31 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "tbl_subject")
-public class Subject {
+@Table(name = "course")
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String courseTitle;
+    private String title;
     private String completionType;  //이수구분
     private String selectedArea;    //선택영역
     private Long credit;
-    private String courseNum;
+    private String courseNo;
 
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
-    List<TrackSubject> trackSubjects;
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    List<TrackCourse> trackCourses;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "courseScheduleId")
     CourseSchedule courseSchedule;
 
     @Builder
-    public Subject(String courseNum, String courseTitle, String completionType, String selectedArea,
-                   Long credit, CourseSchedule courseSchedule) {
-        this.courseNum = courseNum;
-        this.courseTitle = courseTitle;
+    public Course(String courseNo, String title, String completionType, String selectedArea,
+                  Long credit, CourseSchedule courseSchedule) {
+        this.courseNo = courseNo;
+        this.title = title;
         this.completionType = completionType;
         this.selectedArea = selectedArea;
         this.credit = credit;
@@ -43,8 +43,8 @@ public class Subject {
 
     public void update(String courseNum, String courseTitle, String completionType, String selectedArea,
                        Long credit, CourseSchedule courseSchedule) {
-        this.courseNum = courseNum;
-        this.courseTitle = courseTitle;
+        this.courseNo = courseNum;
+        this.title = courseTitle;
         this.completionType = completionType;
         this.selectedArea = selectedArea;
         this.credit = credit;

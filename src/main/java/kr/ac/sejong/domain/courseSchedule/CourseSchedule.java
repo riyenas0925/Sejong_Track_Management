@@ -1,7 +1,7 @@
 package kr.ac.sejong.domain.courseSchedule;
 
 
-import kr.ac.sejong.domain.subject.Subject;
+import kr.ac.sejong.domain.course.Course;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "tbl_course_schedule")
+@Table(name = "course_schedule")
 public class CourseSchedule {
 
     @Id
@@ -23,13 +23,13 @@ public class CourseSchedule {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "courseScheduleId")
-    List<Subject> subjects;
+    List<Course> courses;
 
     @Builder
-    public CourseSchedule(Long id, String name, List<Subject> subjects) {
+    public CourseSchedule(Long id, String name, List<Course> courses) {
         this.id = id;
         this.name = name;
-        this.subjects = subjects;
+        this.courses = courses;
     }
 
     public void update(String name)  {

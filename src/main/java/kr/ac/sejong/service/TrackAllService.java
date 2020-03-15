@@ -1,8 +1,8 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.web.dto.subject.SubjectResponseDto;
-import kr.ac.sejong.web.dto.tracksubject.TrackSubjectDto;
-import kr.ac.sejong.web.dto.tracksubject.TrackSubjectResponseDto;
+import kr.ac.sejong.web.dto.course.CourseResponseDto;
+import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
+import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -20,19 +20,19 @@ public class TrackAllService {
 
     @Transactional
     public Map trackAllStatistic(Long univId){
-        List<TrackSubjectDto> trackSubjects = trackJudgeService.findByUnivId(1L).stream()
-                .map(TrackSubjectResponseDto::toTrackSubjectDto)
+        List<TrackCourseDto> trackSubjects = trackJudgeService.findByUnivId(1L).stream()
+                .map(TrackCourseResponseDto::toTrackSubjectDto)
                 .collect(Collectors.toList());
 
-        Map<String, Map<String, List<SubjectResponseDto>>> trackAllStatistic = trackSubjects.stream()
+        Map<String, Map<String, List<CourseResponseDto>>> trackAllStatistic = trackSubjects.stream()
                 .collect(
                         Collectors.groupingBy(t -> {
-                                    return t.getTrack().getTrackTitle();
+                                    return t.getTrack().getTitle();
                                 },Collectors.groupingBy(l -> {
-                                    return l.getSubjectType().getText();
+                                    return l.getCourseType().getText();
                                 },Collectors.collectingAndThen(Collectors.toList(), p -> {
                                     return p.stream().map(k -> {
-                                        return k.getSubject();
+                                        return k.getCourse();
                                     }).collect(Collectors.toList());
                                 }))
                         )

@@ -6,12 +6,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 
+@NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "tbl_notice")
-@EqualsAndHashCode(of = "id")
-@NoArgsConstructor
-@ToString
+@Table(name = "notice")
 public class Notice {
 
     @Id

@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
@@ -25,6 +26,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles(value = {"develop-h2"})
 @SpringBootTest
 @Log
 @Commit

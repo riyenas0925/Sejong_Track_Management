@@ -3,8 +3,8 @@ package kr.ac.sejong.web;
 import kr.ac.sejong.service.TrackJudgeService;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
 import kr.ac.sejong.domain.trackJudge.TrackStatistic;
-import kr.ac.sejong.web.dto.tracksubject.TrackSubjectDto;
-import kr.ac.sejong.web.dto.tracksubject.TrackSubjectResponseDto;
+import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
+import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +26,8 @@ public class TrackJudgeApiController {
                                                          HttpSession httpSession)throws Exception{
 
         List<ReportCardExcelDto> reportCardSubjects = (List<ReportCardExcelDto>) httpSession.getAttribute("reportCard");
-        List<TrackSubjectDto> standardSubjects = trackJudgeService.findByTrackId(trackId).stream()
-                .map(TrackSubjectResponseDto::toTrackSubjectDto)
+        List<TrackCourseDto> standardSubjects = trackJudgeService.findByTrackId(trackId).stream()
+                .map(TrackCourseResponseDto::toTrackSubjectDto)
                 .collect(Collectors.toList());
 
         return trackJudgeService.trackJudge(reportCardSubjects, standardSubjects);
@@ -41,12 +41,12 @@ public class TrackJudgeApiController {
     }
 
     @GetMapping("track/standard/{trackId}")
-    public List<TrackSubjectResponseDto> standardSubjectsfindByTrackId(@PathVariable("trackId") Long trackId){
+    public List<TrackCourseResponseDto> standardSubjectsfindByTrackId(@PathVariable("trackId") Long trackId){
         return trackJudgeService.findByTrackId(trackId);
     }
 
     @GetMapping("univ/standard/{univId}")
-    public List<TrackSubjectResponseDto> standardSubjectsfindByUnivId(@PathVariable("univId") Long univId){
+    public List<TrackCourseResponseDto> standardSubjectsfindByUnivId(@PathVariable("univId") Long univId){
         return trackJudgeService.findByUnivId(univId);
     }
 }

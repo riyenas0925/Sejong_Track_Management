@@ -8,14 +8,14 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@Table(name = "tbl_rule")
+@Table(name = "rule")
 @ToString(exclude = {"degree", "track"})
 @NoArgsConstructor
 public class Rule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ruleId;
+    private Long id;
 
     private Long basicCredit;
     private Long appliedCredit;
@@ -33,11 +33,11 @@ public class Rule {
 
     @Builder
     public Rule(Track track, Degree degree,
-                Long ruleId, Long basicCredit, Long appliedCredit,
+                Long id, Long basicCredit, Long appliedCredit,
                 Long industryCredit, Long expertCredit, Long commonCredit) {
         this.track = track;
         this.degree = degree;
-        this.ruleId = ruleId;
+        this.id = id;
         this.basicCredit = basicCredit;
         this.appliedCredit = appliedCredit;
         this.industryCredit = industryCredit;

@@ -1,10 +1,10 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.tracksubject.TrackSubjectRepository;
+import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
 import kr.ac.sejong.domain.trackJudge.TrackStatistic;
-import kr.ac.sejong.web.dto.tracksubject.TrackSubjectDto;
-import kr.ac.sejong.web.dto.tracksubject.TrackSubjectResponseDto;
+import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
+import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -18,29 +18,29 @@ import java.util.stream.Collectors;
 @Log
 public class TrackJudgeService {
 
-    private final TrackSubjectRepository trackSubjectRepository;
+    private final TrackCourseRepository trackSubjectRepository;
 
     @Transactional(readOnly = true)
-    public List<TrackSubjectResponseDto> findByTrackId(Long trackId) {
+    public List<TrackCourseResponseDto> findByTrackId(Long trackId) {
         return trackSubjectRepository.findByTrackId(trackId).stream()
-                .map(TrackSubjectResponseDto::new)
+                .map(TrackCourseResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<TrackSubjectResponseDto> findByUnivId(Long univId) {
+    public List<TrackCourseResponseDto> findByUnivId(Long univId) {
         return trackSubjectRepository.findByUnivId(univId).stream()
-                .map(TrackSubjectResponseDto::new)
+                .map(TrackCourseResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public List<TrackStatistic> trackJudge(List<ReportCardExcelDto> reportCardExcelSubjects,
-                                                      List<TrackSubjectDto>...standardSubjects) {
+                                                      List<TrackCourseDto>...standardSubjects) {
 
         List<TrackStatistic> trackStatistics = new ArrayList<>();
 
-        for (List<TrackSubjectDto> standardSubject : standardSubjects) {
+        for (List<TrackCourseDto> standardSubject : standardSubjects) {
             TrackStatistic trackStatistic = new TrackStatistic(reportCardExcelSubjects, standardSubject);
             trackStatistics.add(trackStatistic);
         }

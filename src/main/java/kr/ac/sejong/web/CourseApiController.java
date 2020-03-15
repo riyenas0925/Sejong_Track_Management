@@ -1,7 +1,7 @@
 package kr.ac.sejong.web;
 
-import kr.ac.sejong.service.SubjectService;
-import kr.ac.sejong.web.dto.subject.SubjectResponseDto;
+import kr.ac.sejong.service.CourseService;
+import kr.ac.sejong.web.dto.course.CourseResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,16 +10,16 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/subject/*")
-public class SubjectApiController {
-    private final SubjectService subjectService;
+public class CourseApiController {
+    private final CourseService courseService;
 
     @DeleteMapping(path ="/delete/{id}")
     public void delete(Long id) {
-        subjectService.delete(id);
+        courseService.delete(id);
     }
 
     @GetMapping(path = "/list")
-    public List<SubjectResponseDto> findAll() {
-        return subjectService.findAll();
+    public List<CourseResponseDto> findAll() {
+        return courseService.findAll();
     }
 }

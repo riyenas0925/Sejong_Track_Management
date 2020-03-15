@@ -6,6 +6,7 @@ import lombok.extern.java.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles(value = {"develop-h2"})
 @SpringBootTest
 @Log
 public class DegreeTest {
@@ -39,7 +41,7 @@ public class DegreeTest {
     @Test
     public void createDegree() {
         Degree degree = Degree.builder()
-            .degreeTitle("test1")
+            .title("test1")
             .build();
             
         degreeRepository.save(degree);
@@ -48,8 +50,8 @@ public class DegreeTest {
     @Test
     public void updateDegree() {
         Degree degree = Degree.builder()
-            .degreeId(1L)
-            .degreeTitle("test1")
+            .id(1L)
+            .title("test1")
             .build();
             
         degreeRepository.save(degree);

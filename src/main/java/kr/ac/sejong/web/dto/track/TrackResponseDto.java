@@ -7,13 +7,13 @@ import lombok.ToString;
 @ToString
 @Getter
 public class TrackResponseDto {
-    private Long trackId;
-    private String trackTitle;
+    private Long id;
+    private String title;
     private Long trackNo;
 
     public TrackResponseDto(Track entity) {
-        this.trackId = entity.getTrackId();
-        this.trackTitle = entity.getTrackTitle();
+        this.id = entity.getId();
+        this.title = entity.getTitle();
         this.trackNo = entity.getTrackNo();
     }
 }

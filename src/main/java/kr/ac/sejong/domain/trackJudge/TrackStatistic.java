@@ -1,11 +1,11 @@
 package kr.ac.sejong.domain.trackJudge;
 
-import kr.ac.sejong.domain.subject.Subject;
-import kr.ac.sejong.domain.tracksubject.TrackSubject;
+import kr.ac.sejong.domain.course.Course;
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
-import kr.ac.sejong.web.dto.subject.SubjectRequestDto;
-import kr.ac.sejong.web.dto.trackjudge.SubjectStatisticDto;
-import kr.ac.sejong.web.dto.tracksubject.TrackSubjectDto;
+import kr.ac.sejong.web.dto.course.CourseRequestDto;
+import kr.ac.sejong.web.dto.trackjudge.CourseStatisticDto;
+import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.java.Log;
@@ -18,31 +18,31 @@ import java.util.stream.Collectors;
 @ToString
 @Log
 public class TrackStatistic {
-    private Map<TrackSubject.Type, Map<TrackStatistic.PNP, SubjectStatisticDto>> trackStatistic;
+    private Map<TrackCourse.Type, Map<TrackStatistic.PNP, CourseStatisticDto>> trackStatistic;
 
-    public TrackStatistic(List<ReportCardExcelDto> reportCardExcelSubjects, List<TrackSubjectDto> standardSubjects){
+    public TrackStatistic(List<ReportCardExcelDto> reportCardExcelSubjects, List<TrackCourseDto> standardSubjects){
 
-        List<Subject> reportCardSubjects = reportCardExcelSubjects.stream()
+        List<Course> reportCardCourses = reportCardExcelSubjects.stream()
                 .map(ReportCardExcelDto::toSubjectDto)
-                .map(SubjectRequestDto::toEntity)
+                .map(CourseRequestDto::toEntity)
                 .collect(Collectors.toList());
 
 
-        Map<TrackSubject.Type, Map<TrackStatistic.PNP, SubjectStatisticDto>> classifySubjects = standardSubjects.stream()
+        Map<TrackCourse.Type, Map<TrackStatistic.PNP, CourseStatisticDto>> classifySubjects = standardSubjects.stream()
                 .collect(
-                        Collectors.groupingBy(TrackSubjectDto::getSubjectType,
+                        Collectors.groupingBy(TrackCourseDto::getCourseType,
                                 Collectors.groupingBy(trackSubjectDto -> {
-                                            if(trackSubjectDto.getSubject().toSubjectDto().isContain(reportCardSubjects)){
+                                            if(trackSubjectDto.getCourse().toSubjectDto().isContain(reportCardCourses)){
                                                 return PNP.PASS;
                                             } else {
                                                 return PNP.NON_PASS;
                                             }
                                         }
                                         ,Collectors.collectingAndThen(Collectors.toList(), list -> {
-                                            return new SubjectStatisticDto(
+                                            return new CourseStatisticDto(
                                                     list.stream().collect(Collectors.toList()),
                                                     list.stream().collect(Collectors.summingLong(test -> {
-                                                        return test.getSubject().getCredit();
+                                                        return test.getCourse().getCredit();
                                                     }))
                                             );
                                         })
