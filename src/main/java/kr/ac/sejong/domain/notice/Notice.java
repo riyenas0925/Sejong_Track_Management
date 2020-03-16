@@ -1,10 +1,12 @@
 package kr.ac.sejong.domain.notice;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
@@ -27,25 +29,18 @@ public class Notice {
     private String author;
 
     @CreationTimestamp
-    private Date createdDate = new Date();
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modifiedDate;
+    private LocalDate createdDate;
 
     @Builder
-    public Notice(String title, String content, String author, Date modifiedDate) {
+    public Notice(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
-        this.modifiedDate = modifiedDate;
     }
 
-    public void update(String title, String author, String content){
+    public void update(String title, String author, String content) {
         this.title = title;
         this.author = author;
         this.content = content;
-        this.modifiedDate = new Date();
-
     }
-
 }

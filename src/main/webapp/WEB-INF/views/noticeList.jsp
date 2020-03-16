@@ -31,7 +31,7 @@
 
     function showNoticeList() {
         $.ajax({
-            url: '/notice/list',
+            url: '/api/v1/notice/list',
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -58,7 +58,7 @@
         console.log("data: ", data);
 
         $.ajax({
-            url: '/notice/create',
+            url: '/api/v1/admin/notice/create',
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',

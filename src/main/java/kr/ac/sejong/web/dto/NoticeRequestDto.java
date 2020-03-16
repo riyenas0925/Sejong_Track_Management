@@ -4,8 +4,6 @@ import kr.ac.sejong.domain.notice.Notice;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Getter
 @NoArgsConstructor
 public class NoticeRequestDto {
@@ -19,7 +17,6 @@ public class NoticeRequestDto {
                 .title(title)
                 .content(content)
                 .author(author)
-                .modifiedDate(new Date())
                 .build();
     }
 

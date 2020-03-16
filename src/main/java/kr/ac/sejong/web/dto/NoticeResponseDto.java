@@ -4,7 +4,7 @@ import kr.ac.sejong.domain.notice.Notice;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
@@ -13,7 +13,7 @@ public class NoticeResponseDto {
     private String title;
     private String content;
     private String author;
-    private Date date;
+    private LocalDate date;
 
     public NoticeResponseDto(Notice notice) {
         this.id = notice.getId();

@@ -61,7 +61,7 @@
         console.log("update함수 data: ", data);
 
         $.ajax({
-            url: '/notice/update/' + noticeId,
+            url: '/api/v1/admin/notice/update/' + noticeId,
             type: 'POST',
             data: JSON.stringify(data),
             dataType: 'json',
@@ -89,7 +89,7 @@
         };
 
         $.ajax({
-            url: '/notice/delete/' + noticeId,
+            url: '/api/v1/admin/notice/delete/' + noticeId,
             type: 'POST',
             data: JSON.stringify(data),
             dataType: 'json',
