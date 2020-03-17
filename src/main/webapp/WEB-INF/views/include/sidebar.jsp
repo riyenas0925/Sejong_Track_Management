@@ -81,30 +81,30 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link  active " href="${path}/">
+                    <a class="nav-link side active" id="1" href="${path}/">
                         <i class="ni ni-tv-2 text-primary"></i> Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="${path}/noticeList">
+                    <a class="nav-link side" id="2" href="${path}/notice">
                         <i class="ni ni-planet text-blue"></i> 공지사항
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${path}/modifyView">
+                <li class="nav-item side">
+                    <a class="nav-link" id="3"  href="${path}/modifyView">
                         <i class="ni ni-single-02 text-blue"></i> 내 정보
                     </a>
                 </li>
 
                 <hr class="my-3">
 
-                <li class="nav-item">
-                    <a class="nav-link " href="${path}/trackAll">
+                <li class="nav-item side">
+                    <a class="nav-link " id="4"  href="${path}/trackAll">
                         <i class="ni ni-single-02 text-yellow"></i> 전체 트랙 보기
                     </a>
                 </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="${path}/uploadForm">
+                <li class="nav-item side">
+                        <a class="nav-link" id="5"  href="${path}/uploadForm">
                             <i class="ni ni-bullet-list-67 text-red"></i> 트랙 현황 조회
                         </a>
                 </li>
@@ -116,17 +116,17 @@
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
-                        <a class="nav-link" href="${path}/trackSubject">
+                        <a class="nav-link side" id="6" href="${path}/trackSubject">
                             <i class="ni ni-spaceship"></i> 강의시간표 추가
                         </a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="${path}/trackRule">
+                        <a class="nav-link side" id="7"  href="${path}/trackRule">
                             <i class="ni ni-palette"></i> 트랙 규칙 수정
                         </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${path}/prepare">
+                    <a class="nav-link side" id="8" href="${path}/prepare">
                         <i class="ni ni-ui-04"></i> 트랙 통계
                     </a>
                 </li>

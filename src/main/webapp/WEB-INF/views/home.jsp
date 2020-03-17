@@ -380,3 +380,12 @@
     </div>
 </div>
 <%@ include file="include/setting-f.jsp" %>
+
+<script>
+    sidebar();
+
+    function sidebar(){
+        $('.side').removeClass('active');
+        $('#1').addClass('active');
+    }
+</script>

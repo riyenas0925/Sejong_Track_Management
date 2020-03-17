@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%@ include file="include/setting-h.jsp" %>
+<%@ include file="../include/setting-h.jsp" %>
 <!--sidebar -->
-<%@ include file="include/sidebar.jsp" %>
+<%@ include file="../include/sidebar.jsp" %>
 <div class="main-content" id="top">
     <!--header -->
-    <%@ include file="include/header.jsp" %>
+    <%@ include file="../include/header.jsp" %>
 
     <div class="header pb-7 pt-5 pt-md-7">
         <div class="container-fluid">
@@ -25,6 +25,7 @@
             </div>
         </div>
     </div>
+    <sec:authorize access="hasRole('ADMIN')">
     <div class="container-fluid mt--7">
         <div class="container">
             <div class="card">
@@ -49,7 +50,8 @@
             </div>
         </div>
     </div>
-    <%@ include file="include/setting-f.jsp" %>
+    </sec:authorize>
+    <%@ include file="../include/setting-f.jsp" %>
 
     <script type="text/javascript">
         function noticeUpdate(id){
@@ -71,7 +73,7 @@
                 <%--},--%>
                 success: function (data) {
                     alert("공지가 수정되었습니다.");
-                    window.location.replace("${path}/notice/list");
+                    window.location.replace("${path}/notice");
                 },
                 error: function (request, status, error) {
                     alert("Error! 콘솔로그를 확인하세요");
@@ -81,7 +83,7 @@
         }
 
         function back(){
-            window.location.replace("${path}/notice/list");
+            window.location.replace("${path}/notice");
         }
     </script>
 
@@ -92,6 +94,15 @@
             navBg.addClass('bg-gradient-primary-1');
 
         });
+    </script>
+
+    <script>
+        sidebar();
+
+        function sidebar(){
+            $('.side').removeClass('active');
+            $('#2').addClass('active');
+        }
     </script>
 
     <!-- toastr js 라이브러리 -->
