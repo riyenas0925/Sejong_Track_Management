@@ -265,5 +265,14 @@
 
 </script>
 
+<script>
+    sidebar();
+
+    function sidebar(){
+        $('.side').removeClass('active');
+        $('#6').addClass('active');
+    }
+</script>
+
 <!-- toastr js 라이브러리 -->
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

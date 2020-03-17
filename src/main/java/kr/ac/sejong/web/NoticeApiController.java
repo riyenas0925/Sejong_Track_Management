@@ -29,6 +29,12 @@ public class NoticeApiController {
         return service.findAllDesc();
     }
 
+    @GetMapping("/notice/details/{id}")
+    public NoticeResponseDto findById(@PathVariable Long id) {
+        log.info("findById()진입");
+        return service.findById(id);
+    }
+
     @PostMapping("/admin/notice/update/{id}")
     public Long update(@PathVariable Long id, @RequestBody NoticeRequestDto nrDto) {
         log.info("update()진입");
