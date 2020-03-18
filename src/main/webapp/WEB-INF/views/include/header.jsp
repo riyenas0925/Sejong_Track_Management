@@ -28,7 +28,7 @@
                                 </span>
                         <div class="media-body ml-2 d-none d-lg-block">
                             <sec:authorize access="isAuthenticated()">
-                                <span class="mb-0 text-sm  font-weight-bold"><sec:authentication property="principal.name"></sec:authentication></span>
+                                <span class="mb-0 text-sm  font-weight-bold">${userModel.name}</span>
                             </sec:authorize>
                             <sec:authorize access="isAnonymous()">
                                 <span class="mb-0 text-sm  font-weight-bold">Login</span>
@@ -43,7 +43,7 @@
                             <h6 class="text-overflow m-0">안녕하세요.<br>로그인하세요.</h6>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                            <h6 class="text-overflow m-0">안녕하세요.<br><sec:authentication property="principal.name"/>님!</h6>
+                            <h6 class="text-overflow m-0">안녕하세요.<br>${userModel.name}님!</h6>
                         </sec:authorize>
                     </div>
 
@@ -59,7 +59,7 @@
                     <div class="dropdown-item">
                         <i class="ni ni-user-run"></i>
                         <sec:authorize access="isAuthenticated()">
-                            <span OnClick="location.href='${path}/memberLogout'">Logout</span>
+                            <span OnClick="location.href='${path}/api/v1/member/logout'">Logout</span>
                         </sec:authorize>
                         <sec:authorize access="isAnonymous()">
                             <span OnClick="location.href='${path}/loginView'">Login</span>

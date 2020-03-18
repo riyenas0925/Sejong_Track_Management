@@ -41,9 +41,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
             log.info("AreTheyMatch? : " + passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())); //raw, bcrypt
             if (!passwordEncoder.matches(authToken.getCredentials().toString(), userInfo.getPassword())) {
-                throw new BadCredentialsException("not matching userId or password");
+                throw new BadCredentialsException("not matching userId or password....");
             }
-
         } catch (UsernameNotFoundException e) {
             log.warning("Authentication Provide failed...." + e.getMessage());
             throw e;

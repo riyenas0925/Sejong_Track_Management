@@ -39,7 +39,7 @@
             </div>
             <div class="modal-footer">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <input type="hidden" name="id" value="<sec:authentication property='principal.id'/>"/>
+                <input type="hidden" name="id" value="${userModel.userId}"/>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input type="button" name="pwModifyBtn" class="btn btn-primary" value="modify"/>
             </div>

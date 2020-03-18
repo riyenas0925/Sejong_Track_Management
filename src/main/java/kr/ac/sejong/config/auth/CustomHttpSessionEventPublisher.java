@@ -1,8 +1,8 @@
 package kr.ac.sejong.config.auth;
 
-import kr.ac.sejong.web.dto.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.member.MemberRepository;
+import kr.ac.sejong.web.dto.CustomUserDetails;
 import lombok.extern.java.Log;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
@@ -15,7 +15,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
-import java.util.Date;
 
 /**
  * 세션만료(이벤트)되면 이 리스너로 진입....
@@ -50,9 +49,9 @@ public class CustomHttpSessionEventPublisher extends HttpSessionEventPublisher {
             // authentication
             Authentication auth = sc.getAuthentication();
 
-            String user_id = ((CustomUserDetails) auth.getPrincipal()).getId();
-            Member member = memberRepository.findById(user_id).get();
-            member.updateLogoutdate(new Date());
+            String user_id = ((CustomUserDetails) auth.getPrincipal()).getUserId();
+            Member member = memberRepository.findByUserId(user_id).get();
+            member.updateLogoutTime();
             memberRepository.save(member);
         }
     }

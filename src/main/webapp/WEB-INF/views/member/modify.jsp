@@ -18,7 +18,7 @@
         <div class="container-fluid d-flex align-items-center">
             <div class="row">
                 <div class="col-lg-7 col-md-10">
-                    <h1 class="display-2 text-white">안녕하세요.<br><sec:authentication property="principal.name"/>님!</h1>
+                    <h1 class="display-2 text-white">안녕하세요.<br>${userModel.name}님!</h1>
                     <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with
                         your work and manage your projects or assigned tasks</p>
                 </div>
@@ -40,9 +40,11 @@
                         </div>
                     </div>
                     <div class="card-body pt-0 pt-md-4">
+
+
                         <div class="text-center" style="margin-top:140px;">
                             <h3>
-                                <sec:authentication property="principal.name"/><span class="font-weight-light"></span>
+                                ${userModel.name}<span class="font-weight-light"></span>
                             </h3>
 
                             <div class="h5 font-weight-300">
@@ -80,15 +82,15 @@
 
                     </div>
                     <div class="card-body">
-                        <form id="joinForm" action="/modifyMemberInfo" method="post">
+                        <form id="joinForm">
                             <div class="pl-lg-4">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="id">ID</label>
-                                            <input type="text" id="id"
+                                            <label class="form-control-label" for="userId">ID</label>
+                                            <input type="text" id="userId"
                                                    class="form-control form-control-alternative"
-                                                   value="<sec:authentication property='principal.id'/>" readonly>
+                                                   value="${userModel.userId}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -96,16 +98,16 @@
                                             <label class="form-control-label" for="name">이름</label>
                                             <input type="text" id="name"
                                                    class="form-control form-control-alternative"
-                                                   value="<sec:authentication property='principal.name'/>">
+                                                   value="${userModel.name}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="ex1">학과</label>
-                                            <input type="text" id="ex1" class="form-control form-control-alternative"
-                                                   placeholder="컴퓨터공학과" readonly>
+                                            <label class="form-control-label" for="major">학과</label>
+                                            <input type="text" id="major" class="form-control form-control-alternative"
+                                                   value="${userModel.major}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -122,14 +124,15 @@
                                             <label class="form-control-label" for="email">이메일</label>
                                             <input type="email" id="email"
                                                    class="form-control form-control-alternative"
-                                                   value="<sec:authentication property='principal.email'/>">
+                                                   value="${userModel.email}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="ex">예시1</label>
-                                            <input type="text" id="ex" class="form-control form-control-alternative"
-                                                   placeholder="예시" readonly>
+                                            <label class="form-control-label" for="univ">소속 대학</label>
+                                            <input type="text" id="univ" class="form-control form-control-alternative"
+                                                   value="${userModel.univ}">
+
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +220,7 @@
             } else {
 
                 var target = {
-                    id: $('input[name=id]').val(),
+                    userId: $('input[name=userId]').val(),
                     password: $('input[name=originalPassword]').val(),
                     newPw: $('input[name=newPw]').val()
                 };
@@ -234,8 +237,7 @@
                     <%--},--%>
                     success: function (data) {
                         alert("비밀번호가 변경되었습니다.");
-                        window.location.href = "/memberLogout";
-
+                        window.location.href = "/api/v1/member/logout";
                     },
                     error: function (request, status, error) {
                         alert(request.responseText);
@@ -251,14 +253,16 @@
             }
 
             var target = {
-                id: $('input[id=id]').val(),
+                userId: $('input[id=userId]').val(),
                 password: $('input[id=password]').val(),
                 email: $('input[id=email]').val(),
-                name: $('input[id=name]').val()
+                name: $('input[id=name]').val(),
+                major: $('input[id=major]').val(),
+                univ: $('input[id=univ]').val()
             };
 
             $.ajax({
-                url: "/api/vi/member/modifyInfo",
+                url: "/api/v1/member/modifyInfo",
                 type: "POST",
                 dataType: "text",
                 data: JSON.stringify(target),
@@ -269,8 +273,7 @@
                 <%--},--%>
                 success: function (data) {
                     alert("정보가 수정되었습니다.");
-                    window.location.href = "/memberLogout";
-
+                    window.location.href = "/api/v1/member/logout";
                 },
                 error: function (request, status, error) {
                     alert(request.responseText);
