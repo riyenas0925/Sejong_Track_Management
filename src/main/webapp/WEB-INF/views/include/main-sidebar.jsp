@@ -19,7 +19,7 @@
             <div class="pull-left info">
                 <p>
                     <sec:authorize access="isAuthenticated()">
-                        <sec:authentication property="principal.name"/>
+                        ${userModel.name}
                         &nbsp<a href="/modifyView"><u><small>내정보</small></u></a>
                     </sec:authorize>
                     <sec:authorize access="isAnonymous()">

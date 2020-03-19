@@ -1,8 +1,9 @@
 package kr.ac.sejong.config.auth;
 
-import kr.ac.sejong.web.dto.CustomUserDetails;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.member.MemberRepository;
+import kr.ac.sejong.web.dto.CustomUserDetails;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -14,37 +15,39 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
 
+/**
+ * CustomAuthenticatinoProvider에서 반환한 UsernamePasswordAuthenticationToken가
+ * authentication 자라에 들어감.
+ */
 @Log
+@RequiredArgsConstructor
 @Component("loginSuccessHandler")
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
-    private static int TIME = 30*60; // 30분
+    private static int TIME = 30 * 60; // 30분
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
-    @Inject
-    private MemberRepository memberRepository;
+    private RequestCache requestCache = new HttpSessionRequestCache();          //spring security 제공.
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();  //spring security 제공.
+    private final CustomUserDetailsService customUserDetailsService;
+    private final MemberRepository memberRepository;
 
     @Override /* authentication : 로그인 한 유저 정보 */
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
             throws ServletException, IOException {
 
-        //로그인 실패 후 로그인 성공시 : 실패했을 때 에러가 세션에 남아있게 됨.
-        clearAuthenticationAttributes(request);
+        //세션에서 로그인실패기록 지움 + 유저 정보 넘겨줌
+        resetNewAuthenticationAttributes(request, auth);
 
         //세션 지속시간 설정 : 세션의 기본 객체가 사용될 때마다 세션의 최근 접근 시간은 갱신된다.
         request.getSession().setMaxInactiveInterval(TIME);
 
         //로그인 한 날짜 기록
-        updateLoginDate(auth);
+        updateLoginTime(auth);
 
         //로그인 후 redirect
         resultRedirectStrategy(request, response);
@@ -64,21 +67,32 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     }
 
-    protected void clearAuthenticationAttributes(HttpServletRequest request) {
+    protected void resetNewAuthenticationAttributes(HttpServletRequest request, Authentication auth) {
+
         HttpSession session = request.getSession(false);
-        if (session == null) return;
-        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+
+        //로그인실패기록,메시지 지우기
+        if (session != null) {
+            session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+            session.removeAttribute("loginErrorMsg");
+        }
+
+        //유저 세션 설정
+        CustomUserDetails target = (CustomUserDetails) auth.getPrincipal(); //인자 Authentication으로 가져오기 - loadUser로 가져왔을 때
+        CustomUserDetails result = (CustomUserDetails) customUserDetailsService.loadUserByUserId(target.getUserId());
+        result.updatePasswordInvisible();
+
+        session.setAttribute("userModel", result);
     }
 
-    protected void updateLoginDate(Authentication auth) {
+    protected void updateLoginTime(Authentication auth) {
         /** auth.getName()은 auth의 Principal의 종류를 매칭한 후
          * (이 경우 CustomUserDetails)
          * 그 객체의 name정보를 가져오는 것 */
-        String user_id = ((CustomUserDetails) auth.getPrincipal()).getId();
+        String user_id = ((CustomUserDetails) auth.getPrincipal()).getUserId();
 
-        Member member = memberRepository.findById(user_id).get();
-        member.updateLogindate(new Date());
+        Member member = memberRepository.findByUserId(user_id).get();
+        member.updateLoginTime();
         memberRepository.save(member);
-
     }
 }

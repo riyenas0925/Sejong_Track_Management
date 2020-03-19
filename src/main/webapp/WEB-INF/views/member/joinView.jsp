@@ -43,7 +43,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="ID" name="id" required>
+                                    <input type="text" class="form-control" placeholder="ID" name="userId" required>
                                 </div>
                                 <div style="margin-top:10px;">
                                     <div style="float:left;"><span id="idCheckRes"></span></div>
@@ -134,7 +134,7 @@
 
         //아이디 중복확인 체킹
         function idCheck() {
-            var id = $('input[name=id]').val();
+            var id = $('input[name=userId]').val();
 
             if (id == "") {
                 $('#idCheckRes').css("color", 'red');
@@ -142,8 +142,8 @@
                 idRes = false;
             } else {
                 $.ajax({
-                    url: '/api/v1/member/exist',
-                    data: {"id": id},
+                    url: '/api/v1/member/isExist',
+                    data: {"userId": id},
                     dataType: 'text',
                     type: 'POST',
                     async: false,
@@ -167,7 +167,7 @@
             }
         }
 
-        $('input[name=id]').change(function () {
+        $('input[name=userId]').change(function () {
             idRes = false;
             IsjButtonClicked = false
         });
@@ -208,7 +208,7 @@
             }
             else if (IsjButtonClicked && idRes && pwRes) {
                 var target = {
-                    "id": $('input[name=id]').val(),
+                    "userId": $('input[name=userId]').val(),
                     "name": $('input[name=name]').val(),
                     "email": $('input[name=email]').val(),
                     "password": $('input[name=password]').val()

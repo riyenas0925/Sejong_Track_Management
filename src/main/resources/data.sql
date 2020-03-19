@@ -144,11 +144,11 @@ INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, track
 INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (10, 24,0,0,1,10);
 
 -- Member
-INSERT INTO member(memberId, email, name, password) VALUES ('student','k@h.com', '김학생', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG');
-INSERT INTO member(memberId, email, name, password) VALUES ('pro','k@n', '김교수님', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG');
-INSERT INTO member(memberId, email, name, password) VALUES ('admin','k@g', '김관리자', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG');
+INSERT INTO member(id,userId, email, name, password,major, univ) VALUES (1,'student','k@h.com', '김학생', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG','정치외교학과','소프트웨어융합대학');
+INSERT INTO member(id,userId, email, name, password,major, univ) VALUES (2,'pro','k@n', '김교수', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG','김치배달학과','모르는대학');
+INSERT INTO member(id,userId, email, name, password,major, univ) VALUES (3,'admin','k@g', '김관리자', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG','바둑공학과','예체대학');
 
 -- Member Role
-INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_STUDENT', 'student');
-INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_PRO', 'pro');
-INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_ADMIN', 'admin');
+INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_STUDENT', 1);
+INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_PRO', 2);
+INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_ADMIN', 3);

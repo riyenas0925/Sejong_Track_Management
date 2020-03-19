@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberModifyPwDto {
 
-    private String id;
+    private String userId;
     private String password;
     private String newPw;
 
     public Member toEntity() {
         return Member.builder()
-                .id(id)
+                .userId(userId)
                 .password(password)
                 .build();
     }

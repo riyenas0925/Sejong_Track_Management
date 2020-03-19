@@ -34,7 +34,7 @@
                         <h6 class="text-overflow m-0">안녕하세요.<br>로그인하세요.</h6>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                            <h6 class="text-overflow m-0">안녕하세요.<br><sec:authentication property="principal.name"/>님!</h6>
+                            <h6 class="text-overflow m-0">안녕하세요.<br>${userModel.name}님!</h6>
                         </sec:authorize>
                     </div>
 
@@ -135,7 +135,7 @@
 
                 <li class="nav-item">
                     <sec:authorize access="isAuthenticated()">
-                        <a class="nav-link" style="color:steelblue" href="${path}/memberLogout">로그아웃</a>
+                        <a class="nav-link" style="color:steelblue" href="${path}/api/v1/member/logout">로그아웃</a>
                     </sec:authorize>
                     <sec:authorize access="isAnonymous()">
                         <a class="nav-link" style="color:steelblue" href="${path}/loginView">로그인/회원가입</a>

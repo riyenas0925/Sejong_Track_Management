@@ -2,10 +2,7 @@
 
 package kr.ac.sejong.config;
 
-import kr.ac.sejong.config.auth.CustomAuthenticationProvider;
-import kr.ac.sejong.config.auth.CustomUserDetailsService;
-import kr.ac.sejong.config.auth.CustomLoginSuccessHandler;
-import kr.ac.sejong.config.auth.CustomLogoutSuccessHandler;
+import kr.ac.sejong.config.auth.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.context.annotation.Configuration;
@@ -25,13 +22,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService customUserDetailsService;
     private final CustomAuthenticationProvider customAuthenticationProvider;
     private final CustomLoginSuccessHandler loginSuccessHandler;
+    private final CustomLoginFailureHandler loginFailureHandler;
     private final CustomLogoutSuccessHandler logoutSuccessHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService)
-            .and()
-            .authenticationProvider(customAuthenticationProvider);
+                .and()
+                .authenticationProvider(customAuthenticationProvider);
     }
 
     /* Security 제외 패턴 */
@@ -61,15 +59,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin() /* 로그인 폼 나오도록 */
                 .loginPage("/loginView") /* 내가 만든 로그인 페이지 */
                 .loginProcessingUrl("/api/v1/member/login")
-                .usernameParameter("id")
+                .usernameParameter("userId")
                 .passwordParameter("password")
                 .successHandler(loginSuccessHandler) /* 로그인 성공시 핸들러 */
-                .failureUrl("/loginView") /*로그인 실패시 뷰*/
+                .failureHandler(loginFailureHandler) /*로그인 실패시 뷰*/
                 .permitAll() /* 모두 오픈 */
 
                 .and() //로그아웃 설정
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/memberLogout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/member/logout"))
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)

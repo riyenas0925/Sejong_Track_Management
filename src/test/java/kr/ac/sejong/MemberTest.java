@@ -1,22 +1,31 @@
 package kr.ac.sejong;
 
 import kr.ac.sejong.config.auth.CustomAuthenticationProvider;
+import kr.ac.sejong.config.auth.CustomLoginSuccessHandler;
 import kr.ac.sejong.config.auth.CustomUserDetailsService;
 import kr.ac.sejong.domain.member.*;
+import kr.ac.sejong.web.dto.CustomUserDetails;
 import lombok.extern.java.Log;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +47,10 @@ public class MemberTest {
     private PasswordEncoder passwordEncoder;
 
     @Inject
-    CustomAuthenticationProvider authProvier;
+    private CustomLoginSuccessHandler loginSuccessHandler;
+
+    @Inject
+    CustomAuthenticationProvider authProvider;
 
     @Inject
     CustomUserDetailsService customUserDetailsService;
@@ -66,10 +78,14 @@ public class MemberTest {
 
     @Test
     public void isCreateNewInstanceByBuilder() {
-        Member member = new Member("tiger", "1234", "kim", "k@n");
+        Member member = Member.builder()
+                .userId("tiger")
+                .password("1234")
+                .name("kim")
+                .email("k@n").build();
         Member before = member;
         member = Member.builder()
-                .id("tiger")
+                .userId("tiger")
                 .password("1234")
                 .name("kim")
                 .email("k@n")
@@ -82,7 +98,7 @@ public class MemberTest {
     @Test
     public void isMapped_Member_MemberRole() {
         Member m = Member.builder()
-                .id("tiger")
+                .userId("tiger")
                 .password("1234")
                 .name("kim")
                 .email("k@n")
@@ -127,9 +143,21 @@ public class MemberTest {
         log.info("u: " + u); //u=1로 나옴.
     }
 
-    @Test
-    public void password_Decoding() {
-
-    }
+//    @Test
+//    public void resetNewAuthenticationAttributes_Test(){
+//
+//        HttpSession session = request.getSession(false);
+//
+//        if (session != null) {
+//            session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+//        }
+//
+//        //유저 세션 설정
+//        UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) auth;
+//        log.info("getName()비교.... Authentication: " + auth.getName() + ", authToken: " + authToken.getName());
+//        CustomUserDetails user = (CustomUserDetails) customUserDetailsService.loadUserByUserId(authToken.getName());
+//
+//        session.setAttribute("userModel", user);
+//    }
 
 }

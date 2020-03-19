@@ -41,7 +41,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="ID" type="id" name="id" required>
+                                    <input class="form-control" placeholder="ID" type="id" name="userId" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -52,6 +52,12 @@
                                     <input class="form-control" placeholder="PW" type="password" name="password" required>
                                 </div>
                             </div>
+                            <span style="color: orangered; font-size:13px">
+                                <c:if test="${loginErrorMsg ne ''}">
+                                    ${loginErrorMsg}
+                                    <% session.removeAttribute("loginErrorMsg"); %>
+                                </c:if>
+                            </span>
                             <div class="custom-control custom-control-alternative custom-checkbox">
                                 <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
                                 <label class="custom-control-label" for=" customCheckLogin">
