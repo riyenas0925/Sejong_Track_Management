@@ -56,21 +56,4 @@ public class RuleTest {
     public void deleteRule(){
         ruleRepository.deleteById(2L);
     }
-
-    @Test
-    public void findRules(){
-        log.info(ruleRepository.findRules().toString());
-    }
-
-    @Test
-    public void findByUnivId(){
-        //대학 이름으로 규칙 조회하는 메소드
-        log.info(ruleRepository.findByUnivId(2L).toString());
-    }
-
-    @Test
-    public void findByRuleId(){
-        //ruleId(Primary Key)로 조회하는 메소드
-        log.info("test : " + ruleRepository.findByRuleId(4L, 1L).toString());
-    }
 }

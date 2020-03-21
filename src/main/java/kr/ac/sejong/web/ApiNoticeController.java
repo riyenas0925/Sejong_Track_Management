@@ -1,8 +1,8 @@
 package kr.ac.sejong.web;
 
 import kr.ac.sejong.service.NoticeService;
-import kr.ac.sejong.web.dto.NoticeRequestDto;
-import kr.ac.sejong.web.dto.NoticeResponseDto;
+import kr.ac.sejong.web.dto.notice.NoticeRequestDto;
+import kr.ac.sejong.web.dto.notice.NoticeResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.*;
