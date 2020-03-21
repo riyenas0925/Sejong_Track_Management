@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @Log
 @RequestMapping("/rule/*")
-public class TrackRuleApiController {
+public class ApiTrackRuleController {
 
     @Inject
     private TrackRuleService trackRuleService;

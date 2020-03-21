@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/courseSchedule/*")
-public class CourseScheduleApiController {
+public class ApiCourseScheduleController {
 
     private final CourseScheduleService courseScheduleService;
 

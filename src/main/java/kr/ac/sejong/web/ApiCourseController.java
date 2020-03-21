@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin/subject/*")
-public class CourseApiController {
+public class ApiCourseController {
     private final CourseService courseService;
 
     @DeleteMapping(path ="/delete/{id}")

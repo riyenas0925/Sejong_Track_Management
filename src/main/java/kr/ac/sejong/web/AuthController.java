@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Log
 @Controller
-public class MemberController {
-
+public class AuthController {
     // 회원가입 페이지
     @GetMapping("/joinView")
     public String joinView() {
@@ -23,7 +22,6 @@ public class MemberController {
     // 로그인 페이지
     @GetMapping("/loginView")
     public String loginView() {
-        log.info("loginView called.........");
         return "member/loginView";
     }
 

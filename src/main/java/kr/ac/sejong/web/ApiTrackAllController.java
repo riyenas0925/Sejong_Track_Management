@@ -13,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/trackAll/*")
-public class TrackAllRestController {
+public class ApiTrackAllController {
 
     private final TrackAllService trackAllService;
 

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/trackJudge/*")
-public class TrackJudgeApiController {
+public class ApiTrackJudgeController {
 
     private final TrackCourseRepository trackCourseRepository;
     private final TrackJudgeService trackJudgeService;

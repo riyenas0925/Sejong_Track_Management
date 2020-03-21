@@ -18,27 +18,23 @@ import java.util.List;
 
 @Log
 @Controller
-@RequiredArgsConstructor
 public class TrackJudgeController {
 
-    private final TrackRuleService trackRuleService;
-    private final TrackJudgeService trackJudgeService;
-
     @GetMapping("/uploadForm")
-    public void uploadForm(Model model, HttpSession httpSession) throws Exception{
+    public String uploadForm(Model model, HttpSession httpSession) throws Exception{
         httpSession.removeAttribute("studentExcel");
+
+        return "uploadForm";
     }
 
     @GetMapping("/trackJudge")
-    public void trackJudge(@RequestParam("univId") Long univId,
-                           @RequestParam("trackId") Long trackId)throws Exception{
+    public String trackJudge(@RequestParam("univId") Long univId, @RequestParam("trackId") Long trackId)throws Exception{
+        return "trackJudge";
     }
 
     @PostMapping("/trackJudge")
     public void trackJudge(MultipartFile file, HttpSession httpSession)throws Exception{
         List<ReportCardExcelDto> reportCardSubjects = new ExcelDto(file).toReportCardExcelDtos();
         httpSession.setAttribute("reportCard", reportCardSubjects);
-
-        //httpSession.removeAttribute("resultList");
     }
 }
