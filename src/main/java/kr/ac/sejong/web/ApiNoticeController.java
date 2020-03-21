@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/*")
 @RestController
-public class NoticeApiController {
+public class ApiNoticeController {
 
     private final NoticeService service;
 

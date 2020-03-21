@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/select/*")
-public class SelectRestController {
+public class ApiSelectController {
 
     @Inject
     private SelectListService selectListService;
