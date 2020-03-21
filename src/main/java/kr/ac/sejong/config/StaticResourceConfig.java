@@ -9,6 +9,9 @@ public class StaticResourceConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
         registry.addResourceHandler("/bower_components/**")
                 .addResourceLocations("/resources/bower_components/")
                 .setCachePeriod(20);
