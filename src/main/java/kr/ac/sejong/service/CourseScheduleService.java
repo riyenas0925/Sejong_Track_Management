@@ -2,6 +2,7 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
 import kr.ac.sejong.domain.courseSchedule.CourseScheduleRepository;
+import kr.ac.sejong.web.dto.course.CourseRequestDto;
 import kr.ac.sejong.web.dto.excel.ExcelDto;
 import kr.ac.sejong.web.dto.excel.CourseScheduleExcelDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleRequestDto;
@@ -36,10 +37,14 @@ public class CourseScheduleService {
         CourseScheduleRequestDto courseScheduleRequestDto = CourseScheduleRequestDto.builder()
                 .name(excelDto.getFileName())
                 .courses(
+                        /*
                         excelDto.toCourseScheduleExcelDtos().stream()
-                                .map(CourseScheduleExcelDto::toSubjectDto)
+                                .map(CourseScheduleExcelDto::toCourseEntity)
                                 .distinct()
                                 .collect(Collectors.toList())
+
+                         */
+                        null
                 )
                 .build();
 

@@ -1,6 +1,9 @@
 package kr.ac.sejong;
 
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
+import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.service.TrackJudgeService;
+import kr.ac.sejong.web.dto.course.CourseResponseDto;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.extern.java.Log;
@@ -22,28 +25,26 @@ import java.util.stream.Collectors;
 public class TrackAllTest {
 
     @Autowired
-    private TrackJudgeService trackJudgeService;
+    private TrackCourseRepository trackCourseRepository;
 
     @Test
     public void 트랙_전체_보기() {
-        List<TrackCourseDto> trackSubjects = trackJudgeService.findByUnivId(1L).stream()
-                .map(TrackCourseResponseDto::toTrackSubjectDto)
-                .collect(Collectors.toList());
+        List<TrackCourse> trackCourses = trackCourseRepository.findByUnivId(1L);
 
-        Map test = trackSubjects.stream()
+        Map<String, Map<String, List<CourseResponseDto>>> trackAllStatistic = trackCourses.stream()
                 .collect(
-                        Collectors.groupingBy(t -> {
-                                return t.getTrack().getTitle();
-                            },Collectors.groupingBy(TrackCourseDto::getCourseType,
-                                Collectors.collectingAndThen(Collectors.toList(), p -> {
-                                    return p.stream().map(k -> {
-                                        return k.getCourse();
+                        Collectors.groupingBy(trackCourse -> {
+                                    return trackCourse.getTrack().getTitle();
+                                },Collectors.groupingBy(trackCourse -> {
+                                    return trackCourse.getCourseType().getText();
+                                },Collectors.collectingAndThen(Collectors.toList(), list -> {
+                                    return list.stream().map(trackCourse -> {
+                                        return new CourseResponseDto(trackCourse.getCourse());
                                     }).collect(Collectors.toList());
-                                })
-                            )
+                                }))
                         )
                 );
 
-        log.info(test.toString());
+        log.info(trackAllStatistic.toString());
     }
 }

@@ -1,5 +1,6 @@
 package kr.ac.sejong.web.dto.excel;
 
+import kr.ac.sejong.domain.course.Course;
 import kr.ac.sejong.web.dto.course.CourseRequestDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +40,8 @@ public class CourseScheduleExcelDto {
         this.language = language;
     }
 
-    public CourseRequestDto toSubjectDto() {
-        return new CourseRequestDto().builder()
+    public Course toCourseEntity() {
+        return Course.builder()
                 .courseNo(this.courseNo)
                 .title(this.courseTitle)
                 .credit(this.credit)

@@ -1,14 +1,16 @@
 package kr.ac.sejong;
 
 import kr.ac.sejong.domain.course.Course;
-import kr.ac.sejong.domain.trackJudge.TrackStatistic;
+import kr.ac.sejong.domain.track.Track;
+import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
+import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.service.TrackJudgeService;
+import kr.ac.sejong.web.dto.course.CourseResponseDto;
 import kr.ac.sejong.web.dto.trackjudge.CourseStatisticDto;
 import kr.ac.sejong.web.dto.excel.ExcelDto;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
 import kr.ac.sejong.web.dto.course.CourseRequestDto;
-import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.extern.java.Log;
 import org.junit.Before;
@@ -24,9 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(value = {"develop-h2"})
@@ -37,8 +39,11 @@ public class TrackJudgeTest{
     @Autowired
     private TrackJudgeService trackJudgeService;
 
-    List<ReportCardExcelDto> reportCardExcelSubjects;
-    List<TrackCourseDto> standardSubjects;
+    @Autowired
+    private TrackCourseRepository trackCourseRepository;
+
+    List<Course> transcriptCourses;
+    List<TrackCourse> standardSubjects;
     MultipartFile multipartFile;
 
     @Before
@@ -48,69 +53,70 @@ public class TrackJudgeTest{
 
         multipartFile = new MockMultipartFile(fileName, new FileInputStream(new File(filePath)));
 
-        reportCardExcelSubjects = new ExcelDto(multipartFile).toReportCardExcelDtos();
-        standardSubjects = trackJudgeService.findByTrackId(1L).stream()
-                .map(TrackCourseResponseDto::toTrackSubjectDto)
+        transcriptCourses = new ExcelDto(multipartFile).toReportCardExcelDtos().stream()
+                .map(ReportCardExcelDto::toCourseEntity)
                 .collect(Collectors.toList());
+
+        standardSubjects = trackCourseRepository.findByTrackId(1L);
     }
 
     @Test
     public void 트랙_하나만_판단() {
-        long start = System.currentTimeMillis();
-
-        List<TrackStatistic> trackStatistics = trackJudgeService.trackJudge(reportCardExcelSubjects, standardSubjects);
-
-        long end = System.currentTimeMillis();
-        System.out.println("실행시간 : " + (end - start) / 10000.0 + "초");
-
-        log.info(trackStatistics.toString());
+        List<TrackJudge> trackJudges = trackJudgeService.trackJudge(transcriptCourses, standardSubjects);
+        log.info(trackJudges.toString());
     }
 
     @Test
     public void 트랙_전부_판단() {
-        List<TrackCourseDto>[] test = new List[]{
-                trackJudgeService.findByTrackId(1L).stream()
-                        .map(TrackCourseResponseDto::toTrackSubjectDto)
-                        .collect(Collectors.toList()),
-
-                trackJudgeService.findByTrackId(2L).stream()
-                        .map(TrackCourseResponseDto::toTrackSubjectDto)
-                        .collect(Collectors.toList())
+        List<TrackCourse>[] test = new List[]{
+                trackCourseRepository.findByTrackId(1L),
+                trackCourseRepository.findByTrackId(2L)
         };
 
-        log.info(trackJudgeService.trackJudge(reportCardExcelSubjects, test).toString());
+        log.info(trackJudgeService.trackJudge(transcriptCourses, test).toString());
     }
 
     @Test
     public void 과목_분류_메서드_테스트() {
 
-        List<Course> reportCardCourses = reportCardExcelSubjects.stream()
-                .map(ReportCardExcelDto::toSubjectDto)
-                .map(CourseRequestDto::toEntity)
-                .collect(Collectors.toList());
+        Map<TrackCourse.Type, Long> ruleCredit = new HashMap<>();
+        ruleCredit.put(TrackCourse.Type.APPLIED, 18L);
+        ruleCredit.put(TrackCourse.Type.BASIC, 9L);
 
-
-        Map<TrackCourse.Type, Map<TrackStatistic.PNP, CourseStatisticDto>> classifySubjects = standardSubjects.stream()
+        Map<TrackCourse.Type, Map<TrackJudge.PNP, CourseStatisticDto>> classifyAndJudgeSubjects = standardSubjects.stream()
                 .collect(
-                        Collectors.groupingBy(TrackCourseDto::getCourseType,
-                                Collectors.groupingBy(trackSubjectDto -> {
-                                            if(trackSubjectDto.getCourse().toSubjectDto().isContain(reportCardCourses)){
-                                                return TrackStatistic.PNP.PASS;
+                        Collectors.groupingBy(TrackCourse::getCourseType,
+                                Collectors.groupingBy(trackCourse -> {
+                                            if (trackCourse.getCourse().isContain(transcriptCourses)) {
+                                                return TrackJudge.PNP.PASS;
                                             } else {
-                                                return TrackStatistic.PNP.NON_PASS;
+                                                return TrackJudge.PNP.NON_PASS;
                                             }
-                                        }
-                                        ,Collectors.collectingAndThen(Collectors.toList(), list -> {
+                                        },
+                                        Collectors.collectingAndThen(Collectors.toList(), list -> {
                                             return new CourseStatisticDto(
-                                                    list.stream().collect(Collectors.toList()),
-                                                    list.stream().collect(Collectors.summingLong(test -> {
+                                                    list.stream()
+                                                            .map(TrackCourse::getCourse)
+                                                            .map(CourseResponseDto::new)
+                                                            .collect(Collectors.toList()),
+                                                    list.stream().mapToLong(test -> {
                                                         return test.getCourse().getCredit();
-                                                    }))
+                                                    }).sum(),
+                                                    ruleCredit.get(list.get(1).getCourseType())
                                             );
                                         })
                                 )
-                        ));
+                        )
+        );
 
-        log.info(classifySubjects.toString());
+        log.info(classifyAndJudgeSubjects.toString());
+
+        classifyAndJudgeSubjects.forEach((key1, value1) -> {
+                    value1.computeIfAbsent(TrackJudge.PNP.PASS, k -> new CourseStatisticDto());
+                    value1.computeIfAbsent(TrackJudge.PNP.NON_PASS, k -> new CourseStatisticDto());
+                }
+        );
+
+        log.info(classifyAndJudgeSubjects.toString());
     }
 }

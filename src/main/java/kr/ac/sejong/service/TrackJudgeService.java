@@ -1,9 +1,10 @@
 package kr.ac.sejong.service;
 
+import kr.ac.sejong.domain.course.Course;
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
-import kr.ac.sejong.domain.trackJudge.TrackStatistic;
-import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
+import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -35,16 +36,16 @@ public class TrackJudgeService {
     }
 
     @Transactional
-    public List<TrackStatistic> trackJudge(List<ReportCardExcelDto> reportCardExcelSubjects,
-                                                      List<TrackCourseDto>...standardSubjects) {
+    public List<TrackJudge> trackJudge(List<Course> transcriptTrack,
+                                       List<TrackCourse>...standardTracks) {
 
-        List<TrackStatistic> trackStatistics = new ArrayList<>();
+        List<TrackJudge> trackJudges = new ArrayList<>();
 
-        for (List<TrackCourseDto> standardSubject : standardSubjects) {
-            TrackStatistic trackStatistic = new TrackStatistic(reportCardExcelSubjects, standardSubject);
-            trackStatistics.add(trackStatistic);
+        for (List<TrackCourse> standardTrack : standardTracks) {
+            TrackJudge trackJudge = new TrackJudge(transcriptTrack, standardTrack);
+            trackJudges.add(trackJudge);
         }
 
-        return trackStatistics;
+        return trackJudges;
     }
 }

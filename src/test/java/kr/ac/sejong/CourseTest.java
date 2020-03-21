@@ -74,10 +74,14 @@ public class CourseTest {
         CourseScheduleRequestDto courseScheduleRequestDto = CourseScheduleRequestDto.builder()
                 .name(excelDto.getFileName())
                 .courses(
+                        /*
                         excelDto.toCourseScheduleExcelDtos().stream()
                                 .map(CourseScheduleExcelDto::toSubjectDto)
                                 .distinct()
                                 .collect(Collectors.toList())
+
+                         */
+                        null
                 )
                 .build();
 

@@ -1,5 +1,7 @@
 package kr.ac.sejong.service;
 
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
+import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.web.dto.course.CourseResponseDto;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
@@ -16,23 +18,21 @@ import java.util.stream.Collectors;
 @Service
 @Log
 public class TrackAllService {
-    private final TrackJudgeService trackJudgeService;
+    private final TrackCourseRepository trackCourseRepository;
 
     @Transactional
     public Map trackAllStatistic(Long univId){
-        List<TrackCourseDto> trackSubjects = trackJudgeService.findByUnivId(1L).stream()
-                .map(TrackCourseResponseDto::toTrackSubjectDto)
-                .collect(Collectors.toList());
+        List<TrackCourse> trackCourses = trackCourseRepository.findByUnivId(1L);
 
-        Map<String, Map<String, List<CourseResponseDto>>> trackAllStatistic = trackSubjects.stream()
+        Map<String, Map<String, List<CourseResponseDto>>> trackAllStatistic = trackCourses.stream()
                 .collect(
-                        Collectors.groupingBy(t -> {
-                                    return t.getTrack().getTitle();
-                                },Collectors.groupingBy(l -> {
-                                    return l.getCourseType().getText();
-                                },Collectors.collectingAndThen(Collectors.toList(), p -> {
-                                    return p.stream().map(k -> {
-                                        return k.getCourse();
+                        Collectors.groupingBy(trackCourse -> {
+                                    return trackCourse.getTrack().getTitle();
+                                },Collectors.groupingBy(trackCourse -> {
+                                    return trackCourse.getCourseType().getText();
+                                },Collectors.collectingAndThen(Collectors.toList(), list -> {
+                                    return list.stream().map(trackCourse -> {
+                                        return new CourseResponseDto(trackCourse.getCourse());
                                     }).collect(Collectors.toList());
                                 }))
                         )

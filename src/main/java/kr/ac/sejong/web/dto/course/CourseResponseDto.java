@@ -4,6 +4,8 @@ import kr.ac.sejong.domain.course.Course;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @ToString
 public class CourseResponseDto {
@@ -19,15 +21,5 @@ public class CourseResponseDto {
         this.completionType = entity.getCompletionType();
         this.selectedArea = entity.getSelectedArea();
         this.credit = entity.getCredit();
-    }
-
-    public CourseDto toSubjectDto() {
-        return CourseDto.builder()
-                .courseNo(this.courseNo)
-                .title(this.title)
-                .completionType(this.completionType)
-                .selectedArea(this.selectedArea)
-                .credit(this.credit)
-                .build();
     }
 }
