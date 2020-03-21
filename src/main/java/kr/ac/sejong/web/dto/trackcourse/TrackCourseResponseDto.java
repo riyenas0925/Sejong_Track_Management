@@ -20,13 +20,4 @@ public class TrackCourseResponseDto {
         this.course = new CourseResponseDto(entity.getCourse());
         this.track = new TrackResponseDto(entity.getTrack());
     }
-
-    public TrackCourseDto toTrackSubjectDto() {
-        return TrackCourseDto.builder()
-                .id(this.id)
-                .course(this.course)
-                .courseType(this.courseType)
-                .track(this.track)
-                .build();
-    }
 }

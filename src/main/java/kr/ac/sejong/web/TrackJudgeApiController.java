@@ -1,9 +1,11 @@
 package kr.ac.sejong.web;
 
+import kr.ac.sejong.domain.course.Course;
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
+import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.service.TrackJudgeService;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
-import kr.ac.sejong.domain.trackJudge.TrackStatistic;
-import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
+import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -19,23 +21,28 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/trackJudge/*")
 public class TrackJudgeApiController {
 
+    private final TrackCourseRepository trackCourseRepository;
     private final TrackJudgeService trackJudgeService;
 
     @GetMapping("track/{trackId}")
-    public List<TrackStatistic> trackJudgeOne(@PathVariable("trackId") Long trackId,
-                                                         HttpSession httpSession)throws Exception{
+    public List<TrackJudge> trackJudgeOne(@PathVariable("trackId") Long trackId,
+                                          HttpSession httpSession)throws Exception{
 
         List<ReportCardExcelDto> reportCardSubjects = (List<ReportCardExcelDto>) httpSession.getAttribute("reportCard");
-        List<TrackCourseDto> standardSubjects = trackJudgeService.findByTrackId(trackId).stream()
-                .map(TrackCourseResponseDto::toTrackSubjectDto)
+
+        List<Course> transcriptTrack = reportCardSubjects.stream()
+                .map(ReportCardExcelDto::toCourseEntity)
                 .collect(Collectors.toList());
 
-        return trackJudgeService.trackJudge(reportCardSubjects, standardSubjects);
+        List<TrackCourse> standardSubjects = trackCourseRepository.findByTrackId(trackId);
+
+
+        return trackJudgeService.trackJudge(transcriptTrack, standardSubjects);
     }
 
     @GetMapping("univ/{univId}")
-    public List<TrackStatistic> trackJudgeAll(@PathVariable("univId") Long univId,
-                                              HttpSession httpSession)throws Exception{
+    public List<TrackJudge> trackJudgeAll(@PathVariable("univId") Long univId,
+                                          HttpSession httpSession)throws Exception{
 
         return null;
     }
