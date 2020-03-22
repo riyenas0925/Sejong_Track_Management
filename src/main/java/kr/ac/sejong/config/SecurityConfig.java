@@ -37,7 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("./**")/* 리소스 제한 허용 */
-                .antMatchers("/api/**");
     }
 
     /* 각종 시큐어 패턴등록 */
