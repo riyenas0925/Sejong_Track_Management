@@ -1,6 +1,8 @@
 package kr.ac.sejong.domain.rule;
 
 
-public interface RuleCustomRepository {
+import java.util.List;
 
+public interface RuleCustomRepository {
+    public List<Rule> findByTrackIdAndDegreeId(Long trackId, Long degreeId);
 }

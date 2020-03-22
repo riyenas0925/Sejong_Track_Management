@@ -6,15 +6,23 @@ import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.rule.RuleRepository;
 import kr.ac.sejong.domain.track.TrackRepository;
 import kr.ac.sejong.domain.degree.DegreeRepository;
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import lombok.extern.java.Log;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mapstruct.BeforeMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(value = {"develop-h2"})
@@ -23,37 +31,70 @@ import javax.inject.Inject;
 @Commit
 public class RuleTest {
 
-    @Inject private RuleRepository ruleRepository;
-    @Inject private TrackRepository trackRepository;
-    @Inject private DegreeRepository degreeRepository;
+    @Autowired
+    private RuleRepository ruleRepository;
+
+    @Autowired
+    private TrackRepository trackRepository;
+
+    @Autowired
+    private DegreeRepository degreeRepository;
 
     @Test
     public void createRule(){
-        Long degreeId = 1L;
-        Long trackId = 10L;
-        Long basicCredit = 9999L;
-        Long appliedCredit = 9999L;
-        Long industryCredit = 9999L;
-        Long expertCredit = 9999L;
-        Long commonCredit = 9999L;
+        Track track = trackRepository.getOne(1L);
+        Degree degree = degreeRepository.getOne(1L);
 
-        Track track = trackRepository.getOne(trackId);
-        Degree degree = degreeRepository.getOne(degreeId);
+        List<Rule> rules = Arrays.asList(
+                Rule.builder()
+                        .track(track)
+                        .degree(degree)
+                        .courseType(TrackCourse.Type.APPLIED)
+                        .credit(9L)
+                        .build(),
+                Rule.builder()
+                        .track(track)
+                        .degree(degree)
+                        .courseType(TrackCourse.Type.APPLIED)
+                        .credit(18L)
+                        .build()
+                );
 
-        Rule rule = Rule.createRule(track, degree, 
-                                    basicCredit, appliedCredit,
-                                    industryCredit, expertCredit,commonCredit);
+        ruleRepository.saveAll(rules);
 
-        ruleRepository.save(rule);
+        log.info(ruleRepository.findAll().toString());
     }
-    
-    @Test
-    public void updateRule(){
-        
-    }
 
     @Test
-    public void deleteRule(){
-        ruleRepository.deleteById(2L);
+    public void readRuleByTrack() {
+        Track track = trackRepository.getOne(1L);
+        Degree degree = degreeRepository.getOne(1L);
+
+        List<Rule> rules = Arrays.asList(
+                Rule.builder()
+                        .track(track)
+                        .degree(degree)
+                        .courseType(TrackCourse.Type.BASIC)
+                        .credit(9L)
+                        .build(),
+                Rule.builder()
+                        .track(track)
+                        .degree(degree)
+                        .courseType(TrackCourse.Type.APPLIED)
+                        .credit(18L)
+                        .build()
+        );
+
+        ruleRepository.saveAll(rules);
+
+        List<Rule> ruleList = ruleRepository.findByTrackIdAndDegreeId(1L,1L);
+
+        Map<TrackCourse.Type, Rule> trackRule = new HashMap<>();
+
+        for(Rule rule : ruleList) {
+            trackRule.put(rule.getCourseType(), rule);
+        }
+
+        log.info(trackRule.toString());
     }
 }

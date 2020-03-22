@@ -1,31 +1,44 @@
 package kr.ac.sejong.domain.trackJudge;
 
 import kr.ac.sejong.domain.course.Course;
+import kr.ac.sejong.domain.rule.Rule;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.web.dto.course.CourseResponseDto;
 import kr.ac.sejong.web.dto.trackjudge.CourseStatisticDto;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
 @Getter
 public class TrackJudge {
-    private Map<TrackCourse.Type, Map<TrackJudge.PNP, CourseStatisticDto>> trackStatistic;
+    private List<Course> transcriptCourses;
+    private List<TrackCourse> standardCourses;
+    private Map<TrackCourse.Type, Rule> rule;
 
-    public TrackJudge(List<Course> transcriptTrack, List<TrackCourse> standardTracks){
+    @Builder
+    public TrackJudge(List<Course> transcriptCourses,
+                      List<TrackCourse> standardCourses,
+                      Map<TrackCourse.Type, Rule> rule) {
 
-        Map<TrackCourse.Type, Map<TrackJudge.PNP, CourseStatisticDto>> trackStatistic = standardTracks.stream()
+        this.standardCourses = standardCourses;
+        this.transcriptCourses = transcriptCourses;
+        this.rule = rule;
+    }
+
+    public final Map<TrackCourse.Type, Map<TrackJudge.PNP, CourseStatisticDto>> statistic(){
+        Map<TrackCourse.Type, Map<TrackJudge.PNP, CourseStatisticDto>> trackStatistic = this.standardCourses.stream()
                 .collect(
                         Collectors.groupingBy(TrackCourse::getCourseType,
                                 Collectors.groupingBy(trackSubjectDto -> {
-                                            if(trackSubjectDto.getCourse().isContain(transcriptTrack)){
-                                                return PNP.PASS;
+                                            if(trackSubjectDto.getCourse().isContain(this.transcriptCourses)){
+                                                return TrackJudge.PNP.PASS;
                                             } else {
-                                                return PNP.NON_PASS;
+                                                return TrackJudge.PNP.NON_PASS;
                                             }
                                         }
                                         ,Collectors.collectingAndThen(Collectors.toList(), list -> {
@@ -37,20 +50,20 @@ public class TrackJudge {
                                                     list.stream().mapToLong(test -> {
                                                         return test.getCourse().getCredit();
                                                     }).sum(),
-                                                     10L
+                                                    rule.get(list.get(1).getCourseType()).getCredit()
                                             );
                                         })
                                 )
                         )
                 );
 
-        trackStatistic.forEach((key1, value1) -> {
+        trackStatistic.forEach((key, value) -> {
             for (TrackJudge.PNP pnp : TrackJudge.PNP.values()) {
-                value1.computeIfAbsent(pnp, k -> new CourseStatisticDto());
+                value.computeIfAbsent(pnp, k -> new CourseStatisticDto(new ArrayList<>(Arrays.asList()), 0L, 0L));
             }
         });
 
-        this.trackStatistic = trackStatistic;
+        return trackStatistic;
     }
 
     public enum PNP{
@@ -66,5 +79,4 @@ public class TrackJudge {
         public String getText() {
             return text;
         }
-    }
-}
+    }}
