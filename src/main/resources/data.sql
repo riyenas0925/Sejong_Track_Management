@@ -124,6 +124,16 @@ INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (8, 'APPLIED'
 INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (9, 'APPLIED', 9, 1);
 INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (10, 'APPLIED', 10, 1);
 
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (11, 'BASIC', 11, 2);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (12, 'BASIC', 12, 2);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (13, 'BASIC', 13, 2);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (14, 'APPLIED', 14, 2);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (15, 'APPLIED', 15, 2);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (16, 'APPLIED', 16, 2);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (17, 'APPLIED', 17, 2);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (18, 'APPLIED', 18, 2);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (19, 'APPLIED', 19, 2);
+
 -- Degree
 INSERT INTO degree(id, title) VALUES (1, '학사');
 INSERT INTO degree(id, title) VALUES (2, '석사');
@@ -132,16 +142,12 @@ INSERT INTO degree(id, title) VALUES (4, '학석사');
 INSERT INTO degree(id, title) VALUES (5, '석박사');
 
 -- Rule
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (1, 9,18,0,1,1);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (2, 9,18,0,1,2);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (3, 9,18,0,1,3);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (4, 9,18,0,1,4);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (5, 9,18,0,1,5);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (6, 9,18,0,1,6);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (7, 9,18,0,1,7);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (8, 9,18,0,1,8);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (9, 9,18,0,1,9);
-INSERT INTO rule(id, basicCredit, appliedCredit, industryCredit, degreeId, trackId) VALUES (10, 24,0,0,1,10);
+INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (1, 9, 'BASIC', 1, 1);
+INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (2, 18, 'APPLIED', 1, 1);
+
+INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (3, 9, 'BASIC', 2, 1);
+INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (4, 9, 'APPLIED', 2, 1);
+INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (5, 18, 'EXPERT', 2, 1);
 
 -- Member
 INSERT INTO member(id,userId, email, name, password,major, univ) VALUES (1,'student','k@h.com', '김학생', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG','정치외교학과','소프트웨어융합대학');

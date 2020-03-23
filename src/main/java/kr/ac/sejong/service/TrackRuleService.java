@@ -1,19 +1,33 @@
 package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.rule.Rule;
-import kr.ac.sejong.web.dto.UnivTrackRuleDegreeJoinDto;
+import kr.ac.sejong.domain.rule.RuleRepository;
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public interface TrackRuleService {
+@RequiredArgsConstructor
+@Log
+@Service
+public class TrackRuleService {
+    private final RuleRepository ruleRepository;
 
-    public void save(Rule rule)throws Exception;
+    @Transactional
+    public Map<TrackCourse.Type, Rule> findByTrackIdAndDegreeId (Long TrackId, Long DegreeId) {
+        List<Rule> ruleList = ruleRepository.findByTrackIdAndDegreeId(TrackId, DegreeId);
 
-    public void delete(Long ruleId)throws Exception;
+        Map<TrackCourse.Type, Rule> trackRule = new HashMap<>();
 
-    public List<UnivTrackRuleDegreeJoinDto> findRules() throws Exception;
+        for(Rule rule : ruleList) {
+            trackRule.put(rule.getCourseType(), rule);
+        }
 
-    public List<UnivTrackRuleDegreeJoinDto> findByUnivId(Long univId) throws Exception;
-    
-    public List<UnivTrackRuleDegreeJoinDto> findByRuleId(Long trackId, Long degreeId) throws Exception;
+        return trackRule;
+    }
 }

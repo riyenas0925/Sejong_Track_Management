@@ -1,17 +1,15 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.domain.course.Course;
-import kr.ac.sejong.domain.track.Track;
+import kr.ac.sejong.domain.rule.Rule;
 import kr.ac.sejong.domain.trackJudge.TrackJudge;
+import kr.ac.sejong.domain.course.Course;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
-import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
+import kr.ac.sejong.service.TrackCourseService;
 import kr.ac.sejong.service.TrackJudgeService;
-import kr.ac.sejong.web.dto.course.CourseResponseDto;
-import kr.ac.sejong.web.dto.trackjudge.CourseStatisticDto;
+import kr.ac.sejong.service.TrackRuleService;
 import kr.ac.sejong.web.dto.excel.ExcelDto;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
-import kr.ac.sejong.web.dto.course.CourseRequestDto;
-import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
+import kr.ac.sejong.web.dto.trackjudge.TrackStatisticDto;
 import lombok.extern.java.Log;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,62 +26,84 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(value = {"develop-h2"})
 @SpringBootTest
 @Log
-public class TrackJudgeTest{
+public class TrackJudgeTest {
 
     @Autowired
     private TrackJudgeService trackJudgeService;
-
     @Autowired
-    private TrackCourseRepository trackCourseRepository;
+    private TrackRuleService trackRuleService;
+    @Autowired
+    private TrackCourseService trackCourseService;
+
 
     List<Course> transcriptCourses;
-    List<TrackCourse> standardSubjects;
-    MultipartFile multipartFile;
+    List<TrackCourse> standardCourses;
 
     @Before
     public void befor() throws IOException {
         String fileName = "testCardReport.xls";
         String filePath = "src/test/resources/testCardReport.xls";
 
-        multipartFile = new MockMultipartFile(fileName, new FileInputStream(new File(filePath)));
+        MultipartFile multipartFile = new MockMultipartFile(fileName, new FileInputStream(new File(filePath)));
 
         transcriptCourses = new ExcelDto(multipartFile).toReportCardExcelDtos().stream()
                 .map(ReportCardExcelDto::toCourseEntity)
                 .collect(Collectors.toList());
 
-        standardSubjects = trackCourseRepository.findByTrackId(1L);
+        standardCourses = trackCourseService.findByTrackId(1L);
+    }
+
+    @Test
+    public void TrackJudegeTest1() {
+        TrackJudge trackJudge = TrackJudge.builder()
+                .standardCourses(standardCourses)
+                .transcriptCourses(transcriptCourses)
+                .rule(trackRuleService.findByTrackIdAndDegreeId(1L,1L))
+                .build();
+
+        TrackStatisticDto trackStatistic = new TrackStatisticDto(trackJudge.statistic());
+
+        log.info(trackJudge.statistic().toString());
+        log.info(trackStatistic.toString());
     }
 
     @Test
     public void 트랙_하나만_판단() {
-        List<TrackJudge> trackJudges = trackJudgeService.trackJudge(transcriptCourses, standardSubjects);
-        log.info(trackJudges.toString());
+        Map<TrackCourse.Type, Rule> trackRule = trackRuleService.findByTrackIdAndDegreeId(1L, 1L);
+
+        TrackJudge trackJudge = TrackJudge.builder()
+                .standardCourses(standardCourses)
+                .transcriptCourses(transcriptCourses)
+                .rule(trackRule)
+                .build();
+
+        TrackStatisticDto trackStatistic = new TrackStatisticDto(trackJudge.statistic());
+
+        log.info(trackStatistic.toString());
     }
 
+    /*
     @Test
     public void 트랙_전부_판단() {
-        List<TrackCourse>[] test = new List[]{
-                trackCourseRepository.findByTrackId(1L),
-                trackCourseRepository.findByTrackId(2L)
-        };
+        Map<TrackCourse.Type, Rule> trackRule = trackRuleService.findByTrackIdAndDegreeId(1L, 1L);
+        Map<Track, List<TrackCourse>> test = trackCourseService.findByUnivId(1L);
 
-        log.info(trackJudgeService.trackJudge(transcriptCourses, test).toString());
+        log.info(trackRule.toString());
+        log.info(trackJudgeService.trackJudge(trackRule, transcriptCourses, test).toString());
     }
 
     @Test
     public void 과목_분류_메서드_테스트() {
+        Map<TrackCourse.Type, Rule> trackRule = trackRuleService.findByTrackIdAndDegreeId(1L, 1L);
 
-        Map<TrackCourse.Type, Long> ruleCredit = new HashMap<>();
-        ruleCredit.put(TrackCourse.Type.APPLIED, 18L);
-        ruleCredit.put(TrackCourse.Type.BASIC, 9L);
+        List<TrackCourse> kkk = standardCourses.get(1);
 
-        Map<TrackCourse.Type, Map<TrackJudge.PNP, CourseStatisticDto>> classifyAndJudgeSubjects = standardSubjects.stream()
+        Map<TrackCourse.Type, Map<TrackJudge.PNP, CourseStatisticDto>> classifyAndJudgeSubjects = kkk.stream()
                 .collect(
                         Collectors.groupingBy(TrackCourse::getCourseType,
                                 Collectors.groupingBy(trackCourse -> {
@@ -102,7 +122,7 @@ public class TrackJudgeTest{
                                                     list.stream().mapToLong(test -> {
                                                         return test.getCourse().getCredit();
                                                     }).sum(),
-                                                    ruleCredit.get(list.get(1).getCourseType())
+                                                    trackRule.get(list.get(1).getCourseType()).getCredit()
                                             );
                                         })
                                 )
@@ -119,4 +139,5 @@ public class TrackJudgeTest{
 
         log.info(classifyAndJudgeSubjects.toString());
     }
+     */
 }

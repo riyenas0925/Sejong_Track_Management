@@ -1,5 +1,7 @@
 package kr.ac.sejong;
 
+import kr.ac.sejong.domain.track.Track;
+import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.extern.java.Log;
@@ -12,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
@@ -34,18 +37,16 @@ public class TrackCourseTest {
 
     @Test
     public void 기준과목_TrackId로_검색() {
-        List<TrackCourseResponseDto> subjects = trackSubjectRepository.findByTrackId(1L).stream()
-                .map(TrackCourseResponseDto::new)
-                .collect(Collectors.toList());
+        Map<Track, List<TrackCourse>> subjects = trackSubjectRepository.findByTrackId(1L).stream()
+                .collect(Collectors.groupingBy(TrackCourse::getTrack));
 
         log.info(subjects.toString());
     }
 
     @Test
     public void 기준과목_UnivId로_전체_검색() {
-        List<TrackCourseResponseDto> subjects = trackSubjectRepository.findByUnivId(1L).stream()
-                .map(TrackCourseResponseDto::new)
-                .collect(Collectors.toList());
+        Map<Track, List<TrackCourse>> subjects = trackSubjectRepository.findByUnivId(1L).stream()
+                .collect(Collectors.groupingBy(TrackCourse::getTrack));
 
         log.info(subjects.toString());
     }

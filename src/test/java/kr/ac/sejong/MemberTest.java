@@ -4,28 +4,20 @@ import kr.ac.sejong.config.auth.CustomAuthenticationProvider;
 import kr.ac.sejong.config.auth.CustomLoginSuccessHandler;
 import kr.ac.sejong.config.auth.CustomUserDetailsService;
 import kr.ac.sejong.domain.member.*;
-import kr.ac.sejong.web.dto.CustomUserDetails;
 import lombok.extern.java.Log;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.WebAttributes;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;

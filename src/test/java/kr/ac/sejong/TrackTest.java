@@ -57,32 +57,4 @@ public class TrackTest {
     public void deleteTrack(){
         trackRepository.deleteById(10L);
     }
-
-    @Test
-    @Transactional
-    public void trackList(){
-        trackRepository.findByUnivId(2L).forEach(track -> {
-            log.info(track.toString() + " : " + track.getUniv().toString());
-        });
-    }
-
-    @Test
-    public void standList(){
-        log.info(trackRepository.standardList(1L).toString());
-    }
-    
-    @Test
-    public void findByUnivIdDTO(){
-        log.info(trackRepository.findByUnivIdDTO(12L).toString());
-    }
-    
-    @Test
-    public void findByTrackIdDto() {
-        log.info(trackRepository.findByTrackIdDto(1L).toString());
-    }
-    
-    @Test
-    public void findByTrackIdAndDegreeIdDto(){
-        log.info(trackRepository.findByTrackIdAndDegreeIdDto(11L, 2L).toString());
-    }
 }

@@ -1,4 +1,4 @@
-package kr.ac.sejong.web.dto;
+package kr.ac.sejong.web.dto.notice;
 
 import kr.ac.sejong.domain.notice.Notice;
 import lombok.Getter;
