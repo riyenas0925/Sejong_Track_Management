@@ -40,7 +40,6 @@ public class TrackJudgeTest {
     @Autowired
     private TrackCourseService trackCourseService;
 
-
     List<Course> transcriptCourses;
     List<TrackCourse> standardCourses;
 
