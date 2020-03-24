@@ -16,6 +16,7 @@ public class CourseStatisticDto {
     private List<CourseResponseDto> Courses;
     private Long sumCredit;
     private Long ruleCredit;
+    private Long minSumAndRuleCredit;
     private Double percent;
 
     @Builder
@@ -23,6 +24,12 @@ public class CourseStatisticDto {
         this.Courses = Courses;
         this.sumCredit = sumCredit;
         this.ruleCredit = ruleCredit;
-        this.percent = Double.valueOf(sumCredit) / Double.valueOf(ruleCredit) * 100.0;
+        this.minSumAndRuleCredit = Math.min(sumCredit, ruleCredit);
+
+        if(ruleCredit != 0) {
+            this.percent = Double.valueOf(this.minSumAndRuleCredit) / Double.valueOf(ruleCredit) * 100.0;
+        } else {
+            this.percent = 0.0;
+        }
     }
 }
