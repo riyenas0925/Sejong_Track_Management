@@ -2,7 +2,6 @@ package kr.ac.sejong.web;
 
 import kr.ac.sejong.service.CourseScheduleService;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleResponseDto;
-import kr.ac.sejong.web.dto.courseschedule.CourseScheduleSelectResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +36,5 @@ public class ApiCourseScheduleController {
     @GetMapping("/list/{id}")
     public CourseScheduleResponseDto findById(@PathVariable Long id) {
         return courseScheduleService.findById(id);
-    }
-
-    @GetMapping("/select")
-    public List<CourseScheduleSelectResponseDto> select() {
-        return courseScheduleService.select();
     }
 }

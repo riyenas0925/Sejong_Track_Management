@@ -2,12 +2,9 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
 import kr.ac.sejong.domain.courseSchedule.CourseScheduleRepository;
-import kr.ac.sejong.web.dto.course.CourseRequestDto;
 import kr.ac.sejong.web.dto.excel.ExcelDto;
-import kr.ac.sejong.web.dto.excel.CourseScheduleExcelDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleRequestDto;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleResponseDto;
-import kr.ac.sejong.web.dto.courseschedule.CourseScheduleSelectResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -82,12 +79,5 @@ public class CourseScheduleService {
                 .orElseThrow(() -> new IllegalArgumentException("Exception id = " +id));
 
         return new CourseScheduleResponseDto(courseSchedule);
-    }
-
-    @Transactional(readOnly = true)
-    public List<CourseScheduleSelectResponseDto> select() {
-        return courseScheduleRepository.findAll().stream()
-                .map(CourseScheduleSelectResponseDto::new)
-                .collect(Collectors.toList());
     }
 }

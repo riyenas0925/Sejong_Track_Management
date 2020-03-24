@@ -50,8 +50,6 @@ public class CourseScheduleTest {
         courseScheduleService.saveCourseScheduleWithSubject(multipartFile);
 
         courseScheduleService.delete(2L);
-
-        log.info(courseScheduleService.select().toString());
     }
 
     /*

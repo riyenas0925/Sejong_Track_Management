@@ -1,0 +1,55 @@
+package kr.ac.sejong.service;
+
+import kr.ac.sejong.domain.courseSchedule.CourseScheduleRepository;
+import kr.ac.sejong.domain.degree.DegreeRepository;
+import kr.ac.sejong.domain.track.TrackRepository;
+import kr.ac.sejong.domain.univ.UnivRepository;
+import kr.ac.sejong.web.dto.courseschedule.CourseScheduleSelectResponseDto;
+import kr.ac.sejong.web.dto.degree.DegreeResponseDto;
+import kr.ac.sejong.web.dto.track.TrackResponseDto;
+import kr.ac.sejong.web.dto.univ.UnivResponseDto;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Log
+@RequiredArgsConstructor
+@Service
+public class SelectBoxService {
+    private final UnivRepository univRepository;
+    private final TrackRepository trackRepository;
+    private final DegreeRepository degreeRepository;
+    private final CourseScheduleRepository courseScheduleRepository;
+
+    @Transactional(readOnly = true)
+    public List<CourseScheduleSelectResponseDto> courseSchedule() {
+        return courseScheduleRepository.findAll().stream()
+                .map(CourseScheduleSelectResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<UnivResponseDto> univ() {
+        return univRepository.findAll().stream()
+                .map(UnivResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<TrackResponseDto> track(Long id) {
+        return trackRepository.findById(id).stream()
+                .map(TrackResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<DegreeResponseDto> degree(Long id) {
+        return degreeRepository.findByTrackId(id).stream()
+                .map(DegreeResponseDto::new)
+                .collect(Collectors.toList());
+    }
+}
