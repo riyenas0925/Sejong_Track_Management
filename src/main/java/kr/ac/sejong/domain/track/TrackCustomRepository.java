@@ -1,5 +1,7 @@
 package kr.ac.sejong.domain.track;
 
-public interface TrackCustomRepository {
+import java.util.List;
 
+public interface TrackCustomRepository {
+    List<Track> findByUnivId(Long id);
 }

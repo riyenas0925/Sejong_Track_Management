@@ -2,6 +2,7 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.courseSchedule.CourseScheduleRepository;
 import kr.ac.sejong.domain.degree.DegreeRepository;
+import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.track.TrackRepository;
 import kr.ac.sejong.domain.univ.UnivRepository;
 import kr.ac.sejong.web.dto.courseschedule.CourseScheduleSelectResponseDto;
@@ -41,7 +42,7 @@ public class SelectBoxService {
 
     @Transactional(readOnly = true)
     public List<TrackResponseDto> track(Long id) {
-        return trackRepository.findById(id).stream()
+        return trackRepository.findByUnivId(id).stream()
                 .map(TrackResponseDto::new)
                 .collect(Collectors.toList());
     }
