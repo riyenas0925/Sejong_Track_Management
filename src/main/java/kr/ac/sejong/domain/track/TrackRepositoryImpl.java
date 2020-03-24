@@ -9,4 +9,13 @@ public class TrackRepositoryImpl extends QuerydslRepositorySupport implements Tr
     public TrackRepositoryImpl() {
         super(Track.class);
     }
+
+
+    @Override
+    public List<Track> findByUnivId(Long id) {
+        QTrack track = QTrack.track;
+        return from(track)
+                .where(track.univ.id.eq(id))
+                .fetch();
     }
+}
