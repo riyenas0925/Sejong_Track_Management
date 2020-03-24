@@ -22,4 +22,14 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                 .where(rule.degree.id.eq(degreeId))
                 .fetch();
     }
+
+    @Override
+    public List<Rule> findByUnivIdDistinct(Long univId) {
+        final QRule rule = QRule.rule;
+
+        return from(rule)
+                .where(rule.track.univ.id.eq(univId))
+                .distinct()
+                .fetch();
+    }
 }
