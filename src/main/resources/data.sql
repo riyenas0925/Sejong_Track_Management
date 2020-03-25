@@ -134,6 +134,13 @@ INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (17, 'APPLIED
 INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (18, 'APPLIED', 18, 2);
 INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (19, 'APPLIED', 19, 2);
 
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (20, 'APPLIED', 20, 3);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (21, 'APPLIED', 21, 3);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (22, 'APPLIED', 22, 3);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (23, 'APPLIED', 23, 3);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (24, 'APPLIED', 24, 3);
+INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (25, 'APPLIED', 25, 3);
+
 -- Degree
 INSERT INTO degree(id, title) VALUES (1, '학사');
 INSERT INTO degree(id, title) VALUES (2, '석사');
@@ -146,8 +153,9 @@ INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (1, 9, 'BASIC
 INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (2, 18, 'APPLIED', 1, 1);
 
 INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (3, 9, 'BASIC', 2, 1);
-INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (4, 9, 'APPLIED', 2, 1);
-INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (5, 18, 'EXPERT', 2, 1);
+INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (4, 18, 'APPLIED', 2, 1);
+
+INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (5, 18, 'APPLIED', 3, 1);
 
 -- Member
 INSERT INTO member(id,userId, email, name, password,major, univ) VALUES (1,'student','k@h.com', '김학생', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG','정치외교학과','소프트웨어융합대학');
