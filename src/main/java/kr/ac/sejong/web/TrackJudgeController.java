@@ -21,6 +21,7 @@ import java.util.List;
 public class TrackJudgeController {
     @GetMapping("/uploadForm")
     public String uploadForm(HttpSession httpSession) throws Exception{
+        httpSession.removeAttribute("transcript");
         return "uploadForm";
     }
 

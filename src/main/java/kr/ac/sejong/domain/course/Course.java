@@ -3,6 +3,7 @@ package kr.ac.sejong.domain.course;
 import kr.ac.sejong.domain.courseSchedule.CourseSchedule;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import lombok.*;
+import lombok.extern.java.Log;
 
 import javax.persistence.*;
 import java.util.List;
@@ -62,7 +63,7 @@ public class Course {
         if(this == dto) {
             return true;
         } else {
-            return (this.title.equals(dto.title));
+            return (this.courseNo.equals(dto.courseNo));
         }
     }
 
@@ -70,15 +71,12 @@ public class Course {
     public int hashCode() {
         int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (courseNo != null ? courseNo.hashCode() : 0);
-        result = 31 * result + (credit != null ? credit.hashCode() : 0);
         return result;
     }
 
     public boolean isContain(List<Course> standardCourse) {
-        boolean bool = standardCourse.stream()
-                .filter(subject -> subject.getCourseNo().equals(this.courseNo))
-                .count() != 0;
-
-        return bool;
+        return standardCourse.stream()
+                .filter(subject -> subject.equals(this))
+                .count() != 0 ;
     }
 }

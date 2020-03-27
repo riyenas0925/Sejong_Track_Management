@@ -25,11 +25,6 @@ public class CourseStatisticDto {
         this.sumCredit = sumCredit;
         this.ruleCredit = ruleCredit;
         this.minSumAndRuleCredit = Math.min(sumCredit, ruleCredit);
-
-        if(ruleCredit != 0) {
-            this.percent = Double.valueOf(this.minSumAndRuleCredit) / Double.valueOf(ruleCredit) * 100.0;
-        } else {
-            this.percent = 0.0;
-        }
+        this.percent = ruleCredit != 0 ? Double.valueOf(this.minSumAndRuleCredit) / Double.valueOf(ruleCredit) * 100.0 : 0.0;
     }
 }
