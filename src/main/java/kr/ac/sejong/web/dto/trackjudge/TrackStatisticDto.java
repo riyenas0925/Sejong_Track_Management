@@ -28,30 +28,25 @@ public class TrackStatisticDto {
         Long totalCourseCredit = 0L;
         Long totalRuleCredit = 0L;
 
-        for(TrackCourse.Type key : trackJudge.keySet()){
-            Map<TrackJudge.PNP, CourseStatisticDto> value1 = trackJudge.get(key);
+        for(TrackCourse.Type type : trackJudge.keySet()){
+            Map<TrackJudge.PNP, CourseStatisticDto> courseJudge = trackJudge.get(type);
 
-            for(TrackJudge.PNP key2 : value1.keySet()){
-                CourseStatisticDto value2 = value1.get(key2);
+            for(TrackJudge.PNP pnp : courseJudge.keySet()){
+                CourseStatisticDto courseStatistic = courseJudge.get(pnp);
 
-                if(key2.equals(TrackJudge.PNP.PASS)) {
-                    totalMinSumAndRuleCredit += value2.getMinSumAndRuleCredit();
-                    totalCourseCredit += value2.getSumCredit();
-                    totalRuleCredit += value2.getRuleCredit();
+                if(pnp.equals(TrackJudge.PNP.PASS)) {
+                    totalMinSumAndRuleCredit += courseStatistic.getMinSumAndRuleCredit();
+                    totalCourseCredit += courseStatistic.getSumCredit();
                 }
+
+                totalRuleCredit += courseStatistic.getRuleCredit();
             }
         }
 
         this.trackJudge = trackJudge;
         this.totalCourseCredit = totalCourseCredit;
         this.totalRuleCredit = totalRuleCredit;
-
-        if(totalRuleCredit != 0) {
-            this.percent = Double.valueOf(totalMinSumAndRuleCredit) / Double.valueOf(totalRuleCredit) * 100.0;
-        } else {
-            this.percent = 0.0;
-        }
-
+        this.percent = totalCourseCredit != 0 ? Double.valueOf(totalMinSumAndRuleCredit) / Double.valueOf(totalRuleCredit) * 100.0 : 0.0;
         this.percentColor = PercentColor.percentToColor(this.percent).getHex();
     }
 

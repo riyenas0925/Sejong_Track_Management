@@ -7,13 +7,12 @@ import kr.ac.sejong.web.dto.course.CourseResponseDto;
 import kr.ac.sejong.web.dto.trackjudge.CourseStatisticDto;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.extern.java.Log;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Log
 @Getter
 public class TrackJudge {
     private List<Course> transcriptCourses;
@@ -50,7 +49,7 @@ public class TrackJudge {
                                                     list.stream().mapToLong(test -> {
                                                         return test.getCourse().getCredit();
                                                     }).sum(),
-                                                    rule.get(list.get(1).getCourseType()).getCredit()
+                                                    rule.get(list.get(0).getCourseType()).getCredit()
                                             );
                                         })
                                 )
@@ -59,7 +58,9 @@ public class TrackJudge {
 
         trackStatistic.forEach((key, value) -> {
             for (TrackJudge.PNP pnp : TrackJudge.PNP.values()) {
-                value.computeIfAbsent(pnp, k -> new CourseStatisticDto(new ArrayList<>(Arrays.asList()), 0L, 0L));
+                value.computeIfAbsent(pnp, k -> {
+                    return new CourseStatisticDto(Collections.emptyList(), 0L, 0L);
+                });
             }
         });
 

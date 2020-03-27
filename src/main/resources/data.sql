@@ -72,6 +72,7 @@ INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (48, 3
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (49, 3, '000049', 'UNIX프로그래밍', 1);
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (50, 3, '000050', '임베디드시스템', 1);
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (51, 3, '000051', '멀티미디어프로그래밍', 1);
+
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (52, 3, '000052', '실시간 시뮬레이션 특론', 2);
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (53, 3, '000053', '항법제어 특론', 2);
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (54, 3, '000054', '선형제어론', 2);
@@ -106,40 +107,63 @@ INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (82, 3
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (83, 3, '000083', '산학공동 PBL 2', 2);
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (84, 3, '000084', '산학공동 워크숍', 2);
 INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (85, 3, '000085', '산업체 전문가 특강', 2);
-INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (86, 3, '000086', '산학공동 세미나', 2);
-INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (87, 3, '000087', '산학공동 PBL 1', 2);
-INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (88, 3, '000088', '산학공동 PBL 2', 2);
-INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (89, 3, '000089', '산학공동 워크숍', 2);
-INSERT INTO course (id, credit, courseNo, title, courseScheduleId) VALUES (90, 3, '000090', '산업체 전문가 특강', 2);
 
 -- TrackCourse
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (1, 'BASIC', 1, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (2, 'BASIC', 2, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (3, 'BASIC', 3, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (4, 'APPLIED', 4, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (5, 'APPLIED', 5, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (6, 'APPLIED', 6, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (7, 'APPLIED', 7, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (8, 'APPLIED', 8, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (9, 'APPLIED', 9, 1);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (10, 'APPLIED', 10, 1);
+-- Track - HCI & Visual Computing
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 1, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 2, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 3, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 4, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 5, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 6, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 7, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 8, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 9, 1);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 12, 1);
 
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (11, 'BASIC', 11, 2);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (12, 'BASIC', 12, 2);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (13, 'BASIC', 13, 2);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (14, 'APPLIED', 14, 2);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (15, 'APPLIED', 15, 2);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (16, 'APPLIED', 16, 2);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (17, 'APPLIED', 17, 2);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (18, 'APPLIED', 18, 2);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (19, 'APPLIED', 19, 2);
+-- Track - Multimedia
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 13, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 14, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 15, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 16, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 17, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 18, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 19, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 20, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 21, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 21, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 22, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 23, 2);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 24, 2);
 
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (20, 'APPLIED', 20, 3);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (21, 'APPLIED', 21, 3);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (22, 'APPLIED', 22, 3);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (23, 'APPLIED', 23, 3);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (24, 'APPLIED', 24, 3);
-INSERT INTO track_course(id, courseType, courseId, trackId) VALUES (25, 'APPLIED', 25, 3);
+-- Track - Cyber Defense
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 20, 10);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 21, 10);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 22, 10);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 23, 10);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 24, 10);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 25, 10);
+
+-- Track - Drone System
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 52, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 53, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 54, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 55, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 56, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('BASIC', 57, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 58, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 59, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 60, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('APPLIED', 61, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('EXPERT', 62, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('EXPERT', 63, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('EXPERT', 64, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('EXPERT', 65, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('COMMON', 81, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('COMMON', 82, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('COMMON', 83, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('COMMON', 84, 11);
+INSERT INTO track_course(courseType, courseId, trackId) VALUES ('COMMON', 85, 11);
 
 -- Degree
 INSERT INTO degree(id, title) VALUES (1, '학사');
@@ -149,13 +173,34 @@ INSERT INTO degree(id, title) VALUES (4, '학석사');
 INSERT INTO degree(id, title) VALUES (5, '석박사');
 
 -- Rule
-INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (1, 9, 'BASIC', 1, 1);
-INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (2, 18, 'APPLIED', 1, 1);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'BASIC', 1, 1);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (18, 'APPLIED', 1, 1);
 
-INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (3, 9, 'BASIC', 2, 1);
-INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (4, 18, 'APPLIED', 2, 1);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'BASIC', 2, 1);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (18, 'APPLIED', 2, 1);
 
-INSERT INTO rule(id, credit, courseType, trackId, degreeId) VALUES (5, 18, 'APPLIED', 3, 1);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (18, 'APPLIED', 10, 1);
+
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'BASIC', 11, 2);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'APPLIED', 11, 2);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'EXPERT', 11, 2);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 5);
+
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'BASIC', 11, 3);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'APPLIED', 11, 3);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'EXPERT', 11, 3);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 5);
+
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'BASIC', 11, 4);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'APPLIED', 11, 4);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (8, 'EXPERT', 11, 4);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 5);
+
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'BASIC', 11, 5);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (12, 'APPLIED', 11, 5);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'EXPERT', 11, 5);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 5);
+
 
 -- Member
 INSERT INTO member(id,userId, email, name, password,major, univ) VALUES (1,'student','k@h.com', '김학생', '{bcrypt}$2a$10$aI/58n6pbSK6r0uplO82Pe3QT7xiquclSXQXFrDjz3jD/FvGz3BRG','정치외교학과','소프트웨어융합대학');
