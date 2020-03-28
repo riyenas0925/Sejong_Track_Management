@@ -37,9 +37,8 @@ public class TrackStatisticDto {
                 if(pnp.equals(TrackJudge.PNP.PASS)) {
                     totalMinSumAndRuleCredit += courseStatistic.getMinSumAndRuleCredit();
                     totalCourseCredit += courseStatistic.getSumCredit();
+                    totalRuleCredit += courseStatistic.getRuleCredit();
                 }
-
-                totalRuleCredit += courseStatistic.getRuleCredit();
             }
         }
 
