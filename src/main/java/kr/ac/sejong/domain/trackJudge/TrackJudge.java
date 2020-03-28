@@ -58,8 +58,9 @@ public class TrackJudge {
 
         trackStatistic.forEach((key, value) -> {
             for (TrackJudge.PNP pnp : TrackJudge.PNP.values()) {
+
                 value.computeIfAbsent(pnp, k -> {
-                    return new CourseStatisticDto(Collections.emptyList(), 0L, 0L);
+                    return new CourseStatisticDto(Collections.emptyList(), 0L, rule.get(key).getCredit());
                 });
             }
         });
