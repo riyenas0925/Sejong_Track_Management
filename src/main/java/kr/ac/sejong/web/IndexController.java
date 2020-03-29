@@ -73,4 +73,8 @@ public class IndexController {
     public String trackRule(){
         return "trackRule";
     }
+
+    //Test
+    @RequestMapping("/test")
+    public String test() {return "test";}
 }
