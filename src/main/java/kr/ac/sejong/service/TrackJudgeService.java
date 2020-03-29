@@ -2,9 +2,9 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.course.Course;
 import kr.ac.sejong.domain.rule.Rule;
-import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
+import kr.ac.sejong.web.dto.trackjudge.TrackStatistic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -18,17 +18,16 @@ import java.util.*;
 public class TrackJudgeService {
 
     @Transactional
-    public List<TrackJudge> trackJudge(Map<TrackCourse.Type, Rule> trackRule,
-                                       List<Course> transcriptTrack,
-                                       Map<Track, List<TrackCourse>> standardTracks) {
+    public TrackStatistic trackJudgeOne(Map<TrackCourse.Type, Rule> trackRule,
+                                        List<Course> transcriptCourses,
+                                        List<TrackCourse> standardCourses) {
 
-        List<TrackJudge> trackJudges = new ArrayList<>();
+        TrackJudge trackJudge = TrackJudge.builder()
+                .standardCourses(standardCourses)
+                .transcriptCourses(transcriptCourses)
+                .rule(trackRule)
+                .build();
 
-        standardTracks.forEach((key, value) -> {
-            TrackJudge trackJudge = new TrackJudge(transcriptTrack, value, trackRule);
-            trackJudges.add(trackJudge);
-        });
-
-        return trackJudges;
+        return new TrackStatistic(trackJudge);
     }
 }

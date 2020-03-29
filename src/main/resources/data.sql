@@ -184,17 +184,17 @@ INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (18, 'APPLIED', 1
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'BASIC', 11, 2);
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'APPLIED', 11, 2);
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'EXPERT', 11, 2);
-INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 5);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 2);
 
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'BASIC', 11, 3);
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'APPLIED', 11, 3);
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'EXPERT', 11, 3);
-INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 5);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 3);
 
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'BASIC', 11, 4);
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (9, 'APPLIED', 11, 4);
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (8, 'EXPERT', 11, 4);
-INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 5);
+INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (15, 'COMMON', 11, 4);
 
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (6, 'BASIC', 11, 5);
 INSERT INTO rule(credit, courseType, trackId, degreeId) VALUES (12, 'APPLIED', 11, 5);

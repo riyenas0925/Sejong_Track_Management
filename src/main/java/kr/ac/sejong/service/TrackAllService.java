@@ -8,7 +8,6 @@ import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.web.dto.course.CourseResponseDto;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
 import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
-import kr.ac.sejong.web.dto.trackjudge.CourseStatisticDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;

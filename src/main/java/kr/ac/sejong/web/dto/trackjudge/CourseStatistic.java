@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public class CourseStatisticDto {
+public class CourseStatistic {
     private List<CourseResponseDto> Courses;
     private Long sumCredit;
     private Long ruleCredit;
@@ -20,11 +20,15 @@ public class CourseStatisticDto {
     private Double percent;
 
     @Builder
-    public CourseStatisticDto(List<CourseResponseDto> Courses, Long sumCredit, Long ruleCredit) {
+    public CourseStatistic(List<CourseResponseDto> Courses, Long sumCredit, Long ruleCredit) {
         this.Courses = Courses;
         this.sumCredit = sumCredit;
         this.ruleCredit = ruleCredit;
         this.minSumAndRuleCredit = Math.min(sumCredit, ruleCredit);
-        this.percent = ruleCredit != 0 ? Double.valueOf(this.minSumAndRuleCredit) / Double.valueOf(ruleCredit) * 100.0 : 0.0;
+        this.percent = ruleCredit != 0 ? calcPercent(minSumAndRuleCredit, ruleCredit) : 0.0;
+    }
+
+    public  Double calcPercent(Long numerator, Long denominator) {
+        return Double.valueOf(numerator) / Double.valueOf(denominator) * 100.0;
     }
 }
