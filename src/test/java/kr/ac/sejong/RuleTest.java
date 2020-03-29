@@ -7,6 +7,7 @@ import kr.ac.sejong.domain.rule.RuleRepository;
 import kr.ac.sejong.domain.track.TrackRepository;
 import kr.ac.sejong.domain.degree.DegreeRepository;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
+import kr.ac.sejong.web.dto.degree.DegreeResponseDto;
 import lombok.extern.java.Log;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(value = {"develop-h2"})
@@ -96,5 +99,23 @@ public class RuleTest {
         }
 
         log.info(trackRule.toString());
+    }
+
+    @Test
+    @Transactional
+    public void RuleFindByUnivId (){
+
+        List<Rule> rules = ruleRepository.findByUnivId(2L);
+
+        log.info(rules.toString());
+
+        List<DegreeResponseDto> degrees = rules.stream()
+                .map(Rule::getDegree)
+                .distinct()
+                .map(DegreeResponseDto::new)
+                .collect(Collectors.toList());
+
+        log.info(degrees.toString());
+
     }
 }
