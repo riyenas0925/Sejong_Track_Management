@@ -2,6 +2,8 @@ package kr.ac.sejong.service;
 
 import kr.ac.sejong.domain.courseSchedule.CourseScheduleRepository;
 import kr.ac.sejong.domain.degree.DegreeRepository;
+import kr.ac.sejong.domain.rule.Rule;
+import kr.ac.sejong.domain.rule.RuleRepository;
 import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.track.TrackRepository;
 import kr.ac.sejong.domain.univ.UnivRepository;
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 public class SelectBoxService {
     private final UnivRepository univRepository;
     private final TrackRepository trackRepository;
-    private final DegreeRepository degreeRepository;
+    private final RuleRepository ruleRepository;
     private final CourseScheduleRepository courseScheduleRepository;
 
     @Transactional(readOnly = true)
@@ -49,7 +51,12 @@ public class SelectBoxService {
 
     @Transactional(readOnly = true)
     public List<DegreeResponseDto> degree(Long id) {
-        return degreeRepository.findByTrackId(id).stream()
+
+        List<Rule> rules = ruleRepository.findByTrackId(id);
+
+        return rules.stream()
+                .map(Rule::getDegree)
+                .distinct()
                 .map(DegreeResponseDto::new)
                 .collect(Collectors.toList());
     }

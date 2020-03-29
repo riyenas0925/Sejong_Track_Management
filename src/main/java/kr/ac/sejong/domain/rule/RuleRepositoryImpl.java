@@ -32,4 +32,24 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
                 .distinct()
                 .fetch();
     }
+
+    @Override
+    public List<Rule> findByUnivId(Long univId) {
+        final QRule rule = QRule.rule;
+
+        return from(rule)
+                .where(rule.track.univ.id.eq(univId))
+                .fetch();
+    }
+
+    @Override
+    public List<Rule> findByTrackId(Long trackId) {
+        final QRule rule = QRule.rule;
+
+        return from(rule)
+                .where(rule.track.id.eq(trackId))
+                .fetch();
+    }
+
+
 }

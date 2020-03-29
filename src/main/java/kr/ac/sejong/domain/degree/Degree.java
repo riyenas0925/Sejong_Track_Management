@@ -1,5 +1,6 @@
 package kr.ac.sejong.domain.degree;
 
+import kr.ac.sejong.domain.course.Course;
 import kr.ac.sejong.domain.rule.Rule;
 import lombok.*;
 
@@ -29,5 +30,26 @@ public class Degree {
     public Degree(Long id, String title) {
         this.id = id;
         this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+
+        final Degree dto = (Degree) obj;
+
+        if(this == dto) {
+            return true;
+        } else {
+            return (this.id.equals(dto.id));
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        return result;
     }
 }
