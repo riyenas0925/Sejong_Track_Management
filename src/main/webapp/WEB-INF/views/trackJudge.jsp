@@ -1,53 +1,199 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
 
-<%--head.jsp--%>
-<%@ include file="include/head-color.jsp" %>
-    <%-- Main Header --%>
-    <%@ include file="include/main-header.jsp" %>
+<%@ include file="include/setting-h.jsp" %>
+<!--sidebar -->
+<%@ include file="include/sidebar.jsp" %>
+<div class="main-content">
+    <!--header -->
+    <%@ include file="include/header.jsp" %>
 
-    <%-- Left side column. contains the logo and sidebar --%>
-    <%@ include file="include/main-sidebar.jsp" %>
+    <div class="header bg-gradient-primary pb-3 pt-4 pt-md-8 pl-3">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row">
+                    <h1 class="display-3 text-white" id="resultTitle"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-xl-6 pt-1">
+                <div class="ct-content">
+                    <div class="ct-page-title">
+                        <h1 class="ct-title" style="font-size:15px;">트랙 이수 현황</h1>
+                    </div>
+                </div>
+                <div class="card shadow">
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <tbody>
+                            <tr>
+                                <th class="text-default" id="selectTrackTitle">
+                                    <!-- 트랙 명 -->
+                                </th>
+                                <td id="totalCredit">
+                                    <!-- 학점 -->
+                                </td>
+                                <td  width="45%">
+                                    <span class="progress" style="width:100%;" id="totalPercent">
+                                        <!-- 프로그래스바 -->
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span id="percent">
+                                            <!-- 진척도 -->
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                트랙 현황 조회
+                <div class="row pb-2" id="resultCard">
+                    <!-- 결과 카드 -->
+                </div>
+            </div>
+            <div class="col-xl-6 pt-1">
+                <div class="ct-content">
+                    <div class="ct-page-title">
+                        <h1 class="ct-title" style="font-size:15px;">전체 트랙 진척도</h1>
+                    </div>
+                </div>
+                <div class="card shadow">
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                            <tr id="thead">
+                                <th>트랙 명</th>
+                                <th>진척도</th>
+                                <th width="50%"></th>
+                            </tr>
+                            </thead>
 
-                <small>Sejong univ Track</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="/"><i class="fa fa-dashboard"></i>Sejong Track</a></li>
-                <li class="active">트랙 파일 첨부</li>
-                <li class="active">트랙 현황 조회</li>
-            </ol>
-        </section>
+                            <tbody id="table">
+                            <tr>
+                                <th>멀티미디어</th>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span>70%</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress" style="width:100%;">
+                                        <div class="progress-bar bg-success"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>사물인터넷</th>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span>80%</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress" style="width:100%;">
+                                        <div class="progress-bar bg-info"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>가상현실</th>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span>48%</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress" style="width:100%;">
+                                        <div class="progress-bar bg-warning"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 48%;"></div>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인공지능</th>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span>10%</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress" style="width:100%;">
+                                        <div class="progress-bar bg-danger"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>멀티미디어</th>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span>70%</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress" style="width:100%;">
+                                        <div class="progress-bar bg-success"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>사물인터넷</th>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span>80%</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress" style="width:100%;">
+                                        <div class="progress-bar bg-info"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>가상현실</th>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span>48%</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress" style="width:100%;">
+                                        <div class="progress-bar bg-warning"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 48%;"></div>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인공지능</th>
+                                <td>
+                                    <span class="progress-percentage">
+                                        <span>10%</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="progress" style="width:100%;">
+                                        <div class="progress-bar bg-danger"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
 
-        ${classifySubjects}
-
-        <!-- 선택한 트랙 -->
-        <section class="content">
-            <div id="test"></div>
-            <br>
-            <div id="test2"></div>
-        </section>
+        </div>
+        <!-- footer -->
+        <%@ include file="include/footer.jsp" %>
+    </div>
 </div>
-<%-- /.content-wrapper --%>
-
-<%-- Main Footer --%>
-<%@ include file="include/main-footer.jsp" %>
-
-</div>
-<%-- ./wrapper --%>
-
-</body>
-
+<%@ include file="include/setting-f.jsp" %>
 <script language="JavaScript">
-
     $(document).ready(function () {
         const params = getUrlParams();
 
@@ -67,7 +213,7 @@
 
                 success : function(data){
                     console.log(data);
-                    $("#test").html(JSON.stringify(data));
+                    selectTrack(data);
                 },
             });
         }
@@ -97,7 +243,131 @@
             });
             return params;
         }
-    });
 
+        function selectTrack(data){
+            var univ;
+            var track;
+            var percent;
+            var totalCourseCredit;
+            var totalRuleCredit;
+            var percentColor;
+
+            var progress;
+            var jsonData;
+
+            $.each(data,function(key,value){
+                if(key=="univ"){ //univ name
+                    $.each(value,function(key,value){
+                        if(key=="title"){
+                            univ=value;
+                        }
+                    })
+                }
+
+                else if(key=="track"){ //track name
+                    $.each(value,function(key,value){
+                        if(key=="title"){
+                            track=value;
+                        }
+                    })
+                }
+
+                else if(key=="percent"){
+                    percent=Math.floor(value);
+                }
+
+                else if(key=="totalCourseCredit"){
+                    totalCourseCredit=value;
+                }
+
+                else if(key=="totalRuleCredit"){
+                    totalRuleCredit=value;
+                }
+
+                else if(key=="percentColor"){
+                    percentColor=value;
+                }
+
+                else if(key=="trackClassify"){
+                    jsonData=value;
+                }
+            });
+
+            progress='<div class="progress-bar" role="progressbar"'
+                    +'style="width:'+percent+'%;background-color:'+percentColor+'"></div>';
+
+            $("#resultTitle").html('${userModel.name}님의<br>'+univ+'<br>트랙 현황 조회');
+            $("#selectTrackTitle").html(track);
+            $("#totalCredit").html(totalCourseCredit + ' / ' + totalRuleCredit + ' <small>학점</small>');
+            $("#totalPercent").html(progress);
+            $("#percent").html(percent+"%");
+            printResult(jsonData);
+        }
+
+        function printResult(data) {
+            var str = "";
+            $.each(data,function(key,value){
+                // 조건
+                str+='<div class="col-sm-6 pt-2"><div class="card shadow"><div class="card-header border-0"><div class="row align-item-center">'
+                    +'<div class="col"><p class="mb-0"><i class="ni ni-book-bookmark text-primary"></i> '
+                    + key + '</p></div></div></div>';
+
+                $.each(value,function(key,value){
+                    str +='<div class="table-responsive"><table class="table align-items-center table-flush"><tbody>';
+                    if(key=="PASS"){
+                        $.each(value,function(key,value){
+                            if(key=="courses"){
+                                str += checkCourses(value,1);
+                            }
+                        })
+                    }
+                    else if(key=="NON_PASS"){
+                        $.each(value,function(key,value){
+                            if(key=="courses"){
+                                str += checkCourses(value,0);
+                            }
+                        })
+                    }
+                });
+                str+='</tbody></table></div></div></div>';
+            });
+            $("#resultCard").html(str);
+        }
+
+        function checkCourses(data,i){
+            var color="text-default";
+            var courseNo;
+            var title;
+            var str = "";
+
+            if (i==1){
+                color="text-primary";
+            }
+
+            $.each(data,function(index){
+                $.each(data[index],function(key,value){
+                    if (key=="courseNo"){
+                        courseNo=value;
+                    }
+                    else if(key=="title"){
+                        title=value;
+                    }
+                });
+
+                str += '<tr><th class="'+ color +'"width="70%">'+ title +'</th>'
+                    +  '<td><span class="badge badge-primary">'+ courseNo + '</span></td></tr>';
+            });
+
+            return str;
+        }
+    });
 </script>
-</html>
+
+<script>
+    sidebar();
+
+    function sidebar(){
+        $('.side').removeClass('active');
+        $('#5').addClass('active');
+    }
+</script>
