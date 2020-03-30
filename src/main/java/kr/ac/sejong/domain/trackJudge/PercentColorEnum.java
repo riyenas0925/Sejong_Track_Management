@@ -31,8 +31,8 @@ public enum PercentColorEnum {
 
     public static PercentColorEnum percentToColor(Double percent){
         return Arrays.stream(PercentColorEnum.values())
-                .filter(percentColor -> percentColor.min < Long.valueOf(percent.longValue()))
-                .filter(percentColor -> percentColor.max > Long.valueOf(percent.longValue()))
+                .filter(percentColor -> percentColor.min <= Long.valueOf(percent.longValue()))
+                .filter(percentColor -> percentColor.max >= Long.valueOf(percent.longValue()))
                 .findAny()
                 .orElse(RED);
     }
