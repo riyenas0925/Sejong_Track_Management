@@ -16,7 +16,7 @@ public class AuthController {
     // 내 정보 페이지
     @GetMapping("/modifyView")
     public String modifyView() {
-        return "member/modify";
+        return "member/modifyView";
     }
 
     // 로그인 페이지
@@ -28,12 +28,12 @@ public class AuthController {
     // 중복 로그인 : 선 로그인의 접근
     @GetMapping("/memberExpired")
     public String memberExpired() {
-        return "member/expired";
+        return "member/memberExpired";
     }
 
     // 권한상 접근 거부 페이지
     @GetMapping("/memberDenied")
     public String memberDenied() {
-        return "member/denied";
+        return "member/memberDenied";
     }
 }
