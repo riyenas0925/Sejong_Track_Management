@@ -306,29 +306,43 @@
 
         function printResult(data) {
             var str = "";
+
+            var sumCredit;
+            var ruleCredit;
+
             $.each(data,function(key,value){
                 // 조건
                 str+='<div class="col-sm-6 pt-2"><div class="card shadow"><div class="card-header border-0"><div class="row align-item-center">'
                     +'<div class="col"><p class="mb-0"><i class="ni ni-book-bookmark text-primary"></i> '
-                    + key + '</p></div></div></div>';
+                    + key + '</p></div>';
+                var course ="";
 
                 $.each(value,function(key,value){
-                    str +='<div class="table-responsive"><table class="table align-items-center table-flush"><tbody>';
                     if(key=="PASS"){
                         $.each(value,function(key,value){
                             if(key=="courses"){
-                                str += checkCourses(value,1);
+                                course += checkCourses(value,1);
+                            }
+                            else if(key=='sumCredit'){
+                                sumCredit=value;
+                            }
+                            else if(key=='ruleCredit'){
+                                ruleCredit=value;
                             }
                         })
                     }
                     else if(key=="NON_PASS"){
                         $.each(value,function(key,value){
                             if(key=="courses"){
-                                str += checkCourses(value,0);
+                                course += checkCourses(value,0);
                             }
                         })
                     }
                 });
+
+                str+='<div class="col text-right"><p>'+sumCredit+' / '+ruleCredit+'</p></div>';
+                str+='</div></div><div class="table-responsive"><table class="table align-items-center table-flush"><tbody>';
+                str+=course;
                 str+='</tbody></table></div></div></div>';
             });
             $("#resultCard").html(str);

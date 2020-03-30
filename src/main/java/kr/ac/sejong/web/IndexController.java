@@ -65,7 +65,7 @@ public class IndexController {
     // CourseSchedule
     @GetMapping(path = "/courseSchedule")
     public String trackSubject() {
-        return "trackSubject";
+        return "courseSchedule";
     }
 
     //Track Rule Page
@@ -74,7 +74,4 @@ public class IndexController {
         return "trackRule";
     }
 
-    //Test
-    @RequestMapping("/test")
-    public String test() {return "test";}
 }
