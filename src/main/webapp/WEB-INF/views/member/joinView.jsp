@@ -43,12 +43,15 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="ID" name="userId" required>
+                                    <input type="number" class="form-control" placeholder="학번" name="userId" required>
                                 </div>
                                 <div style="margin-top:10px;">
                                     <div style="float:left;"><span id="idCheckRes"></span></div>
                                     <div style="float:right;">
-                                        <input type="button" id="jButton" class="btn btn-danger btn-sm" value="중복확인">
+                                        <button type="button" id="jButton" class="btn btn-danger btn-sm" data-toggle="modal">
+                                            학생인증
+                                        </button>
+                                        <%@ include file="confirm.jsp" %>
                                     </div>
                                     <br style="clear:both;">
                                 </div>
@@ -128,8 +131,13 @@
         var IsjButtonClicked = false;
 
         $('#jButton').click(function () {
+            $('#idCheckRes').html("");
             IsjButtonClicked = true;
             idCheck();
+        });
+
+        $('#confirmBtn').click(function () {
+            confirm();
         });
 
         //아이디 중복확인 체킹
@@ -150,12 +158,13 @@
 
                     success: function (data) {
                         if (data == "No") {
-                            $('#idCheckRes').css("color", 'green');
-                            $('#idCheckRes').html("사용가능한 아이디입니다.");
-                            idRes = true;
+                            $('#jButton').attr("data-target", '#confirm');
+                            $('#confirmID').attr("value",id);
+                            $('#confirmID').attr("disabled",'true');
                         } else {
+                            $('#jButton').removeAttr('data-target');
                             $('#idCheckRes').css("color", 'red');
-                            $('#idCheckRes').html("이미 존재하는 아이디입니다.");
+                            $('#idCheckRes').html("이미 등록된 학번입니다.");
                             idRes = false;
                         }
                     },
@@ -165,6 +174,48 @@
                     }
                 });
             }
+        }
+
+        function confirm(){
+            var target = {
+                "id": $('#confirmID').val(),
+                "password": $('#confirmPW').val()
+            };
+
+            $.ajax({
+                url: '/api/v1/auth/uis',
+                data: target,
+                type: 'POST',
+
+                success: function (data) {
+                    console.log(data);
+                    alert("인증되었습니다.");
+                    confirmForm(data);
+                    idRes=true;
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("인증에 실패했습니다. 학번과 비밀번호를 확인해주세요.");
+                    $('#idCheckRes').css("color", 'red');
+                    $('#idCheckRes').html("인증 실패");
+                    idRes = false;
+                }
+            });
+
+
+        }
+
+        function confirmForm(data){
+            $('#idCheckRes').css("color", 'green');
+            $('#idCheckRes').html("인증 완료");
+
+            $.each(data,function(key,value){
+                if (key=="name"){
+                    $('input[name=name]').attr('value',value);
+                    $('input[name=name]').attr('disabled','true');
+                    $('input[name=userId]').attr('disabled','true');
+                }
+            });
         }
 
         $('input[name=userId]').change(function () {
