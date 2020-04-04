@@ -1,4 +1,4 @@
-package kr.ac.sejong.service;
+package kr.ac.sejong.config.auth;
 
 import kr.ac.sejong.web.dto.uis.UISLoginRequestDto;
 import kr.ac.sejong.web.dto.uis.UISLoginResponseDto;

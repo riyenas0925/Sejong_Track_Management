@@ -1,6 +1,6 @@
 package kr.ac.sejong.web;
 
-import kr.ac.sejong.service.UISAuthService;
+import kr.ac.sejong.config.auth.UISAuthService;
 import kr.ac.sejong.web.dto.uis.UISLoginRequestDto;
 import kr.ac.sejong.web.dto.uis.UISLoginResponseDto;
 import lombok.RequiredArgsConstructor;
