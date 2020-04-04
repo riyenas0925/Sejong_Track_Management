@@ -1,6 +1,6 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.service.UISAuthService;
+import kr.ac.sejong.config.auth.UISAuthService;
 import kr.ac.sejong.web.dto.uis.UISLoginRequestDto;
 import lombok.extern.java.Log;
 import org.jsoup.Connection;
@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.print.Doc;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
