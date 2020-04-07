@@ -1,5 +1,6 @@
 package kr.ac.sejong.domain.member;
 
+import kr.ac.sejong.domain.trackJudge.JudgeLog.JudgeLog;
 import kr.ac.sejong.web.dto.member.MemberModifyInfoDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,6 +39,9 @@ public class Member {
     private LocalDateTime loginTime;
 
     private LocalDateTime logoutTime;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<JudgeLog> judgeLogs;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<MemberRole> roles;

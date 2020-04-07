@@ -1,5 +1,6 @@
 package kr.ac.sejong.domain.track;
 
+import kr.ac.sejong.domain.trackJudge.JudgeLog.JudgeLog;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.domain.univ.Univ;
 import kr.ac.sejong.domain.rule.Rule;
@@ -30,6 +31,9 @@ public class Track {
 
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
     List<Rule> rules;
+
+    @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
+    List<JudgeLog> judgeLogs;
 
     @Builder
     public Track(Long id, String title, Long trackNo, Univ univ){
