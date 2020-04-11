@@ -22,11 +22,11 @@ public class JudgeLog {
     private TrackJudge.PNP pnp;
 
     @ManyToOne
-    @JoinColumn(name="memberId")
+    @JoinColumn(name="memberId", nullable = false)
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name="trackId")
+    @JoinColumn(name="trackId", nullable = false)
     private Track track;
 
     public void updateAll(Member member, Track track, Double percent, TrackJudge.PNP pnp){
