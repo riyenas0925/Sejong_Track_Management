@@ -211,3 +211,8 @@ INSERT INTO member(id,userId, email, name, password,major, univ) VALUES (3,'admi
 INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_STUDENT', 1);
 INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_PRO', 2);
 INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_ADMIN', 3);
+
+-- JudgeLog
+INSERT INTO judge_log(id, percent, pnp, memberId, trackId) VALUES(1, 44, 0, 1,1);
+INSERT INTO judge_log(id, percent, pnp, memberId, trackId) VALUES(1, 60, 0, 1,2);
+INSERT INTO judge_log(id, percent, pnp, memberId, trackId) VALUES(1, 70, 0, 1,3);

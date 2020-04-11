@@ -2,6 +2,7 @@ package kr.ac.sejong.domain.trackJudge.JudgeLog;
 
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.track.Track;
+import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class JudgeLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double percent;
-    private String pnp;
+    private TrackJudge.PNP pnp;
 
     @ManyToOne
     @JoinColumn(name="memberId")
@@ -28,15 +29,27 @@ public class JudgeLog {
     @JoinColumn(name="trackId")
     private Track track;
 
-    public void updateTrack(Track track){
-        this.track = track;
-    }
-
-    @Builder
-    public JudgeLog(Member member, Track track, Double percent, String pnp){
+    public void updateAll(Member member, Track track, Double percent, TrackJudge.PNP pnp){
         this.member = member;
         this.track = track;
         this.percent = percent;
         this.pnp = pnp;
     }
+
+    public void updateTrack(Track track){
+        this.track = track;
+    }
+
+    public void updateMember(Member member){
+        this.member = member;
+    }
+
+    @Builder
+    public JudgeLog(Member member, Track track, Double percent, TrackJudge.PNP pnp){
+        this.member = member;
+        this.track = track;
+        this.percent = percent;
+        this.pnp = pnp;
+    }
+
 }
