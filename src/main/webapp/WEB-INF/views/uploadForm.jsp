@@ -257,7 +257,6 @@
         });
 
         $('#file').change(function () {
-            var formData = new FormData();
             var file = $(this).prop('files')[0];
 
             if(window.FileReader){
@@ -267,7 +266,11 @@
                 var filename = $(this).val().split('/').pop().split('\\').pop();
             }
 
-            formData.append("file", file);
+            var formData = new FormData();
+            var excel = $(this)[0].files[0];
+
+            formData.append("multipartFile", file);
+
             $.ajax({
                 url: '/trackJudge',
                 data: formData,
@@ -276,27 +279,19 @@
                 contentType: false,
                 type: 'POST',
                 success: function (data) {
-                    if (checkExcelType(file.name)) {
-                        $('#upload-name').html(filename);
-                        $('#filelabel').html('Success!!');
-                        $('#filelabel').removeClass('btn-danger');
-                        $('#filelabel').addClass('btn-success');
-                        submit=1;
-
-                    } else {
-                        $('#upload-name').html(filename);
-                        $('#filelabel').html('File format is invalid');
-                        $('#filelabel').addClass('btn-danger');
-                        submit=0;
-                    }
+                    $('#upload-name').html(filename);
+                    $('#filelabel').html('Success!');
+                    $('#filelabel').removeClass('btn-danger');
+                    $('#filelabel').addClass('btn-success');
+                },
+                error: function (response) {
+                    const error = JSON.parse(response.responseText);
+                    $('#upload-name').html(filename);
+                    $('#filelabel').html(error.message);
+                    $('#filelabel').addClass('btn-danger');
                 }
             })
         });
-
-        function checkExcelType(fileName) {
-            var pattern = /xls|xlsx/i;
-            return fileName.match(pattern);
-        }
     });
 </script>
 
