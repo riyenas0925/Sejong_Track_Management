@@ -26,6 +26,12 @@ public class JudgeLogDto {
                 .build();
     }
 
+    public JudgeLogDto(JudgeLog judgeLog){
+        this.percent = judgeLog.getPercent();
+        this.pnp = judgeLog.getPnp();
+        this.userId = judgeLog.getMember().getUserId();
+        this.trackId = judgeLog.getTrack().getId();
+    }
     @Builder
     public JudgeLogDto(Double percent, TrackJudge.PNP pnp, String userId, Long trackId) {
         this.percent = percent;

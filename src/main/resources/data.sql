@@ -214,5 +214,5 @@ INSERT INTO member_role(role_enum, memberId) VALUES ('ROLE_ADMIN', 3);
 
 -- JudgeLog
 INSERT INTO judge_log(id, percent, pnp, memberId, trackId) VALUES(1, 44, 0, 1,1);
-INSERT INTO judge_log(id, percent, pnp, memberId, trackId) VALUES(1, 60, 0, 1,2);
-INSERT INTO judge_log(id, percent, pnp, memberId, trackId) VALUES(1, 70, 0, 1,3);
+INSERT INTO judge_log(id, percent, pnp, memberId, trackId) VALUES(2, 60, 0, 1,2);
+INSERT INTO judge_log(id, percent, pnp, memberId, trackId) VALUES(3, 70, 0, 1,3);

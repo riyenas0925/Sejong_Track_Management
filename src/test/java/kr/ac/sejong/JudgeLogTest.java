@@ -1,6 +1,5 @@
 package kr.ac.sejong;
 
-import kr.ac.sejong.domain.trackJudge.JudgeLog.JudgeLog;
 import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import kr.ac.sejong.service.JudgeLogService;
 import kr.ac.sejong.web.dto.trackjudge.JudgeLogDto;
@@ -23,7 +22,7 @@ public class JudgeLogTest {
     private JudgeLogService service;
 
     @Test
-    public void 로그_기록_추가(){
+    public void 로그_updateOrInsert() throws Exception {
         JudgeLogDto dto = JudgeLogDto.builder()
                 .percent(70.0)
                 .pnp(TrackJudge.PNP.NON_PASS)
@@ -43,44 +42,44 @@ public class JudgeLogTest {
 
     @Test
     public void 모든_로그_조회() {
-        List<JudgeLog> judgeLogs = null;
+        List<JudgeLogDto> judgeLogDtos = null;
         try {
-            judgeLogs = service.findAllByDesc();
+            judgeLogDtos = service.findAllByDesc();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (JudgeLog judgeLog : judgeLogs) {
-            log.info("id: " + judgeLog.getId() + " member: " + judgeLog.getMember().getName()
-                    + " track: " + judgeLog.getTrack().getTitle());
+        for (JudgeLogDto dto : judgeLogDtos) {
+            log.info("member: " + dto.getUserId()
+                    + " track: " + dto.getTrackId());
         }
     }
 
     @Test
     public void 멤버에_의한_조회() {
-        List<JudgeLog> judgeLogs = null;
+        List<JudgeLogDto> judgeLogDtos = null;
         try {
-            judgeLogs = service.findByMember("student");
+            judgeLogDtos = service.findByMember("student");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (JudgeLog judgeLog : judgeLogs) {
-            log.info("id: " + judgeLog.getId() + " member: " + judgeLog.getMember().getName()
-                    + " track: " + judgeLog.getTrack().getTitle());
+        for (JudgeLogDto dto : judgeLogDtos) {
+            log.info("member: " + dto.getUserId()
+                    + " track: " + dto.getTrackId());
         }
     }
 
     @Test
-    public void 트랙에_의한_조회() {
-        List<JudgeLog> judgeLogs = null;
+    public void 트랙에_의한_조회() throws Exception {
+        List<JudgeLogDto> judgeLogDtos = null;
         try {
-            judgeLogs = service.findByTrack(1L);
+            judgeLogDtos = service.findByTrack(1L);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (JudgeLog judgeLog : judgeLogs) {
-        log.info("id: " + judgeLog.getId() + " member: " + judgeLog.getMember().getName()
-        + " track: " + judgeLog.getTrack().getTitle());
+        for (JudgeLogDto dto : judgeLogDtos) {
+            log.info("member: " + dto.getUserId()
+                    + " track: " + dto.getTrackId());
         }
-        }
+    }
 
-        }
+}

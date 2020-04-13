@@ -40,7 +40,7 @@ public class ApiTrackJudgeController {
     public TrackStatistic trackJudgeOne(@RequestParam("univId") Long univId,
                                         @RequestParam("trackId") Long trackId,
                                         @RequestParam("degreeId") Long degreeId,
-                                        HttpSession httpSession) {
+                                        HttpSession httpSession) throws Exception{
         CustomUserDetails userModel = (CustomUserDetails) httpSession.getAttribute("userModel");
 
         /** 판정 **/
