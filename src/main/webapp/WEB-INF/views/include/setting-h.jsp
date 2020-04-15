@@ -27,7 +27,7 @@
     <link href="../resources/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
     <link href="../resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- CSS Files -->
-    <link href="../resources/css/argon-dashboard.css?v=1.1.1" rel="stylesheet" />
+    <link href="http://d2yq4mgd7yd6ui.cloudfront.net/css/argon-dashboard.css?v=1.1.1" rel="stylesheet" />
 
     <style>
         .wrap-loading{ /*화면 전체를 어둡게 합니다.*/
