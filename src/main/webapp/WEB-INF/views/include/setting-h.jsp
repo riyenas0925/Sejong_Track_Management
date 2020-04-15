@@ -18,7 +18,7 @@
     <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 
     <!-- toastr -->
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <!-- Favicon -->
     <link href="../resources/img/brand/favicon.png" rel="icon" type="image/png">
     <!-- Fonts -->
@@ -27,7 +27,7 @@
     <link href="../resources/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
     <link href="../resources/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- CSS Files -->
-    <link href="http://d2yq4mgd7yd6ui.cloudfront.net/css/argon-dashboard.css?v=1.1.1" rel="stylesheet" />
+    <link href="https://d2yq4mgd7yd6ui.cloudfront.net/css/argon-dashboard.css?v=1.1.1" rel="stylesheet" />
 
     <style>
         .wrap-loading{ /*화면 전체를 어둡게 합니다.*/
