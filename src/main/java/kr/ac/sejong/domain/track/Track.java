@@ -1,10 +1,12 @@
 package kr.ac.sejong.domain.track;
 
+import kr.ac.sejong.domain.rule.Rule;
 import kr.ac.sejong.domain.trackJudge.JudgeLog.JudgeLog;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.domain.univ.Univ;
-import kr.ac.sejong.domain.rule.Rule;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;

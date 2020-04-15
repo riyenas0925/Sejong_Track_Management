@@ -19,7 +19,7 @@ public class JudgeLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double percent;
-    TrackJudge.PNP pnp;
+    private TrackJudge.PNP pnp;
 
     @ManyToOne
     @JoinColumn(name="memberId", nullable = false)
@@ -29,12 +29,21 @@ public class JudgeLog {
     @JoinColumn(name="trackId", nullable = false)
     private Track track;
 
+    public void updateAll(Member member, Track track, Double percent, TrackJudge.PNP pnp){
+        this.member = member;
+        this.track = track;
+        this.percent = percent;
+        this.pnp = pnp;
+    }
+
     public void updateTrack(Track track){
         this.track = track;
     }
+
     public void updateMember(Member member){
         this.member = member;
     }
+
     @Builder
     public JudgeLog(Member member, Track track, Double percent, TrackJudge.PNP pnp){
         this.member = member;
@@ -42,4 +51,5 @@ public class JudgeLog {
         this.percent = percent;
         this.pnp = pnp;
     }
+
 }
