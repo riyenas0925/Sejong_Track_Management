@@ -52,19 +52,20 @@ public class ApiTrackJudgeController {
                 .map(ReportCardExcelDto
                         ::toCourseEntity)
                 .collect(Collectors.toList());
-        TrackStatistic t = trackJudgeService.trackJudgeOne(trackRule, transcriptCourses, standardCourses);
+
+        TrackStatistic trackStatistic = trackJudgeService.trackJudgeOne(trackRule, transcriptCourses, standardCourses);
 
         /** 판정 기록 **/
         JudgeLogDto judgeLogDto = JudgeLogDto.builder()
-                .percent(t.getPercent())
-//                .pnp(t.)
+                .percent(trackStatistic.getPercent())
+                .pnp(trackStatistic.getPnp())
                 .userId(userModel.getUserId())
                 .trackId(trackId)
                 .build();
 
         judgeLogService.updateOrInsert(judgeLogDto);
 
-        return t;
+        return trackStatistic;
     }
 
     /*

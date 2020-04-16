@@ -243,10 +243,13 @@
                 return;
             }
 
+            /*
             if (submit==0){
                 alert("기이수성적 파일을 기입해주세요");
                 return;
             }
+
+             */
 
             else {
                 self.location = "trackJudge"
