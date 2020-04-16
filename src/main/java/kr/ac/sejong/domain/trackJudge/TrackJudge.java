@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @Getter
 public class TrackJudge {
     private Track track;
-    private Member member;
     private Double percent;
+    private PNP pnp;
     private Long totalCourseCredit;
     private Long totalRuleCredit;
     private String percentColor;
@@ -63,6 +63,7 @@ public class TrackJudge {
         this.totalCourseCredit = totalCourseCredit;
         this.totalRuleCredit = totalRuleCredit;
         this.percent = percent;
+        this.pnp = PNP.of(percent);
         this.percentColor = PercentColorEnum.percentToColor(percent).getHex();
     }
 
@@ -131,6 +132,10 @@ public class TrackJudge {
 
         public String getText() {
             return text;
+        }
+
+        private static PNP of(Double percent){
+            return percent.longValue() == 100L ? PNP.PASS : PNP.NON_PASS;
         }
     }
 }

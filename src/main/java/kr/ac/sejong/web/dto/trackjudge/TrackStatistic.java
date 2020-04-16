@@ -16,6 +16,7 @@ public class TrackStatistic {
     private TrackResponseDto track;
     private Long totalCourseCredit;
     private Long totalRuleCredit;
+    private TrackJudge.PNP pnp;
     private Double percent;
     private String percentColor;
     private Map<TrackCourse.Type, Map<TrackJudge.PNP, CourseStatistic>> trackClassify;
@@ -26,6 +27,7 @@ public class TrackStatistic {
         this.totalCourseCredit = entity.getTotalCourseCredit();
         this.totalRuleCredit = entity.getTotalRuleCredit();
         this.percent = entity.getPercent();
+        this.pnp = entity.getPnp();
         this.percentColor = entity.getPercentColor();
         this.trackClassify = entity.getTrackClassify();
     }
