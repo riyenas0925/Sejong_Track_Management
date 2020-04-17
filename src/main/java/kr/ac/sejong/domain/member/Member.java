@@ -40,7 +40,7 @@ public class Member {
 
     private LocalDateTime logoutTime;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<JudgeLog> judgeLogs;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

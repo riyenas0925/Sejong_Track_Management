@@ -50,10 +50,4 @@ public class JudgeLogRepositoryImpl extends QuerydslRepositorySupport implements
                 .orderBy(judgeLog.id.desc())
                 .fetch();
     }
-
-//    @Override
-//    public Long saveWithTrackAndMember(String userId, Long trackid) {
-//        return null;
-//    }
-
 }

@@ -6,9 +6,12 @@ import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.track.TrackRepository;
 import kr.ac.sejong.domain.trackJudge.JudgeLog.JudgeLog;
 import kr.ac.sejong.domain.trackJudge.JudgeLog.JudgeLogRepository;
-import kr.ac.sejong.web.dto.trackjudge.JudgeLogDto;
+import kr.ac.sejong.web.dto.trackjudge.JudgeLogRequestDto;
+import kr.ac.sejong.web.dto.trackjudge.JudgeLogResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +32,7 @@ public class JudgeLogService {
     private final TrackRepository trackRepository;
 
     @Transactional
-    public void updateOrInsert(JudgeLogDto dto) throws Exception {
+    public void updateOrInsert(JudgeLogRequestDto dto) throws Exception {
         Member member = memberRepository.findByUserId(dto.getUserId()).get();
         Track track = trackRepository.findById(dto.getTrackId()).get();
         Optional<JudgeLog> judgeLog = repo.findByMemberAndTrack(dto.getUserId(), dto.getTrackId());
@@ -46,34 +49,35 @@ public class JudgeLogService {
     }
 
     @Transactional(readOnly = true)
-    public List<JudgeLogDto> findByMember(String userId) throws Exception {
+    public List<JudgeLogResponseDto> findByMember(String userId) throws Exception {
         return repo.findAllByMember(userId).stream()
-                .map(JudgeLogDto::new)
+                .map(JudgeLogResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<JudgeLogDto> findByTrack(Long trackId) throws Exception {
+    public List<JudgeLogResponseDto> findByTrack(Long trackId) throws Exception {
         return repo.findAllByTrack(trackId).stream()
-                .map(JudgeLogDto::new)
+                .map(JudgeLogResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<JudgeLogDto> findAllByDesc() throws Exception {
+    public List<JudgeLogResponseDto> findAllByDesc() throws Exception {
         return repo.findAllByDesc().stream()
-                .map(JudgeLogDto::new)
+                .map(JudgeLogResponseDto::new)
                 .collect(Collectors.toList());  //페치 조인. 딜레이 길 수도.
     }
 
+    @Transactional
+    public ResponseEntity<String> deleteByMember(String userId) throws Exception{
+        repo.deleteByMember_UserId(userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-//    @Transactional
-//    public void deleteByMember(Member member) throws Exception{
-//        repo.deleteByMember(member.getUserId());
-//    }
-//
-//    @Transactional
-//    public void deleteByTrack(Track track) throws Exception{
-//        repo.deleteByTrack(track.getId());
-//    }
+    @Transactional
+    public ResponseEntity<String> deleteByTrack(Long trackId) throws Exception{
+        repo.deleteByTrack_Id(trackId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
