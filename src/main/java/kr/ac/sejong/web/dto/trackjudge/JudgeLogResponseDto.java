@@ -10,12 +10,14 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class JudgeLogDto {
+public class JudgeLogResponseDto {
 
     private Double percent;
     private TrackJudge.PNP pnp;
     private String userId;
+    private String userName;
     private Long trackId;
+    private String trackName;
 
     public JudgeLog toEntity(Member member, Track track){
         return JudgeLog.builder()
@@ -26,17 +28,23 @@ public class JudgeLogDto {
                 .build();
     }
 
-    public JudgeLogDto(JudgeLog judgeLog){
+    public JudgeLogResponseDto(JudgeLog judgeLog){
         this.percent = judgeLog.getPercent();
         this.pnp = judgeLog.getPnp();
         this.userId = judgeLog.getMember().getUserId();
+        this.userName = judgeLog.getMember().getName();
         this.trackId = judgeLog.getTrack().getId();
+        this.trackName = judgeLog.getTrack().getTitle();
     }
+
     @Builder
-    public JudgeLogDto(Double percent, TrackJudge.PNP pnp, String userId, Long trackId) {
+    public JudgeLogResponseDto(Double percent, TrackJudge.PNP pnp, String userId,
+                               String userName, Long trackId, String trackName) {
         this.percent = percent;
         this.pnp = pnp;
         this.userId=userId;
+        this.userName=userName;
         this.trackId = trackId;
+        this.trackName = trackName;
     }
 }

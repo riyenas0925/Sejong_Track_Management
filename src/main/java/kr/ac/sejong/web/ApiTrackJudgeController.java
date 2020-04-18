@@ -1,9 +1,7 @@
 package kr.ac.sejong.web;
 
 import kr.ac.sejong.domain.course.Course;
-import kr.ac.sejong.domain.member.MemberRepository;
 import kr.ac.sejong.domain.rule.Rule;
-import kr.ac.sejong.domain.track.TrackRepository;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.service.JudgeLogService;
 import kr.ac.sejong.service.TrackCourseService;
@@ -11,7 +9,7 @@ import kr.ac.sejong.service.TrackJudgeService;
 import kr.ac.sejong.service.TrackRuleService;
 import kr.ac.sejong.web.dto.CustomUserDetails;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
-import kr.ac.sejong.web.dto.trackjudge.JudgeLogDto;
+import kr.ac.sejong.web.dto.trackjudge.JudgeLogRequestDto;
 import kr.ac.sejong.web.dto.trackjudge.TrackStatistic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -56,14 +54,14 @@ public class ApiTrackJudgeController {
         TrackStatistic trackStatistic = trackJudgeService.trackJudgeOne(trackRule, transcriptCourses, standardCourses);
 
         /** 판정 기록 **/
-        JudgeLogDto judgeLogDto = JudgeLogDto.builder()
+        JudgeLogRequestDto judgeLogRequestDto = JudgeLogRequestDto.builder()
                 .percent(trackStatistic.getPercent())
                 .pnp(trackStatistic.getPnp())
                 .userId(userModel.getUserId())
                 .trackId(trackId)
                 .build();
 
-        judgeLogService.updateOrInsert(judgeLogDto);
+        judgeLogService.updateOrInsert(judgeLogRequestDto);
 
         return trackStatistic;
     }
