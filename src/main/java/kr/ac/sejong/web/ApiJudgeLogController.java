@@ -20,19 +20,19 @@ public class ApiJudgeLogController {
 
     @PostMapping("/log/update")
     public ResponseEntity<String> update(@RequestBody JudgeLogRequestDto reqDto)throws Exception{
-        service.updateOrInsert(reqDto);    /**--> globalException으로 처리하는데 res entity는?**/
+        service.updateOrInsert(reqDto);
         ResponseEntity<String> entity = new ResponseEntity<>(HttpStatus.OK);
         return entity;
     }
 
-    @GetMapping("/log/find1/{userId}")
+    @GetMapping("/log/find/user/{userId}")
     public ResponseEntity<List<JudgeLogResponseDto>> find(@PathVariable String userId) throws Exception {
         List<JudgeLogResponseDto> resDtos = service.findByMember(userId);
         ResponseEntity<List<JudgeLogResponseDto>> entity = new ResponseEntity<>(resDtos, HttpStatus.OK);
         return entity;
     }
 
-    @GetMapping("/log/find2/{trackId}")
+    @GetMapping("/log/find/track/{trackId}")
     public ResponseEntity<List<JudgeLogResponseDto>> find(@PathVariable Long trackId) throws Exception {
         List<JudgeLogResponseDto> resDtos = service.findByTrack(trackId);
         ResponseEntity<List<JudgeLogResponseDto>> entity = new ResponseEntity<>(resDtos, HttpStatus.OK);
