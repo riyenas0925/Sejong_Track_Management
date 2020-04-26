@@ -7,7 +7,7 @@ heroku : https://tracksejong.herokuapp.com/
 ## Techset  
 language : java (OpenJDK8)  
 framework : spring-boot 2.15   
-IDE : Intellij, Goorm IDE   
+IDE : Intellij 
 build tool : maven 1.1.3  
 test framework: junit 4  
 database : H2  
