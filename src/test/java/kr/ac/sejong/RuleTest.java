@@ -7,7 +7,9 @@ import kr.ac.sejong.domain.rule.RuleRepository;
 import kr.ac.sejong.domain.track.TrackRepository;
 import kr.ac.sejong.domain.degree.DegreeRepository;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
+import kr.ac.sejong.service.TrackRuleService;
 import kr.ac.sejong.web.dto.degree.DegreeResponseDto;
+import kr.ac.sejong.web.dto.rule.RuleResponseDto;
 import lombok.extern.java.Log;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +44,9 @@ public class RuleTest {
 
     @Autowired
     private DegreeRepository degreeRepository;
+
+    @Autowired
+    private TrackRuleService trackRuleService;
 
     @Test
     public void createRule(){
@@ -103,7 +108,7 @@ public class RuleTest {
 
     @Test
     @Transactional
-    public void RuleFindByUnivId (){
+    public void RuleFindByUnivId () {
 
         List<Rule> rules = ruleRepository.findByUnivId(2L);
 
@@ -116,6 +121,13 @@ public class RuleTest {
                 .collect(Collectors.toList());
 
         log.info(degrees.toString());
+    }
 
+    @Test
+    @Transactional
+    public void test() {
+        Map<Track, Map<TrackCourse.Type, Rule>> trackRules = trackRuleService.findByUnivIdAndDegreeId(1L, 1L);
+
+        log.info(trackRules.toString());
     }
 }

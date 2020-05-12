@@ -2,6 +2,7 @@ package kr.ac.sejong.web;
 
 import kr.ac.sejong.domain.course.Course;
 import kr.ac.sejong.domain.rule.Rule;
+import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.service.JudgeLogService;
 import kr.ac.sejong.service.TrackCourseService;
@@ -11,6 +12,7 @@ import kr.ac.sejong.web.dto.CustomUserDetails;
 import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
 import kr.ac.sejong.web.dto.trackjudge.JudgeLogRequestDto;
 import kr.ac.sejong.web.dto.trackjudge.TrackStatistic;
+import kr.ac.sejong.web.dto.trackjudge.TrackStatisticSummary;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,23 +68,27 @@ public class ApiTrackJudgeController {
         return trackStatistic;
     }
 
-    /*
     @PostMapping("all")
-    public List<Track> trackJudgeAll(@RequestParam("univId") Long univId,
-                                          @RequestParam("trackId") Long trackId,
-                                          @RequestParam("degreeId") Long degreeId,
-                                          HttpSession httpSession) {
+    public List<TrackStatisticSummary> trackJudgeAll(@RequestParam("univId") Long univId,
+                                              @RequestParam("trackId") Long trackId,
+                                              @RequestParam("degreeId") Long degreeId,
+                                              HttpSession httpSession) {
 
-        List<ReportCardExcelDto> reportCardSubjects = (List<ReportCardExcelDto>) httpSession.getAttribute("transcript");
-
-        List<Course> transcriptTrack = reportCardSubjects.stream()
+        /** 판정 **/
+        List<ReportCardExcelDto> transcriptExcel = (List<ReportCardExcelDto>) httpSession.getAttribute("transcript");
+        List<Course> transcriptCourses = transcriptExcel.stream()
                 .map(ReportCardExcelDto::toCourseEntity)
                 .collect(Collectors.toList());
 
-        Map<Track, List<TrackCourse>> standardTracks = trackCourseService.findByUnivId(univId);
-        Map<TrackCourse.Type, Rule> trackRule = trackRuleService.findByTrackIdAndDegreeId(trackId, degreeId);
 
-        return trackJudgeService.trackJudge(trackRule, transcriptTrack, standardTracks);
+        /* 트랙 규칙*/
+        Map<Track, Map<TrackCourse.Type, Rule>> trackRule = trackRuleService.findByUnivIdAndDegreeId(univId, degreeId);
+
+        /* 기준 트랙 과목 */
+        Map<Track, List<TrackCourse>> standardCourses = trackCourseService.findByUnivId(univId);
+
+        List<TrackStatisticSummary> trackStatistics = trackJudgeService.trackJudgeAll(trackRule, transcriptCourses, standardCourses);
+
+        return trackStatistics;
     }
-    */
 }
