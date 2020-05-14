@@ -1,5 +1,7 @@
 package kr.ac.sejong.domain.rule;
 
+import kr.ac.sejong.domain.degree.QDegree;
+import kr.ac.sejong.domain.track.QTrack;
 import kr.ac.sejong.domain.trackcourse.QTrackCourse;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -16,8 +18,12 @@ public class RuleRepositoryImpl extends QuerydslRepositorySupport implements Rul
     @Override
     public List<Rule> findByTrackIdAndDegreeId(Long trackId, Long degreeId) {
         final QRule rule = QRule.rule;
+        final QDegree degree = QDegree.degree;
+        final QTrack track = QTrack.track;
 
         return from(rule)
+                .join(rule.degree, degree).fetchJoin()
+                .join(rule.track, track).fetchJoin()
                 .where(rule.track.id.eq(trackId))
                 .where(rule.degree.id.eq(degreeId))
                 .fetch();
