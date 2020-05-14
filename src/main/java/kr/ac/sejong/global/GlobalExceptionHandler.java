@@ -3,18 +3,28 @@ package kr.ac.sejong.global;
 import kr.ac.sejong.global.exception.ErrorCode;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
+import javax.naming.SizeLimitExceededException;
 import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 @Log
 public class GlobalExceptionHandler {
+
+    /* Maximum upload size exceed Error*/
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    protected ResponseEntity<ErrorResponse> handleMaxUploadSizeExceedException(MaxUploadSizeExceededException e) {
+        final ErrorResponse response = ErrorResponse.of(ErrorCode.MAX_UPLOAD_SIZE_EXCEEDED);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.MAX_UPLOAD_SIZE_EXCEEDED.getStatus()));
+    }
 
     /* @RequestBody, @RequestBody, @Validate Binding Error */
     @ExceptionHandler(MethodArgumentNotValidException.class)
