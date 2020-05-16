@@ -7,7 +7,9 @@ import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @NoArgsConstructor
 @Getter
 public class JudgeLogRequestDto {

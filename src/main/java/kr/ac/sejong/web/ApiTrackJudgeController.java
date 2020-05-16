@@ -3,6 +3,7 @@ package kr.ac.sejong.web;
 import kr.ac.sejong.domain.course.Course;
 import kr.ac.sejong.domain.rule.Rule;
 import kr.ac.sejong.domain.track.Track;
+import kr.ac.sejong.domain.trackJudge.JudgeLog.JudgeLog;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.service.JudgeLogService;
 import kr.ac.sejong.service.TrackCourseService;
@@ -62,12 +63,11 @@ public class ApiTrackJudgeController {
                                                      HttpSession httpSession) throws Exception {
         CustomUserDetails userModel = (CustomUserDetails) httpSession.getAttribute("userModel");
 
-        /** 판정 **/
+        /** 기이수 성적 **/
         List<ReportCardExcelDto> transcriptExcel = (List<ReportCardExcelDto>) httpSession.getAttribute("transcript");
         List<Course> transcriptCourses = transcriptExcel.stream()
                 .map(ReportCardExcelDto::toCourseEntity)
                 .collect(Collectors.toList());
-
 
         /* 트랙 규칙*/
         Map<Track, Map<TrackCourse.Type, Rule>> trackRule = trackRuleService.findByUnivIdAndDegreeId(univId, degreeId);
@@ -75,18 +75,18 @@ public class ApiTrackJudgeController {
         /* 기준 트랙 과목 */
         Map<Track, List<TrackCourse>> standardCourses = trackCourseService.findByUnivId(univId);
 
+        /* 전체 트랙 판정 */
         List<TrackStatisticSummary> trackStatistics = trackJudgeService.trackJudgeAll(trackRule, transcriptCourses, standardCourses);
 
+
         /** 판정 기록 --> 모든 트랙 대상**/
-        List<JudgeLogRequestDto> judgeLogRequestDtos = null;
+        List<JudgeLogRequestDto> judgeLogRequestDtos = trackStatistics.stream()
+                .map(trackStatisticSummary -> {
+                    return new JudgeLogRequestDto(trackStatisticSummary, userModel.getUserId());
+                })
+                .collect(Collectors.toList());
 
-        trackStatistics.stream().forEach(trackStatisticSummary ->
-        {
-            JudgeLogRequestDto dto = new JudgeLogRequestDto(trackStatisticSummary, userModel.getUserId());
-            judgeLogRequestDtos.add(dto);
-        });//--> .map(JudgeLogRequestDto::new)쓰기엔 인자가 두개 허용안되는 것 같음.
-
-        judgeLogService.updateOrInsert(judgeLogRequestDtos);
+        judgeLogService.save(judgeLogRequestDtos);
 
         return trackStatistics;
     }

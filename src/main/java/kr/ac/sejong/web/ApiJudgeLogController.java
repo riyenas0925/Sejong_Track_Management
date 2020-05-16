@@ -20,7 +20,7 @@ public class ApiJudgeLogController {
 
     @PostMapping("/log/updateAll")
     public ResponseEntity<String> update(@RequestBody List<JudgeLogRequestDto> dtos)throws Exception{
-        service.updateOrInsert(dtos);
+        service.save(dtos);
         ResponseEntity<String> entity = new ResponseEntity<>(HttpStatus.OK);
         return entity;
     }

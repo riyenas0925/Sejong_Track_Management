@@ -27,23 +27,24 @@ public class JudgeLogTest {
     public void 로그_updateAll() throws Exception {
         //given
         JudgeLogRequestDto dto = JudgeLogRequestDto.builder()
-                .percent(70.0)
-                .pnp(TrackJudge.PNP.NON_PASS)
-                .userId("pro")
+                .percent(100.0)
+                .pnp(TrackJudge.PNP.PASS)
+                .userId("student")
                 .trackId(1L)
                 .build();
         JudgeLogRequestDto dto2 = JudgeLogRequestDto.builder()
-                .percent(40.0)
-                .pnp(TrackJudge.PNP.NON_PASS)
-                .userId("pro")
-                .trackId(1L)
+                .percent(100.0)
+                .pnp(TrackJudge.PNP.PASS)
+                .userId("student")
+                .trackId(2L)
                 .build();
         List<JudgeLogRequestDto> dtos =new ArrayList<JudgeLogRequestDto>();
         dtos.add(dto);
         dtos.add(dto2);
         //when
-        service.updateOrInsert(dtos);
-        printAll();
+        service.save(dtos);
+
+        log.info(service.findByMember("student").toString());
     }
 
     @Test

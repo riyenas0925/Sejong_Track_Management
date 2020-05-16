@@ -29,7 +29,7 @@ public class JudgeLog {
     @JoinColumn(name="trackId", nullable = false)
     private Track track;
 
-    public void updateAll(Member member, Track track, Double percent, TrackJudge.PNP pnp){
+    public void updateJudgeLog(Member member, Track track, Double percent, TrackJudge.PNP pnp){
         this.member = member;
         this.track = track;
         this.percent = percent;
