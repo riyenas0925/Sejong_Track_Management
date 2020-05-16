@@ -32,6 +32,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .password(passwordEncoder.encode(m.getPassword())) /*비밀번호 암호화*/
                 .name(m.getName())
                 .email(m.getEmail())
+                .univ(m.getUniv())
+                .major(m.getMajor())
                 .build();
 
         return repo.save(member).getUserId();

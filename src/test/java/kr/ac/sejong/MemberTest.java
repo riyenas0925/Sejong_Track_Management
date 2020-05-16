@@ -6,18 +6,14 @@ import kr.ac.sejong.config.auth.CustomUserDetailsService;
 import kr.ac.sejong.domain.member.*;
 import lombok.extern.java.Log;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,36 +22,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles(value = {"develop-h2"})
 @SpringBootTest
 @Log
-@Commit
 public class MemberTest {
-
     @Inject
-    MemberRepository repo;
-
+    private MemberRepository repo;
     @Inject
-    MemberRoleRepository rolerepo;
-
+    private MemberRoleRepository roleRepo;
     @Inject
     private PasswordEncoder passwordEncoder;
-
+    @Inject
+    private CustomUserDetailsService service;
     @Inject
     private CustomLoginSuccessHandler loginSuccessHandler;
-
     @Inject
-    CustomAuthenticationProvider authProvider;
-
+    private CustomAuthenticationProvider authProvider;
     @Inject
-    CustomUserDetailsService customUserDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Test
-    public void memberJoin_findById_Hangeul() {
-        Optional<Member> member = repo.findById("초가스");
+    public void 한글이름_추가_테스트() {
+        Optional<Member> member = repo.findByUserId("김학생");
     }
 
-    @Before
-    public void setUp() throws Exception {
-        EntityManager em;
-        passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    @Test
+    public void 모든필드_회원가입() {
+        Member member = Member.builder()
+                .userId("17013222")
+                .password("1234")
+                .email("r@r")
+                .univ("호호호대학")
+                .major("안경학과")
+                .name("김그릇")
+                .build();
+        service.join(member);
     }
 
     @Test
@@ -69,7 +67,7 @@ public class MemberTest {
     }
 
     @Test
-    public void isCreateNewInstanceByBuilder() {
+    public void 빌더_사용_테스트() {
         Member member = Member.builder()
                 .userId("tiger")
                 .password("1234")
@@ -88,7 +86,7 @@ public class MemberTest {
     }
 
     @Test
-    public void isMapped_Member_MemberRole() {
+    public void 멤버_멤버롤_매핑_테스트() {
         Member m = Member.builder()
                 .userId("tiger")
                 .password("1234")
@@ -101,13 +99,13 @@ public class MemberTest {
                 .roleEnum(MemberRoleEnum.ROLE_STUDENT)
                 .member(m)
                 .build();
-        rolerepo.save(role1);
+        roleRepo.save(role1);
         MemberRole role2 = MemberRole.builder()
                 .roleId(2L)
                 .roleEnum(MemberRoleEnum.ROLE_PRO)
                 .member(m)
                 .build();
-        rolerepo.save(role2);
+        roleRepo.save(role2);
         m.getRoles().add(role1);
         m.getRoles().add(role2);
         repo.save(m);
