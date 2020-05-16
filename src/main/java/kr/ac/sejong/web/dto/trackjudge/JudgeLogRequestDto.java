@@ -33,6 +33,13 @@ public class JudgeLogRequestDto {
         this.trackId = judgeLog.getTrack().getId();
     }
 
+    public JudgeLogRequestDto(TrackStatisticSummary t, String userId){
+        this.percent= t.getPercent();
+        this.pnp = t.getPnp();
+        this.trackId = t.getTrack().getId();
+        this.userId = userId;
+    }
+
     @Builder
     public JudgeLogRequestDto(Double percent, TrackJudge.PNP pnp, String userId, Long trackId) {
         this.percent = percent;

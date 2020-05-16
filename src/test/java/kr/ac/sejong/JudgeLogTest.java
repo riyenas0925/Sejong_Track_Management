@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -23,7 +24,7 @@ public class JudgeLogTest {
     private JudgeLogService service;
 
     @Test
-    public void 로그_update() throws Exception {
+    public void 로그_updateAll() throws Exception {
         //given
         JudgeLogRequestDto dto = JudgeLogRequestDto.builder()
                 .percent(70.0)
@@ -37,10 +38,12 @@ public class JudgeLogTest {
                 .userId("pro")
                 .trackId(1L)
                 .build();
-
+        List<JudgeLogRequestDto> dtos =new ArrayList<JudgeLogRequestDto>();
+        dtos.add(dto);
+        dtos.add(dto2);
         //when
-        service.updateOrInsert(dto);
-        service.updateOrInsert(dto2);
+        service.updateOrInsert(dtos);
+        printAll();
     }
 
     @Test

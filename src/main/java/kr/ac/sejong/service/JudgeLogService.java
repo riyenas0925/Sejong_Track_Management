@@ -32,19 +32,21 @@ public class JudgeLogService {
     private final TrackRepository trackRepository;
 
     @Transactional
-    public void updateOrInsert(JudgeLogRequestDto dto) throws Exception {
-        Member member = memberRepository.findByUserId(dto.getUserId()).get();
-        Track track = trackRepository.findById(dto.getTrackId()).get();
-        Optional<JudgeLog> judgeLog = repo.findByMemberAndTrack(dto.getUserId(), dto.getTrackId());
+    public void updateOrInsert(List<JudgeLogRequestDto> dtos) throws Exception {
+        for (JudgeLogRequestDto dto: dtos) {
+            Member member = memberRepository.findByUserId(dto.getUserId()).get();
+            Track track = trackRepository.findById(dto.getTrackId()).get();
+            Optional<JudgeLog> judgeLog = repo.findByMemberAndTrack(dto.getUserId(), dto.getTrackId());
 
-        if (judgeLog.isPresent()) {
-            log.info("judgeLog update.....");
-            JudgeLog target = judgeLog.get();
-            target.updateAll(member, track, dto.getPercent(), dto.getPnp());
-        } else {
-            log.info("judgeLog update fail ! and being inserted.....");
-            JudgeLog target = dto.toEntity(member, track);
-            repo.save(target);
+            if (judgeLog.isPresent()) {
+                log.info("judgeLog update.....");
+                JudgeLog target = judgeLog.get();
+                target.updateAll(member, track, dto.getPercent(), dto.getPnp());
+            } else {
+                log.info("judgeLog update fail ! and being inserted.....");
+                JudgeLog target = dto.toEntity(member, track);
+                repo.save(target);
+            }
         }
     }
 
@@ -70,13 +72,13 @@ public class JudgeLogService {
     }
 
     @Transactional
-    public ResponseEntity<String> deleteByMember(String userId) throws Exception{
+    public ResponseEntity<String> deleteByMember(String userId) throws Exception {
         repo.deleteByMember_UserId(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Transactional
-    public ResponseEntity<String> deleteByTrack(Long trackId) throws Exception{
+    public ResponseEntity<String> deleteByTrack(Long trackId) throws Exception {
         repo.deleteByTrack_Id(trackId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

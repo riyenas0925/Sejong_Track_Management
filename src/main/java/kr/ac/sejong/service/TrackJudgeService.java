@@ -5,7 +5,6 @@ import kr.ac.sejong.domain.rule.Rule;
 import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
-import kr.ac.sejong.web.dto.excel.ReportCardExcelDto;
 import kr.ac.sejong.web.dto.trackjudge.TrackStatistic;
 import kr.ac.sejong.web.dto.trackjudge.TrackStatisticSummary;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +12,9 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
-import javax.transaction.TransactionScoped;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service

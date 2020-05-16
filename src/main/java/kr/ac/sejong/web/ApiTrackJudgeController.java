@@ -40,9 +40,7 @@ public class ApiTrackJudgeController {
     public TrackStatistic trackJudgeOne(@RequestParam("univId") Long univId,
                                         @RequestParam("trackId") Long trackId,
                                         @RequestParam("degreeId") Long degreeId,
-                                        HttpSession httpSession) throws Exception{
-        CustomUserDetails userModel = (CustomUserDetails) httpSession.getAttribute("userModel");
-
+                                        HttpSession httpSession) throws Exception {
         /** 판정 **/
         List<ReportCardExcelDto> transcriptExcel = (List<ReportCardExcelDto>) httpSession.getAttribute("transcript");
 
@@ -55,24 +53,14 @@ public class ApiTrackJudgeController {
 
         TrackStatistic trackStatistic = trackJudgeService.trackJudgeOne(trackRule, transcriptCourses, standardCourses);
 
-        /** 판정 기록 **/
-        JudgeLogRequestDto judgeLogRequestDto = JudgeLogRequestDto.builder()
-                .percent(trackStatistic.getPercent())
-                .pnp(trackStatistic.getPnp())
-                .userId(userModel.getUserId())
-                .trackId(trackId)
-                .build();
-
-        judgeLogService.updateOrInsert(judgeLogRequestDto);
-
         return trackStatistic;
     }
 
     @PostMapping("all")
     public List<TrackStatisticSummary> trackJudgeAll(@RequestParam("univId") Long univId,
-                                              @RequestParam("trackId") Long trackId,
-                                              @RequestParam("degreeId") Long degreeId,
-                                              HttpSession httpSession) {
+                                                     @RequestParam("degreeId") Long degreeId,
+                                                     HttpSession httpSession) throws Exception {
+        CustomUserDetails userModel = (CustomUserDetails) httpSession.getAttribute("userModel");
 
         /** 판정 **/
         List<ReportCardExcelDto> transcriptExcel = (List<ReportCardExcelDto>) httpSession.getAttribute("transcript");
@@ -88,6 +76,17 @@ public class ApiTrackJudgeController {
         Map<Track, List<TrackCourse>> standardCourses = trackCourseService.findByUnivId(univId);
 
         List<TrackStatisticSummary> trackStatistics = trackJudgeService.trackJudgeAll(trackRule, transcriptCourses, standardCourses);
+
+        /** 판정 기록 --> 모든 트랙 대상**/
+        List<JudgeLogRequestDto> judgeLogRequestDtos = null;
+
+        trackStatistics.stream().forEach(trackStatisticSummary ->
+        {
+            JudgeLogRequestDto dto = new JudgeLogRequestDto(trackStatisticSummary, userModel.getUserId());
+            judgeLogRequestDtos.add(dto);
+        });//--> .map(JudgeLogRequestDto::new)쓰기엔 인자가 두개 허용안되는 것 같음.
+
+        judgeLogService.updateOrInsert(judgeLogRequestDtos);
 
         return trackStatistics;
     }

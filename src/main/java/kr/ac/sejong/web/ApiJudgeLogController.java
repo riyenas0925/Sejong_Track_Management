@@ -18,9 +18,9 @@ import java.util.List;
 public class ApiJudgeLogController {
     private final JudgeLogService service;
 
-    @PostMapping("/log/update")
-    public ResponseEntity<String> update(@RequestBody JudgeLogRequestDto reqDto)throws Exception{
-        service.updateOrInsert(reqDto);
+    @PostMapping("/log/updateAll")
+    public ResponseEntity<String> update(@RequestBody List<JudgeLogRequestDto> dtos)throws Exception{
+        service.updateOrInsert(dtos);
         ResponseEntity<String> entity = new ResponseEntity<>(HttpStatus.OK);
         return entity;
     }
