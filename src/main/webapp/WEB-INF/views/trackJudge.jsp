@@ -224,7 +224,6 @@
                 type: "POST",
                 data: {
                     "univId" : params.univId,
-                    "trackId" : params.trackId,
                     "degreeId" : params.degreeId
                 },
                 dataType : "json",
