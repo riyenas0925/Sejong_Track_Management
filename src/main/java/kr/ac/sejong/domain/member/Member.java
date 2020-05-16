@@ -28,7 +28,9 @@ public class Member {
     private String name;
     @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String major;
+    @Column(nullable = false)
     private String univ;
 
     @CreationTimestamp

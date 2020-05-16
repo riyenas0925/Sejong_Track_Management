@@ -66,7 +66,23 @@
                                            placeholder="Full name">
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="univ" required
+                                           placeholder="College">
+                                </div>
+                            </div><div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="major" required
+                                       placeholder="Major">
+                            </div>
+                        </div>
                             <div class="form-group">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
