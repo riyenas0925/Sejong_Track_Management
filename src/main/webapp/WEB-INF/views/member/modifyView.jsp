@@ -48,15 +48,15 @@
                             </h3>
 
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>17010491
+                                <i class="ni location_pin mr-2"></i>${userModel.userId}
                             </div>
 
                             <div class="h5 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i>소프트웨어융합대학
+                                <i class="ni business_briefcase-24 mr-2"></i>${userModel.univ}
                             </div>
 
                             <div>
-                                <i class="ni education_hat mr-2"></i>컴퓨터공학과
+                                <i class="ni education_hat mr-2"></i>${userModel.major}
                             </div>
 
                             <hr class="my-4"/>
@@ -87,7 +87,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="userId">ID</label>
+                                            <label class="form-control-label" for="userId">학번</label>
                                             <input type="text" id="userId"
                                                    class="form-control form-control-alternative"
                                                    value="${userModel.userId}" readonly>
@@ -98,7 +98,7 @@
                                             <label class="form-control-label" for="name">이름</label>
                                             <input type="text" id="name"
                                                    class="form-control form-control-alternative"
-                                                   value="${userModel.name}">
+                                                   value="${userModel.name}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -107,16 +107,18 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="major">학과</label>
                                             <input type="text" id="major" class="form-control form-control-alternative"
-                                                   value="${userModel.major}">
+                                                   value="${userModel.major}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="ex2">학번</label>
-                                            <input type="number" id="ex2" class="form-control form-control-alternative"
-                                                   placeholder="17010491" readonly>
+                                            <label class="form-control-label" for="univ">소속 대학</label>
+                                            <input type="text" id="univ" class="form-control form-control-alternative"
+                                                   value="${userModel.univ}" readonly>
+
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -125,14 +127,6 @@
                                             <input type="email" id="email"
                                                    class="form-control form-control-alternative"
                                                    value="${userModel.email}">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="form-control-label" for="univ">소속 대학</label>
-                                            <input type="text" id="univ" class="form-control form-control-alternative"
-                                                   value="${userModel.univ}">
-
                                         </div>
                                     </div>
                                 </div>

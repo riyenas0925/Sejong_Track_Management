@@ -74,7 +74,7 @@
                             </tr>
                             </thead>
 
-                            <tbody id="table">
+                            <tbody id="trackAlltable">
                             <tr>
                                 <th>멀티미디어</th>
                                 <td>
@@ -84,101 +84,11 @@
                                 </td>
                                 <td>
                                     <span class="progress" style="width:100%;">
-                                        <div class="progress-bar bg-success"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                        <div class="progress-bar"role="progressbar" style="width: 70%;background-color:red;"></div>
                                     </span>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>사물인터넷</th>
-                                <td>
-                                    <span class="progress-percentage">
-                                        <span>80%</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="progress" style="width:100%;">
-                                        <div class="progress-bar bg-info"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>가상현실</th>
-                                <td>
-                                    <span class="progress-percentage">
-                                        <span>48%</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="progress" style="width:100%;">
-                                        <div class="progress-bar bg-warning"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 48%;"></div>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>인공지능</th>
-                                <td>
-                                    <span class="progress-percentage">
-                                        <span>10%</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="progress" style="width:100%;">
-                                        <div class="progress-bar bg-danger"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>멀티미디어</th>
-                                <td>
-                                    <span class="progress-percentage">
-                                        <span>70%</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="progress" style="width:100%;">
-                                        <div class="progress-bar bg-success"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>사물인터넷</th>
-                                <td>
-                                    <span class="progress-percentage">
-                                        <span>80%</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="progress" style="width:100%;">
-                                        <div class="progress-bar bg-info"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>가상현실</th>
-                                <td>
-                                    <span class="progress-percentage">
-                                        <span>48%</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="progress" style="width:100%;">
-                                        <div class="progress-bar bg-warning"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 48%;"></div>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>인공지능</th>
-                                <td>
-                                    <span class="progress-percentage">
-                                        <span>10%</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="progress" style="width:100%;">
-                                        <div class="progress-bar bg-danger"role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
-                                    </span>
-                                </td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -229,8 +139,7 @@
                 dataType : "json",
 
                 success : function(data){
-                    console.log(data);
-                    $("#test2").html(JSON.stringify(data));
+                    trackAll(data);
                 },
             });
         }
@@ -241,6 +150,40 @@
                 params[key] = value;
             });
             return params;
+        }
+        function trackAll(data){
+            var track;
+            var percent;
+            var percentColor;
+            var str="";
+            var block="";
+
+            $.each(data,function(index){
+                $.each(data[index],function(key,value){
+                    if(key=="percent"){
+                        percent=Math.floor(value);
+                    }
+                    else if(key=="percentColor"){
+                        percentColor=value;
+                    }
+                    else if(key=="track"){
+                        $.each(value,function(key,value){
+                            if(key=="title"){
+                                track=value;
+                            }
+                        });
+                    }
+                });
+
+                block+='<tr><th>'+track+'</th><td><span class="progress-percentage"><span>'+percent+'%</span>';
+                block+='</span></td><td><span class="progress" style="width:100%;">';
+                block+='<div class="progress-bar"role="progressbar" style="width: '+percent+'%; background-color: ' +percentColor+';"></div></span></td></tr>';
+
+                str+=block;
+                block="";
+            });
+
+            $("#trackAlltable").html(str);
         }
 
         function selectTrack(data){

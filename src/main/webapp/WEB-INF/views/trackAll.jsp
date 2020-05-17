@@ -33,8 +33,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <select class="form-control form-control-sm" id="select_univ">
-                    <option value="default">----- 대학 선택 -----</option>
-                    <option value="1">소프트웨어융합대학</option>
+
                 </select>
             </div>
         </div>
@@ -78,7 +77,36 @@
 <script language="JavaScript">
     $(document).ready(function () {
         //시작
-        getJson("default");
+        getUnivData();
+        getJson(0);
+
+        function getUnivData(){
+            $.ajax({
+                url: '/api/v1/select/univ',
+                type: "GET",
+                data: JSON,
+
+                success:function(data){
+                    addSelectUniv(data);
+                },
+            });
+        }
+
+        function addSelectUniv(data){
+            var str="<option value='0'>------ 대학 선택 ------</option>";
+
+            $.each(data,function(index){
+                $.each(data[index],function(key,value){
+                    if(key=="id"){
+                        str+="<option value="+value+">"
+                    }
+                    else if(key=="title"){
+                        str+= value + "</option>";
+                    }
+                });
+            });
+            $("#select_univ").html(str);
+        };
 
         //select 값 변경
         $('#select_univ').on('change', function() {
@@ -91,7 +119,7 @@
 
         //selectUniv > GET json data
         function getJson(selectUniv) {
-            if (selectUniv == "default"){
+            if (selectUniv == 0){
                 $("#univName").html("대학을 선택하세요.");
                 return false; //함수 강제 종료
             }

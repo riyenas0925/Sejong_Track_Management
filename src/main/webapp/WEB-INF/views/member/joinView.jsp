@@ -63,7 +63,7 @@
                                         <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                     </div>
                                     <input type="text" class="form-control" name="name" required
-                                           placeholder="Full name">
+                                           placeholder="Full name" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -72,7 +72,7 @@
                                         <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                     </div>
                                     <input type="text" class="form-control" name="univ" required
-                                           placeholder="College">
+                                           placeholder="College" disabled>
                                 </div>
                             </div><div class="form-group">
                             <div class="input-group input-group-alternative">
@@ -80,7 +80,7 @@
                                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
                                 <input type="text" class="form-control" name="major" required
-                                       placeholder="Major">
+                                       placeholder="Major" disabled>
                             </div>
                         </div>
                             <div class="form-group">
@@ -228,8 +228,14 @@
             $.each(data,function(key,value){
                 if (key=="name"){
                     $('input[name=name]').attr('value',value);
-                    $('input[name=name]').attr('disabled','true');
-                    $('input[name=userId]').attr('disabled','true');
+                }
+
+                else if (key=="univ"){
+                    $('input[name=univ]').attr('value',value);
+                }
+
+                else if (key=="major"){
+                    $('input[name=major]').attr('value',value);
                 }
             });
         }
@@ -278,7 +284,9 @@
                     "userId": $('input[name=userId]').val(),
                     "name": $('input[name=name]').val(),
                     "email": $('input[name=email]').val(),
-                    "password": $('input[name=password]').val()
+                    "password": $('input[name=password]').val(),
+                    "major" : $('input[name=major]').val(),
+                    "univ" : $('input[name=major]').val()
                 };
 
                 $.ajax({
