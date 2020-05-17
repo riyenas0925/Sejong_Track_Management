@@ -50,10 +50,10 @@
                     <div class="dropdown-item">
                         <i class="ni ni-user-run"></i>
                         <sec:authorize access="isAuthenticated()">
-                        <span OnClick="location.href='${path}/memberLogout'">Logout</span>
+                            <span OnClick="location.href='${path}/api/v1/member/logout'">Logout</span>
                         </sec:authorize>
                         <sec:authorize access="isAnonymous()">
-                        <span OnClick="location.href='${path}/loginView'">Login</span>
+                            <span OnClick="location.href='${path}/loginView'">Login</span>
                         </sec:authorize>
                     </div>
                 </div>
