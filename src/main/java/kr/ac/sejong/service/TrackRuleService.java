@@ -53,9 +53,4 @@ public class TrackRuleService {
 
         return trackRule;
     }
-
-    @Transactional
-    public List<Rule> findByUnivIdDistinct(Long univId) {
-        return ruleRepository.findByUnivIdDistinct(univId);
-    }
 }

@@ -20,11 +20,11 @@ public class TrackCourse {
     @Enumerated(EnumType.STRING)
     private Type courseType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "trackId")
     Track track;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "courseId")
     Course course;
 
