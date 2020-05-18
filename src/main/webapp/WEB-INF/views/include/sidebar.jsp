@@ -116,7 +116,7 @@
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
-                        <a class="nav-link side" id="6" href="${path}/trackSubject">
+                        <a class="nav-link side" id="6" href="${path}/courseSchedule">
                             <i class="ni ni-spaceship"></i> 강의시간표 추가
                         </a>
                 </li>
