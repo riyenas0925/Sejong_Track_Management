@@ -1,101 +1,43 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
+<style>
+    #sejongLink {
+        background-image:url('../resources/img/brand/sejong.png');
+        background-size:cover;
+        background-repeat:no-repeat;
+    }
+
+    .homeLink {
+        border-radius:5px;
+    }
+</style>
 
 <%@ include file="include/setting-h.jsp" %>
 <!--sidebar -->
 <%@ include file="include/sidebar.jsp" %>
+
 <div class="main-content">
     <!--header -->
     <%@ include file="include/header.jsp" %>
 
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-7">
         <div class="container-fluid">
             <div class="header-body">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span class="alert-icon"><i class="ni ni-bell-55"></i></span>
+                    <span class="alert-text"><strong>SW대학 트랙 제도 신청 기간!</strong> 20200302~20201231</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
                 <!-- Card stats -->
-                <div class="row">
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card card-stats mb-4 mb-xl-0">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                                        <span class="h2 font-weight-bold mb-0">350,897</span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                            <i class="fas fa-chart-bar"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-muted text-sm">
-                                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                                    <span class="text-nowrap">Since last month</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card card-stats mb-4 mb-xl-0">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                                        <span class="h2 font-weight-bold mb-0">2,356</span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                                            <i class="fas fa-chart-pie"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-muted text-sm">
-                                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                                    <span class="text-nowrap">Since last week</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card card-stats mb-4 mb-xl-0">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                                        <span class="h2 font-weight-bold mb-0">924</span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                                            <i class="fas fa-users"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-muted text-sm">
-                                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                                    <span class="text-nowrap">Since yesterday</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6">
-                        <div class="card card-stats mb-4 mb-xl-0">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                                        <span class="h2 font-weight-bold mb-0">49,65%</span>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                                            <i class="fas fa-percent"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 mb-0 text-muted text-sm">
-                                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                                    <span class="text-nowrap">Since last month</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="noticeDiv">
+                    <!--공지사항-->
+
                 </div>
             </div>
         </div>
@@ -103,274 +45,100 @@
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-8 mb-5 mb-xl-0">
-                <div class="card bg-gradient-default shadow">
+                <div class="card shadow">
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                                <h2 class="text-white mb-0">Sales value</h2>
+                                <h6 class="text-uppercase text-muted ls-1 mb-1">최근 트랙 현황 조회 결과</h6>
+                                <h2 class="mb-0" id="univTitle"></h2>
                             </div>
                             <div class="col">
                                 <ul class="nav nav-pills justify-content-end">
-                                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                                        <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                                            <span class="d-none d-md-block">Month</span>
-                                            <span class="d-md-none">M</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                                        <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                                            <span class="d-none d-md-block">Week</span>
-                                            <span class="d-md-none">W</span>
+                                    <li class="nav-item">
+                                        <a href="${path}/uploadForm" class="btn btn-primary btn-sm">
+                                            트랙 조회
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <!-- Chart -->
-                        <div class="chart">
-                            <!-- Chart wrapper -->
-                            <canvas id="chart-sales" class="chart-canvas"></canvas>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <tbody id="trackDiv">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-xl-4">
-                <div class="card shadow">
+                <div class="card shadow mb-2" style="border:0px;">
+                    <div class="card-header bg-gradient-danger homeLink">
+                        <a href="#" target="_blank">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-white-50 ls-1 mb-1">20200302~20201231</h6>
+                                    <h2 class="mb-0 text-white">트랙 제도 신청자 모집</h2>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-secondary rouned-circle text-danger shadow">
+                                        <i class="ni ni-check-bold"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card bg-default shadow mb-2">
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                                <h2 class="mb-0">Total orders</h2>
+                                <h6 class="text-uppercase text-muted ls-1 mb-1">테스트1</h6>
+                                <h2 class="mb-0 text-white">테스트1 바로가기</h2>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <!-- Chart -->
-                        <div class="chart">
-                            <canvas id="chart-orders" class="chart-canvas"></canvas>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-secondary text-default rouned-circle shadow">
+                                    <i class="ni ni-curved-next"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-xl-8 mb-5 mb-xl-0">
-                <div class="card shadow">
-                    <div class="card-header border-0">
+                <div class="card bg-default shadow mb-2">
+                    <div class="card-header bg-transparent">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h3 class="mb-0">Page visits</h3>
+                                <h6 class="text-uppercase text-muted ls-1 mb-1">테스트2</h6>
+                                <h2 class="mb-0 text-white">테스트2 바로가기</h2>
                             </div>
-                            <div class="col text-right">
-                                <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-gradient-secondary text-default rouned-circle shadow">
+                                    <i class="ni ni-curved-next"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Page name</th>
-                                <th scope="col">Visitors</th>
-                                <th scope="col">Unique users</th>
-                                <th scope="col">Bounce rate</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">
-                                    /argon/
-                                </th>
-                                <td>
-                                    4,569
-                                </td>
-                                <td>
-                                    340
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    /argon/index.html
-                                </th>
-                                <td>
-                                    3,985
-                                </td>
-                                <td>
-                                    319
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    /argon/charts.html
-                                </th>
-                                <td>
-                                    3,513
-                                </td>
-                                <td>
-                                    294
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    /argon/tables.html
-                                </th>
-                                <td>
-                                    2,050
-                                </td>
-                                <td>
-                                    147
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    /argon/profile.html
-                                </th>
-                                <td>
-                                    1,795
-                                </td>
-                                <td>
-                                    190
-                                </td>
-                                <td>
-                                    <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-4">
-                <div class="card shadow">
-                    <div class="card-header border-0">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="mb-0">Social traffic</h3>
+                <div class="card shadow mb-2" style="border:0px;">
+                    <div class="card-header homeLink" id="sejongLink">
+                        <a href="http://www.sejong.ac.kr/" target="_blank">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="text-uppercase text-white-50 ls-1 mb-1">세종대 홈페이지 바로가기</h6>
+                                    <h2 class="mb-0 text-white">세종대학교</h2>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-red text-white rouned-circle shadow">
+                                        <i class="ni ni-hat-3"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col text-right">
-                                <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Referral</th>
-                                <th scope="col">Visitors</th>
-                                <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">
-                                    Facebook
-                                </th>
-                                <td>
-                                    1,480
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">60%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    Facebook
-                                </th>
-                                <td>
-                                    5,480
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">70%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    Google
-                                </th>
-                                <td>
-                                    4,807
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">80%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    Instagram
-                                </th>
-                                <td>
-                                    3,678
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">75%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    twitter
-                                </th>
-                                <td>
-                                    2,645
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2">30%</span>
-                                        <div>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -380,6 +148,132 @@
     </div>
 </div>
 <%@ include file="include/setting-f.jsp" %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ID = '${userModel.userId}';;
+
+        if(ID!=""){
+            showTrackList();
+        }
+        else{
+            notLogin();
+        }
+
+        showNoticeList();
+
+        //최근트랙결과조회
+        function showTrackList(){
+            $.ajax({
+                url: 'api/v1/log/find/user/'+ID,
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                success: function (data) { //리스트 -> json
+                    if (data!=""){
+                        printTrackList(data);
+                    }
+                    else{
+                        nullTrackData();
+                    }
+                },
+                error: function (error) {
+                    alert("ERROR발생: " + JSON.stringify(error));
+                }
+            })
+        }
+        function printTrackList(data) {
+            var str = "";
+            var percent;
+            var percentColor='primary';
+            var trackName='';
+            var univName='소프트웨어융합대학';
+
+            console.log(data);
+            $.each(data, function (index) {
+                $.each(data[index], function (key, value) {
+                    if (key == "percent") {
+                        percent = Math.floor(value);
+                    } else if (key == "trackName") {
+                        trackName=value;
+                    } else if (key == "percentColor"){
+                        percentColor=value;
+                    } else if (key == "univName"){
+                        univName=value;
+                    }
+                });
+
+                str+='<tr><th style="color:#324CDD;">'+ trackName +'</th><td width="60%"><span class="progress" style="width:100%;">\n'
+                    + '<div class="progress-bar"role="progressbar" style="width: '
+                + percent +'%;background-color:' + percentColor + ';"></div></span></td><td><span class="progress-percentage"><span>'
+                + percent + '%</span></span></td></tr>';
+            });
+
+            $('#univTitle').html(univName);
+            $('#trackDiv').html(str);
+        }
+
+        function nullTrackData(){
+            var str='<tr><th style="text-align:center"><br><br>트랙 현황 조회 데이터가 없습니다.<br>최소 한 번 이상의 현황 조회가 필요합니다.';
+            str +='<br><br><a href="${path}/uploadForm" class="btn btn-sm btn-outline-primary">트랙 현황 조회 </a></th></tr>';
+
+            $('#univTitle').html("데이터가 없습니다");
+            $('#trackDiv').html(str);
+        }
+
+        function notLogin(){
+            var str='<tr><th style="text-align:center"><br><br>로그인이 필요한 서비스 입니다.';
+            str +='<br><br><a href="${path}/loginView" class="btn btn-sm btn-outline-primary">로그인 </a></th></tr>';
+
+            $('#univTitle').html("로그인 필요");
+            $('#trackDiv').html(str);
+        }
+
+        //공지사항
+        function showNoticeList() {
+            $.ajax({
+                url: 'api/v1/notice/list',
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                success: function (data) { //리스트 -> json
+                    printNoticeList(data);
+                },
+                error: function (error) {
+                    alert("ERROR발생: " + JSON.stringify(error));
+                }
+            })
+        };
+
+        function printNoticeList(data) {
+            var str = "";
+            var title;
+            var content;
+            var i = 0;
+
+            $.each(data, function (index) {
+                if (i > 1) {
+                    i=0;
+                    $('#noticeDiv').html(str);
+                }
+                $.each(data[index], function (key, value) {
+                    if (key == "title") {
+                        title = value;
+                    } else if (key == "content") {
+                        content = value;
+                    }
+                });
+
+                str += '<div class="col-xl-6 col-lg-6"><div class="card mb-4 mb-xl-0"><div class="card-body"><h6 class="text-uppercase text-muted ls-1 mb-1">최근 공지</h6><h3 class="card-title" style="color:#324CDD"> ' +
+                    title + '</h3><div class="text-default" style="font-size:14px;">' + content + '<br></div></div></div></div>';
+                i++;
+            });
+
+            $('#noticeDiv').html(str);
+        }
+    });
+</script>
 
 <script>
     sidebar();

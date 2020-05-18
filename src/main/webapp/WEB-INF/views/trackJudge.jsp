@@ -74,19 +74,7 @@
                             </thead>
 
                             <tbody id="trackAlltable">
-                            <tr>
-                                <th>멀티미디어</th>
-                                <td>
-                                    <span class="progress-percentage">
-                                        <span>70%</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="progress" style="width:100%;">
-                                        <div class="progress-bar"role="progressbar" style="width: 70%;background-color:red;"></div>
-                                    </span>
-                                </td>
-                            </tr>
+
 
                             </tbody>
                         </table>
