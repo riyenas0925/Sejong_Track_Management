@@ -1,32 +1,31 @@
 package kr.ac.sejong.service;
 
-import kr.ac.sejong.domain.course.Course;
 import kr.ac.sejong.domain.rule.Rule;
-import kr.ac.sejong.domain.trackJudge.TrackJudge;
+import kr.ac.sejong.domain.rule.RuleRepository;
 import kr.ac.sejong.domain.trackcourse.TrackCourse;
 import kr.ac.sejong.domain.trackcourse.TrackCourseRepository;
 import kr.ac.sejong.web.dto.course.CourseResponseDto;
-import kr.ac.sejong.web.dto.trackcourse.TrackCourseDto;
-import kr.ac.sejong.web.dto.trackcourse.TrackCourseResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.annotations.Cacheable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Log
 @RequiredArgsConstructor
 @Service
-@Log
 public class TrackAllService {
     private final TrackCourseRepository trackCourseRepository;
-    private final TrackRuleService trackRuleService;
+    private final RuleRepository trackRuleRepository;
 
+    @Cacheable(value = "trackAll")
     @Transactional
     public Map<String, Map<String, List<CourseResponseDto>>> trackAllStatistic(Long univId){
         List<TrackCourse> trackCourses = trackCourseRepository.findByUnivId(univId);
-        List<Rule> UnivRuleTypes = trackRuleService.findByUnivIdDistinct(univId);
+        List<Rule> univRuleTypes = trackRuleRepository.findByUnivIdDistinct(univId);
 
         Map<String, Map<String, List<CourseResponseDto>>> trackAllStatistic = trackCourses.stream()
                 .collect(
@@ -43,7 +42,7 @@ public class TrackAllService {
                 );
 
         trackAllStatistic.forEach((key, value) -> {
-            for (Rule ruleType : UnivRuleTypes) {
+            for (Rule ruleType : univRuleTypes) {
                 value.computeIfAbsent(ruleType.getCourseType().getText() , k -> Collections.emptyList());
             }
         });
