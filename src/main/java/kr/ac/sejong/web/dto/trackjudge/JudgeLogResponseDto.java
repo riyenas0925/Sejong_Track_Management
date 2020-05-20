@@ -3,6 +3,7 @@ package kr.ac.sejong.web.dto.trackjudge;
 import kr.ac.sejong.domain.member.Member;
 import kr.ac.sejong.domain.track.Track;
 import kr.ac.sejong.domain.trackJudge.JudgeLog.JudgeLog;
+import kr.ac.sejong.domain.trackJudge.PercentColorEnum;
 import kr.ac.sejong.domain.trackJudge.TrackJudge;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +21,8 @@ public class JudgeLogResponseDto {
     private String userName;
     private Long trackId;
     private String trackName;
+    private String univName;
+    private String percentColor;
 
     public JudgeLog toEntity(Member member, Track track){
         return JudgeLog.builder()
@@ -37,6 +40,8 @@ public class JudgeLogResponseDto {
         this.userName = judgeLog.getMember().getName();
         this.trackId = judgeLog.getTrack().getId();
         this.trackName = judgeLog.getTrack().getTitle();
+        this.univName = judgeLog.getTrack().getUniv().getTitle();
+        this.percentColor = PercentColorEnum.percentToColor(judgeLog.getPercent()).getHex();
     }
 
     @Builder
