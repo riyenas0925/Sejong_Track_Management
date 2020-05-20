@@ -67,7 +67,7 @@
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <tbody id="trackDiv">
-
+                                    <!--진척도 table-->
                                 </tbody>
                             </table>
                         </div>
@@ -185,9 +185,9 @@
         function printTrackList(data) {
             var str = "";
             var percent;
-            var percentColor='primary';
+            var percentColor='';
             var trackName='';
-            var univName='소프트웨어융합대학';
+            var univName='';
 
             console.log(data);
             $.each(data, function (index) {
