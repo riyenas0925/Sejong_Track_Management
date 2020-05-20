@@ -4,7 +4,7 @@
     <div class="row align-items-center justify-content-xl-between">
         <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-                세종대학교 트랙관리 프로그램
+                세종대학교 트랙관리시스템
             </div>
         </div>
         <div class="col-xl-6">

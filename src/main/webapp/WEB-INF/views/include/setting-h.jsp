@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sejong Track</title>
+    <title>세종대학교 트랙관리시스템</title>
 
     <!-- try for ajax call ... 403 error By security csrf token -->
     <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
@@ -20,7 +20,7 @@
     <!-- toastr -->
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <!-- Favicon -->
-    <link href="../resources/img/brand/favicon.png" rel="icon" type="image/png">
+    <link href="../resources/img/icons/sejong.png" rel="icon" type="image/png">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <!-- Icons -->
