@@ -11,7 +11,7 @@
   <groupId>kr.ac.sejong</groupId>
   <artifactId>sejongtrack</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <name>sejongtrack</name>
   <description>Sejong Track Management</description>
 
